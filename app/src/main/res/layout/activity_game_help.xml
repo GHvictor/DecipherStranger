@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/game_help">
+    <!--
+        游戏指南：
+            1.赢一局记2分，平1分，输0分；
+            2.当玩家与电脑分值只差的绝对值达到设定者设定分数时结束游戏。
+    -->
+</LinearLayout>
