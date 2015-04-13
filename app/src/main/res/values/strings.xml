@@ -2,19 +2,16 @@
 <resources>
 
     <string name="action_settings">Settings</string>
-
     <string name="app_name">DS</string>
     <string name="app_name_en">DecipherStranger</string>
     <string name="app_name_ch">解密陌生人</string>
-
-    <string name="login">登&#160;录</string>
+    <string name="login">登 录</string>
     <string name="account">用户名</string>
     <string name="password">密码</string>
     <string name="auto_save_password">记住密码</string>
     <string name="register_text">注册新账号</string>
-
     <string name="back">返回</string>
-    <string name="register_title">注&#160;&#160;册</string>
+    <string name="register_title">注  册</string>
     <string name="account_input">请输入用户名</string>
     <string name="password_input">请输入密码</string>
     <string name="re_password_input">请再次输入密码</string>
@@ -30,34 +27,31 @@
     <string name="sex_prompt">请选择您的性别</string>
     <string name="man">男</string>
     <string name="woman">女</string>
-    <string name="cancel">取&#160;&#160;消</string>
+    <string name="cancel">取  消</string>
     <string name="user_name_display">呢称：</string>
     <string name="sex_display">性别</string>
     <string name="add_friend">添加好友</string>
-    <string name="nearby_info_back">返&#160;&#160;回</string>
-
+    <string name="nearby_info_back">返  回</string>
     <string name="chat">聊天</string>
     <string name="friend_list">通讯录</string>
     <string name="discover">探索</string>
-
-
     <string name="shake">摇一摇</string>
     <string name="shakeSettings">摇一摇设置</string>
     <string name="shakeFriends">摇到的历史</string>
-    <string name="clean">清&#160;&#160;空</string>
+    <string name="clean">清  空</string>
     <string name="defaultImage">使用默认的背景图片</string>
     <string name="setImage">自定义背景图片</string>
     <string name="music_effect">音效</string>
     <string name="shake_effect">震动</string>
-
     <string name="game_name">石头剪刀布</string>
-    <string name="gameSettings">游&#160;&#160;戏&#160;&#160;设&#160;&#160;置</string>
-    <string name="Setting_Text">设&#160;&#160;置</string>
-    <string name="Help_Text">帮&#160;&#160;助</string>
-    <string name="Quit_Text">退&#160;&#160;出</string>
-
+    <string name="gameSettings">游  戏  设  置</string>
+    <string name="Setting_Text">设  置</string>
+    <string name="Help_Text">帮  助</string>
+    <string name="Quit_Text">退  出</string>
     <string name="drop_down_refresh">下拉可以刷新!</string>
     <string name="loosen_refresh">松开可以刷新!</string>
     <string name="is_refreshing">正在刷新...</string>
+    <string name="title_activity_test_upload_image">TestUploadImage</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

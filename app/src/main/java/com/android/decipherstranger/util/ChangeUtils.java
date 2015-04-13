@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +17,15 @@ import java.nio.channels.Channels;
 /**
  * Created by Feng on 2015/4/12.
  */
+/*
+* Example：
+* Bitmap bmp = BitmapFactory.decodeFile(sdcardTempFile.getAbsolutePath());
+* ChangeUtils change = new ChangeUtils();
+* String s = change.toBinary(bmp);
+* Bitmap result = change.toBitmap(s);
+* showImage.setImageBitmap(result);
+* //注释代表两种写法。
+* */
 public class ChangeUtils {
     /*
     * toBinary 将Bitmap转为String
@@ -29,8 +39,8 @@ public class ChangeUtils {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
         byte[] Buffer = os.toByteArray();
-        s = new String(Buffer);
-        //s = Base64.encodeToString(Buffer, Base64.DEFAULT);
+        //s = new String(Buffer);
+        s = Base64.encodeToString(Buffer, Base64.DEFAULT);
         try {
             os.flush();
             os.close();
@@ -54,9 +64,8 @@ public class ChangeUtils {
             while ((len = inputStream.read(Buffer)) >= 0) {
                 os.write(Buffer, 0, len);
             }
-            //inputStream.read(Buffer);
-            s = new String(Buffer);
-            //s = Base64.encodeToString(Buffer, Base64.DEFAULT);
+            //s = new String(Buffer);
+            s = Base64.encodeToString(Buffer, Base64.DEFAULT);
             os.flush();
             os.close();
             inputStream.close();
@@ -73,8 +82,10 @@ public class ChangeUtils {
     * @param 转换的String
     * */
     public static Bitmap toBitmap(String s) {
-        byte[] Buffer = s.getBytes();
-        //byte[] Buffer = Base64.decode(s, Base64.DEfAULT);
+        //byte[] Buffer = s.getBytes();
+        byte[] Buffer = Base64.decode(s, Base64.DEFAULT);
+        //ByteArrayInputStream inputStream = new ByteArrayInputStream(Buffer);
+        //Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
         Bitmap bitmap = BitmapFactory.decodeByteArray(Buffer, 0, Buffer.length, null);
         return bitmap;
     }
@@ -84,8 +95,8 @@ public class ChangeUtils {
     * @param 转换的String
     * */
     public static File toFile(String s) {
-        byte[] Buffer = s.getBytes();
-        //byte[] Buffer = Base64.decode(s, Base64.DEfAULT);
+        //byte[] Buffer = s.getBytes();
+        byte[] Buffer = Base64.decode(s, Base64.DEFAULT);
         File file = null;
         //ByteArrayInputStream is = new ByteArrayInputStream(Buffer);
         try {

@@ -112,7 +112,7 @@ public class LoginActivity extends Activity {
         @Override
         public void onClick(View view){
 
-            Intent it = new Intent(LoginActivity.this,MainPage.class);
+            Intent it = new Intent(LoginActivity.this, MainPage.class);
             startActivity(it);
 
             String account = LoginActivity.this.accountEdit.getText().toString();
@@ -185,7 +185,6 @@ public class LoginActivity extends Activity {
             Log.v("Login", "已经执行T（）方法");
             return false;                    //  检测用户名及密码是否正确
         }*/
-        //if ()
         return false;
     }
 
