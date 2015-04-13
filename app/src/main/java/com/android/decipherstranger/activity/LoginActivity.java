@@ -23,6 +23,8 @@ import com.android.decipherstranger.activity.MainPageActivity.MainPage;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.UserTabOperate;
 import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.ChangeUtils;
+import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.StringUtils;
 
 /**
@@ -169,10 +171,22 @@ public class LoginActivity extends Activity {
      * Created by Feng on 2015/3/24.
      */
     private boolean accountCheckByWeb(String account, String password){
-        //NetworkService.getInstance().onInit(LoginActivity.this);
-        //NetworkService.getInstance().setupConnection();
-        Log.v("Login", "已经执行T（）方法");
-        return false;                    //  检测用户名及密码是否正确
+        /*
+        NetworkService.getInstance().onInit(LoginActivity.this);
+        NetworkService.getInstance().setupConnection();
+        if(NetworkService.getInstance().getIsConnected()) {
+            String userInfo = "type"+"-"+Integer.toString(GlobalMsgUtils.msgLogin)+"-"+"account"+"-"+account+"-"+"password"+"-"+password;
+            Log.v("aaaaa",userInfo);
+            NetworkService.getInstance().sendUpload(userInfo);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(LoginActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+            Log.v("Login", "已经执行T（）方法");
+            return false;                    //  检测用户名及密码是否正确
+        }*/
+        //if ()
+        return false;
     }
 
     private void getCheckBox(){

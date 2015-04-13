@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-
 public class NetStateReceiver extends BroadcastReceiver{
 
-        @Override
-        public void onReceive(Context context, Intent intent) {        	
+       @Override
+       public void onReceive(Context context, Intent intent) {
             NetworkInfo currentNetworkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
             if(currentNetworkInfo.isConnected()) {
             	System.out.println("connected again");
@@ -25,5 +24,4 @@ public class NetStateReceiver extends BroadcastReceiver{
             	NetworkService.getInstance().closeConnection();
             }
         }
-	
 }

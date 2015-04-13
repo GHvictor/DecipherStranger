@@ -16,7 +16,6 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-
 public class NetConnect extends Thread{
 	
 	/*  information about Server, ip address and portal number  */
