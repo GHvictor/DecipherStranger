@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.GameActivity.SetGradeActivity;
 import com.android.decipherstranger.activity.ShakeActivity.ShakeActivity;
 import com.android.decipherstranger.activity.ShowMapActivity;
 

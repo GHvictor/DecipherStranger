@@ -2,6 +2,7 @@ package com.android.decipherstranger.activity.GameActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.android.decipherstranger.R;
 
@@ -14,5 +15,11 @@ public class SetGradeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_set_grade);
+    }
+    
+    public void setGradeOnClick(View view) {
+        switch (view.getId()){
+            
+        }
     }
 }

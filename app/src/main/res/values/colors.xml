@@ -14,6 +14,7 @@
     <color name="white">#ffffffff</color>
     <color name="silvery">#d4e7e6e5</color>
     <color name="grey">#ffbfbfbf</color>
+    <color name="gray">#ff888888</color>
     <color name="white_grey">#ffd7dadb</color>
     <color name="black_grey">#ff000000</color>
     <color name="background_normal">#fffffbf0</color>

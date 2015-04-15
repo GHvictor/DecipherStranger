@@ -391,7 +391,7 @@ public class RockPaperScissorsActivity extends Activity {
         }
     }
 
-    public void onClick(View view) {
+    public void backToGame(View view) {
         slidingDrawer.animateClose();
     }
 

@@ -99,6 +99,7 @@ public class ShakeListener implements SensorEventListener {
             // 现在的时间变成last时间
             lastUpdateTime = currentUpdateTime;
             onShakeListener.onShake();
+            System.out.println("###我被调用了");
         }
     }
 

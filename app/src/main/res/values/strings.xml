@@ -36,19 +36,28 @@
     <string name="chat">聊天</string>
     <string name="friend_list">通讯录</string>
     <string name="discover">探索</string>
+    
     <string name="shake">摇一摇</string>
     <string name="shakeSettings">摇一摇设置</string>
     <string name="shakeFriends">摇到的历史</string>
-    <string name="clean">清  空</string>
+    <string name="clean">清&#160;&#160;空</string>
     <string name="defaultImage">使用默认的背景图片</string>
     <string name="setImage">自定义背景图片</string>
     <string name="music_effect">音效</string>
     <string name="shake_effect">震动</string>
+    
     <string name="game_name">石头剪刀布</string>
-    <string name="gameSettings">游  戏  设  置</string>
-    <string name="Setting_Text">设  置</string>
-    <string name="Help_Text">帮  助</string>
-    <string name="Quit_Text">退  出</string>
+    <string name="gameSettings">游&#160;&#160;戏&#160;&#160;设&#160;&#160;置</string>
+    <string name="Setting_Text">设&#160;&#160;置</string>
+    <string name="Help_Text">帮&#160;&#160;助</string>
+    <string name="Quit_Text">退&#160;&#160;出</string>
+    <string name="Grade1">一把定江山</string>
+    <string name="Grade2">三局两胜制</string>
+    <string name="Grade3">加点难度吧</string>
+    <string name="Grade4">难到没朋友</string>
+    <string name="Grade5">满满的真爱</string>
+    <string name="Grade0">自定义</string>
+    
     <string name="drop_down_refresh">下拉可以刷新!</string>
     <string name="loosen_refresh">松开可以刷新!</string>
     <string name="is_refreshing">正在刷新...</string>

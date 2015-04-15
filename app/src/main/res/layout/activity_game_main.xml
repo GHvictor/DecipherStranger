@@ -147,7 +147,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:clickable="true"
-                android:onClick="onClick"
+                android:onClick="backToGame"
                 android:background="@drawable/game_help"
                 android:orientation="vertical"/>
 

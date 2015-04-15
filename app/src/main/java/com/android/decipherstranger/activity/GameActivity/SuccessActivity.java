@@ -32,8 +32,6 @@ public class SuccessActivity extends Activity {
         }.start();
         MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.makefriend_success);
         mediaPlayer.start();
-/*        Intent it = new Intent(SuccessActivity.this,MainPage.class);
-        startActivity(it);*/
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
