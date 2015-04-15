@@ -19,6 +19,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="设  置"
+            android:onClick="MenuOnClick"
             android:textColor="@color/text_blue"
             android:id="@+id/game_setUp"
             android:background="@drawable/dialog_top"/>
@@ -32,6 +33,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="帮  助"
+            android:onClick="MenuOnClick"
             android:textColor="@color/text_blue"
             android:id="@+id/game_help"
             android:background="@drawable/dialog_rectangle_bg"/>
@@ -45,6 +47,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="退  出"
+            android:onClick="MenuOnClick"
             android:id="@+id/game_quit"
             android:textColor="@color/text_blue"
             android:background="@drawable/dialog_bottom"/>
@@ -53,6 +56,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="取  消"
+            android:onClick="MenuOnClick"
             android:textColor="@color/text_blue"
             android:id="@+id/cancel"
             android:background="@drawable/dialog_radius_bg"
@@ -64,6 +68,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/blank"
+        android:onClick="MenuOnClick"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerHorizontal="true"

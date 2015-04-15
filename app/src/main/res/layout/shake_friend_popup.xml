@@ -6,12 +6,13 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:id="@+id/shake_friend_show"
+        android:id="@+id/shake_friend_info"
         android:clickable="true"
         android:background="@drawable/shake_friend_pop_bg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="ShakePopup"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
@@ -25,6 +26,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
             android:id="@+id/userPhoto"
+            android:onClick="ShakePopup"
             android:background="@drawable/mypic"
             android:layout_gravity="center_vertical" />
 

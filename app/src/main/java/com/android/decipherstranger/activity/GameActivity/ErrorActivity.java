@@ -2,7 +2,9 @@ package com.android.decipherstranger.activity.GameActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
@@ -14,16 +16,21 @@ import com.android.decipherstranger.activity.MainPageActivity.MainPage;
  */
 public class ErrorActivity extends Activity {
 
-    /*    重写返回键，返回主界面*/
-
-    private TextView textView = null;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_error);
-        initView();
+        MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.makefriend_lose);
+        mediaPlayer.start();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                ErrorActivity.this.finish();
+            }
+        }, 3000);
     }
+
+    /*    重写返回键，返回主界面*/
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
@@ -36,9 +43,4 @@ public class ErrorActivity extends Activity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-    private void initView(){
-        this.textView = (TextView)super.findViewById(R.id.textView);
-    }
-
 }

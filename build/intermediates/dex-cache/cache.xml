@@ -2,39 +2,39 @@
 <items version="2" >
 
     <item
-        jar="E:\Code\My_code\Android_Projects\DecipherStranger\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="E:\Code\My_code\Android_Projects\DecipherStranger\app\build\intermediates\pre-dexed\debug\classes-852729b39dbcc76e4f9f254e828e4f4fd423ccf8.jar" />
-    </item>
-    <item
-        jar="E:\Code\My_code\Android_Projects\DecipherStranger\libs\BaiduLBS_Android.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="868c060abfa9778e598e631f93f94037edbe8996">
-        <dex dex="E:\Code\My_code\Android_Projects\DecipherStranger\app\build\intermediates\pre-dexed\debug\BaiduLBS_Android-c149d202db238ad999f9560c0f59c8c64ce8b950.jar" />
-    </item>
-    <item
-        jar="E:\Code\My_code\Android_Projects\DecipherStranger\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="E:\Code\My_code\Android_Projects\DecipherStranger\app\build\intermediates\pre-dexed\debug\classes-708a29ea1e8b0c3e3927dc3d27eda271ddd9400b.jar" />
-    </item>
-    <item
-        jar="E:\Application software\Android\android-sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="E:\Code\My_code\Android_Projects\DecipherStranger\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-ac9e2264f8dccf4df0672bd4bcf097dde1351cb1.jar" />
-    </item>
-    <item
-        jar="E:\Code\My_code\Android_Projects\DecipherStranger\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jar="D:\workspace_for_Android\Git_DS\DecipherStranger\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="E:\Code\My_code\Android_Projects\DecipherStranger\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-49ff1f22317b240f9caeff6f29899fd46d0fdc29.jar" />
+        <dex dex="D:\workspace_for_Android\Git_DS\DecipherStranger\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-3f0182e32cb1303679d4f3dcb4b8631e713c36b2.jar" />
+    </item>
+    <item
+        jar="D:\workspace_for_Android\Git_DS\DecipherStranger\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="D:\workspace_for_Android\Git_DS\DecipherStranger\app\build\intermediates\pre-dexed\debug\classes-e53c5d3a074acba8a8ec775e0c3729be6a51e51c.jar" />
+    </item>
+    <item
+        jar="D:\workspace_for_Android\Git_DS\DecipherStranger\libs\BaiduLBS_Android.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="868c060abfa9778e598e631f93f94037edbe8996">
+        <dex dex="D:\workspace_for_Android\Git_DS\DecipherStranger\app\build\intermediates\pre-dexed\debug\BaiduLBS_Android-3071409bb80cfa2cba0ce344f0254aef753382c4.jar" />
+    </item>
+    <item
+        jar="E:\Android\sdk\android-sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="D:\workspace_for_Android\Git_DS\DecipherStranger\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-11f8e16b2a8a06743c4eaaa1b48c67ee3162a824.jar" />
+    </item>
+    <item
+        jar="D:\workspace_for_Android\Git_DS\DecipherStranger\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="D:\workspace_for_Android\Git_DS\DecipherStranger\app\build\intermediates\pre-dexed\debug\classes-dbf40154aa5faaa4c2bd1845e872049169d074c3.jar" />
     </item>
 
 </items>

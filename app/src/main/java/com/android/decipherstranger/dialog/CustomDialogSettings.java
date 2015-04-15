@@ -2,15 +2,20 @@ package com.android.decipherstranger.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.GameActivity.RockPaperScissorsActivity;
+import com.android.decipherstranger.util.MyStatic;
+import com.android.decipherstranger.util.SharedPreferencesUtils;
 
 /**
  * Created by peng on 2015/3/25.
@@ -18,71 +23,76 @@ import com.android.decipherstranger.activity.GameActivity.RockPaperScissorsActiv
 public class CustomDialogSettings extends Dialog {
 
     private Context context;
+    private Switch effectSwitch = null;
+    private Switch backgroundSwitch = null;
+    private Button confirmButton = null;
 
-    private static final String FILENAME = "Game_Music";
+    private boolean bgMusic = MyStatic.gameBackgroundMusicFlag;
+    private boolean effectMusic = MyStatic.gameEffectMusicFlag;
 
-    private CustomDialogSettings(Context context) {
+    public CustomDialogSettings(Context context) {
         super(context);
         this.context = context;
     }
-
-    private CustomDialogSettings(Context context, int theme) {
+    public CustomDialogSettings(Context context, int theme) {
         super(context, theme);
         this.context = context;
     }
 
-    public static class Builder {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setContentView(R.layout.game_dialog_settings);
 
-        private Context context;
-        private SharedPreferences sharedPreferences = null;
-        private Switch effectSwitch = null;
-        private Switch backgroundSwitch = null;
+        this.effectSwitch = (Switch) super.findViewById(R.id.gameEffectSwitch);
+        this.backgroundSwitch = (Switch) super.findViewById(R.id.gameBgSwitch);
+        this.confirmButton = (Button) super.findViewById(R.id.confirm);
 
-        public Builder(Context context){
-            this.context = context;
-        }
+        this.effectSwitch.setChecked(MyStatic.gameEffectMusicFlag);
+        this.backgroundSwitch.setChecked(MyStatic.gameBackgroundMusicFlag);
+        this.effectSwitch.setOnCheckedChangeListener(new SwitchOnCheckedChangeListenerImpl1());
+        this.backgroundSwitch.setOnCheckedChangeListener(new SwitchOnCheckedChangeListenerImpl2());
 
-        public CustomDialogSettings create() {
-            LayoutInflater inflater = LayoutInflater.from(context);
-            this.sharedPreferences = context.getSharedPreferences(FILENAME,RockPaperScissorsActivity.MODE_PRIVATE);
-            final CustomDialogSettings dialog = new CustomDialogSettings(context,R.style.Dialog);
-            final View view = inflater.inflate(R.layout.game_dialog_settings,null);
-            this.effectSwitch = (Switch)view.findViewById(R.id.setting_switch1);
-            this.backgroundSwitch = (Switch) view.findViewById(R.id.setting_switch2);
-            loadMusicFlag();
-            this.effectSwitch.setOnCheckedChangeListener(new SwitchOnCheckedChangeListenerImpl1());
-            this.backgroundSwitch.setOnCheckedChangeListener(new SwitchOnCheckedChangeListenerImpl2());
-            dialog.setContentView(view);
-            return dialog;
-        }
+        this.confirmButton.setOnClickListener(new confirmOnClickImpl());
+    }
 
-        private void loadMusicFlag(){
-            this.backgroundSwitch.setChecked(this.sharedPreferences.getBoolean("background",true));
-            this.effectSwitch.setChecked(this.sharedPreferences.getBoolean("effect",true));
-        }
-
-        private class SwitchOnCheckedChangeListenerImpl1 implements CompoundButton.OnCheckedChangeListener {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    Toast.makeText(context,"打开",Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context,"关闭",Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-
-        private class SwitchOnCheckedChangeListenerImpl2 implements CompoundButton.OnCheckedChangeListener {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    Toast.makeText(context,"打开",Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context,"关闭",Toast.LENGTH_SHORT).show();
-                }
+    private class SwitchOnCheckedChangeListenerImpl1 implements CompoundButton.OnCheckedChangeListener {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+            if (isChecked) {
+                effectMusic = true;
+            } else {
+                effectMusic = false;
             }
         }
     }
 
+    private class SwitchOnCheckedChangeListenerImpl2 implements CompoundButton.OnCheckedChangeListener {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+            if (isChecked) {
+                bgMusic = true;
+            } else {
+                bgMusic = false;
+            }
+        }
+    }
 
+    private class confirmOnClickImpl implements View.OnClickListener {
+        @Override
+        public void onClick(View view){
+            new Thread() {
+                public void run(){
+                    MyStatic.gameBackgroundMusicFlag = bgMusic;
+                    MyStatic.gameEffectMusicFlag = effectMusic;
+                    Intent intent = new Intent("com.android.game.SETTINGS");
+                    context.sendBroadcast(intent);
+                }
+            }.start();
+            SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(context,MyStatic.FILENAME_SETTINGS);
+            sharedPreferencesUtils.set(MyStatic.KEY_BG, bgMusic);
+            sharedPreferencesUtils.set(MyStatic.KEY_EFFECT,effectMusic);
+            onBackPressed();
+        }
+    }
 }

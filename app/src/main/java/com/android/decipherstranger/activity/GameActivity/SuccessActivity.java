@@ -2,7 +2,9 @@ package com.android.decipherstranger.activity.GameActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
@@ -14,31 +16,29 @@ import com.android.decipherstranger.activity.MainPageActivity.MainPage;
  */
 public class SuccessActivity extends Activity {
 
-/*    重写返回键，返回主界面*/
-
-    private TextView textView = null;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_success);
-        initView();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){// 防止连续两次返回键
-            //这你写你的返回处理
-            Intent it = new Intent(SuccessActivity.this,MainPage.class);
-            startActivity(it);
-            SuccessActivity.this.finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    private void initView(){
-        this.textView = (TextView)super.findViewById(R.id.textView);
+        new Thread() {
+            public void run() {
+                //  TODO 模拟发送成功信息至服务器
+                try {
+                    Thread.sleep(1000);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+        MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.makefriend_success);
+        mediaPlayer.start();
+/*        Intent it = new Intent(SuccessActivity.this,MainPage.class);
+        startActivity(it);*/
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                SuccessActivity.this.finish();
+            }
+        }, 3000);
     }
 }

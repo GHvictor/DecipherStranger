@@ -1,7 +1,10 @@
 package com.android.decipherstranger.activity.GameActivity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -20,224 +23,247 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.dialog.CustomDialogSettings;
 import com.android.decipherstranger.util.ComputerAnswer;
+import com.android.decipherstranger.util.MyStatic;
 
-/*
- * Created by peng on 2015/3/15.
+/**
+ *             へ　　　　　／|
+ *        　　/＼7　　　 ∠＿/
+ *        　 /　│　　 ／　／
+ *        　│　Z ＿,＜　／　　 /`ヽ
+ *        　│　　　　　ヽ　　 /　　〉
+ *        　 Y　　　　　`　 /　　/
+ *        　ｲ●　､　●　　⊂⊃〈　　/
+ *        　()　 へ　　　　|　＼〈
+ *        　　>ｰ ､_　 ィ　 │ ／／      去吧！
+ *        　 / へ　　 /　ﾉ＜| ＼＼        比卡丘~
+ *        　 ヽ_ﾉ　　(_／　 │／／           消灭代码BUG
+ *        　　7　　　　　　　|／
+ *        　　＞―r￣￣`ｰ―＿
  *
- * 　　　　  　┏┓　　　┏┓
- *　 　　 　┏┛┻━━━┛┻┓
- * 　　　　 ┃　　　　　　　┃
- * 　　　　 ┃　　　━　　　┃
- * 　　 　　┃　┳┛　┗┳　┃
- *　　　　　┃　　　　　　　┃
- *  　　　　┃　　　┻　　　┃
- *　　　　　┃　　　　　　　┃
- *　　  　　┗━┓　　　┏━┛
- * 　　 　　　　┃　　　┃ 神兽保佑
- * 　　　　 　　┃　　　┃   代码无BUG
- *　　　　　　　┃　　　┗━━━┓
- *　　 　　 　　┃　　　　　　　┣┓
- * 　　　　　 　┃　　　　　　　┏┛
- * 　　　 　　  ┗┓┓┏━┳┓┏┛
- * 　　　　 　　　┃┫┫　┃┫┫
- *　　　　　  　 ┗┻┛　┗┻┛
- * 
- *      Amended  by peng on 2015/3/28.
- */
+ *       @ClassName        ShakeListener
+ *       @author            penghaitao
+ *       @version           1.0
+ *       @Date              2015/4/10.
+ *       @e-mail           785351408@qq.com
+ **/
 
-public class RockPaperScissorsActivity extends Activity implements View.OnClickListener {
+public class RockPaperScissorsActivity extends Activity {
+
+    private static Intent intent = null;
     
-    private Handler handler = null;
-    
-    private PopupWindow popupWindow = null;
-
-    private boolean overFlag = true;
-    private boolean startFlag = false;
-
-    private Intent intent = null;   /*接收玩家设定等级*/
-    private int Grade = 0;          /*存储所接收等级*/
-    private RelativeLayout gameStartLayout = null;
-
+    private TextView gradeText = null;
+    private TextView playerText = null;
+    private TextView computerText = null;
+    private ImageView playerImage = null;
+    private ImageView computerImage = null;
+    private ImageView gameAnswerImage = null;
     private AnimationDrawable animationDrawablePlayer = null;
     private AnimationDrawable animationDrawableComputer = null;
-
-    private static final String FILENAME = "Game_Music";
-    private boolean backgroundMusicFlag = true;     //  音乐控制标志
-    private boolean effectMusicFlag = true;         //  音效控制标志
-
-    private MediaPlayer backgroundMusic = null;
-    private MediaPlayer effectMusic = null;
-    private MediaPlayer winMusic = null;
-    private MediaPlayer loseMusic = null;
-    private MediaPlayer dogfallMusic = null;
-
     private Drawable answerImageSrc = null;
     private Drawable playerImageSrc = null;
     private Drawable computerImageSrc = null;
+    private PopupWindow popupWindow = null;
+    private MediaPlayer backgroundMusic = null;
+    private MediaPlayer winMusic = null;
+    private MediaPlayer loseMusic = null;
+    private MediaPlayer dogfallMusic = null;
+    private SlidingDrawer slidingDrawer = null;
+    private MyBroadcastReceiver receiver = null;
 
-    private int count = 0;
+    private int Grade = 3;              //  存储所接收等级
+    private boolean isRun = false;      //  游戏运行标志 默认游戏未运行    
     private int gameGradeInt = 0;
     private int playerGradeInt = 0;
     private int computerGradeInt = 0;
-
     private String gameGradeString = null;
     private String playerGradeString = null;
     private String computerGradeString = null;
 
-    private TextView gradeText = null;
-    private TextView playerText = null;
-    private TextView computerText = null;
-
-    private ImageView playerImage = null;
-    private ImageView computerImage = null;
-    private ImageView gameAnswerImage = null;
-
-    private ImageButton rockButton = null;
-    private ImageButton paperButton = null;
-    private ImageButton scissorsButton = null;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        super.setContentView(R.layout.activity_game_main);
+        this.init();
+    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_main);
-    }
-    
-    private void start() {
-        this.getMusicFlag();
-        this.intiMenu();
-        this.getGrade();        //  获取游戏等级
-        this.setBackgroundMusic();
-        this.setEffectMusic();
-        this.intiView();
+    protected void onResume() {
+        super.onResume();
+        this.setMusic();
     }
 
-    private void intiView(){
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.closeMusic();
+    }
 
-        this.gameStartLayout = (RelativeLayout)super.findViewById(R.id.gameLayout);
+    @Override
+    protected void onDestroy() {        
+        new Thread() {
+        public void run() {
+            try {
+                //  TODO 模拟上传用户习惯至服务器
+                Thread.sleep(1000);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }.start();
+        
+        super.onDestroy();
+        super.unregisterReceiver(RockPaperScissorsActivity.this.receiver);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (!slidingDrawer.isOpened()) {
+            if (popupWindow.isShowing()) {
+                popupWindow.dismiss();
+            } else {
+                popupWindow.showAtLocation(findViewById(R.id.gameAnswer_Image), Gravity.BOTTOM, 0, 0);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 防止连续两次返回键
+            //返回处理
+            if (slidingDrawer.isOpened()) {
+                slidingDrawer.animateClose();
+                return true;
+            }else if (popupWindow.isShowing()) {
+                popupWindow.dismiss();
+                return true;
+            } else {
+                if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
+                    event.startTracking();
+                } else {
+                    onBackPressed();
+                }
+                RockPaperScissorsActivity.this.finish();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void init(){
+        //  获取布局控件
         this.gradeText = (TextView)super.findViewById(R.id.grade);
         this.playerText = (TextView)super.findViewById(R.id.player);
         this.computerText = (TextView)super.findViewById(R.id.computer);
         this.playerImage = (ImageView)super.findViewById(R.id.PlayerImage);
         this.computerImage = (ImageView)super.findViewById(R.id.ComputerImage);
         this.gameAnswerImage = (ImageView)super.findViewById(R.id.gameAnswer_Image);
-        this.rockButton = (ImageButton)super.findViewById(R.id.RockImageBtn);
-        this.paperButton = (ImageButton)super.findViewById(R.id.PaperImageBtn);
-        this.scissorsButton = (ImageButton)super.findViewById(R.id.ScissorsImageBtn);
+        this.slidingDrawer = (SlidingDrawer)super.findViewById(R.id.slidingDrawer);
 
-        this.gameStartLayout.setOnClickListener(new gameStartOnClickListenerImpl());
-        this.rockButton.setOnClickListener(new RockOnClickListenerImpl());
-        this.paperButton.setOnClickListener(new PaperOnClickListenerImpl());
-        this.scissorsButton.setOnClickListener(new ScissorsOnClickListenerImpl());
+        //  设置Animation
+        animationDrawablePlayer = new AnimationDrawable();
+        animationDrawableComputer = new AnimationDrawable();
+        animationDrawablePlayer = (AnimationDrawable)getResources().getDrawable(R.drawable.game_rock_paper_scissors_player);
+        animationDrawableComputer = (AnimationDrawable)getResources().getDrawable(R.drawable.game_rock_paper_scissors_computer);
+
+        //  获取游戏初始数据
+        Intent intent = getIntent();
+        this.Grade = 2 * intent.getIntExtra("Grade", 3);    //  获取游戏等级，默认为3级
+        this.backgroundMusic = MediaPlayer.create(this, R.raw.background_music); //  获取背景音乐资源
+
+        //  获取Menu控件
+        LayoutInflater inflater = LayoutInflater.from(RockPaperScissorsActivity.this);
+        View view = inflater.inflate(R.layout.game_meun_popup, null);
+        this.popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        //  动态注册广播
+        this.registerBroadcas();
     }
 
-    private void getMusicFlag(){
-        SharedPreferences share = super.getSharedPreferences(FILENAME,RockPaperScissorsActivity.MODE_PRIVATE);
-        RockPaperScissorsActivity.this.backgroundMusicFlag = share.getBoolean("background",true);
-        RockPaperScissorsActivity.this.effectMusicFlag = share.getBoolean("effect",true);
+    private void setMusic() {
+        this.setBackgroundMusic();
+        this.setEffectMusic();
     }
 
     private void setBackgroundMusic(){
-        this.backgroundMusic = MediaPlayer.create(this,R.raw.background_music); //  获取资源
-        if (backgroundMusicFlag) {
+        if (MyStatic.gameBackgroundMusicFlag) {
             this.backgroundMusic.setLooping(true);
             this.backgroundMusic.start();
+        } else {
+            if (this.backgroundMusic.isPlaying()) {
+                this.backgroundMusic.pause();
+            }
         }
     }
 
     private void setEffectMusic(){
-        this.effectMusic = MediaPlayer.create(this, R.raw.effect_music);
-        this.winMusic = MediaPlayer.create(this, R.raw.win_music); //  获取资源
-        this.loseMusic = MediaPlayer.create(this, R.raw.lose_music); //  获取资源
-        this.dogfallMusic = MediaPlayer.create(this, R.raw.dogfall_music); //  获取资源
+        if (MyStatic.gameEffectMusicFlag) {
+            this.winMusic = MediaPlayer.create(this, R.raw.win_music); //  获取资源
+            this.loseMusic = MediaPlayer.create(this, R.raw.lose_music); //  获取资源
+            this.dogfallMusic = MediaPlayer.create(this, R.raw.dogfall_music); //  获取资源
+        } else {
+            this.winMusic = MediaPlayer.create(this, R.raw.no_music); //  获取资源
+            this.loseMusic = MediaPlayer.create(this, R.raw.no_music); //  获取资源
+            this.dogfallMusic = MediaPlayer.create(this, R.raw.no_music); //  获取资源
+        }
     }
 
     private void closeMusic(){
         this.winMusic.release();
         this.loseMusic.release();
         this.dogfallMusic.release();
-        this.backgroundMusic.release();
+        this.backgroundMusic.pause();
     }
 
-    private class gameStartOnClickListenerImpl implements View.OnClickListener {
-        @Override
-        public void onClick(View view){
-            if (overFlag) {
-                overFlag = false;
-                gameStart();
-                startFlag = true;
-            }
+    public void GameOnClick(View view) {
+        switch (view.getId()) {
+            case R.id.gameLayout:
+                if (!isRun) {
+                    gameStart();
+                    isRun = true;
+                } break;
+            case R.id.RockImageBtn:
+                if (isRun) {
+                    gamePause(0);
+                    IfGameOver();
+                } break;
+            case R.id.PaperImageBtn:
+                if (isRun) {
+                    gamePause(5);
+                    IfGameOver();
+                } break;
+            case R.id.ScissorsImageBtn:
+                if (isRun) {
+                    gamePause(2);
+                    IfGameOver();
+                } break;
         }
     }
-
-    private class RockOnClickListenerImpl implements View.OnClickListener {
-        @Override
-        public void onClick(View view){
-            if (startFlag) {
-                gamePause();
-                gameOver(0);
-                activityOver();
-            }
-        }
-    }
-
-    private class PaperOnClickListenerImpl implements View.OnClickListener {
-        @Override
-        public void onClick(View view){
-            if (startFlag) {
-                gamePause();
-                gameOver(5);
-                activityOver();
-            }
-        }
-    }
-
-    private class ScissorsOnClickListenerImpl implements View.OnClickListener {
-        @Override
-        public void onClick(View view){
-            if (startFlag) {
-                gamePause();
-                gameOver(2);
-                activityOver();
-            }
-        }
-    }
-
-    private void getGrade(){
-        this.intent = super.getIntent();
-        int gradeIt = intent.getIntExtra("Grade",5);
-        this.Grade = 2 * gradeIt;
-    }
-
 
     private void gameStart(){
         this.gameAnswerImage.setImageDrawable(null);
-
-        this.animationDrawablePlayer = new AnimationDrawable();
-        this.animationDrawableComputer = new AnimationDrawable();
-        this.animationDrawablePlayer = (AnimationDrawable)getResources().getDrawable(R.drawable.game_rock_paper_scissors_player);
-        this.animationDrawableComputer = (AnimationDrawable)getResources().getDrawable(R.drawable.game_rock_paper_scissors_computer);
-
         this.playerImage.setImageDrawable(this.animationDrawablePlayer);
         this.computerImage.setImageDrawable(this.animationDrawableComputer);
-
         this.animationDrawablePlayer.start();
         this.animationDrawableComputer.start();
     }
 
-    private void gamePause(){
-        this.animationDrawablePlayer.stop();
-        this.animationDrawableComputer.stop();
-        startFlag = false;
-    }
-
-    private void gameOver(int player){
-        int computer = computerShow(player);
+    private void gamePause(int player){
+        isRun = false;
+        new Thread(){
+            public void run() {
+                animationDrawablePlayer.stop();
+                animationDrawableComputer.stop();
+            }
+        }.start();
+        int computer = computerShow();
         switch (player){
             case 0:this.playerImageSrc = getResources().getDrawable(R.drawable.game_rock_pressed);
                 break;
@@ -249,59 +275,24 @@ public class RockPaperScissorsActivity extends Activity implements View.OnClickL
         this.playerImage.setImageDrawable(playerImageSrc);
         int answer = player - computer;
         if (answer == 0){
-            count = 0;
             answerImageSrc = getResources().getDrawable(R.drawable.game_dogfall);
-            if (effectMusicFlag) {
-                this.dogfallMusic.start();
-            }
+            this.dogfallMusic.start();
             player = computer = 1;
         }else if (answer == -2 || answer == -3 || answer == 5){
-            count ++;
             answerImageSrc = getResources().getDrawable(R.drawable.game_win);
-            if (effectMusicFlag) {
-                this.winMusic.start();
-            }
+            this.winMusic.start();
             player = 2; computer = 0;
         }else {
-            count = 0;
             answerImageSrc = getResources().getDrawable(R.drawable.game_lose);
-            if (effectMusicFlag) {
-                this.loseMusic.start();
-            }
+            this.loseMusic.start();
             player = 0; computer = 2;
         }
         setText(player, computer);
         this.gameAnswerImage.setImageDrawable(answerImageSrc);
     }
 
-    private void activityOver(){
-        boolean flag = false;
-        if (this.gameGradeInt >= this.Grade) {
-            flag = true;
-            Toast.makeText(this, "请求成功", Toast.LENGTH_LONG).show();
-            this.intent = new Intent(RockPaperScissorsActivity.this, SuccessActivity.class);   //  根据实际情况跳转
-        } else if (this.gameGradeInt <= -this.Grade) {
-            flag = true;
-            Toast.makeText(this, "请求失败", Toast.LENGTH_LONG).show();
-            this.intent = new Intent(RockPaperScissorsActivity.this, ErrorActivity.class);   //  根据实际情况跳转
-        }
-        if (flag) {
-            this.closeMusic();            
-            handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    startActivity(intent);
-                    RockPaperScissorsActivity.this.finish();
-                }
-            }, 2000);
-        } else {
-            this.overFlag = true;
-        }
-    }
-
-    private int computerShow(int player){
-        ComputerAnswer computerAnswer = new ComputerAnswer();
-        int answerC = computerAnswer.Answer(count,player,Grade);
+    private int computerShow(){
+        int answerC = ComputerAnswer.Answer();
         switch (answerC){
             case 0:this.computerImageSrc = getResources().getDrawable(R.drawable.game_rock_computer);
                 break;
@@ -328,48 +319,47 @@ public class RockPaperScissorsActivity extends Activity implements View.OnClickL
         this.gradeText.setText(this.gameGradeString);
     }
 
-    private void goHelp(){
-        intent = new Intent(RockPaperScissorsActivity.this,HelpActivity.class);
-        startActivity(intent);
+    private void IfGameOver(){
+        boolean flag = false;
+        if (this.gameGradeInt >= this.Grade) {
+            flag = true;
+            intent = new Intent(RockPaperScissorsActivity.this, SuccessActivity.class);   //  根据实际情况跳转
+        } else if (this.gameGradeInt <= -this.Grade) {
+            flag = true;
+            intent = new Intent(RockPaperScissorsActivity.this, ErrorActivity.class);   //  根据实际情况跳转
+        }
+        if (flag) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    RockPaperScissorsActivity.this.closeMusic();
+                    RockPaperScissorsActivity.this.startActivity(intent);
+                    RockPaperScissorsActivity.this.finish();
+                }
+            }, 1000);
+        } else {
+            this.isRun = false;
+        }
     }
 
-    private void settings(){
-        CustomDialogSettings.Builder dialog = new CustomDialogSettings.Builder(RockPaperScissorsActivity.this);
-        dialog.create().show();
-    }
-
-    private void intiMenu() {
-        LayoutInflater inflater = LayoutInflater.from(RockPaperScissorsActivity.this);
-        View view = inflater.inflate(R.layout.game_meun_popup, null);
-
-        LinearLayout blankView = (LinearLayout) view.findViewById(R.id.blank);
-        Button settingsButton = (Button) view.findViewById(R.id.game_setUp);
-        Button helpButton = (Button) view.findViewById(R.id.game_help);
-        Button quitButton = (Button) view.findViewById(R.id.game_quit);
-        Button cancelButton = (Button) view.findViewById(R.id.cancel);
-
-        blankView.setOnClickListener(this);
-        settingsButton.setOnClickListener(this);
-        helpButton.setOnClickListener(this);
-        quitButton.setOnClickListener(this);
-        cancelButton.setOnClickListener(this);
-
-        this.popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    }
-
-    @Override
-    public void onClick(View v) {
+    public void MenuOnClick(View v) {
         switch (v.getId()) {
             case R.id.game_setUp:
                 if (popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 }
                 settings(); break;
-            case R.id.game_help: goHelp();
+            case R.id.game_help:
+                if (popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                }
+                slidingDrawer.animateOpen();
                 break;
             case R.id.game_quit:
-                this.closeMusic();
-                onBackPressed();
+                if (popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                }
+                RockPaperScissorsActivity.this.finish();
                 break;
             default:
                 if (popupWindow.isShowing()) {
@@ -379,46 +369,30 @@ public class RockPaperScissorsActivity extends Activity implements View.OnClickL
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (popupWindow.isShowing()) {
-            popupWindow.dismiss();
-        } else {
-            popupWindow.showAtLocation(findViewById(R.id.gameAnswer_Image), Gravity.BOTTOM, 0, 0);
-        }
-        return false;
+    private void settings(){
+        CustomDialogSettings dialogSettings = new CustomDialogSettings(RockPaperScissorsActivity.this,R.style.Dialog);
+        dialogSettings.show();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        this.start();
+    private void registerBroadcas() {
+        //动态方式注册广播接收者
+        this.receiver = new MyBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.game.SETTINGS");
+        this.registerReceiver(receiver, filter);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        this.closeMusic();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 防止连续两次返回键
-            //这你写你的返回处理
-            if (popupWindow.isShowing()) {
-                popupWindow.dismiss();
-                return true;
-            } else {
-                if (getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.ECLAIR) {
-                    event.startTracking();
-                } else {
-                    onBackPressed();
-                }
-                RockPaperScissorsActivity.this.finish();
-                return true;
+    public class MyBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.android.game.SETTINGS")) {
+                setMusic();
             }
         }
-        return super.onKeyDown(keyCode, event);
     }
+
+    public void onClick(View view) {
+        slidingDrawer.animateClose();
+    }
+
 }
