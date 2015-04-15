@@ -22,9 +22,10 @@ package com.android.decipherstranger.util;
  */
 public class MyStatic {
     //  设置全局变量
-    public static final String FILENAME_SETTINGS = "Settings";      //  游戏设置文件
-    public static final String KEY_BG = "gameBgMusic";              //  游戏设置文件 背景音乐KEY
-    public static final String KEY_EFFECT = "gameEffectMusic";      //  游戏设置文件 音效KEY
+    public static final String FILENAME_SETTINGS = "Settings";
+    public static final String KEY_BG = "gameBgMusic";
+    public static final String KEY_EFFECT = "gameEffectMusic";
+    public static final String Login_result = "true";
 
     public static boolean gameEffectMusicFlag = true;         //  游戏音效控制标志
     public static boolean gameBackgroundMusicFlag = true;     //  游戏音乐控制标志

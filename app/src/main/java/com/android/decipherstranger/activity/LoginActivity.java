@@ -1,7 +1,10 @@
 package com.android.decipherstranger.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
@@ -9,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -25,6 +29,7 @@ import com.android.decipherstranger.db.UserTabOperate;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.StringUtils;
 
 /**
@@ -51,6 +56,7 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        registerBroadcas();
         this.helper = new DATABASE(this);
         initView();
         getCheckBox();
@@ -111,10 +117,6 @@ public class LoginActivity extends Activity {
     private class loginOnClickListenerImpl implements View.OnClickListener {
         @Override
         public void onClick(View view){
-
-            Intent it = new Intent(LoginActivity.this, MainPage.class);
-            startActivity(it);
-
             String account = LoginActivity.this.accountEdit.getText().toString();
             String password = LoginActivity.this.pawEdit.getText().toString();
             String passwordMD5 = stringUtils.MD5(password);
@@ -147,15 +149,10 @@ public class LoginActivity extends Activity {
                     }
                 }
                 editor.commit();
-
             }
-
-            if (accountCheckByWeb(account,passwordMD5)){
-                it = new Intent(LoginActivity.this, WelcomeActivity.class);
-                LoginActivity.this.startActivity(it);
-                LoginActivity.this.finish();
-            }
-
+            accountCheckByWeb(account,passwordMD5);
+            Intent it = new Intent(LoginActivity.this, MainPage.class);
+            startActivity(it);
         }
     }
 
@@ -170,8 +167,8 @@ public class LoginActivity extends Activity {
     /**
      * Created by Feng on 2015/3/24.
      */
-    private boolean accountCheckByWeb(String account, String password){
-        /*
+    private void accountCheckByWeb(String account, String password){
+    /*
         NetworkService.getInstance().onInit(LoginActivity.this);
         NetworkService.getInstance().setupConnection();
         if(NetworkService.getInstance().getIsConnected()) {
@@ -183,13 +180,35 @@ public class LoginActivity extends Activity {
             NetworkService.getInstance().closeConnection();
             Toast.makeText(LoginActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
-            return false;                    //  检测用户名及密码是否正确
-        }*/
-        return false;
+        }
+        */
     }
 
     private void getCheckBox(){
         SharedPreferences shared = getSharedPreferences(FILENAME, LoginActivity.MODE_PRIVATE);
         LoginActivity.this.checkBox.setChecked(shared.getBoolean("Checked",true));
+    }
+
+    private void registerBroadcas() {
+        //动态方式注册广播接收者
+        LoginBroadcastReceiver receiver = new LoginBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.LoginActivity");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class LoginBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.android.decipherstranger.LoginActivity")) {
+                if(intent.getStringExtra("result").equals(MyStatic.Login_result)) {
+                    Intent it = new Intent(LoginActivity.this, MainPage.class);
+                    startActivity(it);
+                }
+                else{
+                    Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }
