@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -17,19 +16,15 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.dialog.CustomDialogSettings;
-import com.android.decipherstranger.util.ComputerAnswer;
+import com.android.decipherstranger.util.GameUtils;
 import com.android.decipherstranger.util.MyStatic;
 
 /**
@@ -106,18 +101,7 @@ public class RockPaperScissorsActivity extends Activity {
     }
 
     @Override
-    protected void onDestroy() {        
-        new Thread() {
-        public void run() {
-            try {
-                //  TODO 模拟上传用户习惯至服务器
-                Thread.sleep(1000);
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }.start();
-        
+    protected void onStop() {        
         super.onDestroy();
         super.unregisterReceiver(RockPaperScissorsActivity.this.receiver);
     }
@@ -232,17 +216,14 @@ public class RockPaperScissorsActivity extends Activity {
             case R.id.RockImageBtn:
                 if (isRun) {
                     gamePause(0);
-                    IfGameOver();
                 } break;
             case R.id.PaperImageBtn:
                 if (isRun) {
                     gamePause(5);
-                    IfGameOver();
                 } break;
             case R.id.ScissorsImageBtn:
                 if (isRun) {
                     gamePause(2);
-                    IfGameOver();
                 } break;
         }
     }
@@ -287,12 +268,14 @@ public class RockPaperScissorsActivity extends Activity {
             this.loseMusic.start();
             player = 0; computer = 2;
         }
+        GameUtils.update(player);
         setText(player, computer);
         this.gameAnswerImage.setImageDrawable(answerImageSrc);
+        IfGameOver();
     }
 
     private int computerShow(){
-        int answerC = ComputerAnswer.Answer();
+        int answerC = GameUtils.Answer();
         switch (answerC){
             case 0:this.computerImageSrc = getResources().getDrawable(R.drawable.game_rock_computer);
                 break;
@@ -320,13 +303,19 @@ public class RockPaperScissorsActivity extends Activity {
     }
 
     private void IfGameOver(){
+        //  上传游戏数据
+        new Thread(){
+            public void run(){
+                GameUtils.set();
+            }
+        }.start();
         boolean flag = false;
         if (this.gameGradeInt >= this.Grade) {
             flag = true;
             intent = new Intent(RockPaperScissorsActivity.this, SuccessActivity.class);   //  根据实际情况跳转
         } else if (this.gameGradeInt <= -this.Grade) {
             flag = true;
-            intent = new Intent(RockPaperScissorsActivity.this, ErrorActivity.class);   //  根据实际情况跳转
+            intent = new Intent(RockPaperScissorsActivity.this, FailActivity.class);   //  根据实际情况跳转
         }
         if (flag) {
             Handler handler = new Handler();

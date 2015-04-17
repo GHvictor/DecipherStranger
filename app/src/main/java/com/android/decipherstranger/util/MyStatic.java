@@ -32,7 +32,7 @@ public class MyStatic {
 
     public static String friendAccount = null;          //  所添加好友account
 
-    public static int rockInt = 333;            //  当前用户出石头的几率
-    public static int scissorsInt = 333;        //  当前用户出剪刀的几率
-    public static int paperInt = 333;           //  当前用户出布的几率
+    public static int rockInt = 33;            //  当前用户出石头的几率
+    public static int scissorsInt = 33;        //  当前用户出剪刀的几率
+    public static int paperInt = 33;           //  当前用户出布的几率
 }

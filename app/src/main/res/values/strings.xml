@@ -52,10 +52,10 @@
     <string name="Help_Text">帮&#160;&#160;助</string>
     <string name="Quit_Text">退&#160;&#160;出</string>
     <string name="Grade1">一把定江山</string>
-    <string name="Grade2">三局两胜制</string>
-    <string name="Grade3">加点难度吧</string>
+    <string name="Grade2">加点难度吧</string>
+    <string name="Grade3">测一测人品</string>
     <string name="Grade4">难到没朋友</string>
-    <string name="Grade5">满满的真爱</string>
+    <string name="Grade5">留一线生机</string>
     <string name="Grade0">自定义</string>
     
     <string name="drop_down_refresh">下拉可以刷新!</string>

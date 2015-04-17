@@ -2,8 +2,10 @@ package com.android.decipherstranger.activity.ShakeActivity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -53,6 +55,7 @@ public class ShakeActivity extends Activity{
     private ProgressDialog progressDialog = null;
     private ShakeListener shakeListener = null;
     private PopupWindow popupWindow = null;
+    private ShakeBroadcastReceiver receiver = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,12 @@ public class ShakeActivity extends Activity{
     protected void onPause() {
         super.onPause();
         this.shakeListener.stop();
+    }
+    
+    @Override
+    protected void onStop() {
+        super.onStop();
+        super.unregisterReceiver(ShakeActivity.this.receiver);
     }
 
     @Override
@@ -97,7 +106,7 @@ public class ShakeActivity extends Activity{
     }
 
     private void intiView() {
-
+        this.registerBroadcas();
         LayoutInflater inflater = LayoutInflater.from(ShakeActivity.this);
         View view = inflater.inflate(R.layout.shake_friend_popup, null);
         this.popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -109,7 +118,37 @@ public class ShakeActivity extends Activity{
                 onVibrator();
             }
         });
+    }
 
+    public void shakeMain(View v) {
+        switch (v.getId()) {
+            case R.id.shake_back_button:
+       //         onBackPressed();
+                onVibrator();
+                break;
+            case R.id.shakeMain:
+                if (popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                } break;
+            case R.id.shake_imageButton:
+/*                intent = new Intent(this,ShakeSettingsActivity.class);
+                startActivity(intent);*/
+                break;
+        }
+    }
+
+    public void ShakePopup(View view) {
+        switch (view.getId()) {
+            case R.id.shake_friend_info:
+                Intent intent = new Intent(ShakeActivity.this,WelcomeActivity.class);
+                startActivity(intent);
+                this.finish();
+                break;
+            case R.id.userPhoto:
+                //  TODO 放大头像
+                Toast.makeText(this,"userPhoto",Toast.LENGTH_SHORT);
+                break;
+        }
     }
 
     private void onVibrator() {
@@ -128,25 +167,20 @@ public class ShakeActivity extends Activity{
     }
 
     private void searchFriend() {
-/*        JsonData.setJsonObj_send("type" + "-" + "Shake" + "-" + "account" + "-" + "此处放用户account");
-        new Task_Socket_Cloud().execute();*/
-        new Thread() {
+        //  TODO 上传Acccount、时间节点
+        //  TODO 获取头像、昵称、性别、
+/*        new Thread() {
             public void run() {
                 try{
                     Thread.sleep(5000); //模拟获取数据
-                    //  TODO 上传Acccount、时间节点
-                    //  TODO 获取头像、昵称、性别、
                     System.out.println("##########");
                     //             return "true";
                 }catch (Exception e) {
                     e.printStackTrace();
                     //           return  "false";
                 }
-                progressDialog.dismiss();
-                popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
-                popupWindow.showAsDropDown(findViewById(R.id.shake_image));
             }
-        }.start();
+        }.start();*/
         //创建我们的进度条
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -157,39 +191,26 @@ public class ShakeActivity extends Activity{
                 progressDialog.show();
             }
         }, 1000);
-        System.out.println("###我被调用了");
 
     }
 
-    public void shakeMain(View v) {
-        switch (v.getId()) {
-            case R.id.shake_back_button:
-                onBackPressed();
-//                onVibrator();
-                break;
-            case R.id.shakeMain:
-                if (popupWindow.isShowing()) {
-                    popupWindow.dismiss();
-                } break;
-            case R.id.shake_imageButton:
-/*                intent = new Intent(this,ShakeSettingsActivity.class);
-                startActivity(intent);*/
-                break;
-        }
+    private void registerBroadcas() {
+        //动态方式注册广播接收者
+        this.receiver = new ShakeBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.SHAKE");
+        this.registerReceiver(receiver, filter);
     }
 
-    public void ShakePopup(View view) {
-        switch (view.getId()) {
-            case R.id.shake_friend_info:
-                Intent intent = new Intent(ShakeActivity.this,WelcomeActivity.class);
+    public class ShakeBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.android.decipherstranger.SHAKE")) {
                 MyStatic.friendAccount = "我是小涛啊";   //  获取所加好友账号
-                startActivity(intent);
-                this.finish();
-                break;
-            case R.id.userPhoto:
-                //  TODO 放大头像
-                Toast.makeText(this,"userPhoto",Toast.LENGTH_SHORT);
-                break;
+                progressDialog.dismiss();
+                popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
+                popupWindow.showAsDropDown(findViewById(R.id.shake_image));
+            }
         }
     }
 

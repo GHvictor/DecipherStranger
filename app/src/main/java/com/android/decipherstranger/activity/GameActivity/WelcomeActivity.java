@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
 
 import com.android.decipherstranger.R;
-import com.android.decipherstranger.activity.LoginActivity;
+import com.android.decipherstranger.util.GameUtils;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
 
@@ -25,13 +23,8 @@ public class WelcomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_welcome);
 
-        //  从缓存获取用户游戏设置
-        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_SETTINGS);
-        MyStatic.gameEffectMusicFlag = (Boolean) sharedPreferencesUtils.get(MyStatic.KEY_EFFECT,true);
-        MyStatic.gameBackgroundMusicFlag = (Boolean) sharedPreferencesUtils.get(MyStatic.KEY_BG,true);
-
-        //  获取用户游戏网络数据
-        this.getGrade();
+        //  设置用户游戏数据
+        this.setGameInfo();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -44,13 +37,15 @@ public class WelcomeActivity extends Activity {
         }, 1000);
     }
 
-    private void getGrade() {
-        //  获取好友游戏等级
+    private void setGameInfo() {
+        //  从缓存获取用户游戏设置
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_SETTINGS);
+        MyStatic.gameEffectMusicFlag = (Boolean) sharedPreferencesUtils.get(MyStatic.KEY_EFFECT,true);
+        MyStatic.gameBackgroundMusicFlag = (Boolean) sharedPreferencesUtils.get(MyStatic.KEY_BG,true);
+        //  从服务器获取好友游戏等级
         this.grade = 1;
-        // 获取用户游戏习惯 石头剪刀布概率
-        MyStatic.rockInt = 333;
-        MyStatic.scissorsInt = 333;
-        MyStatic.paperInt = 333;
+        //  从服务器获取用户游戏习惯 石头剪刀布概率
+        GameUtils.get();
     }
 
 }
