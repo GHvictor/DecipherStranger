@@ -22,7 +22,7 @@ import java.util.Date;
 /**
  * Created by WangXin on 2015/4/1 0001.
  */
-public class ChatListView extends ListView implements OnScrollListener {
+public class RecentListView extends ListView implements OnScrollListener {
 
     //顶部布局文件
     View Header;
@@ -49,17 +49,17 @@ public class ChatListView extends ListView implements OnScrollListener {
     //刷新数据接口
     IRefreshListener iRefreshListener;
 
-    public ChatListView(Context context) {
+    public RecentListView(Context context) {
         super(context);
         initView(context);
     }
 
-    public ChatListView(Context context, AttributeSet attrs) {
+    public RecentListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }
 
-    public ChatListView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RecentListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
     }
@@ -67,7 +67,7 @@ public class ChatListView extends ListView implements OnScrollListener {
     //初始化界面，顶部布局文件添加到ListView界面
     private void initView(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        Header = inflater.inflate(R.layout.activity_chat_listview_header,null);
+        Header = inflater.inflate(R.layout.recent_listview_header,null);
         measureView(Header);
         headerHeight = Header.getMeasuredHeight();
         topPadding(-headerHeight);

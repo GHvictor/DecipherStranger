@@ -3,9 +3,9 @@
     android:orientation="vertical" android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/black_blue">
-    <com.android.decipherstranger.activity.MainPageActivity.ChatListView
+    <com.android.decipherstranger.activity.MainPageActivity.RecentListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:id="@+id/chat_view_list"/>
+        android:id="@+id/recent_view_list"/>
 </LinearLayout>

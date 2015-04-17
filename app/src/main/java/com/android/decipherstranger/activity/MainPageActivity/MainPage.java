@@ -83,11 +83,11 @@ public class MainPage extends FragmentActivity implements OnClickListener{
 
         fragmentPages = new ArrayList<Fragment>();
 
-        ChatMainTabFragment chatMainTabFragment = new ChatMainTabFragment();
+        RecentMainTabFragment recentMainTabFragment = new RecentMainTabFragment();
         FriendsMainTabFragment friendsMainTabFragment = new FriendsMainTabFragment();
         DiscoverMainTabFragment discoverMainTabFragment = new DiscoverMainTabFragment();
 
-        fragmentPages.add(chatMainTabFragment);
+        fragmentPages.add(recentMainTabFragment);
         fragmentPages.add(friendsMainTabFragment);
         fragmentPages.add(discoverMainTabFragment);
 

@@ -31,4 +31,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile files('E:/Code/My_code/Android_Projects/DecipherStranger/libs/BaiduLBS_Android.jar')
     compile files('D:/workspace_for_Android/Git_DS/DecipherStranger/libs/BaiduLBS_Android.jar')
+    compile files('D:/workspace/DecipherStranger/libs/BaiduLBS_Android.jar')
 }

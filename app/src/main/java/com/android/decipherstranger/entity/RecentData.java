@@ -5,30 +5,32 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/4/2 0002.
  */
-public class ChatData {
+public class RecentData {
+    private String recentUserAccount;
     private String recentUserName;
     private String recentMessage;
     private String recentMessageTime;
     private int recentUserPhotoId;
-    @Override
-    public String toString() {
-        return "ChatListData{" +
-                "recentUserName='" + recentUserName + '\'' +
-                ", recentMessage='" + recentMessage + '\'' +
-                ", recentMessageTime='" + recentMessageTime + '\'' +
-                ", recentUserPhotoId=" + recentUserPhotoId +
-                '}';
-    }
-    public ChatData(String recentUserName, String recentMessage, String recentMessageTime, int recentUserPhotoId) {
+
+
+    public RecentData(String recentUserAccount, String recentUserName, String recentMessage, String recentMessageTime, int recentUserPhotoId) {
         super();
+        this.recentUserAccount = recentUserAccount;
         this.recentUserName = recentUserName;
         this.recentMessage = recentMessage;
         this.recentMessageTime = recentMessageTime;
         this.recentUserPhotoId = recentUserPhotoId;
     }
 
-    public ChatData() {
+    public RecentData() {
         super();
+    }
+    public String getRecentUserAccount() {
+        return recentUserAccount;
+    }
+
+    public void setRecentUserAccount(String recentUserAccount) {
+        this.recentUserAccount = recentUserAccount;
     }
 
     public String getRecentUserName() {
