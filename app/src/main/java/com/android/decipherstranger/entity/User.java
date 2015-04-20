@@ -14,9 +14,26 @@ public class User implements Serializable {
     private String phone = null;
     private String birth = null;
     private String address = null;
-    private String portraitUrl = null;              //  头像相对路径
+    private String portrait = null;              //  头像
     private String signature = null;                //  个性签名
+    private String datetime = null;
+    private String message = null;
 
+    public User(){}
+    public User(User user) {
+        this.account = user.account;
+        this.password = user.password;
+        this.username = user.username;
+        this.email = user.email;
+        this.phone = user.phone;
+        this.birth = user.birth;
+        this.address = user.address;
+        this.portrait = user.portrait;
+        this.signature = user.signature;
+        this.datetime = user.datetime;
+        this.message = user.message;
+    }
+    
     public void setAccount(String account) {
         this.account = account;
     }
@@ -73,12 +90,12 @@ public class User implements Serializable {
         return address;
     }
 
-    public void setPortraitUrl(String portraitUrl) {
-        this.portraitUrl = portraitUrl;
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
 
-    public String getPortraitUrl() {
-        return portraitUrl;
+    public String getPortrait() {
+        return portrait;
     }
 
     public void setSignature(String portraitUrl) {
@@ -87,5 +104,21 @@ public class User implements Serializable {
 
     public String getSignature() {
         return signature;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getDatetime() {
+        return this.datetime;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return this.message;
     }
 }
