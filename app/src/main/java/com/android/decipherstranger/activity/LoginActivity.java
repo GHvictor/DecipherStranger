@@ -151,8 +151,8 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account,passwordMD5);
-            Intent it = new Intent(LoginActivity.this, MainPage.class);
-            startActivity(it);
+           // Intent it = new Intent(LoginActivity.this, MainPage.class);
+           // startActivity(it);
         }
     }
 
@@ -168,7 +168,7 @@ public class LoginActivity extends Activity {
      * Created by Feng on 2015/3/24.
      */
     private void accountCheckByWeb(String account, String password){
-    /*
+/*
         NetworkService.getInstance().onInit(LoginActivity.this);
         NetworkService.getInstance().setupConnection();
         if(NetworkService.getInstance().getIsConnected()) {
@@ -181,7 +181,7 @@ public class LoginActivity extends Activity {
             Toast.makeText(LoginActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
         }
-        */
+*/
     }
 
     private void getCheckBox(){
@@ -193,14 +193,14 @@ public class LoginActivity extends Activity {
         //动态方式注册广播接收者
         LoginBroadcastReceiver receiver = new LoginBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction("com.android.decipherstranger.LoginActivity");
+        filter.addAction("com.android.decipherstranger.LOGIN");
         this.registerReceiver(receiver, filter);
     }
 
     public class LoginBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.android.decipherstranger.LoginActivity")) {
+            if (intent.getAction().equals("com.android.decipherstranger.LOGIN")) {
                 if(intent.getStringExtra("result").equals(MyStatic.Login_result)) {
                     Intent it = new Intent(LoginActivity.this, MainPage.class);
                     startActivity(it);
