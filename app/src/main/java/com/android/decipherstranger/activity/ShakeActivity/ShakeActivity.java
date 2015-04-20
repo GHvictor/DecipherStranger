@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,10 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.GameActivity.WelcomeActivity;
+import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.ShakeListener;
 
@@ -109,6 +112,7 @@ public class ShakeActivity extends Activity{
         this.registerBroadcas();
         LayoutInflater inflater = LayoutInflater.from(ShakeActivity.this);
         View view = inflater.inflate(R.layout.shake_friend_popup, null);
+        this.progressDialog = new ProgressDialog(ShakeActivity.this);
         this.popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         // 回调接口
         this.shakeListener = new ShakeListener(this);  // 创建一个对象
@@ -137,20 +141,6 @@ public class ShakeActivity extends Activity{
         }
     }
 
-    public void ShakePopup(View view) {
-        switch (view.getId()) {
-            case R.id.shake_friend_info:
-                Intent intent = new Intent(ShakeActivity.this,WelcomeActivity.class);
-                startActivity(intent);
-                this.finish();
-                break;
-            case R.id.userPhoto:
-                //  TODO 放大头像
-                Toast.makeText(this,"userPhoto",Toast.LENGTH_SHORT);
-                break;
-        }
-    }
-
     private void onVibrator() {
         if (popupWindow.isShowing()) {
             popupWindow.dismiss();
@@ -167,31 +157,30 @@ public class ShakeActivity extends Activity{
     }
 
     private void searchFriend() {
+
         //  TODO 上传Acccount、时间节点
         //  TODO 获取头像、昵称、性别、
-/*        new Thread() {
-            public void run() {
-                try{
-                    Thread.sleep(5000); //模拟获取数据
-                    System.out.println("##########");
-                    //             return "true";
-                }catch (Exception e) {
-                    e.printStackTrace();
-                    //           return  "false";
-                }
-            }
-        }.start();*/
         //创建我们的进度条
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                progressDialog = new ProgressDialog(ShakeActivity.this);
                 progressDialog.setMessage("正在搜寻同一时刻摇晃手机的人");
                 progressDialog.onStart();
                 progressDialog.show();
             }
         }, 1000);
-
+       /*
+        if(NetworkService.getInstance().getIsConnected()) {
+            String userInfo = "type"+"-"+Integer.toString(GlobalMsgUtils.msgShake)+"-"+"account"+"-"+"wind";
+            Log.v("aaaaa", userInfo);
+            NetworkService.getInstance().sendUpload(userInfo);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(ShakeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+            Log.v("Login", "已经执行T（）方法");
+        }
+        */
     }
 
     private void registerBroadcas() {
@@ -206,7 +195,8 @@ public class ShakeActivity extends Activity{
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.SHAKE")) {
-                MyStatic.friendAccount = "我是小涛啊";   //  获取所加好友账号
+                MyStatic.friendAccount = intent.getStringExtra("reAccount");   //  获取所加好友账号
+                System.out.println(intent.getStringExtra("reName"));
                 progressDialog.dismiss();
                 popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
                 popupWindow.showAsDropDown(findViewById(R.id.shake_image));

@@ -5,5 +5,8 @@ package com.android.decipherstranger.util;
  */
 public class GlobalMsgUtils {
     public static final int msgLogin = 0;
-    public static final int msgMessage = 1;
+    public static final int msgRegister = 1;
+    public static final int msgMessage = 2;
+    public static final int msgShake = 3;
+    public static final int msgFriendList = 4;
 }

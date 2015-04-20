@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.android.decipherstranger.util.GlobalMsgUtils;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -42,20 +43,31 @@ public class ClientListenThread extends Thread {
                     int msgType = jsonObj.getInt("re_type");            // type of message received
                     switch (msgType) {
                         case GlobalMsgUtils.msgLogin:
-                            Intent it = new Intent("com.android.decipherstranger.LoginActivity");
-                            it.putExtra("result", jsonObj.getString("re_message"));
-                            clContext.sendBroadcast(it);
+                            Intent itLogin = new Intent("com.android.decipherstranger.LOGIN");
+                            itLogin.putExtra("result", jsonObj.getString("re_message"));
+                            clContext.sendBroadcast(itLogin);
+                            break;
+                        case GlobalMsgUtils.msgRegister:
                             break;
                         case GlobalMsgUtils.msgMessage:
+                            break;
+                        case GlobalMsgUtils.msgShake:
+                            Intent itShake = new Intent("com.android.decipherstranger.SHAKE");
+                            JSONArray jsonArray = new JSONArray(jsonObj.getString("re_message"));
+                            for(int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObjShake = jsonArray.getJSONObject(i);
+                                itShake.putExtra("reAccount", jsonObjShake.getString("re_account"));
+                                itShake.putExtra("rePhoto", jsonObjShake.getString("re_photo"));
+                                itShake.putExtra("reGender", jsonObjShake.getString("re_gender"));
+                                itShake.putExtra("reName", jsonObjShake.getString("re_name"));
+                            }
+                            clContext.sendBroadcast(itShake);
+                            break;
                     }
                 }
             }
         } catch (Exception e) {
         }
-    }
-
-    public void uponReceivedMsg() {
-//		NetworkService.getInstance().sendUpload(GlobalMsgUtils., "xxxxx");
     }
 
     public void closeBufferedReader() {
