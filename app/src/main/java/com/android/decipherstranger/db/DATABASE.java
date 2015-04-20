@@ -40,7 +40,7 @@ public class DATABASE extends SQLiteOpenHelper {
     
     private void CreateRecentContactsTab(SQLiteDatabase db) {
         String sql = "CREATE TABLE `recent_contacts` (" +
-                "`account` VARCHAR(20) DEFAULT NULL," +
+                "`account` VARCHAR(20) PRIMARY KEY," +
                 "`username` VARCHAR(20) DEFAULT NULL," +
                 "`userphoto` VARCHAR(20) DEFAULT NULL," +
                 "`newest` VARCHAR(30) DEFAULT NULL," +

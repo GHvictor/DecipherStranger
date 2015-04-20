@@ -109,6 +109,7 @@ public class ShakeActivity extends Activity{
         this.registerBroadcas();
         LayoutInflater inflater = LayoutInflater.from(ShakeActivity.this);
         View view = inflater.inflate(R.layout.shake_friend_popup, null);
+        this.progressDialog = new ProgressDialog(ShakeActivity.this);
         this.popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         // 回调接口
         this.shakeListener = new ShakeListener(this);  // 创建一个对象
@@ -185,7 +186,6 @@ public class ShakeActivity extends Activity{
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                progressDialog = new ProgressDialog(ShakeActivity.this);
                 progressDialog.setMessage("正在搜寻同一时刻摇晃手机的人");
                 progressDialog.onStart();
                 progressDialog.show();

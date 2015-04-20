@@ -38,9 +38,15 @@ public class RecentContacts {
 
     //  更新数据
     public ArrayList<User> update(String account, String name, String photo, String message) {
-        String insert = "insert into recent_contacts VALUES(?,?,?,?,datetime())";
-        Object args[] = new Object[]{account,name,photo,message};
-        this.db.execSQL(insert,args);
+        try {
+            String insert = "insert into recent_contacts VALUES(?,?,?,?,datetime())";
+            Object args[] = new Object[]{account,name,photo,message};
+            this.db.execSQL(insert,args);
+        }catch (Exception e) {
+            String sql = "UPDATE recent_contacts SET username=?, userphoto=?, newest=?, contacts_time=datetime() WHERE account=?";
+            Object args[] = new Object[]{name,photo,message,account};
+            this.db.execSQL(sql,args);
+        }
         String select = "select * from recent_contacts order by contacts_time";
         Cursor result = this.db.rawQuery(select, null);
         ArrayList<User> all = new ArrayList<User>();
