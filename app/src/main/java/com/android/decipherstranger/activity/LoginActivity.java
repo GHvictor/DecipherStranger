@@ -151,8 +151,8 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account,passwordMD5);
-           // Intent it = new Intent(LoginActivity.this, MainPage.class);
-           // startActivity(it);
+            Intent it = new Intent(LoginActivity.this, MainPage.class);
+            startActivity(it);
         }
     }
 
