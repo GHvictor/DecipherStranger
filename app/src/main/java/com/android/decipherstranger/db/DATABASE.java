@@ -43,7 +43,7 @@ public class DATABASE extends SQLiteOpenHelper {
                 "`account` VARCHAR(20) PRIMARY KEY," +
                 "`username` VARCHAR(20) DEFAULT NULL," +
                 "`userphoto` VARCHAR(20) DEFAULT NULL," +
-                "`newest` VARCHAR(30) DEFAULT NULL," +
+                "`newest` VARCHAR(200) DEFAULT NULL," +
                 "`contacts_time` DATETIME DEFAULT NULL)";
         db.execSQL(sql);
     }

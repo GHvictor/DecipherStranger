@@ -6,26 +6,24 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
-import com.android.decipherstranger.activity.GameActivity.WelcomeActivity;
-import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.ShakeListener;
 
@@ -59,6 +57,11 @@ public class ShakeActivity extends Activity{
     private ShakeListener shakeListener = null;
     private PopupWindow popupWindow = null;
     private ShakeBroadcastReceiver receiver = null;
+
+    private LinearLayout friendButton = null;
+    private ImageButton portrait = null;
+    private TextView userName = null;
+    private ImageView sex = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,11 +113,16 @@ public class ShakeActivity extends Activity{
 
     private void intiView() {
         this.registerBroadcas();
+        this.progressDialog = new ProgressDialog(ShakeActivity.this);
+        
         LayoutInflater inflater = LayoutInflater.from(ShakeActivity.this);
         View view = inflater.inflate(R.layout.shake_friend_popup, null);
-        this.progressDialog = new ProgressDialog(ShakeActivity.this);
         this.popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        // 回调接口
+        this.friendButton = (LinearLayout) view.findViewById(R.id.shake_friend_info);
+        this.portrait = (ImageButton) view.findViewById(R.id.userPhoto);
+        this.userName = (TextView) view.findViewById(R.id.userName);
+        this.sex = (ImageView) view.findViewById(R.id.sexImage);
+                // 回调接口
         this.shakeListener = new ShakeListener(this);  // 创建一个对象
         this.shakeListener.setOnShakeListener(new ShakeListener.OnShakeListener() {// 调用setOnShakeListener方法进行监听
             public void onShake() {
@@ -181,6 +189,42 @@ public class ShakeActivity extends Activity{
             Log.v("Login", "已经执行T（）方法");
         }
         */
+/*        pop();
+        progressDialog.dismiss();
+        popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
+        popupWindow.showAsDropDown(findViewById(R.id.shake_image));*/
+    }
+    
+    public void ShakePopup(View view) {
+        switch (view.getId()) {
+            case R.id.shake_friend_info:
+   /*             Intent intent = new Intent(ShakeActivity.this,WelcomeActivity.class);
+                startActivity(intent);
+                this.finish();*/
+                break;
+            case R.id.userPhoto:
+                //  TODO 放大头像
+                Toast.makeText(this, "userPhoto", Toast.LENGTH_SHORT);
+                break;
+        }
+    }
+    
+/*    private void pop() {
+        this.userName.setText("我是小涛啊");
+        Drawable drawable = getResources().getDrawable(R.drawable.man);
+        this.sex.setImageDrawable(drawable);
+    }*/
+
+    private void popInitView(Intent intent) {
+        Drawable drawable = null;
+        this.portrait.setImageBitmap(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+        this.userName.setText(intent.getStringExtra("reAccount"));
+        if (intent.getStringExtra("reGender").equals("男")) {
+            drawable = getResources().getDrawable(R.drawable.man);
+        } else {
+            drawable = getResources().getDrawable(R.drawable.women);
+        }
+        this.sex.setImageDrawable(drawable);
     }
 
     private void registerBroadcas() {
@@ -195,8 +239,8 @@ public class ShakeActivity extends Activity{
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.SHAKE")) {
-                MyStatic.friendAccount = intent.getStringExtra("reAccount");   //  获取所加好友账号
-                System.out.println(intent.getStringExtra("reName"));
+                popInitView(intent);
+                MyStatic.friendAccount = intent.getStringExtra("reAccount");
                 progressDialog.dismiss();
                 popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
                 popupWindow.showAsDropDown(findViewById(R.id.shake_image));

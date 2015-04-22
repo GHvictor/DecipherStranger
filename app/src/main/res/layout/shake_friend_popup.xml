@@ -27,7 +27,7 @@
             android:layout_marginBottom="10dp"
             android:id="@+id/userPhoto"
             android:onClick="ShakePopup"
-            android:background="@drawable/mypic"
+            android:background="@null"
             android:layout_gravity="center_vertical" />
 
         <RelativeLayout
@@ -42,7 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我是小涛呀"
+                android:text=""
                 android:id="@+id/userName"
                 android:textSize="30dp"
                 android:layout_centerVertical="true"
@@ -52,9 +52,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
+                android:id="@+id/sexImage"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/ok_icon"
+                android:background="@null"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/userName"
                 android:layout_toEndOf="@+id/userName" />
