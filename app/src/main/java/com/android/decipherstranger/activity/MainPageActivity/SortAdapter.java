@@ -3,6 +3,7 @@ package com.android.decipherstranger.activity.MainPageActivity;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,15 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.android.decipherstranger.R;
-import com.android.decipherstranger.entity.SortModel;
+import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.ChangeUtils;
 
 public class SortAdapter extends BaseAdapter implements SectionIndexer {
-	private List<SortModel> list = null;
+	private List<User> list = null;
 	private Context mContext;
+	private ChangeUtils changeUtils;
 
-	public SortAdapter(Context mContext, List<SortModel> list) {
+	public SortAdapter(Context mContext, List<User> list) {
 		this.mContext = mContext;
 		this.list = list;
 	}
@@ -28,7 +31,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 	 * 
 	 * @param list
 	 */
-	public void updateListView(List<SortModel> list) {
+	public void updateListView(List<User> list) {
 		this.list = list;
 		notifyDataSetChanged();
 	}
@@ -47,7 +50,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 
 	public View getView(final int position, View view, ViewGroup arg2) {
 		ViewHolder viewHolder = null;
-		final SortModel mContent = list.get(position);
+		final User mContent = list.get(position);
 		if (view == null) {
 			viewHolder = new ViewHolder();
 			view = LayoutInflater.from(mContext).inflate(R.layout.contact_list_item, null);
@@ -70,8 +73,15 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 			viewHolder.tvLetter.setVisibility(View.GONE);
 		}
 
-		viewHolder.tvUserName.setText(this.list.get(position).getUserName());
-		viewHolder.ivUserPhoto.setImageResource(this.list.get(position).getUserPhoto());
+		viewHolder.tvUserName.setText(this.list.get(position).getUsername());
+		changeUtils = new ChangeUtils();
+		Bitmap photo = null;
+		try {
+			photo = changeUtils.toBitmap(this.list.get(position).getPortraitUrl());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		viewHolder.ivUserPhoto.setImageBitmap(photo);
 		return view;
 	}
 

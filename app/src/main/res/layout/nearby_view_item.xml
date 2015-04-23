@@ -42,12 +42,12 @@
             </LinearLayout>
         </LinearLayout>
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginTop="20dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="30dp"
             android:id="@+id/nearby_list_view_sex"
-            android:src="@drawable/nearby_user_man"/>
+            android:src="@drawable/ic_sex_male"/>
     </RelativeLayout>
 </LinearLayout>

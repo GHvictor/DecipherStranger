@@ -53,5 +53,11 @@
             android:id="@+id/recent_message_time"
             android:text="上午 10:12"
             android:textSize="10sp"/>
+        <com.android.decipherstranger.view.BadgeView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:layout_marginLeft="20dip"
+            android:id="@+id/new_message_count"/>
     </LinearLayout>
 </RelativeLayout>

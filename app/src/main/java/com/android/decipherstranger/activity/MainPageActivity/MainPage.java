@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.view.BadgeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,14 @@ public class MainPage extends FragmentActivity implements OnClickListener{
     private RelativeLayout mFriendsList;
     private RelativeLayout mDiscover;
 
+    private BadgeView badgeView ;
+    //未读消息的个数
+    private RelativeLayout unReadMessageCount;
+    //友请求的个数
+    private RelativeLayout newFriendsCount;
+    //新消息的总数
+    private int unReadCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -46,6 +55,7 @@ public class MainPage extends FragmentActivity implements OnClickListener{
         initView();
         initEvent();
         setSelect(0);
+        setUnReadMessage(7,mChatIcon);
     }
 
     private void initEvent() {
@@ -80,6 +90,8 @@ public class MainPage extends FragmentActivity implements OnClickListener{
         mChat = (RelativeLayout) findViewById(R.id.chat);
         mFriendsList = (RelativeLayout) findViewById(R.id.friends_list);
         mDiscover = (RelativeLayout) findViewById(R.id.discover);
+        unReadMessageCount = (RelativeLayout) findViewById(R.id.unread_message_count);
+        newFriendsCount = (RelativeLayout) findViewById(R.id.new_friends_count);
 
         fragmentPages = new ArrayList<Fragment>();
 
@@ -151,4 +163,17 @@ public class MainPage extends FragmentActivity implements OnClickListener{
                 break;
         }
     }
+    //未读消息提醒
+    public void setUnReadMessage(int unReadMessageNum,ImageView unReadMessageType){
+        badgeView = new BadgeView(this,unReadMessageType);
+        badgeView.setText(String.valueOf(unReadMessageNum));
+        badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+        if (unReadMessageNum != 0){
+            badgeView.show();
+        }else {
+            badgeView.hide();
+        }
+    }
+
+
 }

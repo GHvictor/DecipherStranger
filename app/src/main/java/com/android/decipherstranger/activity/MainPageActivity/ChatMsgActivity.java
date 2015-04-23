@@ -1,6 +1,7 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -30,48 +31,60 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * *
- *      へ　　　　　／|
- * 　　/＼7　　　 ∠＿/
- * 　 /　│　　 ／　／
- * 　│　Z ＿,＜　／　　 /`ヽ
- * 　│　　　　　ヽ　　 /　　〉
- * 　 Y　　　　　`　 /　　/
- * 　?●　?　●　　??〈　　/
- * 　()　 へ　　　　|　＼〈
- * 　　>? ?_　 ィ　 │ ／／      去吧！
- * 　 / へ　　 /　?＜| ＼＼        比卡丘~
- * 　 ヽ_?　　(_／　 │／／           消灭代码BUG
- * 　　7　　　　　　　|／
- * 　　＞―r￣￣`?―＿
+/*
  * Created by WangXin on 2015/4/12 0012.
  */
 public class ChatMsgActivity extends Activity implements OnClickListener {
 
+    //发送按钮
     private Button mBtnSend;
+    //语音录制按钮
     private TextView mBtnRcd;
+    //窗口对话人备注（呢称）显示
     private TextView who;
+    //窗口返回键
     private Button mBtnBack;
+    //文本聊天编辑
     private EditText mEditTextContent;
     private RelativeLayout mBottom;
+    //聊天内容显示界面
     private ListView mListView;
+    //聊天内容显示界面listView适配器
     private ChatMsgViewAdapter mAdapter;
+    //聊天记录
     private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>();
+    //判断录音时间是否过短
     private boolean isShosrt = false;
+    //语音录制，对讲机等动画相关
     private LinearLayout voice_rcd_hint_loading, voice_rcd_hint_rcding,
             voice_rcd_hint_tooshort;
     private ImageView img1, sc_img1;
+    //语音文件
     private SoundMeter mSensor;
+    //录音层UI
     private View rcChat_popup;
+    //手指不在录音按钮Button范围内是动画
     private LinearLayout del_re;
-    private ImageView chatting_mode_btn, volume;
+    //发送图片选择面板切换按钮
+    private ImageView add_panel_im;
+    //选择面板
+    private RelativeLayout panel_add_rl;
+    //在图库中选取照片
+    private ImageView select_photo;
+    //拍照
+    private ImageView take_picture;
+    //语音录制切换按钮
+    private ImageView chatting_mode_btn;
+    //语音录制，模拟声音大小动画
+    private ImageView volume;
     private boolean btn_vocie = false;
+    //语音录制时的onTouchEvent标签
     private int flag = 1;
     private Handler mHandler = new Handler();
+    //语音文件命名
     private String voiceName;
+    //开始录制和结束录制时间
     private long startVoiceT, endVoiceT;
-
     //当前对话人id
     private String currentUserAccount;
     //当前对话人姓名
@@ -104,6 +117,10 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         img1 = (ImageView) this.findViewById(R.id.img1);
         sc_img1 = (ImageView) this.findViewById(R.id.sc_img1);
         del_re = (LinearLayout) this.findViewById(R.id.del_re);
+        add_panel_im = (ImageView) findViewById(R.id.panel_add_im);
+        panel_add_rl = (RelativeLayout) findViewById(R.id.add_panel_rl);
+        select_photo = (ImageView) findViewById(R.id.select_photo);
+        take_picture = (ImageView) findViewById(R.id.take_picture);
         voice_rcd_hint_rcding = (LinearLayout) this
                 .findViewById(R.id.voice_rcd_hint_rcding);
         voice_rcd_hint_loading = (LinearLayout) this
@@ -143,7 +160,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         });
     }
 
-    private String[] msgArray = new String[] { "有人就有恩怨","有恩怨就有江湖","人就是江湖","你怎么退出？ ","生命中充满了巧合","两条平行线也会有相交的一天。"};
+    private String[] msgArray = new String[] { "hello","what is wrong","s","ss ","sss","sssss"};
 
     private String[] dataArray = new String[] { "2012-10-31 18:00",
             "2012-10-31 18:10", "2012-10-31 18:11", "2012-10-31 18:20",
@@ -185,7 +202,25 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
             case R.id.btn_back:
                 finish();
                 break;
+            case R.id.panel_add_im:
+                addPanel();
         }
+    }
+
+    private void addPanel() {
+        panel_add_rl.setVisibility(View.VISIBLE);
+        select_photo.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        take_picture.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void send() {
@@ -282,8 +317,8 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                     del_re.setVisibility(View.GONE);
                     stop();
                     flag = 1;
-                    File file = new File(android.os.Environment.getExternalStorageDirectory()+"/"
-                            + voiceName);
+                    File file = new File(android.os.Environment.getExternalStorageDirectory()+
+                            "/DecipherStranger/cache/voice" + voiceName);
                     if (file.exists()) {
                         file.delete();
                     }
@@ -409,9 +444,5 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                 volume.setImageResource(R.drawable.amp7);
                 break;
         }
-    }
-
-    public void head_xiaohei(View v) { // 标题栏 返回按钮
-
     }
 }

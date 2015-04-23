@@ -22,6 +22,7 @@ public class RecentMainTabFragment extends Fragment implements RecentListView.IR
     private RecentListViewAdapter adapter;
     private RecentListView listView;
     private View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_main_recent,container,false);
@@ -35,9 +36,9 @@ public class RecentMainTabFragment extends Fragment implements RecentListView.IR
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String userAccount = recentChatData.get(position-1).getRecentUserAccount();
-                String userName = recentChatData.get(position-1).getRecentUserName();
-                int userPhotoId = recentChatData.get(position-1).getRecentUserPhotoId();
+                String userAccount = recentChatData.get(position).getRecentUserAccount();
+                String userName = recentChatData.get(position).getRecentUserName();
+                int userPhotoId = recentChatData.get(position).getRecentUserPhotoId();
                 Intent intent = new Intent(getActivity(),ChatMsgActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("userAccount",userAccount);

@@ -27,10 +27,12 @@ import java.nio.channels.Channels;
 * //注释代表两种写法。
 * */
 public class ChangeUtils {
+    private byte[] buffer;
+
     /*
-    * toBinary 将Bitmap转为String
-    * @param bitmap 要转换的
-    * */
+        * toBinary 将Bitmap转为String
+        * @param bitmap 要转换的
+        * */
     public static String toBinary(Bitmap bitmap) {
         if (bitmap == null) {
             return "False";
@@ -83,10 +85,10 @@ public class ChangeUtils {
     * */
     public static Bitmap toBitmap(String s) {
         //byte[] Buffer = s.getBytes();
-        byte[] Buffer = Base64.decode(s, Base64.DEFAULT);
+        byte[] buffer = Base64.decode(s, Base64.DEFAULT);
         //ByteArrayInputStream inputStream = new ByteArrayInputStream(Buffer);
         //Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(Buffer, 0, Buffer.length, null);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(buffer, 0, buffer.length, null);
         return bitmap;
     }
 

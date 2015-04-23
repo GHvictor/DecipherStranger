@@ -75,9 +75,9 @@ public class NearbyListViewAdapter extends BaseAdapter {
             holder.nearbyUserName.setText(nearbyUserInfo.getUserName());
             holder.nearbyUserDistance.setText(nearbyUserInfo.getDistance());
             if (nearbyUserInfo.getSex() == MAN){
-                holder.nearbyUserSex.setImageResource(R.drawable.nearby_user_man);
+                holder.nearbyUserSex.setImageResource(R.drawable.ic_sex_male);
             }else if(nearbyUserInfo.getSex() == WOMAN){
-                holder.nearbyUserSex.setImageResource(R.drawable.nearby_user_woman);
+                holder.nearbyUserSex.setImageResource(R.drawable.ic_sex_female);
             }
         } catch (Exception e) {
             e.printStackTrace();

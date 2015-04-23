@@ -1,5 +1,6 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -15,9 +16,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
-import com.android.decipherstranger.entity.SortModel;
+import com.android.decipherstranger.activity.FriendInfoActivity;
+import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.CharacterParser;
 import com.android.decipherstranger.util.PinyinComparator;
+import com.android.decipherstranger.view.BadgeView;
 import com.android.decipherstranger.view.ClearEditText;
 import com.android.decipherstranger.view.SideBar;
 import com.android.decipherstranger.view.SideBar.OnTouchingLetterChangedListener;
@@ -37,9 +40,12 @@ public class FriendsMainTabFragment extends Fragment{
     private ClearEditText mClearEditText;
     private View view;
 
+    private BadgeView friendsRequestCount;
+    private final static int NORMAL = 0;
+
     //将汉字转换成拼音
     private CharacterParser characterParser;
-    private List<SortModel> SourceDateList;
+    private List<User> SourceDateList;
 
     //根据拼音来排列ListView里面的数据
     private PinyinComparator pinyinComparator;
@@ -49,7 +55,28 @@ public class FriendsMainTabFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_main_friend_list,container,false);
         initViews();
+        itemOnclick();
         return view;
+    }
+
+    private void itemOnclick() {
+        sortListView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), FriendInfoActivity.class);
+                Bundle bundle =new Bundle();
+                bundle.putString("userPhoto",SourceDateList.get(position).getPortraitUrl());
+                bundle.putString("userName",SourceDateList.get(position).getUsername());
+                bundle.putString("userSex",SourceDateList.get(position).getUserSex());
+                bundle.putString("userAccount",SourceDateList.get(position).getAccount());
+                bundle.putString("userAtavar",SourceDateList.get(position).getUsername());
+                bundle.putString("userEmail",SourceDateList.get(position).getEmail());
+                bundle.putString("userBirth",SourceDateList.get(position).getBirth());
+                bundle.putString("userPhone",SourceDateList.get(position).getPhone());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initViews() {
@@ -60,6 +87,8 @@ public class FriendsMainTabFragment extends Fragment{
 
         sideBar = (SideBar) view.findViewById(R.id.sidrbar);
         dialog = (TextView) view.findViewById(R.id.dialog);
+        friendsRequestCount = (BadgeView) view.findViewById(R.id.friends_request_count);
+        friendsRequestCount(NORMAL);
         sideBar.setTextView(dialog);
 
         // 设置右侧触摸监听
@@ -82,7 +111,7 @@ public class FriendsMainTabFragment extends Fragment{
                                     int position, long id) {
                 // 这里要利用adapter.getItem(position)来获取当前position所对应的对象
                 Toast.makeText(getActivity(),
-                        ((SortModel) adapter.getItem(position)).getUserName(),
+                        ((User) adapter.getItem(position)).getUsername(),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -111,13 +140,13 @@ public class FriendsMainTabFragment extends Fragment{
     }
 
     //为ListView填充数据
-    private List<SortModel> filledData(String[] date) {
-        List<SortModel> mSortList = new ArrayList<SortModel>();
+    private List<User> filledData(String[] date) {
+        List<User> mSortList = new ArrayList<User>();
 
         for (int i = 0; i < date.length; i++) {
-            SortModel sortModel = new SortModel();
-            sortModel.setUserName(date[i]);
-            sortModel.setUserPhoto(R.drawable.mypic);
+            User sortModel = new User();
+            sortModel.setUsername(date[i]);
+//            sortModel.setPortraitUrl();  //好友头像
             // 汉字转换成拼音
             String pinyin = characterParser.getSelling(date[i]);
             String sortString = pinyin.substring(0, 1).toUpperCase();
@@ -136,14 +165,14 @@ public class FriendsMainTabFragment extends Fragment{
 
     //根据输入框内的值来过滤并更新ListView
     private void filterData(String filterStr) {
-        List<SortModel> filterDateList = new ArrayList<SortModel>();
+        List<User> filterDateList = new ArrayList<User>();
 
         if (TextUtils.isEmpty(filterStr)) {
             filterDateList = SourceDateList;
         } else {
             filterDateList.clear();
-            for (SortModel sortModel : SourceDateList) {
-                String name = sortModel.getUserName();
+            for (User sortModel : SourceDateList) {
+                String name = sortModel.getUsername();
                 if (name.indexOf(filterStr.toString()) != -1
                         || characterParser.getSelling(name).startsWith(
                         filterStr.toString())) {
@@ -155,5 +184,14 @@ public class FriendsMainTabFragment extends Fragment{
         // 根据a-z进行排序
         Collections.sort(filterDateList, pinyinComparator);
         adapter.updateListView(filterDateList);
+    }
+    //好友请求数目显示
+    public void friendsRequestCount(int friendsRequestCounts){
+        if (friendsRequestCounts != 0){
+            friendsRequestCount.setText(friendsRequestCounts);
+            friendsRequestCount.show();
+        }else {
+            friendsRequestCount.hide();
+        }
     }
 }
