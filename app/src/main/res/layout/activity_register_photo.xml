@@ -121,7 +121,11 @@
                 android:text="上传真实的头像，拉近真实的距离。"
                 android:textColor="@color/font_value"
                 android:textSize="14sp" />
-
+            <com.android.decipherstranger.view.HandyTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/test"
+                android:textSize="15sp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -153,6 +157,5 @@
 
         </LinearLayout>
     </ScrollView>
-
 
 </RelativeLayout>

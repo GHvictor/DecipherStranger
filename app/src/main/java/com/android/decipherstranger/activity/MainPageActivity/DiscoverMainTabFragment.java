@@ -1,9 +1,7 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +21,7 @@ public class DiscoverMainTabFragment extends Fragment implements View.OnClickLis
     private RelativeLayout sharkItOff;
     private RelativeLayout nearby;
     private RelativeLayout showMapNearby;
+    private RelativeLayout addFriendSetting;
     private Intent intent;
 
 
@@ -33,10 +32,12 @@ public class DiscoverMainTabFragment extends Fragment implements View.OnClickLis
         sharkItOff = (RelativeLayout) view.findViewById(R.id.shark_it_off);
         nearby = (RelativeLayout) view.findViewById(R.id.nearby);
         showMapNearby = (RelativeLayout) view.findViewById(R.id.show_map_nearby);
+        addFriendSetting = (RelativeLayout) view.findViewById(R.id.add_friend_settings);
         friendsState.setOnClickListener(this);
         sharkItOff.setOnClickListener(this);
         nearby.setOnClickListener(this);
         showMapNearby.setOnClickListener(this);
+        addFriendSetting.setOnClickListener(this);
         resetBckColor();
         return view;
     }
@@ -59,6 +60,9 @@ public class DiscoverMainTabFragment extends Fragment implements View.OnClickLis
             case R.id.show_map_nearby:
                 showMapNearby.setBackgroundColor(getResources().getColor(R.color.silvery));
                 goTo(3);
+                break;
+            case R.id.add_friend_settings:
+                goTo(4);
                 break;
         }
     }
@@ -87,6 +91,10 @@ public class DiscoverMainTabFragment extends Fragment implements View.OnClickLis
                 break;
             case 3:
                 intent = new Intent(getActivity(),ShowMapActivity.class);
+                startActivity(intent);
+                break;
+            case 4:
+                intent = new Intent(getActivity(),SetGradeActivity.class);
                 startActivity(intent);
                 break;
         }

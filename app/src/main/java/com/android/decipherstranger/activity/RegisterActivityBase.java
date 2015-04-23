@@ -374,8 +374,16 @@ public class RegisterActivityBase extends Activity {
         @Override
         public void onClick(View view){
             Intent it = new Intent(RegisterActivityBase.this,RegisterActivityPhoto.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("account", String.valueOf(accountEdit.getText()));
+            bundle.putString("possword", String.valueOf(passwordEdit.getText()));
+            bundle.putString("name", String.valueOf(nameEdit.getText()));
+            bundle.putString("sex", (String) sexButton.getText());
+            bundle.putString("email", String.valueOf(emailEdit.getText()));
+            bundle.putString("phone", String.valueOf(phoneEdit.getText()));
+            bundle.putString("birth", (String) birthButton.getText());
+            it.putExtras(bundle);
             startActivity(it);
-
         }
     }
 

@@ -63,5 +63,7 @@
     <string name="is_refreshing">正在刷新...</string>
     <string name="title_activity_test_upload_image">TestUploadImage</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string name="friend_request">好友请求</string>
 
 </resources>

@@ -18,7 +18,11 @@ import android.widget.Toast;
 import com.android.decipherstranger.R;
 
 import java.io.File;
+
+import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.Tools;
+import com.android.decipherstranger.view.HandyTextView;
 
 
 /**
@@ -26,9 +30,12 @@ import com.android.decipherstranger.util.Tools;
  */
 public class RegisterActivityPhoto extends Activity {
 
+    private HandyTextView test;
     private LinearLayout selectPhoto;
     private LinearLayout takePicture;
     private ImageView userPhoto;
+    private User userInfo;
+    private String portraitUrl;
 
     private Button previousStepButton;
     private Button registerButton;
@@ -43,6 +50,20 @@ public class RegisterActivityPhoto extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_photo);
         initView();
+
+    }
+
+    private void initData() {
+        Intent  intent = getIntent();
+        userInfo = new User();
+        userInfo.setAccount(intent.getStringExtra("account"));
+        userInfo.setPassword(intent.getStringExtra("possword"));
+        userInfo.setUsername(intent.getStringExtra("name"));
+        userInfo.setUserSex(intent.getStringExtra("sex"));
+        userInfo.setEmail(intent.getStringExtra("email"));
+        userInfo.setPhone(intent.getStringExtra("phone"));
+        userInfo.setBirth(intent.getStringExtra("birth"));
+        userInfo.setPortrait(portraitUrl);
     }
 
     private void initView(){
@@ -51,6 +72,13 @@ public class RegisterActivityPhoto extends Activity {
         this.userPhoto = (ImageView)super.findViewById(R.id.reg_photo_iv_userphoto);
         this.previousStepButton = (Button)super.findViewById(R.id.previous_step);
         this.registerButton = (Button)super.findViewById(R.id.register_btn);
+        this.test = (HandyTextView) findViewById(R.id.test);
+
+        try {
+            test.setText(userInfo.getAccount());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         this.selectPhoto.setOnClickListener(new selectPhotoOnClickListenerImpl());
         this.takePicture.setOnClickListener(new takePictureOnClickListenerImpl());
@@ -97,7 +125,8 @@ public class RegisterActivityPhoto extends Activity {
     public class registerButtonOnClickListenerImpl implements View.OnClickListener{
         @Override
         public void onClick(View view){
-
+            initData();
+            test.setText(userInfo.getPortraitUrl());
         }
     }
 
@@ -155,7 +184,10 @@ public class RegisterActivityPhoto extends Activity {
         Bundle extras = data.getExtras();
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
-            Drawable drawable = new BitmapDrawable(this.getResources(),photo);
+            ChangeUtils changeUtils = new ChangeUtils();
+            portraitUrl = changeUtils.toBinary(photo);
+            Bitmap p = changeUtils.toBitmap(portraitUrl);
+            Drawable drawable = new BitmapDrawable(this.getResources(),p);
             userPhoto.setImageDrawable(drawable);
         }
     }

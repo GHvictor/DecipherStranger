@@ -1,12 +1,12 @@
 package com.android.decipherstranger.util;
 
-import com.android.decipherstranger.entity.SortModel;
+import com.android.decipherstranger.entity.User;
 
 import java.util.Comparator;
 
-public class PinyinComparator implements Comparator<SortModel> {
+public class PinyinComparator implements Comparator<User> {
 
-	public int compare(SortModel o1, SortModel o2) {
+	public int compare(User o1, User o2) {
 		if (o1.getSortLetters().equals("@") || o2.getSortLetters().equals("#")) {
 			return -1;
 		} else if (o1.getSortLetters().equals("#")
