@@ -16,8 +16,6 @@ public class User implements Serializable {
     private String address = null;
     private String portrait = null;              //  头像
     private String signature = null;                //  个性签名
-    private String datetime = null;
-    private String message = null;
 
     public User(){}
     public User(User user) {
@@ -30,8 +28,6 @@ public class User implements Serializable {
         this.address = user.address;
         this.portrait = user.portrait;
         this.signature = user.signature;
-        this.datetime = user.datetime;
-        this.message = user.message;
     }
     
     public void setAccount(String account) {
@@ -106,19 +102,4 @@ public class User implements Serializable {
         return signature;
     }
 
-    public void setDatetime(String datetime) {
-        this.datetime = datetime;
-    }
-
-    public String getDatetime() {
-        return this.datetime;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return this.message;
-    }
 }

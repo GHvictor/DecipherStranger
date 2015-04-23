@@ -3,12 +3,13 @@ package com.android.decipherstranger.db;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.entity.User;
 
 import java.util.ArrayList;
 
 /**
- * へ　　　　　／|
+ *      へ　　　　　／|
  * 　　/＼7　　　 ∠＿/
  * 　 /　│　　 ／　／
  * 　│　Z ＿,＜　／　　 /`ヽ
@@ -37,7 +38,7 @@ public class RecentContacts {
     }
 
     //  更新数据
-    public ArrayList<User> update(String account, String name, String photo, String message) {
+    public ArrayList<Contacts> update(String account, String name, String photo, String message) {
         try {
             String insert = "insert into recent_contacts VALUES(?,?,?,?,datetime())";
             Object args[] = new Object[]{account,name,photo,message};
@@ -49,32 +50,32 @@ public class RecentContacts {
         }
         String select = "select * from recent_contacts order by contacts_time";
         Cursor result = this.db.rawQuery(select, null);
-        ArrayList<User> all = new ArrayList<User>();
+        ArrayList<Contacts> all = new ArrayList<Contacts>();
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
-            User user = new User();
-            user.setAccount(result.getString(0));
-            user.setUsername(result.getString(1));
-            user.setPortrait(result.getString(2));
-            user.setMessage(result.getString(3));
-            user.setDatetime(result.getString(4));
-            all.add(user);
+            Contacts contacts = new Contacts();
+            contacts.setAccount(result.getString(0));
+            contacts.setUsername(result.getString(1));
+            contacts.setPortrait(result.getString(2));
+            contacts.setMessage(result.getString(3));
+            contacts.setDatetime(result.getString(4));
+            all.add(contacts);
         } this.db.close();
         return all;
     }
 
     //  列表刷新
-    public ArrayList<User> refresh() {        
+    public ArrayList<Contacts> refresh() {        
         String sql = "select * from recent_contacts order by contacts_time";
         Cursor result = this.db.rawQuery(sql, null);
-        ArrayList<User> all = new ArrayList<User>();
+        ArrayList<Contacts> all = new ArrayList<Contacts>();
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
-            User user = new User();
-            user.setAccount(result.getString(0));
-            user.setUsername(result.getString(1));
-            user.setPortrait(result.getString(2));
-            user.setMessage(result.getString(3));
-            user.setDatetime(result.getString(4));
-            all.add(user);
+            Contacts contacts = new Contacts();
+            contacts.setAccount(result.getString(0));
+            contacts.setUsername(result.getString(1));
+            contacts.setPortrait(result.getString(2));
+            contacts.setMessage(result.getString(3));
+            contacts.setDatetime(result.getString(4));
+            all.add(contacts);
         } this.db.close();
         return all;
     }

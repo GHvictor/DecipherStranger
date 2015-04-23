@@ -21,16 +21,19 @@ public class DATABASE extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         this.CreateUserTab(db);
+        this.CreateChatRecord(db);
         this.CreateRecentContactsTab(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db,int oldVersion, int newVersion){
         this.DropUserTab(db);
+        this.DropChatRecord(db);
         this.DropRecentContactsTab(db);
         DATABASE.this.onCreate(db);
     }
     
+    //  登陆
     private void CreateUserTab(SQLiteDatabase db) {
         String sql = "CREATE TABLE user_tab (" +
                 "account    VARCHAR(50)     PRIMARY KEY," +
@@ -38,6 +41,7 @@ public class DATABASE extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
     
+    //  最近联系人
     private void CreateRecentContactsTab(SQLiteDatabase db) {
         String sql = "CREATE TABLE `recent_contacts` (" +
                 "`account` VARCHAR(20) PRIMARY KEY," +
@@ -48,6 +52,15 @@ public class DATABASE extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
     
+    //  聊天记录
+    private void CreateChatRecord(SQLiteDatabase db){
+        String sql = "CREATE TABLE `chatrecord` (" +
+                "  `contacts` varchar(20) DEFAULT NULL," +
+                "  `ismine` tinyint(1) DEFAULT NULL," +
+                "  `message` varchar(20) DEFAULT NULL," +
+                "  `chat_time` datetime DEFAULT NULL) ";
+        db.execSQL(sql);
+    }
     private void DropUserTab(SQLiteDatabase db) {
         String sql = "DROP TABLE IF EXISTS user_tab";
         db.execSQL(sql);
@@ -55,6 +68,11 @@ public class DATABASE extends SQLiteOpenHelper {
     
     private void DropRecentContactsTab(SQLiteDatabase db) {
         String sql = "DROP TABLE IF EXISTS `recent_contacts`;";
+        db.execSQL(sql);
+    }
+    
+    private void DropChatRecord(SQLiteDatabase db) {
+        String sql = "DROP TABLE IF EXISTS `chatrecord`";
         db.execSQL(sql);
     }
 }
