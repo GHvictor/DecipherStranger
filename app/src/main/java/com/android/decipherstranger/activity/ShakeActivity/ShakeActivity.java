@@ -171,9 +171,7 @@ public class ShakeActivity extends Activity{
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                System.out.printf("###AAaA");
                 searchFriend(); //  搜索同时参与摇一摇的好友
-                System.out.printf("###BBB");
             }
         }, 1000);
     }
