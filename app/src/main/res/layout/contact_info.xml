@@ -158,7 +158,7 @@
             android:textSize="15dip"
             android:text="发送消息"
             android:id="@+id/send_message"
-            android:background="@drawable/ty_btn_xxtz_js"/>
+            android:background="@null"/>
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -167,6 +167,6 @@
             android:textSize="15dip"
             android:text="删除好友"
             android:id="@+id/delete_friend"
-            android:background="@drawable/ty_btn_xxtz_yjs"/>
+            android:background="@null"/>
     </LinearLayout>
 </LinearLayout>

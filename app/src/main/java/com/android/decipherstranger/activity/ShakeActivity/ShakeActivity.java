@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.GameActivity.WelcomeActivity;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.ShakeListener;
@@ -189,42 +191,46 @@ public class ShakeActivity extends Activity{
             Log.v("Login", "已经执行T（）方法");
         }
         */
-/*        pop();
+ //       pop();
         progressDialog.dismiss();
         popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
-        popupWindow.showAsDropDown(findViewById(R.id.shake_image));*/
+        popupWindow.showAsDropDown(findViewById(R.id.shake_image));
     }
     
     public void ShakePopup(View view) {
         switch (view.getId()) {
             case R.id.shake_friend_info:
-   /*             Intent intent = new Intent(ShakeActivity.this,WelcomeActivity.class);
-                startActivity(intent);
-                this.finish();*/
+                Intent intent1 = new Intent(ShakeActivity.this,WelcomeActivity.class);
+                startActivity(intent1);
+                this.finish();
                 break;
             case R.id.userPhoto:
-                //  TODO 放大头像
-                Toast.makeText(this, "userPhoto", Toast.LENGTH_SHORT);
+/*                Intent intent2 = new Intent(ShakeActivity.this,PortraitPopWin.class);
+                intent2.putExtra("DRAWABLE",this.portrait.getDrawingCache());
+                startActivity(intent2);*/
                 break;
         }
     }
     
 /*    private void pop() {
         this.userName.setText("我是小涛啊");
+        Drawable portraitDrawable = getResources().getDrawable(R.drawable.mypic);
         Drawable drawable = getResources().getDrawable(R.drawable.man);
+        this.portrait.setImageDrawable(portraitDrawable);
         this.sex.setImageDrawable(drawable);
     }*/
 
     private void popInitView(Intent intent) {
-        Drawable drawable = null;
-        this.portrait.setImageBitmap(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+        Drawable sexDrawable = null;
+        Drawable portraitDrawable = new BitmapDrawable(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+        this.portrait.setImageDrawable(portraitDrawable);
         this.userName.setText(intent.getStringExtra("reAccount"));
         if (intent.getStringExtra("reGender").equals("男")) {
-            drawable = getResources().getDrawable(R.drawable.man);
+            sexDrawable = getResources().getDrawable(R.drawable.man);
         } else {
-            drawable = getResources().getDrawable(R.drawable.women);
+            sexDrawable = getResources().getDrawable(R.drawable.women);
         }
-        this.sex.setImageDrawable(drawable);
+        this.sex.setImageDrawable(sexDrawable);
     }
 
     private void registerBroadcas() {

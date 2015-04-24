@@ -77,7 +77,7 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 		changeUtils = new ChangeUtils();
 		Bitmap photo = null;
 		try {
-			photo = changeUtils.toBitmap(this.list.get(position).getPortraitUrl());
+			photo = changeUtils.toBitmap(this.list.get(position).getPortrait());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

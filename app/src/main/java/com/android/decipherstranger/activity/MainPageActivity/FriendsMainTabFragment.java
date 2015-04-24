@@ -43,11 +43,11 @@ public class FriendsMainTabFragment extends Fragment{
     private BadgeView friendsRequestCount;
     private final static int NORMAL = 0;
 
-    //½«ºº×Ö×ª»»³ÉÆ´Òô
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Æ´ï¿½ï¿½
     private CharacterParser characterParser;
     private List<User> SourceDateList;
 
-    //¸ù¾ÝÆ´ÒôÀ´ÅÅÁÐListViewÀïÃæµÄÊý¾Ý
+    //ï¿½ï¿½ï¿½ï¿½Æ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ListViewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private PinyinComparator pinyinComparator;
 
 
@@ -65,7 +65,7 @@ public class FriendsMainTabFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), FriendInfoActivity.class);
                 Bundle bundle =new Bundle();
-                bundle.putString("userPhoto",SourceDateList.get(position).getPortraitUrl());
+                bundle.putString("userPhoto",SourceDateList.get(position).getPortrait());
                 bundle.putString("userName",SourceDateList.get(position).getUsername());
                 bundle.putString("userSex",SourceDateList.get(position).getUserSex());
                 bundle.putString("userAccount",SourceDateList.get(position).getAccount());
@@ -80,7 +80,7 @@ public class FriendsMainTabFragment extends Fragment{
     }
 
     private void initViews() {
-        //ÊµÀý»¯ºº×Ö×ªÆ´Òô
+        //Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªÆ´ï¿½ï¿½
         characterParser = CharacterParser.getInstance();
 
         pinyinComparator = new PinyinComparator();
@@ -91,12 +91,12 @@ public class FriendsMainTabFragment extends Fragment{
         friendsRequestCount(NORMAL);
         sideBar.setTextView(dialog);
 
-        // ÉèÖÃÓÒ²à´¥Ãþ¼àÌý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ò²à´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
 
             @Override
             public void onTouchingLetterChanged(String s) {
-                // ¸Ã×ÖÄ¸Ê×´Î³öÏÖµÄÎ»ÖÃ
+                // ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½×´Î³ï¿½ï¿½Öµï¿½Î»ï¿½ï¿½
                 int position = adapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
                     sortListView.setSelection(position);
@@ -109,7 +109,7 @@ public class FriendsMainTabFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // ÕâÀïÒªÀûÓÃadapter.getItem(position)À´»ñÈ¡µ±Ç°positionËù¶ÔÓ¦µÄ¶ÔÏó
+                // ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½adapter.getItem(position)ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ç°positionï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ä¶ï¿½ï¿½ï¿½
                 Toast.makeText(getActivity(),
                         ((User) adapter.getItem(position)).getUsername(),
                         Toast.LENGTH_SHORT).show();
@@ -121,12 +121,12 @@ public class FriendsMainTabFragment extends Fragment{
         sortListView.setAdapter(adapter);
 
         mClearEditText = (ClearEditText)view.findViewById(R.id.filter_edit);
-        // ¸ù¾ÝÊäÈë¿òÊäÈëÖµµÄ¸Ä±äÀ´¹ýÂËËÑË÷
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ä¸Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         mClearEditText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // µ±ÊäÈë¿òÀïÃæµÄÖµÎª¿Õ£¬¸üÐÂÎªÔ­À´µÄÁÐ±í£¬·ñÔòÎª¹ýÂËÊý¾ÝÁÐ±í
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªï¿½Õ£ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÔ­ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
                 filterData(s.toString());
             }
             @Override
@@ -139,19 +139,19 @@ public class FriendsMainTabFragment extends Fragment{
         });
     }
 
-    //ÎªListViewÌî³äÊý¾Ý
+    //ÎªListViewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private List<User> filledData(String[] date) {
         List<User> mSortList = new ArrayList<User>();
 
         for (int i = 0; i < date.length; i++) {
             User sortModel = new User();
             sortModel.setUsername(date[i]);
-//            sortModel.setPortraitUrl();  //ºÃÓÑÍ·Ïñ
-            // ºº×Ö×ª»»³ÉÆ´Òô
+//            sortModel.setPortraitUrl();  //ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
+            // ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Æ´ï¿½ï¿½
             String pinyin = characterParser.getSelling(date[i]);
             String sortString = pinyin.substring(0, 1).toUpperCase();
 
-            // ÕýÔò±í´ïÊ½£¬ÅÐ¶ÏÊ××ÖÄ¸ÊÇ·ñÊÇÓ¢ÎÄ×ÖÄ¸
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½Ç·ï¿½ï¿½ï¿½Ó¢ï¿½ï¿½ï¿½ï¿½Ä¸
             if (sortString.matches("[A-Z]")) {
                 sortModel.setSortLetters(sortString.toUpperCase());
             } else {
@@ -163,7 +163,7 @@ public class FriendsMainTabFragment extends Fragment{
         return mSortList;
     }
 
-    //¸ù¾ÝÊäÈë¿òÄÚµÄÖµÀ´¹ýÂË²¢¸üÐÂListView
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ListView
     private void filterData(String filterStr) {
         List<User> filterDateList = new ArrayList<User>();
 
@@ -181,11 +181,11 @@ public class FriendsMainTabFragment extends Fragment{
             }
         }
 
-        // ¸ù¾Ýa-z½øÐÐÅÅÐò
+        // ï¿½ï¿½ï¿½ï¿½a-zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         Collections.sort(filterDateList, pinyinComparator);
         adapter.updateListView(filterDateList);
     }
-    //ºÃÓÑÇëÇóÊýÄ¿ÏÔÊ¾
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Ê¾
     public void friendsRequestCount(int friendsRequestCounts){
         if (friendsRequestCounts != 0){
             friendsRequestCount.setText(friendsRequestCounts);

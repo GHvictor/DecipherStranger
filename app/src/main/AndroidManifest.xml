@@ -38,8 +38,11 @@
             android:label="@string/app_name_ch"
             android:theme="@style/AppTheme" />
 
+        <!--摇一摇-->
         <activity android:name=".activity.ShakeActivity.ShakeActivity"/>
+        <activity android:name=".activity.ShakeActivity.PortraitPopWin"/>
         
+        <!--游戏-->
         <activity android:name=".activity.GameActivity.WelcomeActivity"/>
         <activity android:name=".activity.GameActivity.SetGradeActivity"/>
         <activity android:name=".activity.GameActivity.RockPaperScissorsActivity" />

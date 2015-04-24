@@ -126,7 +126,7 @@ public class RegisterActivityPhoto extends Activity {
         @Override
         public void onClick(View view){
             initData();
-            test.setText(userInfo.getPortraitUrl());
+            test.setText(userInfo.getPortrait());
         }
     }
 
