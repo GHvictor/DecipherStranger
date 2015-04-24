@@ -26,12 +26,10 @@ public class User implements Serializable {
     private String address = null;
     //显示用户名拼音的首字母
     private String sortLetters;
-    //  头像相对路径
-    private String portraitUrl = null;
+    //  头像
+    private String portrait = null;
     //  个性签名
     private String signature = null;
-
-    private String portrait = null;
 
     public User(){}
     public User(User user) {
@@ -44,8 +42,6 @@ public class User implements Serializable {
         this.address = user.address;
         this.portrait = user.portrait;
         this.signature = user.signature;
-        this.datetime = user.datetime;
-        this.message = user.message;
     }
 
     public void setAccount(String account) {this.account = account;}
@@ -92,14 +88,6 @@ public class User implements Serializable {
 
     public String getAddress() {return address;}
 
-    public void setPortraitUrl(String portraitUrl) {
-        this.portraitUrl = portraitUrl;
-    }
-
-    public String getPortraitUrl() {
-        return portraitUrl;
-    }
-
     public void setSignature(String portraitUrl) {
         this.signature = signature;
     }
@@ -107,6 +95,7 @@ public class User implements Serializable {
     public String getSignature() {
         return signature;
     }
+    
     public String getSortLetters() {return sortLetters;}
 
     public void setSortLetters(String sortLetters) {this.sortLetters = sortLetters;}
@@ -117,12 +106,5 @@ public class User implements Serializable {
 
     public void setPortrait(String portrait) {this.portrait = portrait;}
 
-    public String getDatetime() {return datetime;}
-
-    public void setDatetime(String datetime) {this.datetime = datetime;}
-
-    public String getMessage() {return message;}
-
-    public void setMessage(String message) {this.message = message;}
 
 }
