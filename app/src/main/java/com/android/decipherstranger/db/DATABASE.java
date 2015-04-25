@@ -44,11 +44,11 @@ public class DATABASE extends SQLiteOpenHelper {
     //  最近联系人
     private void CreateRecentContactsTab(SQLiteDatabase db) {
         String sql = "CREATE TABLE `recent_contacts` (" +
-                "`account` VARCHAR(20) PRIMARY KEY," +
-                "`username` VARCHAR(20) DEFAULT NULL," +
-                "`userphoto` VARCHAR(20) DEFAULT NULL," +
-                "`newest` VARCHAR(200) DEFAULT NULL," +
-                "`contacts_time` DATETIME DEFAULT NULL)";
+                "  `account` varchar(20) DEFAULT NULL," +
+                "  `username` varchar(20) DEFAULT NULL," +
+                "  `userphoto` mediumblob," +
+                "  `newest` varchar(30) DEFAULT NULL," +
+                "  `contacts_time` datetime DEFAULT NULL)" ;
         db.execSQL(sql);
     }
     
