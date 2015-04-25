@@ -67,4 +67,24 @@ public class UserTabOperate {
         this.db.close();
         return all;
     }
+    
+    /*
+     * 删除指定联系人记录
+     */    
+    public void delete(String account) {
+        String delete = "delete from user_tab where contacts=?";
+        String args[] = new String[]{account};
+        this.db.execSQL(delete,args);
+        this.db.close();
+    }
+
+    /*
+     * 清空所有记录
+     */
+    public void clear() {
+        String clear = "DELETE FROM user_tab";
+        this.db.execSQL(clear);
+        this.db.close();
+    }
+    
 }

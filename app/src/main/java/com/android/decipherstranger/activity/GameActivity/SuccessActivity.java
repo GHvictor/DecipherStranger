@@ -20,16 +20,9 @@ public class SuccessActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_success);
-        new Thread() {
-            public void run() {
-                //  TODO 模拟发送成功信息至服务器
-                try {
-                    Thread.sleep(1000);
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+
+           //  TODO 添加好友成功 发送推送
+
         MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.makefriend_success);
         mediaPlayer.start();
         Handler handler = new Handler();

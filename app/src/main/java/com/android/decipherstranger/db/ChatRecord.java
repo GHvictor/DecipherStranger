@@ -67,4 +67,24 @@ public class ChatRecord {
         } this.db.close();
         return all;
     }
+    
+    /*
+     * 删除指定联系人聊天记录
+     * @param String account
+     */
+    public void delete(String account) {
+        String delete = "delete from chatrecord where contacts=?";
+        String args[] = new String[]{account};
+        this.db.execSQL(delete,args);
+        this.db.close();
+    }
+    
+    /*
+     * 清空所有聊天记录
+     */
+    public void clear() {
+        String clear = "DELETE FROM chatrecord";
+        this.db.execSQL(clear);
+        this.db.close();
+    }
 }
