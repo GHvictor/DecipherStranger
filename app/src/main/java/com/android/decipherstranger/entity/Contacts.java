@@ -30,7 +30,7 @@ public class Contacts {
     private int who = 0;
     private String datetime = null;
     private String message = null;
-    private int timeLen = 0;
+    private String timeLen = null;
     
     public Contacts(){}
     public Contacts(Contacts contacts) {
@@ -91,11 +91,11 @@ public class Contacts {
         return this.message;
     }
 
-    public int getTimeLen() {
+    public String getTimeLen() {
         return timeLen;
     }
 
-    public void setTimeLen(int timeLen) {
+    public void setTimeLen(String timeLen) {
         this.timeLen = timeLen;
     }
     

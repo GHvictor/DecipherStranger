@@ -22,6 +22,7 @@ public class DATABASE extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
         this.CreateUserTab(db);
         this.CreateChatRecord(db);
+        this.CreateContactsList(db);
         this.CreateRecentContactsTab(db);
     }
 
@@ -29,6 +30,7 @@ public class DATABASE extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db,int oldVersion, int newVersion){
         this.DropUserTab(db);
         this.DropChatRecord(db);
+        this.DropContactsList(db);
         this.DropRecentContactsTab(db);
         DATABASE.this.onCreate(db);
     }
@@ -55,12 +57,31 @@ public class DATABASE extends SQLiteOpenHelper {
     //  聊天记录
     private void CreateChatRecord(SQLiteDatabase db){
         String sql = "CREATE TABLE `chatrecord` (" +
-                "  `contacts` varchar(20) DEFAULT NULL," +
+                "  `contacts` varchar(20) NOT NULL," +
                 "  `ismine` tinyint(1) DEFAULT NULL," +
                 "  `message` varchar(20) DEFAULT NULL," +
-                "  `chat_time` datetime DEFAULT NULL) ";
+                "  `chat_time` datetime DEFAULT NULL," +
+                "  `timeLen` varbinary(5) DEFAULT NULL," +
+                "  PRIMARY KEY (`contacts`)" +
+                ")";
         db.execSQL(sql);
     }
+    
+    private void CreateContactsList(SQLiteDatabase db) {
+        String sql = "CREATE TABLE `contacts_list` (" +
+                "  `account` varbinary(20) NOT NULL," +
+                "  `username` varbinary(20) DEFAULT NULL," +
+                "  `remark` varbinary(20) DEFAULT NULL," +
+                "  `portrait` mediumblob," +
+                "  `sex` varbinary(10) DEFAULT NULL," +
+                "  `email` varbinary(20) DEFAULT NULL," +
+                "  `birth` date DEFAULT NULL," +
+                "  `phone` varbinary(15) DEFAULT NULL," +
+                "  PRIMARY KEY (`account`)" +
+                ") ";
+        db.execSQL(sql);
+    }
+    
     private void DropUserTab(SQLiteDatabase db) {
         String sql = "DROP TABLE IF EXISTS user_tab";
         db.execSQL(sql);
@@ -73,6 +94,11 @@ public class DATABASE extends SQLiteOpenHelper {
     
     private void DropChatRecord(SQLiteDatabase db) {
         String sql = "DROP TABLE IF EXISTS `chatrecord`";
+        db.execSQL(sql);
+    }
+    
+    private void DropContactsList(SQLiteDatabase db) {
+        String sql = "DROP TABLE IF EXISTS `contacts_list`";
         db.execSQL(sql);
     }
 }
