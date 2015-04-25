@@ -48,6 +48,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="30dp"
             android:id="@+id/nearby_list_view_sex"
-            android:src="@drawable/ic_sex_male"/>
+           /> android:src="@drawable/ic_sex_male"/>
     </RelativeLayout>
 </LinearLayout>

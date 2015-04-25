@@ -25,7 +25,10 @@ public class MyStatic {
     public static final String FILENAME_SETTINGS = "Settings";
     public static final String KEY_BG = "gameBgMusic";
     public static final String KEY_EFFECT = "gameEffectMusic";
-    public static final String Login_result = "true";
+    public static final String resultTrue = "true";
+    public static final String resultFalse = "false";
+
+    public static String UserAccount = null;
 
     public static boolean gameEffectMusicFlag = true;         //  游戏音效控制标志
     public static boolean gameBackgroundMusicFlag = true;     //  游戏音乐控制标志

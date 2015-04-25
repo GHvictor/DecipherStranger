@@ -74,7 +74,7 @@ public class NetworkService {
     }
 
     public void sendUpload(String s) {
-        jsonArray = s.split("-");
+        jsonArray = s.split(":");
         JSONObject jsonObjSend = new JSONObject();
 
         for (int i = 0; i < jsonArray.length; i += 2) {

@@ -36,66 +36,51 @@ import java.util.List;
  */
 public class ChatMsgActivity extends Activity implements OnClickListener {
 
-    //·¢ËÍ°´Å¥
     private Button mBtnSend;
-    //ÓïÒôÂ¼ÖÆ°´Å¥
     private TextView mBtnRcd;
-    //´°¿Ú¶Ô»°ÈË±¸×¢£¨ÄØ³Æ£©ÏÔÊ¾
     private TextView who;
-    //´°¿Ú·µ»Ø¼ü
     private Button mBtnBack;
-    //ÎÄ±¾ÁÄÌì±à¼­
     private EditText mEditTextContent;
     private RelativeLayout mBottom;
-    //ÁÄÌìÄÚÈİÏÔÊ¾½çÃæ
     private ListView mListView;
-    //ÁÄÌìÄÚÈİÏÔÊ¾½çÃælistViewÊÊÅäÆ÷
     private ChatMsgViewAdapter mAdapter;
-    //ÁÄÌì¼ÇÂ¼
     private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>();
-    //ÅĞ¶ÏÂ¼ÒôÊ±¼äÊÇ·ñ¹ı¶Ì
     private boolean isShosrt = false;
-    //ÓïÒôÂ¼ÖÆ£¬¶Ô½²»úµÈ¶¯»­Ïà¹Ø
     private LinearLayout voice_rcd_hint_loading, voice_rcd_hint_rcding,
             voice_rcd_hint_tooshort;
     private ImageView img1, sc_img1;
-    //ÓïÒôÎÄ¼ş
     private SoundMeter mSensor;
-    //Â¼Òô²ãUI
     private View rcChat_popup;
-    //ÊÖÖ¸²»ÔÚÂ¼Òô°´Å¥Button·¶Î§ÄÚÊÇ¶¯»­
     private LinearLayout del_re;
-    //·¢ËÍÍ¼Æ¬Ñ¡ÔñÃæ°åÇĞ»»°´Å¥
+    //ï¿½ï¿½ï¿½ï¿½Í¼Æ¬Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½Å¥
     private ImageView add_panel_im;
-    //Ñ¡ÔñÃæ°å
+    //Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½
     private RelativeLayout panel_add_rl;
-    //ÔÚÍ¼¿âÖĞÑ¡È¡ÕÕÆ¬
+    //ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ñ¡È¡ï¿½ï¿½Æ¬
     private ImageView select_photo;
-    //ÅÄÕÕ
+    //ï¿½ï¿½ï¿½ï¿½
     private ImageView take_picture;
-    //ÓïÒôÂ¼ÖÆÇĞ»»°´Å¥
+    //ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½Å¥
     private ImageView chatting_mode_btn;
-    //ÓïÒôÂ¼ÖÆ£¬Ä£ÄâÉùÒô´óĞ¡¶¯»­
+    //ï¿½ï¿½ï¿½ï¿½Â¼ï¿½Æ£ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½
     private ImageView volume;
     private boolean btn_vocie = false;
-    //ÓïÒôÂ¼ÖÆÊ±µÄonTouchEvent±êÇ©
     private int flag = 1;
     private Handler mHandler = new Handler();
-    //ÓïÒôÎÄ¼şÃüÃû
     private String voiceName;
-    //¿ªÊ¼Â¼ÖÆºÍ½áÊøÂ¼ÖÆÊ±¼ä
     private long startVoiceT, endVoiceT;
-    //µ±Ç°¶Ô»°ÈËid
+
+    //ï¿½ï¿½Ç°ï¿½Ô»ï¿½ï¿½ï¿½id
     private String currentUserAccount;
-    //µ±Ç°¶Ô»°ÈËĞÕÃû
+    //ï¿½ï¿½Ç°ï¿½Ô»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private String currentUserName;
-    //µ±Ç°¶Ô»°ÈËÍ·Ïñ
+    //ï¿½ï¿½Ç°ï¿½Ô»ï¿½ï¿½ï¿½Í·ï¿½ï¿½
     private int currentUserPhotoId;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        // Æô¶¯activityÊ±²»×Ô¶¯µ¯³öÈí¼üÅÌ
+        // ï¿½ï¿½ï¿½ï¿½activityÊ±ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         initView();
@@ -130,7 +115,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         mSensor = new SoundMeter();
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
 
-        //ÓïÒôÎÄ×ÖÇĞ»»°´Å¥
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½Å¥
         chatting_mode_btn.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
@@ -154,7 +139,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         mBtnRcd.setOnTouchListener(new OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
-                //°´ÏÂÓïÒôÂ¼ÖÆ°´Å¥Ê±·µ»ØfalseÖ´ĞĞ¸¸ÀàOnTouch
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½Æ°ï¿½Å¥Ê±ï¿½ï¿½ï¿½ï¿½falseÖ´ï¿½Ğ¸ï¿½ï¿½ï¿½OnTouch
                 return false;
             }
         });
@@ -181,7 +166,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                 entity.setUserPhoto(currentUserPhotoId);
                 entity.setMsgType(1);
             } else {
-                entity.setName("¸ß¸»Ë§");
+                entity.setName("ï¿½ß¸ï¿½Ë§");
                 entity.setMsgType(0);
             }
 
@@ -228,7 +213,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         if (contString.length() > 0) {
             ChatMsgEntity entity = new ChatMsgEntity();
             entity.setDate(getDate());
-            entity.setName("¸ß¸»Ë§");
+            entity.setName("ï¿½ß¸ï¿½Ë§");
             entity.setMsgType(0);
             entity.setText(contString);
 
@@ -257,7 +242,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         return sbBuffer.toString();
     }
 
-    //°´ÏÂÓïÒôÂ¼ÖÆ°´Å¥Ê±
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½Æ°ï¿½Å¥Ê±
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -269,7 +254,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         if (btn_vocie) {
             System.out.println("1");
             int[] location = new int[2];
-            mBtnRcd.getLocationInWindow(location); // »ñÈ¡ÔÚµ±Ç°´°¿ÚÄÚµÄ¾ø¶Ô×ø±ê
+            mBtnRcd.getLocationInWindow(location); // ï¿½ï¿½È¡ï¿½Úµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ¾ï¿½ï¿½ï¿½ï¿½ï¿½
             int btn_rc_Y = location[1];
             int btn_rc_X = location[0];
             int[] del_location = new int[2];
@@ -282,7 +267,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                     return false;
                 }
                 System.out.println("2");
-                if (event.getY() > btn_rc_Y && event.getX() > btn_rc_X) {//ÅĞ¶ÏÊÖÊÆ°´ÏÂµÄÎ»ÖÃÊÇ·ñÊÇÓïÒôÂ¼ÖÆ°´Å¥µÄ·¶Î§ÄÚ
+                if (event.getY() > btn_rc_Y && event.getX() > btn_rc_X) {//ï¿½Ğ¶ï¿½ï¿½ï¿½ï¿½Æ°ï¿½ï¿½Âµï¿½Î»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½Æ°ï¿½Å¥ï¿½Ä·ï¿½Î§ï¿½ï¿½
                     System.out.println("3");
                     mBtnRcd.setBackgroundResource(R.drawable.voice_rcd_btn_pressed);
                     rcChat_popup.setVisibility(View.VISIBLE);
@@ -305,7 +290,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                     start(voiceName);
                     flag = 2;
                 }
-            } else if (event.getAction() == MotionEvent.ACTION_UP && flag == 2) {//ËÉ¿ªÊÖÊÆÊ±Ö´ĞĞÂ¼ÖÆÍê³É
+            } else if (event.getAction() == MotionEvent.ACTION_UP && flag == 2) {//ï¿½É¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ö´ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
                 System.out.println("4");
                 mBtnRcd.setBackgroundResource(R.drawable.voice_rcd_btn_nor);
                 if (event.getY() >= del_Y
@@ -346,7 +331,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                     }
                     ChatMsgEntity entity = new ChatMsgEntity();
                     entity.setDate(getDate());
-                    entity.setName("¸ß¸»Ë§");
+                    entity.setName("ï¿½ß¸ï¿½Ë§");
                     entity.setMsgType(0);
                     entity.setTime(time+"\"");
                     entity.setText(voiceName);
@@ -357,7 +342,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
 
                 }
             }
-            if (event.getY() < btn_rc_Y) {//ÊÖÊÆ°´ÏÂµÄÎ»ÖÃ²»ÔÚÓïÒôÂ¼ÖÆ°´Å¥µÄ·¶Î§ÄÚ
+            if (event.getY() < btn_rc_Y) {//ï¿½ï¿½ï¿½Æ°ï¿½ï¿½Âµï¿½Î»ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½Æ°ï¿½Å¥ï¿½Ä·ï¿½Î§ï¿½ï¿½
                 System.out.println("5");
                 Animation mLitteAnimation = AnimationUtils.loadAnimation(this,
                         R.anim.cancel_rc);

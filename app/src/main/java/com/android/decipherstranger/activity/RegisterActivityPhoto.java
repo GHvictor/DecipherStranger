@@ -9,18 +9,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 
 import java.io.File;
 
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
+
+import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.ChangeUtils;
+import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.Tools;
 import com.android.decipherstranger.view.HandyTextView;
 
@@ -50,7 +56,6 @@ public class RegisterActivityPhoto extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_photo);
         initView();
-
     }
 
     private void initData() {
@@ -126,35 +131,64 @@ public class RegisterActivityPhoto extends Activity {
         @Override
         public void onClick(View view){
             initData();
-            test.setText(userInfo.getPortrait());
+/*
+            NetworkService.getInstance().closeConnection();
+            NetworkService.getInstance().onInit(RegisterActivityPhoto.this);
+            NetworkService.getInstance().setupConnection();
+            int userGender = 1;
+            if(NetworkService.getInstance().getIsConnected()) {
+                if (userInfo.getUserSex().equals("男")){
+                    userGender = 1;
+                }
+                else
+                    userGender = 0;
+                String sendInfo= "type"+":"+Integer.toString(GlobalMsgUtils.msgRegister)+":"+
+                        "account"+":"+userInfo.getAccount()+":"+
+                        "password"+":"+userInfo.getPassword()+":"+
+                        "name"+":"+userInfo.getUsername()+":"+
+                        "sex"+":"+userGender+":"+
+                        "email"+":"+userInfo.getEmail()+":"+
+                        "phone"+":"+userInfo.getPhone()+":"+
+                        "birth"+":"+userInfo.getBirth()+":"+
+                        "photo"+":"+userInfo.getPortrait();
+                System.out.println(userInfo.getPortrait());
+                Log.v("aaaaa", sendInfo);
+                NetworkService.getInstance().sendUpload(sendInfo);
+            }
+            else {
+                NetworkService.getInstance().closeConnection();
+                Toast.makeText(RegisterActivityPhoto.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+                Log.v("Login", "已经执行T（）方法");
+            }
+*/
         }
     }
 
     @Override
-       protected void onActivityResult( int requestCode, int resultCode, Intent data){
-            switch (requestCode) {
-                case IMAGE_REQUEST_CODE:
-                    startPhotoZoom(data.getData());
-                    break;
-                case CAMERA_REQUEST_CODE:
-                    if (Tools.hasSdcard()) {
-                        File path = Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                        File tempFile = new File(path, IMAGE_FILE_NAME);
-                        startPhotoZoom(Uri.fromFile(tempFile));
-                    } else {
-                        Toast.makeText(RegisterActivityPhoto.this, "未找到存储卡，无法存储照片！",
-                                Toast.LENGTH_LONG).show();
-                    }
-                    break;
-                case RESULT_REQUEST_CODE:
-                    if (data != null) {
-                        getImageToView(data);
-                    }
-                    break;
-            }
-            super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult( int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case IMAGE_REQUEST_CODE:
+                startPhotoZoom(data.getData());
+                break;
+            case CAMERA_REQUEST_CODE:
+                if (Tools.hasSdcard()) {
+                    File path = Environment
+                            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                    File tempFile = new File(path, IMAGE_FILE_NAME);
+                    startPhotoZoom(Uri.fromFile(tempFile));
+                } else {
+                    Toast.makeText(RegisterActivityPhoto.this, "未找到存储卡，无法存储照片！",
+                            Toast.LENGTH_LONG).show();
+                }
+                break;
+            case RESULT_REQUEST_CODE:
+                if (data != null) {
+                    getImageToView(data);
+                }
+                break;
         }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
     /**
      * 裁剪图片方法实现
      *

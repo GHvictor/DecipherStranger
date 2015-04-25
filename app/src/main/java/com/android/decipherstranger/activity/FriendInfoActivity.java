@@ -33,7 +33,7 @@ public class FriendInfoActivity extends Activity {
 
     private ChangeUtils changeUtils;
 
-    private final static String MALE = "ÄÐ";
+    private final static String MALE = "ç”·";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +98,4 @@ public class FriendInfoActivity extends Activity {
             }
         });
     }
-
-
 }

@@ -9,4 +9,7 @@ public class GlobalMsgUtils {
     public static final int msgMessage = 2;
     public static final int msgShake = 3;
     public static final int msgFriendList = 4;
+    public static final int msgGameOneRecieve = 5;
+    public static final int msgGameOneSend = 6;
+    public static final int msgGameOneGrade = 7;
 }

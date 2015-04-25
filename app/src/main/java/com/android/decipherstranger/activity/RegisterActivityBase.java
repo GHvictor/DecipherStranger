@@ -153,7 +153,7 @@ public class RegisterActivityBase extends Activity {
                         }
                     },1990,9,22);
             dialog.show();
-                RegisterActivityBase.this.birthIcon.setError("Success", OkIcon);
+            RegisterActivityBase.this.birthIcon.setError("Success", OkIcon);
         }
     }
 
@@ -387,54 +387,6 @@ public class RegisterActivityBase extends Activity {
         }
     }
 
-//    private class registerOnClickListenerImpl implements View.OnClickListener {
-//        @Override
-//        public void onClick(View view){
-//
-//            RegisterActivityBase.this.registerButton.setFocusable(true);
-//            RegisterActivityBase.this.registerButton.setFocusableInTouchMode(true);
-//            RegisterActivityBase.this.registerButton.requestFocus();
-//            RegisterActivityBase.this.registerButton.requestFocusFromTouch();
-//
-//            if (accountBool && passwordBool && rePawBool && nameBool && emailBool && phoneBool && birthBool && sexBool){
-//
-//                User user = new User();
-//                user.setAccount(accountEdit.getText().toString());
-//                user.setPassword(stringUtils.MD5(passwordEdit.getText().toString()));
-//                user.setUsername(nameEdit.getText().toString());
-//                user.setEmail(emailEdit.getText().toString());
-//                user.setPhone(phoneEdit.getText().toString());
-//                user.setBirth(birthButton.getText().toString());
-//                user.setSex(sexButton.getText().toString());
-//                Toast.makeText(RegisterActivityBase.this, "注册成功,请登陆", Toast.LENGTH_LONG).show();
-//
-//                /*发送数据包至服务端*/
-//                if (registerWeb(user)) {
-//                    Toast toast = Toast.makeText(RegisterActivityBase.this, "注册成功,请登陆", Toast.LENGTH_LONG);
-//                    toast.show();
-//
-//                    Intent it = new Intent(RegisterActivityBase.this, LoginActivity.class);
-///*
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("user", user);
-//                    it.putExtras(bundle);
-//                    */
-//                    RegisterActivityBase.this.startActivity(it);
-//                    RegisterActivityBase.this.finish();
-//                }
-//
-//            }else {
-//                Toast toast = Toast.makeText(RegisterActivityBase.this, "请确认信息是否填写完整", Toast.LENGTH_LONG);
-//                toast.show();
-//            }
-//
-//        }
-//    }
-
-    private boolean registerWeb(User user){
-        return false;
-    }
-
     private boolean checkAccountTop(String s){
         return s.matches("^[a-zA-Z].{5,19}");    //     字母开头
     }
@@ -458,13 +410,5 @@ public class RegisterActivityBase extends Activity {
     private boolean checkPhone(String s) {
         return s.matches("^((13[0-9])|(14[5,7])|(15[^4,//D])|(17[0,5-7,9])|(18[^4,//D]]))[0-9]{8}$");     //手机号码
     }
-
-/*
-    未完成函数;
-        1.registerWeb();
-            将注册信息数据包发送至服务端，以实现注册
-        2.checkAccountUse();
-            将用户名信息数据包发送至服务端，一检查改用户名是否被使用
-    */
 }
 

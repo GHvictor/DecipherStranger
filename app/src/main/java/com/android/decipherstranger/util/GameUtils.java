@@ -1,6 +1,11 @@
 
 package com.android.decipherstranger.util;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import com.android.decipherstranger.Network.NetworkService;
+
 import java.util.Random;
 
 /**
@@ -39,16 +44,42 @@ public class GameUtils {
     
     //  获取用户习性
     public static void get(){
+/*
+        if(NetworkService.getInstance().getIsConnected()){
+            String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneRecieve)+"account"+":"+MyStatic.UserAccount;
+            Log.v("aaaaa", gameUser);
+            NetworkService.getInstance().sendUpload(gameUser);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            //Toast.makeText(LoginActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+            Log.v("Login", "已经执行T（）方法");
+        }
+*/
+        /*
         int a = 33;
         int b = 33;
         int c = 33;
         MyStatic.rockInt = a;
         MyStatic.scissorsInt = b;
-        MyStatic.paperInt = c;
+        MyStatic.paperInt = c;*/
     }
     
     //  上传用户习性
     public static void set(){
-        
+/*
+        if(NetworkService.getInstance().getIsConnected()){
+            String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneSend)+
+                    ":"+"account"+":"+MyStatic.UserAccount+":"+"rock"+":"+MyStatic.rockInt+":"+
+                    "scissors"+":"+MyStatic.scissorsInt+":"+"paper"+":"+MyStatic.paperInt;
+            Log.v("aaaaa", gameUser);
+            NetworkService.getInstance().sendUpload(gameUser);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            //Toast.makeText(LoginActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+            Log.v("Login", "已经执行T（）方法");
+        }
+*/
     }
 }

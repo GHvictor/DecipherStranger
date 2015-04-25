@@ -183,7 +183,7 @@ public class ShakeActivity extends Activity{
         progressDialog.onStart();
         progressDialog.show();
 
-/*        if(NetworkService.getInstance().getIsConnected()) {
+        /*if(NetworkService.getInstance().getIsConnected()) {
             String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgShake)+":"+"account"+":"+MyStatic.UserAccount;
             Log.v("aaaaa", userInfo);
             NetworkService.getInstance().sendUpload(userInfo);
@@ -193,7 +193,7 @@ public class ShakeActivity extends Activity{
             Toast.makeText(ShakeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
         }*/
-        
+
     }
 
     public void ShakePopup(View view) {
@@ -236,11 +236,17 @@ public class ShakeActivity extends Activity{
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.SHAKE")) {
-                popInitView(intent);
-                MyStatic.friendAccount = intent.getStringExtra("reAccount");
-                progressDialog.dismiss();
-                popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
-                popupWindow.showAsDropDown(findViewById(R.id.shake_image));
+                if(intent.getBooleanExtra("reResult", false)) {
+                    popInitView(intent);
+                    MyStatic.friendAccount = intent.getStringExtra("reAccount");
+                    progressDialog.dismiss();
+                    popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
+                    popupWindow.showAsDropDown(findViewById(R.id.shake_image));
+                }
+                else{
+                    progressDialog.dismiss();
+                    Toast.makeText(ShakeActivity.this, "没摇到( ⊙ o ⊙ )！重新来过~~", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }

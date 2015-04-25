@@ -50,6 +50,7 @@ public class LoginActivity extends Activity {
     private Button loginButton = null;
     private CheckBox checkBox = null;
     private Button registerButton = null;
+    private String account = null;
 
 
     @Override
@@ -117,7 +118,7 @@ public class LoginActivity extends Activity {
     private class loginOnClickListenerImpl implements View.OnClickListener {
         @Override
         public void onClick(View view){
-            String account = LoginActivity.this.accountEdit.getText().toString();
+            account = LoginActivity.this.accountEdit.getText().toString();
             String password = LoginActivity.this.pawEdit.getText().toString();
             String passwordMD5 = stringUtils.MD5(password);
 
@@ -168,11 +169,12 @@ public class LoginActivity extends Activity {
      * Created by Feng on 2015/3/24.
      */
     private void accountCheckByWeb(String account, String password){
-/*
+
+        /*NetworkService.getInstance().closeConnection();
         NetworkService.getInstance().onInit(LoginActivity.this);
         NetworkService.getInstance().setupConnection();
         if(NetworkService.getInstance().getIsConnected()) {
-            String userInfo = "type"+"-"+Integer.toString(GlobalMsgUtils.msgLogin)+"-"+"account"+"-"+account+"-"+"password"+"-"+password;
+            String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgLogin)+":"+"account"+":"+account+":"+"password"+":"+password;
             Log.v("aaaaa",userInfo);
             NetworkService.getInstance().sendUpload(userInfo);
         }
@@ -180,8 +182,8 @@ public class LoginActivity extends Activity {
             NetworkService.getInstance().closeConnection();
             Toast.makeText(LoginActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
-        }
-*/
+        }*/
+
     }
 
     private void getCheckBox(){
@@ -201,7 +203,8 @@ public class LoginActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.LOGIN")) {
-                if(intent.getStringExtra("result").equals(MyStatic.Login_result)) {
+                if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
+                    MyStatic.UserAccount = account;
                     Intent it = new Intent(LoginActivity.this, MainPage.class);
                     startActivity(it);
                 }

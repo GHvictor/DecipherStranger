@@ -47,7 +47,7 @@ public class FriendsMainTabFragment extends Fragment{
     private CharacterParser characterParser;
     private List<User> SourceDateList;
 
-    //����ƴ��������ListView���������
+    //���ƴ��������ListView��������
     private PinyinComparator pinyinComparator;
 
 
@@ -80,7 +80,7 @@ public class FriendsMainTabFragment extends Fragment{
     }
 
     private void initViews() {
-        //ʵ��������תƴ��
+        //ʵ����תƴ��
         characterParser = CharacterParser.getInstance();
 
         pinyinComparator = new PinyinComparator();
@@ -109,7 +109,7 @@ public class FriendsMainTabFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // ����Ҫ����adapter.getItem(position)����ȡ��ǰposition����Ӧ�Ķ���
+                // ����Ҫ����adapter.getItem(position)����ȡ��ǰposition���Ӧ�Ķ���
                 Toast.makeText(getActivity(),
                         ((User) adapter.getItem(position)).getUsername(),
                         Toast.LENGTH_SHORT).show();
@@ -121,12 +121,12 @@ public class FriendsMainTabFragment extends Fragment{
         sortListView.setAdapter(adapter);
 
         mClearEditText = (ClearEditText)view.findViewById(R.id.filter_edit);
-        // �������������ֵ�ĸı�����������
+        // ������������ֵ�ĸı�����������
         mClearEditText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ������������ֵΪ�գ�����Ϊԭ�����б�����Ϊ���������б�
+                // ������������ֵΪ�գ�����Ϊԭ�����б?����Ϊ��������б�
                 filterData(s.toString());
             }
             @Override
@@ -139,7 +139,7 @@ public class FriendsMainTabFragment extends Fragment{
         });
     }
 
-    //ΪListView�������
+    //ΪListView������
     private List<User> filledData(String[] date) {
         List<User> mSortList = new ArrayList<User>();
 
@@ -163,7 +163,7 @@ public class FriendsMainTabFragment extends Fragment{
         return mSortList;
     }
 
-    //����������ڵ�ֵ�����˲�����ListView
+    //���������ڵ�ֵ�����˲�����ListView
     private void filterData(String filterStr) {
         List<User> filterDateList = new ArrayList<User>();
 
@@ -181,7 +181,7 @@ public class FriendsMainTabFragment extends Fragment{
             }
         }
 
-        // ����a-z��������
+        // ���a-z��������
         Collections.sort(filterDateList, pinyinComparator);
         adapter.updateListView(filterDateList);
     }
