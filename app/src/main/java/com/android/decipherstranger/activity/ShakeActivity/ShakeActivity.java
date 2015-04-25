@@ -142,7 +142,7 @@ public class ShakeActivity extends Activity{
     public void shakeMain(View v) {
         switch (v.getId()) {
             case R.id.shake_back_button:
-                //         onBackPressed();
+                 //        onBackPressed();
                 onVibrator();
                 break;
             case R.id.shakeMain:
@@ -194,6 +194,7 @@ public class ShakeActivity extends Activity{
             Log.v("Login", "已经执行T（）方法");
         }*/
 
+        pop();
     }
 
     public void ShakePopup(View view) {
@@ -211,6 +212,15 @@ public class ShakeActivity extends Activity{
         }
     }
 
+    private void pop() {
+        progressDialog.dismiss();
+        popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
+        popupWindow.showAsDropDown(findViewById(R.id.shake_image));
+        this.portrait.setImageDrawable(getResources().getDrawable(R.drawable.mypic));
+        this.userName.setText("wo");
+        Drawable sexDrawable = getResources().getDrawable(R.drawable.man);
+        this.sex.setImageDrawable(sexDrawable);
+    }
     private void popInitView(Intent intent) {
         Drawable sexDrawable = null;
         Drawable portraitDrawable = new BitmapDrawable(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
