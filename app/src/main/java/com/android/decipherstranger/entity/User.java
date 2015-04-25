@@ -1,5 +1,7 @@
 package com.android.decipherstranger.entity;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -27,7 +29,7 @@ public class User implements Serializable {
     //显示用户名拼音的首字母
     private String sortLetters;
     //  头像
-    private String portrait = null;
+    private Bitmap portrait = null;
     //  个性签名
     private String signature = null;
 
@@ -100,11 +102,11 @@ public class User implements Serializable {
 
     public void setSortLetters(String sortLetters) {this.sortLetters = sortLetters;}
 
-    public String getPortrait() {
+    public Bitmap getPortrait() {
         return portrait;
     }
 
-    public void setPortrait(String portrait) {this.portrait = portrait;}
+    public void setPortrait(Bitmap portrait) {this.portrait = portrait;}
 
 
 }

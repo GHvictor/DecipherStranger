@@ -75,14 +75,14 @@ public class RecentContacts {
         Cursor result = this.db.rawQuery(sql, null);
         ArrayList<Contacts> all = new ArrayList<Contacts>();
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
-            Contacts user = new Contacts();
-            user.setAccount(result.getString(0));
-            user.setUsername(result.getString(1));
+            Contacts contacts = new Contacts();
+            contacts.setAccount(result.getString(0));
+            contacts.setUsername(result.getString(1));
             byte[] in = result.getBlob(2);
-            user.setPortrait(BitmapFactory.decodeByteArray(in, 0, in.length));
-            user.setMessage(result.getString(3));
-            user.setDatetime(result.getString(4));
-            all.add(user);
+            contacts.setPortrait(BitmapFactory.decodeByteArray(in, 0, in.length));
+            contacts.setMessage(result.getString(3));
+            contacts.setDatetime(result.getString(4));
+            all.add(contacts);
         } this.db.close();
         return all;
     }
