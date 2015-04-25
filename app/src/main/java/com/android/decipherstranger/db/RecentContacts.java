@@ -2,10 +2,13 @@ package com.android.decipherstranger.db;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.entity.User;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -38,27 +41,30 @@ public class RecentContacts {
     }
 
     //  更新数据
-    public ArrayList<Contacts> update(String account, String name, String photo, String message) {
+    public ArrayList<Contacts> update(String account, String name, Bitmap bitmap, String message) {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
         try {
             String insert = "insert into recent_contacts VALUES(?,?,?,?,datetime())";
-            Object args[] = new Object[]{account,name,photo,message};
+            Object args[] = new Object[]{account,name,os.toByteArray(),message};
             this.db.execSQL(insert,args);
         }catch (Exception e) {
             String sql = "UPDATE recent_contacts SET username=?, userphoto=?, newest=?, contacts_time=datetime() WHERE account=?";
-            Object args[] = new Object[]{name,photo,message,account};
+            Object args[] = new Object[]{name,os.toByteArray(),message,account};
             this.db.execSQL(sql,args);
         }
         String select = "select * from recent_contacts order by contacts_time";
         Cursor result = this.db.rawQuery(select, null);
         ArrayList<Contacts> all = new ArrayList<Contacts>();
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
-            Contacts contacts = new Contacts();
-            contacts.setAccount(result.getString(0));
-            contacts.setUsername(result.getString(1));
-            contacts.setPortrait(result.getString(2));
-            contacts.setMessage(result.getString(3));
-            contacts.setDatetime(result.getString(4));
-            all.add(contacts);
+            Contacts user = new Contacts();
+            user.setAccount(result.getString(0));
+            user.setUsername(result.getString(1));
+            byte[] in = result.getBlob(2);
+            user.setPortrait(BitmapFactory.decodeByteArray(in, 0, in.length));
+            user.setMessage(result.getString(3));
+            user.setDatetime(result.getString(4));
+            all.add(user);
         } this.db.close();
         return all;
     }
@@ -69,13 +75,14 @@ public class RecentContacts {
         Cursor result = this.db.rawQuery(sql, null);
         ArrayList<Contacts> all = new ArrayList<Contacts>();
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
-            Contacts contacts = new Contacts();
-            contacts.setAccount(result.getString(0));
-            contacts.setUsername(result.getString(1));
-            contacts.setPortrait(result.getString(2));
-            contacts.setMessage(result.getString(3));
-            contacts.setDatetime(result.getString(4));
-            all.add(contacts);
+            Contacts user = new Contacts();
+            user.setAccount(result.getString(0));
+            user.setUsername(result.getString(1));
+            byte[] in = result.getBlob(2);
+            user.setPortrait(BitmapFactory.decodeByteArray(in, 0, in.length));
+            user.setMessage(result.getString(3));
+            user.setDatetime(result.getString(4));
+            all.add(user);
         } this.db.close();
         return all;
     }

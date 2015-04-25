@@ -54,15 +54,15 @@ public class ChatRecord {
      * @return who,message,time
      */
     public ArrayList<Contacts> getInfo(String account) {
-        String select = "SELECT ismine,message FROM chatrecord WHERE contacts=? ORDER BY chat_time";
+        String select = "SELECT ismine,message,chat_time FROM chatrecord WHERE contacts=? ORDER BY chat_time";
         String args[] = new String[]{account};
         Cursor result = this.db.rawQuery(select, args);
         ArrayList<Contacts> all = new ArrayList<Contacts>();
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
             Contacts contacts = new Contacts();
             contacts.setWho(result.getInt(0));
-            contacts.setMessage(result.getString(0));
-            contacts.setDatetime(result.getString(0));
+            contacts.setMessage(result.getString(1));
+            contacts.setDatetime(result.getString(2));
             all.add(contacts);
         } this.db.close();
         return all;

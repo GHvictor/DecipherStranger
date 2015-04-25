@@ -1,5 +1,7 @@
 package com.android.decipherstranger.entity;
 
+import android.graphics.Bitmap;
+
 /**
  * へ　　　　　／|
  * 　　/＼7　　　 ∠＿/
@@ -24,10 +26,11 @@ public class Contacts {
 
     private String account = null;
     private String username = null;
-    private String portrait = null;
+    private Bitmap portrait = null;
     private int who = 0;
     private String datetime = null;
     private String message = null;
+    private int timeLen = 0;
     
     public Contacts(){}
     public Contacts(Contacts contacts) {
@@ -37,6 +40,7 @@ public class Contacts {
         this.who = contacts.who;
         this.datetime = contacts.datetime;
         this.message = contacts.message;
+        this.timeLen = contacts.timeLen;
     }
     
     public void setAccount(String account) {
@@ -55,11 +59,11 @@ public class Contacts {
         return username;
     }
 
-    public void setPortrait(String portrait) {
+    public void setPortrait(Bitmap portrait) {
         this.portrait = portrait;
     }
 
-    public String getPortrait() {
+    public Bitmap getPortrait() {
         return portrait;
     }
     
@@ -86,4 +90,13 @@ public class Contacts {
     public String getMessage() {
         return this.message;
     }
+
+    public int getTimeLen() {
+        return timeLen;
+    }
+
+    public void setTimeLen(int timeLen) {
+        this.timeLen = timeLen;
+    }
+    
 }
