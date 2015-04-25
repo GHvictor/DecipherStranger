@@ -54,6 +54,8 @@ public class SetGradeActivity extends Activity {
     private void setGradeToWeb(int grade){
         if (grade == 0) {
             Toast.makeText(this, "该功能尚未开放，敬请期待", Toast.LENGTH_SHORT).show();
+        } else {
+            //  TODO 在此处上传游戏等级grade至服务器
         }
     }
 }

@@ -56,13 +56,6 @@ public class GameUtils {
             Log.v("Login", "已经执行T（）方法");
         }
 */
-        /*
-        int a = 33;
-        int b = 33;
-        int c = 33;
-        MyStatic.rockInt = a;
-        MyStatic.scissorsInt = b;
-        MyStatic.paperInt = c;*/
     }
     
     //  上传用户习性
