@@ -45,7 +45,8 @@
         android:orientation="vertical"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+        android:id="@+id/time">
         <com.android.decipherstranger.view.HandyTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,11 +54,12 @@
             android:id="@+id/recent_message_time"
             android:text="上午 10:12"
             android:textSize="10sp"/>
-        <com.android.decipherstranger.view.BadgeView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:layout_marginLeft="20dip"
-            android:id="@+id/new_message_count"/>
     </LinearLayout>
+    <com.android.decipherstranger.view.BadgeView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_message_count"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/time"
+        android:layout_alignEnd="@+id/time" />
 </RelativeLayout>
