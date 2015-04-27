@@ -11,7 +11,7 @@ import com.android.decipherstranger.util.MyStatic;
  */
 public class DATABASE extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "ds_user.db";
+    private static final String DATABASE_NAME = "ds_chat.db";
     private static final int DATABASE_VERSION = 1;
     
     public DATABASE(Context context){
