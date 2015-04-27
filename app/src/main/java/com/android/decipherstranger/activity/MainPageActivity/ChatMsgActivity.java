@@ -2,6 +2,8 @@ package com.android.decipherstranger.activity.MainPageActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -23,7 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.db.ChatRecord;
+import com.android.decipherstranger.db.DATABASE;
+import com.android.decipherstranger.db.RecentContacts;
 import com.android.decipherstranger.entity.ChatMsgEntity;
+import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.util.SoundMeter;
 
 import java.io.File;
@@ -36,58 +42,91 @@ import java.util.List;
  */
 public class ChatMsgActivity extends Activity implements OnClickListener {
 
+    //文本信息发送按钮
     private Button mBtnSend;
+    //录音按钮
     private TextView mBtnRcd;
+    //窗口聊天好友备注（呢称）显示
     private TextView who;
+    //聊天窗口返回按钮
     private Button mBtnBack;
+    //文本信息编辑框༭
     private EditText mEditTextContent;
     private RelativeLayout mBottom;
+    //聊天内容显示界面
     private ListView mListView;
+    //聊天功能显示界面显示适配器
     private ChatMsgViewAdapter mAdapter;
-    private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>();
+    //聊天记录内容和List
+    private List<Contacts> mDataArrays = new ArrayList<Contacts>();
+    private SQLiteOpenHelper helper = null;
+    //读取本地缓存聊天记录
+    private ChatRecord readerChatLog;
+    //写入本地缓存聊天记录
+    private ChatRecord writeChatLog;
+    //最近聊天列表
+    private List<Contacts>recentChat;
+    //写入最近聊天列表缓存
+    private RecentContacts writeRecentLog;
+    //判断录音时间是否过短
     private boolean isShosrt = false;
+    //录制语音信息相关动画
     private LinearLayout voice_rcd_hint_loading, voice_rcd_hint_rcding,
             voice_rcd_hint_tooshort;
     private ImageView img1, sc_img1;
+    //语音信息工具类
     private SoundMeter mSensor;
+    //录音层UI
     private View rcChat_popup;
+    //手指不在录音按钮范围内时的
     private LinearLayout del_re;
-    //����ͼƬѡ������л���ť
+    //图片信息发送按钮
     private ImageView add_panel_im;
-    //ѡ�����
+    //图片偏选择面板
     private RelativeLayout panel_add_rl;
-    //��ͼ����ѡȡ��Ƭ
+    //从相册选择图片发送
     private ImageView select_photo;
-    //����
+    //拍张发送
     private ImageView take_picture;
-    //����¼���л���ť
+    //切换语音发送
     private ImageView chatting_mode_btn;
-    //����¼�ƣ�ģ��������С����
+    //录音模拟音量大小动画
     private ImageView volume;
     private boolean btn_vocie = false;
     private int flag = 1;
     private Handler mHandler = new Handler();
+    //语音文件名
     private String voiceName;
+    //语音录制起始时间
     private long startVoiceT, endVoiceT;
-
-    //��ǰ�Ի���id
+    //当前聊天好友ID
     private String currentUserAccount;
-    //��ǰ�Ի�������
+    //当前聊天好友备注（呢称）
     private String currentUserName;
-    //��ǰ�Ի���ͷ��
-    private int currentUserPhotoId;
+    //当前聊天好友头像
+    private Bitmap currentUserPhoto;
+
+    private static final int IS_COM_MSG = 1;
+    private static final int SEND_TO_MSG = 0;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        // ����activityʱ���Զ����������
+        // 启动activity时不自动弹出软键盘
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        this.helper = new DATABASE(this);
         initView();
         initData();
     }
 
     public void initView() {
+        //获取本地聊天记录
+        this.readerChatLog = new ChatRecord(this.helper.getReadableDatabase());
+        //将聊天记录写入本地
+        this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
+        //写入最近聊天缓存记录
+        this.writeRecentLog = new RecentContacts(this.helper.getWritableDatabase());
         mListView = (ListView) findViewById(R.id.chat_listview);
         mBtnSend = (Button) findViewById(R.id.btn_send);
         mBtnRcd = (TextView) findViewById(R.id.btn_rcd);
@@ -115,11 +154,19 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         mSensor = new SoundMeter();
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
 
-        //���������л���ť
+        //发送照片相关
+        add_panel_im.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPanel();
+            }
+        });
+
+        //语音文字切换按钮
         chatting_mode_btn.setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-
+                panel_add_rl.setVisibility(View.GONE);
                 if (btn_vocie) {
                     mBtnRcd.setVisibility(View.GONE);
                     mBottom.setVisibility(View.VISIBLE);
@@ -139,13 +186,13 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         mBtnRcd.setOnTouchListener(new OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {
-                //��������¼�ư�ťʱ����falseִ�и���OnTouch
+                //按下语音录制按钮时返回false执行父类OnTouch
                 return false;
             }
         });
     }
 
-    private String[] msgArray = new String[] { "hello","what is wrong","s","ss ","sss","sssss"};
+    private String[] msgArray = new String[] { "hello","what is wrong","说人话","是你先拽英语的 ","so?那有怎样","哇哦，你好厉害哦，有吓到我哦"};
 
     private String[] dataArray = new String[] { "2012-10-31 18:00",
             "2012-10-31 18:10", "2012-10-31 18:11", "2012-10-31 18:20",
@@ -156,22 +203,18 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         Bundle bundle =this.getIntent().getExtras();
         currentUserAccount = bundle.getString("userAccount");
         currentUserName = bundle.getString("userName");
-        currentUserPhotoId = bundle.getInt("userPhotoId");
+        currentUserPhoto = bundle.getParcelable("userPhoto");
         who.setText(currentUserName);
-        for (int i = 0; i < COUNT; i++) {
-            ChatMsgEntity entity = new ChatMsgEntity();
-            entity.setDate(dataArray[i]);
-            if (i % 2 == 0) {
-                entity.setName(currentUserName);
-                entity.setUserPhoto(currentUserPhotoId);
-                entity.setMsgType(1);
-            } else {
-                entity.setName("�߸�˧");
-                entity.setMsgType(0);
+        mDataArrays = readerChatLog.getInfo(currentUserAccount);
+        int length = mDataArrays.size();
+        for (int i = 0; i < length; i++) {
+            if (mDataArrays.get(i).getWho() == IS_COM_MSG){
+                mDataArrays.get(i).setUsername(currentUserName);
+                mDataArrays.get(i).setPortrait(currentUserPhoto);
             }
-
-            entity.setText(msgArray[i]);
-            mDataArrays.add(entity);
+            else{
+                mDataArrays.get(i).setUsername("帅锅");
+            }
         }
 
         mAdapter = new ChatMsgViewAdapter(this, mDataArrays);
@@ -187,8 +230,6 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
             case R.id.btn_back:
                 finish();
                 break;
-            case R.id.panel_add_im:
-                addPanel();
         }
     }
 
@@ -211,17 +252,15 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
     private void send() {
         String contString = mEditTextContent.getText().toString();
         if (contString.length() > 0) {
-            ChatMsgEntity entity = new ChatMsgEntity();
-            entity.setDate(getDate());
-            entity.setName("�߸�˧");
-            entity.setMsgType(0);
-            entity.setText(contString);
-
+            Contacts entity = new Contacts();
+            entity.setDatetime(getDate());
+            entity.setUsername("帅锅");
+            entity.setWho(SEND_TO_MSG);
+            entity.setMessage(contString);
             mDataArrays.add(entity);
             mAdapter.notifyDataSetChanged();
-
+            writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, null);
             mEditTextContent.setText("");
-
             mListView.setSelection(mListView.getCount() - 1);
         }
     }
@@ -242,7 +281,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         return sbBuffer.toString();
     }
 
-    //��������¼�ư�ťʱ
+    //按下语音录制按钮时
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -254,7 +293,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         if (btn_vocie) {
             System.out.println("1");
             int[] location = new int[2];
-            mBtnRcd.getLocationInWindow(location); // ��ȡ�ڵ�ǰ�����ڵľ�����
+            mBtnRcd.getLocationInWindow(location); // 获取在当前窗口内的绝对坐标
             int btn_rc_Y = location[1];
             int btn_rc_X = location[0];
             int[] del_location = new int[2];
@@ -267,7 +306,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                     return false;
                 }
                 System.out.println("2");
-                if (event.getY() > btn_rc_Y && event.getX() > btn_rc_X) {//�ж����ư��µ�λ���Ƿ�������¼�ư�ť�ķ�Χ��
+                if (event.getY() > btn_rc_Y && event.getX() > btn_rc_X) {//判断手势按下的位置是否是语音录制按钮的范围内
                     System.out.println("3");
                     mBtnRcd.setBackgroundResource(R.drawable.voice_rcd_btn_pressed);
                     rcChat_popup.setVisibility(View.VISIBLE);
@@ -290,7 +329,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                     start(voiceName);
                     flag = 2;
                 }
-            } else if (event.getAction() == MotionEvent.ACTION_UP && flag == 2) {//�ɿ�����ʱִ��¼�����
+            } else if (event.getAction() == MotionEvent.ACTION_UP && flag == 2) {//松开手势时执行录制完成
                 System.out.println("4");
                 mBtnRcd.setBackgroundResource(R.drawable.voice_rcd_btn_nor);
                 if (event.getY() >= del_Y
@@ -329,20 +368,21 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                         }, 500);
                         return false;
                     }
-                    ChatMsgEntity entity = new ChatMsgEntity();
-                    entity.setDate(getDate());
-                    entity.setName("�߸�˧");
-                    entity.setMsgType(0);
-                    entity.setTime(time+"\"");
-                    entity.setText(voiceName);
+                    Contacts entity = new Contacts();
+                    entity.setDatetime(getDate());
+                    entity.setUsername("帅锅");
+                    entity.setWho(0);
+                    entity.setTimeLen(time + "\"");
+                    entity.setMessage(voiceName);
                     mDataArrays.add(entity);
                     mAdapter.notifyDataSetChanged();
+                    writeChatLog.insert(currentUserAccount,SEND_TO_MSG,voiceName,time + "\"");
                     mListView.setSelection(mListView.getCount() - 1);
                     rcChat_popup.setVisibility(View.GONE);
 
                 }
             }
-            if (event.getY() < btn_rc_Y) {//���ư��µ�λ�ò�������¼�ư�ť�ķ�Χ��
+            if (event.getY() < btn_rc_Y) {//手势按下的位置不在语音录制按钮的范围内
                 System.out.println("5");
                 Animation mLitteAnimation = AnimationUtils.loadAnimation(this,
                         R.anim.cancel_rc);

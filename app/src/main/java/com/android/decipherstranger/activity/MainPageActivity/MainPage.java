@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,9 +41,9 @@ public class MainPage extends FragmentActivity implements OnClickListener{
 
     private BadgeView badgeView ;
     //未读消息的个数
-    private RelativeLayout unReadMessageCount;
+    private LinearLayout unReadMessageCount;
     //友请求的个数
-    private RelativeLayout newFriendsCount;
+    private LinearLayout newFriendsCount;
     //新消息的总数
     private int unReadCount;
 
@@ -55,7 +56,7 @@ public class MainPage extends FragmentActivity implements OnClickListener{
         initView();
         initEvent();
         setSelect(0);
-        setUnReadMessage(7,mChatIcon);
+        setUnReadMessage(7,unReadMessageCount);
     }
 
     private void initEvent() {
@@ -90,8 +91,8 @@ public class MainPage extends FragmentActivity implements OnClickListener{
         mChat = (RelativeLayout) findViewById(R.id.chat);
         mFriendsList = (RelativeLayout) findViewById(R.id.friends_list);
         mDiscover = (RelativeLayout) findViewById(R.id.discover);
-        unReadMessageCount = (RelativeLayout) findViewById(R.id.unread_message_count);
-        newFriendsCount = (RelativeLayout) findViewById(R.id.new_friends_count);
+        unReadMessageCount = (LinearLayout) findViewById(R.id.unread_message_count);
+        newFriendsCount = (LinearLayout) findViewById(R.id.new_friends_count);
 
         fragmentPages = new ArrayList<Fragment>();
 
@@ -164,7 +165,7 @@ public class MainPage extends FragmentActivity implements OnClickListener{
         }
     }
     //未读消息提醒
-    public void setUnReadMessage(int unReadMessageNum,ImageView unReadMessageType){
+    public void setUnReadMessage(int unReadMessageNum,LinearLayout unReadMessageType){
         badgeView = new BadgeView(this,unReadMessageType);
         badgeView.setText(String.valueOf(unReadMessageNum));
         badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);

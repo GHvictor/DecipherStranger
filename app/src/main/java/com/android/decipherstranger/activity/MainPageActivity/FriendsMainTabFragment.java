@@ -43,11 +43,11 @@ public class FriendsMainTabFragment extends Fragment{
     private BadgeView friendsRequestCount;
     private final static int NORMAL = 0;
 
-    //������ת����ƴ��
+    //汉字转换成拼音的类
     private CharacterParser characterParser;
     private List<User> SourceDateList;
 
-    //���ƴ��������ListView��������
+    //根据拼音来排列ListView里面的数据类
     private PinyinComparator pinyinComparator;
 
 
@@ -65,7 +65,7 @@ public class FriendsMainTabFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), FriendInfoActivity.class);
                 Bundle bundle =new Bundle();
-                bundle.putString("userPhoto",SourceDateList.get(position).getPortrait());
+                bundle.putParcelable("userPhoto", SourceDateList.get(position).getPortrait());
                 bundle.putString("userName",SourceDateList.get(position).getUsername());
                 bundle.putString("userSex",SourceDateList.get(position).getUserSex());
                 bundle.putString("userAccount",SourceDateList.get(position).getAccount());
@@ -80,7 +80,7 @@ public class FriendsMainTabFragment extends Fragment{
     }
 
     private void initViews() {
-        //ʵ����תƴ��
+        //实例化汉字转拼音类
         characterParser = CharacterParser.getInstance();
 
         pinyinComparator = new PinyinComparator();
@@ -91,12 +91,12 @@ public class FriendsMainTabFragment extends Fragment{
         friendsRequestCount(NORMAL);
         sideBar.setTextView(dialog);
 
-        // �����Ҳഥ������
+        // 设置右侧触摸监听
         sideBar.setOnTouchingLetterChangedListener(new OnTouchingLetterChangedListener() {
 
             @Override
             public void onTouchingLetterChanged(String s) {
-                // ����ĸ�״γ��ֵ�λ��
+                // 该字母首次出现的位置
                 int position = adapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
                     sortListView.setSelection(position);
@@ -109,24 +109,26 @@ public class FriendsMainTabFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // ����Ҫ����adapter.getItem(position)����ȡ��ǰposition���Ӧ�Ķ���
+                //  这里要利用adapter.getItem(position)来获取当前position所对应的对象
                 Toast.makeText(getActivity(),
                         ((User) adapter.getItem(position)).getUsername(),
                         Toast.LENGTH_SHORT).show();
             }
         });
         SourceDateList = filledData(getResources().getStringArray(R.array.date));
+
+        //根据a-z进行排序源数据
         Collections.sort(SourceDateList, pinyinComparator);
         adapter = new SortAdapter(getActivity(), SourceDateList);
         sortListView.setAdapter(adapter);
 
         mClearEditText = (ClearEditText)view.findViewById(R.id.filter_edit);
-        // ������������ֵ�ĸı�����������
+        //根据输入框输入值的改变来过滤搜索
         mClearEditText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ������������ֵΪ�գ�����Ϊԭ�����б?����Ϊ��������б�
+                // 当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
                 filterData(s.toString());
             }
             @Override
@@ -139,19 +141,19 @@ public class FriendsMainTabFragment extends Fragment{
         });
     }
 
-    //ΪListView������
+    //为ListView填充数据
     private List<User> filledData(String[] date) {
         List<User> mSortList = new ArrayList<User>();
 
         for (int i = 0; i < date.length; i++) {
             User sortModel = new User();
             sortModel.setUsername(date[i]);
-//            sortModel.setPortraitUrl();  //����ͷ��
-            // ����ת����ƴ��
+//            sortModel.setPortrait();  //����ͷ��
+            // 汉字转换成拼音
             String pinyin = characterParser.getSelling(date[i]);
             String sortString = pinyin.substring(0, 1).toUpperCase();
 
-            // ������ʽ���ж�����ĸ�Ƿ���Ӣ����ĸ
+            // 正则表达式，判断首字母是否是英文字母
             if (sortString.matches("[A-Z]")) {
                 sortModel.setSortLetters(sortString.toUpperCase());
             } else {
@@ -163,7 +165,7 @@ public class FriendsMainTabFragment extends Fragment{
         return mSortList;
     }
 
-    //���������ڵ�ֵ�����˲�����ListView
+    //根据输入框中的值来过滤数据并更新ListView
     private void filterData(String filterStr) {
         List<User> filterDateList = new ArrayList<User>();
 
@@ -181,11 +183,11 @@ public class FriendsMainTabFragment extends Fragment{
             }
         }
 
-        // ���a-z��������
+        // 根据a-z进行排序
         Collections.sort(filterDateList, pinyinComparator);
         adapter.updateListView(filterDateList);
     }
-    //����������Ŀ��ʾ
+    //好友请数量
     public void friendsRequestCount(int friendsRequestCounts){
         if (friendsRequestCounts != 0){
             friendsRequestCount.setText(friendsRequestCounts);

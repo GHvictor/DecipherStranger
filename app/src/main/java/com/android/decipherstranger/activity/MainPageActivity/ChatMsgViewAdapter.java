@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.drm.DrmRights;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -20,19 +21,20 @@ import android.widget.TextView;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.entity.ChatMsgEntity;
+import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.SoundMeter;
 
 public class ChatMsgViewAdapter extends BaseAdapter {
 
 	public static interface IMsgViewType {
-		int IMVT_COM_MSG = 0;
-		int IMVT_TO_MSG = 1;
+		int IMVT_COM_MSG = 1;
+		int IMVT_TO_MSG = 0;
 	}
 
 	private static final String TAG = ChatMsgViewAdapter.class.getSimpleName();
 	private static final int IS_COM_MESSAGE = 1;
-	private List<ChatMsgEntity> coll;
+	private List<Contacts> coll;
 
 	private Context ctx;
 
@@ -40,7 +42,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 	private MediaPlayer mMediaPlayer = new MediaPlayer();
 	private Boolean flag = false;
 
-	public ChatMsgViewAdapter(Context context, List<ChatMsgEntity> coll) {
+	public ChatMsgViewAdapter(Context context, List<Contacts> coll) {
 		ctx = context;
 		this.coll = coll;
 		mInflater = LayoutInflater.from(context);
@@ -59,8 +61,8 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 	}
 
 	public int getItemViewType(int position) {
-		ChatMsgEntity entity = coll.get(position);
-		if (entity.getMsgType() == IS_COM_MESSAGE) {
+		Contacts entity = coll.get(position);
+		if (entity.getWho() == IS_COM_MESSAGE) {
 			return IMsgViewType.IMVT_COM_MSG;
 		} else {
 			return IMsgViewType.IMVT_TO_MSG;
@@ -73,8 +75,8 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		final ChatMsgEntity entity = coll.get(position);
-		int isComMsg = entity.getMsgType();
+		final Contacts entity = coll.get(position);
+		int isComMsg = entity.getWho();
 
 		ViewHolder viewHolder = null;
 		if (convertView == null) {
@@ -104,31 +106,32 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		viewHolder.tvSendTime.setText(entity.getDate());
+		viewHolder.tvSendTime.setText(entity.getDatetime());
 		
-		if (entity.getText().contains(".amr")) {
+		if (entity.getMessage().contains(".amr")) {
 			viewHolder.tvContent.setText("");
 			viewHolder.tvContent.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.chatto_voice_playing, 0);
-			viewHolder.tvTime.setText(entity.getTime());
+			viewHolder.tvTime.setText(entity.getTimeLen());
 		} else {
-			viewHolder.tvContent.setText(entity.getText());			
+			viewHolder.tvContent.setText(entity.getMessage());
 			viewHolder.tvContent.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			viewHolder.tvTime.setText("");
 		}
 		viewHolder.tvContent.setOnClickListener(new OnClickListener() {
 			ViewHolder viewHolder = new ViewHolder();
 			public void onClick(View v) {
-				if (entity.getText().contains(".amr") && !flag) {
+				if (entity.getMessage().contains(".amr") && !flag) {
 					flag = true;
-					playMusic(android.os.Environment.getExternalStorageDirectory() + "/" + entity.getText());
+					playMusic(android.os.Environment.getExternalStorageDirectory() + "/" + entity.getMessage());
 				} else {
 					mMediaPlayer.stop();
 					flag = false;
 				}
 			}
 		});
-		viewHolder.tvUserName.setText(entity.getName());
-		viewHolder.ivUserPhoto.setImageResource(entity.getUserPhoto());
+		viewHolder.tvUserName.setText(entity.getUsername());
+		Drawable drawable = new BitmapDrawable(convertView.getResources(),entity.getPortrait());
+		viewHolder.ivUserPhoto.setImageDrawable(drawable);
 		return convertView;
 	}
 

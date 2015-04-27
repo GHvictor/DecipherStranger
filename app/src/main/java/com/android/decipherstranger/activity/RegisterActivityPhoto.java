@@ -68,7 +68,6 @@ public class RegisterActivityPhoto extends Activity {
         userInfo.setEmail(intent.getStringExtra("email"));
         userInfo.setPhone(intent.getStringExtra("phone"));
         userInfo.setBirth(intent.getStringExtra("birth"));
-        userInfo.setPortrait(portraitUrl);
     }
 
     private void initView(){
@@ -150,7 +149,7 @@ public class RegisterActivityPhoto extends Activity {
                         "email"+":"+userInfo.getEmail()+":"+
                         "phone"+":"+userInfo.getPhone()+":"+
                         "birth"+":"+userInfo.getBirth()+":"+
-                        "photo"+":"+userInfo.getPortrait();
+                        "photo"+":"+portraitUrl;
                 System.out.println(userInfo.getPortrait());
                 Log.v("aaaaa", sendInfo);
                 NetworkService.getInstance().sendUpload(sendInfo);

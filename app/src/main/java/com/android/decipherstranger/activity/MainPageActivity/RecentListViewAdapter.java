@@ -1,6 +1,9 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.entity.RecentData;
+import com.android.decipherstranger.view.BadgeView;
 import com.android.decipherstranger.view.HandyTextView;
 
 import java.util.ArrayList;
@@ -17,16 +22,15 @@ import java.util.ArrayList;
  * Created by WangXin on 2015/4/2 0002.
  */
 public class RecentListViewAdapter extends BaseAdapter {
-    private ArrayList<RecentData> recentChatData;
+    private ArrayList<Contacts> recentChatData;
     LayoutInflater inflater;
 
-//    private Map<Integer,View>rowViews = new HashMap<Integer,View>();
 
-    public RecentListViewAdapter(ArrayList<RecentData> recentChatData, Context context){
+    public RecentListViewAdapter(ArrayList<Contacts> recentChatData, Context context){
         this.recentChatData = recentChatData;
         this.inflater = LayoutInflater.from(context);
     }
-    public void onDateChange(ArrayList<RecentData> recentChatData){
+    public void onDateChange(ArrayList<Contacts> recentChatData){
         this.recentChatData = recentChatData;
         this.notifyDataSetChanged();
     }
@@ -47,7 +51,7 @@ public class RecentListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        RecentData recentData = recentChatData.get(position);
+        Contacts recentData = recentChatData.get(position);
         ViewHolder holder;
         if(convertView == null){
             holder = new ViewHolder();
@@ -56,14 +60,18 @@ public class RecentListViewAdapter extends BaseAdapter {
             holder.recentMessage = (HandyTextView) convertView.findViewById(R.id.recent_message);
             holder.recentMessageTime = (HandyTextView) convertView.findViewById(R.id.recent_message_time);
             holder.recentUserPhoto = (ImageView) convertView.findViewById(R.id.recent_user_photo);
+            holder.mBadgeView = (BadgeView) convertView.findViewById(R.id.new_message_count);
         }else{
             holder = (ViewHolder)convertView.getTag();
         }
         try {
-            holder.recentUserName.setText(recentData.getRecentUserName());
-            holder.recentMessage.setText(recentData.getRecentMessage());
-            holder.recentMessageTime.setText(recentData.getRecentMessageTime());
-            holder.recentUserPhoto.setImageResource(recentData.getRecentUserPhotoId());
+            holder.recentUserName.setText(recentData.getUsername());
+            holder.recentMessage.setText(recentData.getMessage());
+            holder.recentMessageTime.setText(recentData.getDatetime());
+            Bitmap userPhoto = recentData.getPortrait();
+            Drawable drawable = new BitmapDrawable(convertView.getResources(),userPhoto);
+            holder.recentUserPhoto.setImageDrawable(drawable);
+            holder.mBadgeView.setText("1");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,5 +83,6 @@ public class RecentListViewAdapter extends BaseAdapter {
         HandyTextView recentMessage;
         HandyTextView recentMessageTime;
         ImageView recentUserPhoto;
+        BadgeView mBadgeView;
     }
 }

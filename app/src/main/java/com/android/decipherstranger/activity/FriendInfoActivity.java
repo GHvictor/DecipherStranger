@@ -84,8 +84,8 @@ public class FriendInfoActivity extends Activity {
                 Intent intent = new Intent(FriendInfoActivity.this, ChatMsgActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("userName",friendInfo.getString("userName"));
-                bundle.putString("Account", friendInfo.getString("userAccount"));
-                bundle.putString("UserPhoto", friendInfo.getString("userPhoto"));
+                bundle.putString("userAccount", friendInfo.getString("userAccount"));
+                bundle.putString("userPhoto", friendInfo.getString("userPhoto"));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

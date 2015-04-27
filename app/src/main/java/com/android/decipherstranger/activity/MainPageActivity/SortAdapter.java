@@ -4,6 +4,8 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,6 @@ import com.android.decipherstranger.util.ChangeUtils;
 public class SortAdapter extends BaseAdapter implements SectionIndexer {
 	private List<User> list = null;
 	private Context mContext;
-	private ChangeUtils changeUtils;
 
 	public SortAdapter(Context mContext, List<User> list) {
 		this.mContext = mContext;
@@ -74,14 +75,14 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
 		}
 
 		viewHolder.tvUserName.setText(this.list.get(position).getUsername());
-		changeUtils = new ChangeUtils();
 		Bitmap photo = null;
 		try {
-			photo = changeUtils.toBitmap(this.list.get(position).getPortrait());
+			photo = this.list.get(position).getPortrait();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		viewHolder.ivUserPhoto.setImageBitmap(photo);
+		Drawable drawable = new BitmapDrawable(view.getResources(),photo);
+		viewHolder.ivUserPhoto.setImageDrawable(drawable);
 		return view;
 	}
 
