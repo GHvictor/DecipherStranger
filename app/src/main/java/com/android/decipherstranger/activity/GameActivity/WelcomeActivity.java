@@ -25,15 +25,12 @@ public class WelcomeActivity extends Activity {
 
     private int grade = 3;  //  设置等级 默认为3
 
-    private GameBroadcastReceiver receiver = null;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_welcome);
 
-        this.registerBroadcas();
-        
+        this.gameBroadcas();
         //  设置用户游戏数据
         this.setGameInfo();
 
@@ -73,9 +70,9 @@ public class WelcomeActivity extends Activity {
         GameUtils.get();
     }
 
-    private void registerBroadcas() {
+    private void gameBroadcas() {
         //动态方式注册广播接收者
-        this.receiver = new GameBroadcastReceiver();
+        GameBroadcastReceiver receiver = new GameBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.android.decipherstranger.GAMEONE");
         this.registerReceiver(receiver, filter);
@@ -91,9 +88,7 @@ public class WelcomeActivity extends Activity {
                 MyStatic.rockInt = intent.getIntExtra("reRock", 10);
                 MyStatic.scissorsInt = intent.getIntExtra("reScissors", 10);
                 MyStatic.paperInt = intent.getIntExtra("rePaper", 10);
-                
             }
         }
     }
-    
 }

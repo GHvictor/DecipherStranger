@@ -182,8 +182,7 @@ public class ShakeActivity extends Activity{
         progressDialog.setMessage("正在搜寻同一时刻摇晃手机的人");
         progressDialog.onStart();
         progressDialog.show();
-
-        /*if(NetworkService.getInstance().getIsConnected()) {
+        if(NetworkService.getInstance().getIsConnected()) {
             String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgShake)+":"+"account"+":"+MyStatic.UserAccount;
             Log.v("aaaaa", userInfo);
             NetworkService.getInstance().sendUpload(userInfo);
@@ -192,8 +191,7 @@ public class ShakeActivity extends Activity{
             NetworkService.getInstance().closeConnection();
             Toast.makeText(ShakeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
-        }*/
-
+        }
  //       pop();
     }
 

@@ -130,8 +130,8 @@ public class RegisterActivityPhoto extends Activity {
         @Override
         public void onClick(View view){
             initData();
-/*
-            NetworkService.getInstance().closeConnection();
+
+            /*NetworkService.getInstance().closeConnection();
             NetworkService.getInstance().onInit(RegisterActivityPhoto.this);
             NetworkService.getInstance().setupConnection();*/
             int userGender = 1;
