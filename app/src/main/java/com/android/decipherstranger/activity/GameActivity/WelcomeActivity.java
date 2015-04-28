@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -24,11 +25,15 @@ public class WelcomeActivity extends Activity {
 
     private int grade = 3;  //  设置等级 默认为3
 
+    private GameBroadcastReceiver receiver = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_welcome);
 
+        this.registerBroadcas();
+        
         //  设置用户游戏数据
         this.setGameInfo();
 
@@ -68,7 +73,15 @@ public class WelcomeActivity extends Activity {
         GameUtils.get();
     }
 
-    public class ShakeBroadcastReceiver extends BroadcastReceiver {
+    private void registerBroadcas() {
+        //动态方式注册广播接收者
+        this.receiver = new GameBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.GAMEONE");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class GameBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.GAMEONE")) {
