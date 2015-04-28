@@ -56,7 +56,7 @@ public class ClientListenThread extends Thread {
                     System.out.println(reMsg);
                     JSONObject jsonObj = new JSONObject(reMsg.toString());
 
-                    Log.v("能不能接到", reMsg);
+                    Log.v("能不能接到aaaaa", reMsg);
                     int msgType = jsonObj.getInt("re_type");            // type of message received
                     switch (msgType) {
                         case GlobalMsgUtils.msgLogin:
@@ -90,6 +90,12 @@ public class ClientListenThread extends Thread {
                             clContext.sendBroadcast(itShake);
                             break;
                         case GlobalMsgUtils.msgGameOneRecieve:
+                            Intent itGameRec = new Intent("com.android.decipherstranger.GAMEONE");
+                            itGameRec.putExtra("reGrade", jsonObj.getInt("re_grade"));
+                            itGameRec.putExtra("reRock", jsonObj.getInt("re_rock"));
+                            itGameRec.putExtra("reScissors", jsonObj.getInt("re_scissors"));
+                            itGameRec.putExtra("rePaper", jsonObj.getInt("re_paper"));
+                            clContext.sendBroadcast(itGameRec);
                             break;
                         case GlobalMsgUtils.msgGameOneSend:
                             break;

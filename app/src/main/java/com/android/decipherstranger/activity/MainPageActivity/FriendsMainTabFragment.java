@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,13 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.FriendInfoActivity;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.CharacterParser;
+import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.PinyinComparator;
 import com.android.decipherstranger.view.BadgeView;
 import com.android.decipherstranger.view.ClearEditText;
@@ -163,6 +167,17 @@ public class FriendsMainTabFragment extends Fragment{
             mSortList.add(sortModel);
         }
         return mSortList;
+    }
+    private void networkRequest(){
+        if(NetworkService.getInstance().getIsConnected()) {
+            String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgFriendList)+":"+"account"+":"+ MyStatic.UserAccount;
+            Log.v("aaaaa", userInfo);
+            NetworkService.getInstance().sendUpload(userInfo);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Log.v("Login", "已经执行T（）方法");
+        }
     }
 
     //根据输入框中的值来过滤数据并更新ListView

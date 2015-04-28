@@ -70,7 +70,7 @@ public class RecentContacts {
     }
 
     //  列表刷新
-    public ArrayList<Contacts> refresh() {        
+    public ArrayList<Contacts> refresh() {
         String sql = "select * from recent_contacts order by contacts_time";
         Cursor result = this.db.rawQuery(sql, null);
         ArrayList<Contacts> all = new ArrayList<Contacts>();

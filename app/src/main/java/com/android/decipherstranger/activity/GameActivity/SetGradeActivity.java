@@ -2,12 +2,16 @@ package com.android.decipherstranger.activity.GameActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyStatic;
 
 /**
  * Created by acmer on 2015/3/20.
@@ -56,6 +60,17 @@ public class SetGradeActivity extends Activity {
             Toast.makeText(this, "该功能尚未开放，敬请期待", Toast.LENGTH_SHORT).show();
         } else {
             //  TODO 在此处上传游戏等级grade至服务器
+            if(NetworkService.getInstance().getIsConnected()){
+                String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneGrade)+
+                        ":"+"account"+":"+ MyStatic.UserAccount+":"+"grade"+":"+grade;
+                Log.v("aaaaa", gameUser);
+                NetworkService.getInstance().sendUpload(gameUser);
+            }
+            else {
+                NetworkService.getInstance().closeConnection();
+                Toast.makeText(SetGradeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+                Log.v("Login", "已经执行T（）方法");
+            }
         }
     }
 }

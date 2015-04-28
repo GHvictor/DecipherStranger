@@ -303,12 +303,6 @@ public class RockPaperScissorsActivity extends Activity {
     }
 
     private void IfGameOver(){
-        //  上传游戏数据
-        new Thread(){
-            public void run(){
-                GameUtils.set();
-            }
-        }.start();
         boolean flag = false;
         if (this.gameGradeInt >= this.Grade) {
             flag = true;
@@ -318,6 +312,12 @@ public class RockPaperScissorsActivity extends Activity {
             intent = new Intent(RockPaperScissorsActivity.this, FailActivity.class);   //  根据实际情况跳转
         }
         if (flag) {
+            //  上传游戏数据
+            new Thread(){
+                public void run(){
+                    GameUtils.set();
+                }
+            }.start();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {

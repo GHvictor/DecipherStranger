@@ -172,7 +172,7 @@ public class LoginActivity extends Activity {
 
         /*NetworkService.getInstance().closeConnection();
         NetworkService.getInstance().onInit(LoginActivity.this);
-        NetworkService.getInstance().setupConnection();
+        NetworkService.getInstance().setupConnection();*/
         if(NetworkService.getInstance().getIsConnected()) {
             String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgLogin)+":"+"account"+":"+account+":"+"password"+":"+password;
             Log.v("aaaaa",userInfo);
@@ -182,7 +182,7 @@ public class LoginActivity extends Activity {
             NetworkService.getInstance().closeConnection();
             Toast.makeText(LoginActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
-        }*/
+        }
 
     }
 

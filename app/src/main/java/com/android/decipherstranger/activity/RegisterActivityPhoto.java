@@ -133,7 +133,7 @@ public class RegisterActivityPhoto extends Activity {
 /*
             NetworkService.getInstance().closeConnection();
             NetworkService.getInstance().onInit(RegisterActivityPhoto.this);
-            NetworkService.getInstance().setupConnection();
+            NetworkService.getInstance().setupConnection();*/
             int userGender = 1;
             if(NetworkService.getInstance().getIsConnected()) {
                 if (userInfo.getUserSex().equals("男")){
@@ -159,7 +159,7 @@ public class RegisterActivityPhoto extends Activity {
                 Toast.makeText(RegisterActivityPhoto.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
                 Log.v("Login", "已经执行T（）方法");
             }
-*/
+
         }
     }
 

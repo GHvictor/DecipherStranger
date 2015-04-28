@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.util.GameUtils;
+import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
 
@@ -49,6 +51,18 @@ public class WelcomeActivity extends Activity {
         //  从服务器获取好友游戏等级
         
         //  TODO 此处写与服务器的通信函数
+        if(NetworkService.getInstance().getIsConnected()){
+            String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneRecieve)+":"+
+                              "account"+":"+MyStatic.UserAccount+":"+
+                              "friend"+":"+MyStatic.friendAccount;
+            Log.v("aaaaa", gameUser);
+            NetworkService.getInstance().sendUpload(gameUser);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(WelcomeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+            Log.v("Login", "已经执行T（）方法");
+        }
         
         //  从服务器获取用户游戏习惯 石头剪刀布概率
         GameUtils.get();
@@ -57,12 +71,13 @@ public class WelcomeActivity extends Activity {
     public class ShakeBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.android.decipherstranger.GAME")) {
-                // TODO 将获取的数据赋值到本地        
-                grade = 3;
-                MyStatic.rockInt = 33;
-                MyStatic.scissorsInt = 33;
-                MyStatic.paperInt = 33;
+            if (intent.getAction().equals("com.android.decipherstranger.GAMEONE")) {
+                // TODO 将获取的数据赋值到本地
+
+                grade = intent.getIntExtra("reGrade", 3);
+                MyStatic.rockInt = intent.getIntExtra("reRock", 10);
+                MyStatic.scissorsInt = intent.getIntExtra("reScissors", 10);
+                MyStatic.paperInt = intent.getIntExtra("rePaper", 10);
                 
             }
         }
