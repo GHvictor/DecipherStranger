@@ -244,6 +244,7 @@ public class RockPaperScissorsActivity extends Activity {
                 animationDrawableComputer.stop();
             }
         }.start();
+        GameUtils.update(player);
         int computer = computerShow();
         switch (player){
             case 0:this.playerImageSrc = getResources().getDrawable(R.drawable.game_rock_pressed);
@@ -268,7 +269,6 @@ public class RockPaperScissorsActivity extends Activity {
             this.loseMusic.start();
             player = 0; computer = 2;
         }
-        GameUtils.update(player);
         setText(player, computer);
         this.gameAnswerImage.setImageDrawable(answerImageSrc);
         IfGameOver();
