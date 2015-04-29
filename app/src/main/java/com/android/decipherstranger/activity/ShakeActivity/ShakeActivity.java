@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.GameActivity.SuccessActivity;
 import com.android.decipherstranger.activity.GameActivity.WelcomeActivity;
 import com.android.decipherstranger.activity.LoginActivity;
 import com.android.decipherstranger.util.ChangeUtils;
@@ -78,6 +79,11 @@ public class ShakeActivity extends Activity{
     }
 
     @Override
+    protected void onRestart(){
+        super.onRestart();
+        this.registerBroadcas();
+    }
+    @Override
     protected void onResume() {
         super.onResume();
         this.shakeListener.start();
@@ -97,7 +103,6 @@ public class ShakeActivity extends Activity{
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 防止连续两次返回键
             //这你写你的返回处理
             if (progressDialog.isShowing()) {
@@ -150,7 +155,7 @@ public class ShakeActivity extends Activity{
                     popupWindow.dismiss();
                 } break;
             case R.id.shake_imageButton:
-/*                intent = new Intent(this,ShakeSettingsActivity.class);
+/*                Intent intent = new Intent(this,SuccessActivity.class);
                 startActivity(intent);*/
                 break;
         }
@@ -247,6 +252,7 @@ public class ShakeActivity extends Activity{
                 if(intent.getBooleanExtra("reResult", false)) {
                     popInitView(intent);
                     MyStatic.friendAccount = intent.getStringExtra("reAccount");
+                    MyStatic.friendName = intent.getStringExtra("reName");
                     progressDialog.dismiss();
                     popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
                     popupWindow.showAsDropDown(findViewById(R.id.shake_image));

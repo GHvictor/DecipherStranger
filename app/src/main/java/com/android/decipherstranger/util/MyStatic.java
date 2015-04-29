@@ -34,6 +34,7 @@ public class MyStatic {
     public static boolean gameBackgroundMusicFlag = true;     //  游戏音乐控制标志
 
     public static String friendAccount = null;          //  所添加好友account
+    public static String friendName = null;             //  所添加好友昵称
 
     public static int rockInt = 10;            //  当前用户出石头的几率
     public static int scissorsInt = 10;        //  当前用户出剪刀的几率
