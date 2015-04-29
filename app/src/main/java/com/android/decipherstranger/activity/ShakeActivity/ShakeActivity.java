@@ -71,6 +71,8 @@ public class ShakeActivity extends Activity{
     private TextView userName = null;
     private ImageView sex = null;
 
+    private String FriendAccount = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -204,6 +206,7 @@ public class ShakeActivity extends Activity{
         switch (view.getId()) {
             case R.id.shake_friend_info:
                 Intent intent1 = new Intent(ShakeActivity.this,WelcomeActivity.class);
+                intent1.putExtra("Account", FriendAccount);
                 startActivity(intent1);
                 this.finish();
                 break;
@@ -251,7 +254,7 @@ public class ShakeActivity extends Activity{
             if (intent.getAction().equals("com.android.decipherstranger.SHAKE")) {
                 if(intent.getBooleanExtra("reResult", false)) {
                     popInitView(intent);
-                    MyStatic.friendAccount = intent.getStringExtra("reAccount");
+                    FriendAccount = intent.getStringExtra("reAccount");
                     MyStatic.friendName = intent.getStringExtra("reName");
                     progressDialog.dismiss();
                     popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
