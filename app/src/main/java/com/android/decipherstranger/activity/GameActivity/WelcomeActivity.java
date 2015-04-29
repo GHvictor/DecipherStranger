@@ -30,6 +30,9 @@ public class WelcomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_welcome);
 
+        Intent intent = getIntent();
+        MyStatic.friendAccount = intent.getStringExtra("Account");
+
         this.gameBroadcas();
         //  设置用户游戏数据
         this.setGameInfo();
