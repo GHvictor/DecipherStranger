@@ -63,9 +63,11 @@ public class ShakeActivity extends Activity{
 
     private ProgressDialog progressDialog = null;
     private ShakeListener shakeListener = null;
+    private LayoutInflater inflater = null;
     private PopupWindow popupWindow = null;
+    private PopupWindow PortraitWindow = null;
     private ShakeBroadcastReceiver receiver = null;
-
+    private ImageView PopPortrait = null;
     private LinearLayout friendButton = null;
     private ImageButton portrait = null;
     private TextView userName = null;
@@ -107,7 +109,10 @@ public class ShakeActivity extends Activity{
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 防止连续两次返回键
             //这你写你的返回处理
-            if (progressDialog.isShowing()) {
+            if (PortraitWindow.isShowing()) {
+                PortraitWindow.dismiss();
+                return true;
+            }else if (progressDialog.isShowing()) {
                 progressDialog.dismiss();
                 return true;
             }else if (popupWindow.isShowing()) {
@@ -129,8 +134,8 @@ public class ShakeActivity extends Activity{
         this.registerBroadcas();
         this.progressDialog = new ProgressDialog(ShakeActivity.this);
 
-        LayoutInflater inflater = LayoutInflater.from(ShakeActivity.this);
-        View view = inflater.inflate(R.layout.shake_friend_popup, null);
+        this.inflater = LayoutInflater.from(ShakeActivity.this);
+        View view = this.inflater.inflate(R.layout.shake_friend_popup, null);
         this.popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         this.friendButton = (LinearLayout) view.findViewById(R.id.shake_friend_info);
         this.portrait = (ImageButton) view.findViewById(R.id.userPhoto);
@@ -211,22 +216,30 @@ public class ShakeActivity extends Activity{
                 this.finish();
                 break;
             case R.id.userPhoto:
-/*                Intent intent2 = new Intent(ShakeActivity.this,PortraitPopWin.class);
-                intent2.putExtra("DRAWABLE",this.portrait.getDrawingCache());
-                startActivity(intent2);*/
+                View viewPortrait = this.inflater.inflate(R.layout.activity_shake_portrait, null);
+                this.PortraitWindow = new PopupWindow(viewPortrait, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
+                this.PopPortrait = (ImageView) viewPortrait.findViewById(R.id.imageView2);
+                this.PopPortrait.setImageDrawable(portrait.getDrawable());
+                this.PortraitWindow.showAsDropDown(findViewById(R.id.top));
                 break;
+            case R.id.imageView2:
+                if (PortraitWindow.isShowing()) {
+                    PortraitWindow.dismiss();
+                }break;
         }
     }
 
 /*    private void pop() {
         progressDialog.dismiss();
+        FriendAccount = "penghaitao";
         popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
         popupWindow.showAsDropDown(findViewById(R.id.shake_image));
         this.portrait.setImageDrawable(getResources().getDrawable(R.drawable.mypic));
-        this.userName.setText("wo");
+        this.userName.setText("我是小涛啊");
         Drawable sexDrawable = getResources().getDrawable(R.drawable.man);
         this.sex.setImageDrawable(sexDrawable);
     }*/
+    
     private void popInitView(Intent intent) {
         Drawable sexDrawable = null;
         Drawable portraitDrawable = new BitmapDrawable(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));

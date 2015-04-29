@@ -41,6 +41,7 @@ public class LoginActivity extends Activity {
     private StringUtils stringUtils = null;
     private SQLiteOpenHelper helper = null;
     private UserTabOperate userInfo = null;
+    private LoginBroadcastReceiver receiver = null;
 
     private static final String FILENAME = "Login_CheckBox";
 
@@ -61,6 +62,12 @@ public class LoginActivity extends Activity {
         this.helper = new DATABASE(this);
         initView();
         getCheckBox();
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        super.unregisterReceiver(LoginActivity.this.receiver);
     }
 
     private void initView(){
@@ -193,7 +200,7 @@ public class LoginActivity extends Activity {
 
     private void registerBroadcas() {
         //动态方式注册广播接收者
-        LoginBroadcastReceiver receiver = new LoginBroadcastReceiver();
+        this.receiver = new LoginBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.android.decipherstranger.LOGIN");
         this.registerReceiver(receiver, filter);

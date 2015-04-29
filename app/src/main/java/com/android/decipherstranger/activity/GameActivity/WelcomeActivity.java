@@ -24,6 +24,8 @@ import com.android.decipherstranger.util.SharedPreferencesUtils;
 public class WelcomeActivity extends Activity {
 
     private int grade = 3;  //  设置等级 默认为3
+    private GameBroadcastReceiver receiver = null;
+    
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,13 @@ public class WelcomeActivity extends Activity {
             }
         }, 1000);
     }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        super.unregisterReceiver(WelcomeActivity.this.receiver);
+    }
+    
 
     private void setGameInfo() {
         //  从缓存获取用户游戏设置
@@ -75,7 +84,7 @@ public class WelcomeActivity extends Activity {
 
     private void gameBroadcas() {
         //动态方式注册广播接收者
-        GameBroadcastReceiver receiver = new GameBroadcastReceiver();
+        this.receiver = new GameBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.android.decipherstranger.GAMEONE");
         this.registerReceiver(receiver, filter);
