@@ -54,10 +54,9 @@ public class ContactsList {
      * 获取联系人列表
      * @param String account
      */
-    public ArrayList<User> getInfo(String account){
-        String select = "SELECT * FROM contacts_list WHERE account=?";
-        String args[] = new String[]{account};
-        Cursor result = this.db.rawQuery(select, args);
+    public ArrayList<User> getInfo(){
+        String select = "SELECT * FROM contacts_list";
+        Cursor result = this.db.rawQuery(select, null);
         ArrayList<User> all = new ArrayList<User>();
         for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
             User contacts = new User();
@@ -84,4 +83,14 @@ public class ContactsList {
         this.db.execSQL(delete,args);
         this.db.close();
     }
+    
+    /*
+     * 清空所有联系人
+     */
+    public void clear() {
+        String clear = "DELETE FROM contacts_list";
+        this.db.execSQL(clear);
+        this.db.close();
+    }
+    
 }
