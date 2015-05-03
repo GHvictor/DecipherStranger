@@ -73,7 +73,7 @@ public class RockPaperScissorsActivity extends Activity {
     private MyBroadcastReceiver receiver = null;
 
     private int Grade = 3;              //  存储所接收等级
-    private boolean isRun = false;      //  游戏运行标志 默认游戏未运行    
+    private boolean isRun = true;      //  游戏运行标志 默认游戏运行    
     private int gameGradeInt = 0;
     private int playerGradeInt = 0;
     private int computerGradeInt = 0;

@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
@@ -34,20 +35,9 @@ public class WelcomeActivity extends Activity {
 
         Intent intent = getIntent();
         MyStatic.friendAccount = intent.getStringExtra("Account");
-
         this.gameBroadcas();
         //  设置用户游戏数据
         this.setGameInfo();
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Intent it = new Intent(WelcomeActivity.this, RockPaperScissorsActivity.class);
-                it.putExtra("Grade", grade);        //  游戏等级
-                startActivity(it);
-                WelcomeActivity.this.finish();
-            }
-        }, 1000);
     }
     
     @Override
@@ -56,7 +46,13 @@ public class WelcomeActivity extends Activity {
         super.unregisterReceiver(WelcomeActivity.this.receiver);
     }
     
-
+    public void GameWelcomeOnClick(View view) {
+        switch (view.getId()){
+            case R.id.gameStart:gameStart();
+                break;
+        }
+    }
+    
     private void setGameInfo() {
         //  从缓存获取用户游戏设置
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_SETTINGS);
@@ -88,6 +84,13 @@ public class WelcomeActivity extends Activity {
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.android.decipherstranger.GAMEONE");
         this.registerReceiver(receiver, filter);
+    }
+    
+    private void gameStart(){
+        Intent it = new Intent(WelcomeActivity.this, RockPaperScissorsActivity.class);
+        it.putExtra("Grade", grade);        //  游戏等级
+        startActivity(it);
+        WelcomeActivity.this.finish();
     }
 
     public class GameBroadcastReceiver extends BroadcastReceiver {
