@@ -20,7 +20,9 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:id="@+id/gameSound"
-        android:background="@drawable/game_welcome_btn"
+        android:background="@null"
+        android:src="@null"
+        android:onClick="GameWelcomeOnClick"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"/>
 
@@ -29,7 +31,7 @@
         android:layout_height="90dp"
         android:id="@+id/gameTips"
         android:background="@null"
-        android:src="@drawable/tips"
+        android:src="@drawable/selector_tips"
         android:onClick="GameWelcomeOnClick"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />

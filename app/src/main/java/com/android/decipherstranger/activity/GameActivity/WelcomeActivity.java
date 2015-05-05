@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
@@ -34,8 +36,9 @@ public class WelcomeActivity extends Activity {
     private int grade = 3;  //  设置等级 默认为3
     private GameBroadcastReceiver receiver = null;
     private PopupWindow helpPopWin = null;
+    private ImageButton musicImage = null;
+    private SharedPreferencesUtils sharedPreferencesUtils = null;
     public static MediaPlayer backgroundMusic = null;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,8 @@ public class WelcomeActivity extends Activity {
     }
 
     private void init() {
+        this.musicImage = (ImageButton) super.findViewById(R.id.gameSound);
+        this.sharedPreferencesUtils = new SharedPreferencesUtils(WelcomeActivity.this,MyStatic.FILENAME_SETTINGS);
         this.backgroundMusic = MediaPlayer.create(this, R.raw.background_music); //  获取背景音乐资源
         LayoutInflater inflater = LayoutInflater.from(WelcomeActivity.this);
         View view = inflater.inflate(R.layout.game_help_popup, null);
@@ -101,13 +106,18 @@ public class WelcomeActivity extends Activity {
             case R.id.gameHelp:helpPopWin.dismiss();
                 break;
             case R.id.gameSound:
+                if (MyStatic.gameBackgroundMusicFlag) {
+                    MyStatic.gameBackgroundMusicFlag = false;
+                } else {
+                    MyStatic.gameBackgroundMusicFlag = true;
+                }
+                this.setBackgroundMusic();
                 break;
         }
     }
 
     private void setGameInfo() {
         //  从缓存获取用户游戏设置
-        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_SETTINGS);
         MyStatic.gameEffectMusicFlag = (Boolean) sharedPreferencesUtils.get(MyStatic.KEY_EFFECT,true);
         MyStatic.gameBackgroundMusicFlag = (Boolean) sharedPreferencesUtils.get(MyStatic.KEY_BG,true);
         //  从服务器获取好友游戏等级
@@ -146,14 +156,18 @@ public class WelcomeActivity extends Activity {
     }
 
     private void setBackgroundMusic(){
+        Drawable drawable = null;
         if (MyStatic.gameBackgroundMusicFlag) {
             this.backgroundMusic.setLooping(true);
+            drawable = getResources().getDrawable(R.drawable.selector_music);
             this.backgroundMusic.start();
         } else {
+            drawable = getResources().getDrawable(R.drawable.selector_music_false);
             if (this.backgroundMusic.isPlaying()) {
                 this.backgroundMusic.pause();
             }
-        }
+        } this.musicImage.setImageDrawable(drawable);
+        sharedPreferencesUtils.set(MyStatic.KEY_BG, MyStatic.gameBackgroundMusicFlag);
     }
 
     public class GameBroadcastReceiver extends BroadcastReceiver {
