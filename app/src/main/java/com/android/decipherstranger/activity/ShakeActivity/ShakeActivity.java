@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.GameActivity.RockPaperScissorsActivity;
 import com.android.decipherstranger.activity.GameActivity.SuccessActivity;
 import com.android.decipherstranger.activity.GameActivity.WelcomeActivity;
 import com.android.decipherstranger.activity.LoginActivity;
@@ -162,8 +163,9 @@ public class ShakeActivity extends Activity{
                     popupWindow.dismiss();
                 } break;
             case R.id.shake_imageButton:
-/*                Intent intent = new Intent(this,SuccessActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(this,WelcomeActivity.class);
+                intent.putExtra("Account", "20124207");
+                startActivity(intent);
                 break;
         }
     }

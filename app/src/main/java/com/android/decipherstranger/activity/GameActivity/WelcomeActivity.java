@@ -5,10 +5,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
@@ -26,12 +33,57 @@ public class WelcomeActivity extends Activity {
 
     private int grade = 3;  //  设置等级 默认为3
     private GameBroadcastReceiver receiver = null;
-    
+    private PopupWindow helpPopWin = null;
+    public static MediaPlayer backgroundMusic = null;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_welcome);
+        this.init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.setBackgroundMusic();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (this.backgroundMusic.isPlaying()) {
+            this.backgroundMusic.pause();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        super.unregisterReceiver(WelcomeActivity.this.receiver);
+    }
+    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 防止连续两次返回键
+            //返回处理
+            if (helpPopWin.isShowing()) {
+                helpPopWin.dismiss();
+                return true;
+            }else {
+                onBackPressed();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void init() {
+        this.backgroundMusic = MediaPlayer.create(this, R.raw.background_music); //  获取背景音乐资源
+        LayoutInflater inflater = LayoutInflater.from(WelcomeActivity.this);
+        View view = inflater.inflate(R.layout.game_help_popup, null);
+        this.helpPopWin = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
 
         Intent intent = getIntent();
         MyStatic.friendAccount = intent.getStringExtra("Account");
@@ -39,32 +91,32 @@ public class WelcomeActivity extends Activity {
         //  设置用户游戏数据
         this.setGameInfo();
     }
-    
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        super.unregisterReceiver(WelcomeActivity.this.receiver);
-    }
-    
+
     public void GameWelcomeOnClick(View view) {
         switch (view.getId()){
             case R.id.gameStart:gameStart();
                 break;
+            case R.id.gameTips:helpPopWin.showAtLocation(findViewById(R.id.top), Gravity.BOTTOM, 0, 0);
+                break;
+            case R.id.gameHelp:helpPopWin.dismiss();
+                break;
+            case R.id.gameSound:
+                break;
         }
     }
-    
+
     private void setGameInfo() {
         //  从缓存获取用户游戏设置
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_SETTINGS);
         MyStatic.gameEffectMusicFlag = (Boolean) sharedPreferencesUtils.get(MyStatic.KEY_EFFECT,true);
         MyStatic.gameBackgroundMusicFlag = (Boolean) sharedPreferencesUtils.get(MyStatic.KEY_BG,true);
         //  从服务器获取好友游戏等级
-        
+
         //  TODO 此处写与服务器的通信函数
         if(NetworkService.getInstance().getIsConnected()){
             String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneRecieve)+":"+
-                              "account"+":"+MyStatic.UserAccount+":"+
-                              "friend"+":"+MyStatic.friendAccount;
+                    "account"+":"+MyStatic.UserAccount+":"+
+                    "friend"+":"+MyStatic.friendAccount;
             Log.v("aaaaa", gameUser);
             NetworkService.getInstance().sendUpload(gameUser);
         }
@@ -73,7 +125,7 @@ public class WelcomeActivity extends Activity {
             Toast.makeText(WelcomeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
         }
-        
+
         //  从服务器获取用户游戏习惯 石头剪刀布概率
         GameUtils.get();
     }
@@ -85,12 +137,23 @@ public class WelcomeActivity extends Activity {
         filter.addAction("com.android.decipherstranger.GAMEONE");
         this.registerReceiver(receiver, filter);
     }
-    
+
     private void gameStart(){
         Intent it = new Intent(WelcomeActivity.this, RockPaperScissorsActivity.class);
         it.putExtra("Grade", grade);        //  游戏等级
         startActivity(it);
         WelcomeActivity.this.finish();
+    }
+
+    private void setBackgroundMusic(){
+        if (MyStatic.gameBackgroundMusicFlag) {
+            this.backgroundMusic.setLooping(true);
+            this.backgroundMusic.start();
+        } else {
+            if (this.backgroundMusic.isPlaying()) {
+                this.backgroundMusic.pause();
+            }
+        }
     }
 
     public class GameBroadcastReceiver extends BroadcastReceiver {

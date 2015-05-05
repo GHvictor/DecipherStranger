@@ -65,7 +65,7 @@ public class RockPaperScissorsActivity extends Activity {
     private Drawable playerImageSrc = null;
     private Drawable computerImageSrc = null;
     private PopupWindow popupWindow = null;
-    private MediaPlayer backgroundMusic = null;
+    private MediaPlayer backgroundMusic = WelcomeActivity.backgroundMusic;
     private MediaPlayer winMusic = null;
     private MediaPlayer loseMusic = null;
     private MediaPlayer dogfallMusic = null;
@@ -86,24 +86,22 @@ public class RockPaperScissorsActivity extends Activity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_game_main);
         this.init();
+        this.gameStart();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         this.setMusic();
+        //  动态注册广播
+        this.registerBroadcas();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        this.closeMusic();
-    }
-
-    @Override
-    protected void onStop() {        
-        super.onDestroy();
         super.unregisterReceiver(RockPaperScissorsActivity.this.receiver);
+        this.closeMusic();
     }
 
     @Override
@@ -160,15 +158,11 @@ public class RockPaperScissorsActivity extends Activity {
         //  获取游戏初始数据
         Intent intent = getIntent();
         this.Grade = 2 * intent.getIntExtra("Grade", 3);    //  获取游戏等级，默认为3级
-        this.backgroundMusic = MediaPlayer.create(this, R.raw.background_music); //  获取背景音乐资源
 
         //  获取Menu控件
         LayoutInflater inflater = LayoutInflater.from(RockPaperScissorsActivity.this);
         View view = inflater.inflate(R.layout.game_meun_popup, null);
         this.popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        //  动态注册广播
-        this.registerBroadcas();
     }
 
     private void setMusic() {
