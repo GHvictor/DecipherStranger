@@ -177,9 +177,9 @@ public class LoginActivity extends Activity {
      */
     private void accountCheckByWeb(String account, String password){
 
-        /*NetworkService.getInstance().closeConnection();
+        NetworkService.getInstance().closeConnection();
         NetworkService.getInstance().onInit(LoginActivity.this);
-        NetworkService.getInstance().setupConnection();*/
+        NetworkService.getInstance().setupConnection();
         if(NetworkService.getInstance().getIsConnected()) {
             String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgLogin)+":"+"account"+":"+account+":"+"password"+":"+password;
             Log.v("aaaaa",userInfo);
@@ -212,6 +212,7 @@ public class LoginActivity extends Activity {
             if (intent.getAction().equals("com.android.decipherstranger.LOGIN")) {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
                     MyStatic.UserAccount = account;
+                    //MyStatic.UserName = intent.putExtra("name");
                     Intent it = new Intent(LoginActivity.this, MainPage.class);
                     startActivity(it);
                 }

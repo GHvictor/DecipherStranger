@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.MainPageActivity.MainPage;
+import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
 
 /**
@@ -42,7 +45,18 @@ public class SuccessActivity extends Activity {
  *              实时刷新列表
  *              并用Toast提示
  *       Toast.makeText(this, "\t" + 好友昵称(即上传的用户昵称) + "\n成功添加您为好友！",Toast.LENGTH_SHORT).show();
- *              
  */
+        if(NetworkService.getInstance().getIsConnected()){
+            String addUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgAddFriend)+":"+
+                    "account"+":"+MyStatic.UserAccount+":"+
+                    "friend"+":"+MyStatic.friendAccount;
+            Log.v("aaaaa", addUser);
+            NetworkService.getInstance().sendUpload(addUser);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(SuccessActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+            Log.v("Login", "已经执行T（）方法");
+        }
     }
 }

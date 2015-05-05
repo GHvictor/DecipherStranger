@@ -131,9 +131,9 @@ public class RegisterActivityPhoto extends Activity {
         public void onClick(View view){
             initData();
 
-            /*NetworkService.getInstance().closeConnection();
+            NetworkService.getInstance().closeConnection();
             NetworkService.getInstance().onInit(RegisterActivityPhoto.this);
-            NetworkService.getInstance().setupConnection();*/
+            NetworkService.getInstance().setupConnection();
             int userGender = 1;
             if(NetworkService.getInstance().getIsConnected()) {
                 if (userInfo.getUserSex().equals("男")){
@@ -150,7 +150,7 @@ public class RegisterActivityPhoto extends Activity {
                         "phone"+":"+userInfo.getPhone()+":"+
                         "birth"+":"+userInfo.getBirth()+":"+
                         "photo"+":"+portraitUrl;
-                System.out.println(userInfo.getPortrait());
+                //System.out.println(userInfo.getPortrait());
                 Log.v("aaaaa", sendInfo);
                 NetworkService.getInstance().sendUpload(sendInfo);
             }

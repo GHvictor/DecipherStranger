@@ -1,23 +1,38 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.Window;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.ChangeUtils;
+import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.BadgeView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -52,7 +67,10 @@ public class MainPage extends FragmentActivity implements OnClickListener{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main_page);
-
+        friendBroadcas();
+        //ArrayList<User> serverContactData = new ArrayList<>();
+        //this.getIntent().getSerializableExtra("friend");
+        //Toast.makeText(this,,Toast.LENGTH_LONG).show();
         initView();
         initEvent();
         setSelect(0);
@@ -73,6 +91,7 @@ public class MainPage extends FragmentActivity implements OnClickListener{
                 break;
             case R.id.friends_list:
                 setSelect(1);
+                networkRequest();
                 break;
             case R.id.discover:
                 setSelect(2);
@@ -176,5 +195,70 @@ public class MainPage extends FragmentActivity implements OnClickListener{
         }
     }
 
+    private void networkRequest(){
+        if(NetworkService.getInstance().getIsConnected()) {
+            String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgFriendList)+":"+"account"+":"+ MyStatic.UserAccount;
+            Log.v("aaaaa", userInfo);
+            NetworkService.getInstance().sendUpload(userInfo);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Log.v("Login", "已经执行T（）方法");
+        }
+    }
+
+    private void friendBroadcas() {
+        //动态方式注册广播接收者
+        FriendBroadcastReceiver receiver = new FriendBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.FRIEND");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class FriendBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
+                if(intent.getBooleanExtra("reResult", false)) {
+                    ArrayList<User> serverContactData = new ArrayList<>();
+
+                    //Toast.makeText(context, "aaaa", Toast.LENGTH_SHORT).show();
+                    //serverContactData = ((ArrayList) intent.getSerializableExtra("friend"));
+                    //Toast.makeText(context, serverContactData.get(0).getAccount().toString(),Toast.LENGTH_LONG).show();
+                    int sum = intent.getIntExtra("sum", 0);
+                    for (int i = 0; i < sum; i++) {
+                        String s[] = new String[5];
+                        s = intent.getStringExtra(Integer.toString(i)).split(":");
+                        Bitmap bitmap = ChangeUtils.toBitmap(s[2]);
+                        User user = new User();
+                        user.setAccount(s[0]);
+                        user.setUsername(s[1]);
+                        user.setPortrait(bitmap);
+                        serverContactData.add(user);
+                        System.out.println("qqqqqqqq" + serverContactData.get(i).getAccount());
+                    }
+                    Toast.makeText(context, "成功了", Toast.LENGTH_LONG).show();
+                /*
+                for(int i=0;i<serverContactData.size();i++){
+                    SourceDateList.add(serverContactData.get(i));
+                }
+                if (adapter == null){
+                    Collections.sort(SourceDateList, pinyinComparator);
+                    adapter = new SortAdapter(getActivity(), SourceDateList);
+                    sortListView.setAdapter(adapter);
+                }else{
+                    Collections.sort(SourceDateList, pinyinComparator);
+                    adapter.updateListView(SourceDateList);
+                }*/
+                }
+                else{
+                    Toast.makeText(context, "第一次？", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 }

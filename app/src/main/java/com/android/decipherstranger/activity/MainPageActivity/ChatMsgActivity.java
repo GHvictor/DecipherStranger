@@ -1,13 +1,17 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,12 +28,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.db.ChatRecord;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.RecentContacts;
 import com.android.decipherstranger.entity.ChatMsgEntity;
 import com.android.decipherstranger.entity.Contacts;
+import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SoundMeter;
 
 import java.io.File;
@@ -116,6 +123,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         this.helper = new DATABASE(this);
+        chatBroadcas();
         initView();
         initData();
     }
@@ -262,6 +270,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
             writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, null);
             mEditTextContent.setText("");
             mListView.setSelection(mListView.getCount() - 1);
+            sendMessage(contString);
         }
     }
 
@@ -379,7 +388,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                     writeChatLog.insert(currentUserAccount,SEND_TO_MSG,voiceName,time + "\"");
                     mListView.setSelection(mListView.getCount() - 1);
                     rcChat_popup.setVisibility(View.GONE);
-
+                    sendVoice(voiceName, time);
                 }
             }
             if (event.getY() < btn_rc_Y) {//手势按下的位置不在语音录制按钮的范围内
@@ -468,6 +477,57 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
             default:
                 volume.setImageResource(R.drawable.amp7);
                 break;
+        }
+    }
+    private void sendMessage(String message){
+        if(NetworkService.getInstance().getIsConnected()) {
+            String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgMessage)+":"+
+                    "account"+":"+ MyStatic.UserAccount+":"+"re_account"+":"+currentUserAccount+
+                    ":"+"message"+":"+message+":"+"date"+":"+getDate();
+            Log.v("aaaaa", msg);
+            NetworkService.getInstance().sendUpload(msg);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(ChatMsgActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+            Log.v("Login", "已经执行T（）方法");
+        }
+    }
+
+    private void sendVoice(String message, int time){
+        if(NetworkService.getInstance().getIsConnected()) {
+            String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgVoice)+":"+
+                    "account"+":"+ MyStatic.UserAccount+":"+"re_account"+":"+currentUserAccount+
+                    ":"+"message"+":"+message+":"+"time"+":"+time+":"+"date"+":"+getDate();
+            Log.v("aaaaa", msg);
+            NetworkService.getInstance().sendUpload(msg);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(ChatMsgActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+            Log.v("Login", "已经执行T（）方法");
+        }
+    }
+
+    private void chatBroadcas() {
+        //动态方式注册广播接收者
+        ChatBroadcastReceiver receiver = new ChatBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.MESSAGE");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class ChatBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
+                if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
+                    Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 }

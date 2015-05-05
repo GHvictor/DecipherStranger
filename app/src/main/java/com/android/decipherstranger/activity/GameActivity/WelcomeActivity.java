@@ -161,7 +161,6 @@ public class WelcomeActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.GAMEONE")) {
                 // TODO 将获取的数据赋值到本地
-
                 grade = intent.getIntExtra("reGrade", 3);
                 MyStatic.rockInt = intent.getIntExtra("reRock", 10);
                 MyStatic.scissorsInt = intent.getIntExtra("reScissors", 10);
