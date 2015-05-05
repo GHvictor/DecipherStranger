@@ -138,6 +138,10 @@ public class ShakeActivity extends Activity{
         this.inflater = LayoutInflater.from(ShakeActivity.this);
         View view = this.inflater.inflate(R.layout.shake_friend_popup, null);
         this.popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        View viewPortrait = this.inflater.inflate(R.layout.activity_shake_portrait, null);
+        this.PortraitWindow = new PopupWindow(viewPortrait, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
+        this.PopPortrait = (ImageView) viewPortrait.findViewById(R.id.imageView2);
+
         this.friendButton = (LinearLayout) view.findViewById(R.id.shake_friend_info);
         this.portrait = (ImageButton) view.findViewById(R.id.userPhoto);
         this.userName = (TextView) view.findViewById(R.id.userName);
@@ -218,9 +222,6 @@ public class ShakeActivity extends Activity{
                 this.finish();
                 break;
             case R.id.userPhoto:
-                View viewPortrait = this.inflater.inflate(R.layout.activity_shake_portrait, null);
-                this.PortraitWindow = new PopupWindow(viewPortrait, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
-                this.PopPortrait = (ImageView) viewPortrait.findViewById(R.id.imageView2);
                 this.PopPortrait.setImageDrawable(portrait.getDrawable());
                 this.PortraitWindow.showAsDropDown(findViewById(R.id.top));
                 break;
