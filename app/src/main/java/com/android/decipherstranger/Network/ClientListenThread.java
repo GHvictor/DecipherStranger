@@ -152,6 +152,10 @@ public class ClientListenThread extends Thread {
                             break;
                         case GlobalMsgUtils.msgVoice:
                             break;
+                        case GlobalMsgUtils.msgNearBy:
+                            Intent itNearBy = new Intent("com.android.decipherstranger.NEARBY");
+                            //itNearBy.putExtra("",);
+                            break;
                     }
                     reMsg = "";
                 }

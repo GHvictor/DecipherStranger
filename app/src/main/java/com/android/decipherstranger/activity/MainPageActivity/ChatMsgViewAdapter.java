@@ -130,8 +130,8 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 			}
 		});
 		viewHolder.tvUserName.setText(entity.getUsername());
-		Drawable drawable = new BitmapDrawable(convertView.getResources(),entity.getPortrait());
-		viewHolder.ivUserPhoto.setImageDrawable(drawable);
+//		Drawable drawable = new BitmapDrawable(convertView.getResources(),entity.getPortrait());
+//		viewHolder.ivUserPhoto.setImageDrawable(drawable);
 		return convertView;
 	}
 

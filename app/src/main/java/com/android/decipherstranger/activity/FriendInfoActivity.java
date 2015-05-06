@@ -46,6 +46,7 @@ public class FriendInfoActivity extends Activity {
     private void initData() {
         friendInfo = this.getIntent().getExtras();
         friendAccount.setText(friendInfo.getString("userAccount"));
+        System.out.println("asdasd"+friendInfo.getString("userAccount"));
         if (friendInfo.getString("userSex") == MALE){
             friendSex.setImageResource(R.drawable.ic_sex_male);
         }else{

@@ -1,8 +1,10 @@
 package com.android.decipherstranger.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,7 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.MainPageActivity.MainPage;
 import com.android.decipherstranger.entity.NearbyUserInfo;
+import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.HandyTextView;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -218,6 +222,28 @@ public class ShowMapActivity extends Activity {
                 mBaiduMap.animateMapStatus(msu);
                 isFristIn = false;
                 Toast.makeText(context,location.getAddrStr(),Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void showMapBroadcas() {
+        //动态方式注册广播接收者
+        ShowMapBroadcastReceiver receiver = new ShowMapBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.NEARBY");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class ShowMapBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.android.decipherstranger.NEARBY")) {
+                if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
+
+                }
+                else{
+                    Toast.makeText(context, "没人？！", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }

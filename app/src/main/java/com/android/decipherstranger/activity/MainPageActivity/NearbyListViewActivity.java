@@ -1,11 +1,17 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.entity.NearbyUserInfo;
+import com.android.decipherstranger.util.MyStatic;
 
 import java.util.ArrayList;
 
@@ -66,5 +72,27 @@ public class NearbyListViewActivity extends Activity {
         nearbyListView = (ListView) findViewById(R.id.nearby_list_view);
         adapter = new NearbyListViewAdapter(nearbyUserInfos,this);
         nearbyListView.setAdapter(adapter);
+    }
+
+    private void nearbyBroadcas() {
+        //动态方式注册广播接收者
+        NearbyBroadcastReceiver receiver = new NearbyBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.NEARBY");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class NearbyBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.android.decipherstranger.NEARBY")) {
+                if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
+
+                }
+                else{
+                    Toast.makeText(context, "没人？！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }

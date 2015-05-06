@@ -40,8 +40,10 @@ import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SoundMeter;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -213,17 +215,17 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         currentUserName = bundle.getString("userName");
         currentUserPhoto = bundle.getParcelable("userPhoto");
         who.setText(currentUserName);
-        mDataArrays = readerChatLog.getInfo(currentUserAccount);
-        int length = mDataArrays.size();
-        for (int i = 0; i < length; i++) {
-            if (mDataArrays.get(i).getWho() == IS_COM_MSG){
-                mDataArrays.get(i).setUsername(currentUserName);
-                mDataArrays.get(i).setPortrait(currentUserPhoto);
-            }
-            else{
-                mDataArrays.get(i).setUsername("帅锅");
-            }
-        }
+//        mDataArrays = readerChatLog.getInfo(currentUserAccount);
+//        int length = mDataArrays.size();
+//        for (int i = 0; i < length; i++) {
+//            if (mDataArrays.get(i).getWho() == IS_COM_MSG){
+//                mDataArrays.get(i).setUsername(currentUserName);
+//                mDataArrays.get(i).setPortrait(currentUserPhoto);
+//            }
+//            else{
+//                mDataArrays.get(i).setUsername("帅锅");
+//            }
+//        }
 
         mAdapter = new ChatMsgViewAdapter(this, mDataArrays);
         mListView.setAdapter(mAdapter);
@@ -267,7 +269,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
             entity.setMessage(contString);
             mDataArrays.add(entity);
             mAdapter.notifyDataSetChanged();
-            writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, null);
+//            writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, null);
             mEditTextContent.setText("");
             mListView.setSelection(mListView.getCount() - 1);
             sendMessage(contString);
@@ -275,19 +277,24 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
     }
 
     private String getDate() {
-        Calendar c = Calendar.getInstance();
+//        Calendar c = Calendar.getInstance();
 
-        String year = String.valueOf(c.get(Calendar.YEAR));
-        String month = String.valueOf(c.get(Calendar.MONTH));
-        String day = String.valueOf(c.get(Calendar.DAY_OF_MONTH) + 1);
-        String hour = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
-        String mins = String.valueOf(c.get(Calendar.MINUTE));
+//        String year = String.valueOf(c.get(Calendar.YEAR));
+//        String month = String.valueOf(c.get(Calendar.MONTH));
+//        String day = String.valueOf(c.get(Calendar.DAY_OF_MONTH) + 1);
+//        String hour = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
+//        String mins = String.valueOf(c.get(Calendar.MINUTE));
+//
+//        StringBuffer sbBuffer = new StringBuffer();
+//        sbBuffer.append(year + "-" + month + "-" + day + "-" + hour + "-"
+//                + mins);
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH-mm-ss");//可以方便地修改日期格式
 
-        StringBuffer sbBuffer = new StringBuffer();
-        sbBuffer.append(year + "-" + month + "-" + day + " " + hour + ":"
-                + mins);
 
-        return sbBuffer.toString();
+        String hehe = dateFormat.format( now );
+
+        return hehe;
     }
 
     //按下语音录制按钮时
@@ -385,7 +392,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                     entity.setMessage(voiceName);
                     mDataArrays.add(entity);
                     mAdapter.notifyDataSetChanged();
-                    writeChatLog.insert(currentUserAccount,SEND_TO_MSG,voiceName,time + "\"");
+//                    writeChatLog.insert(currentUserAccount,SEND_TO_MSG,voiceName,time + "\"");
                     mListView.setSelection(mListView.getCount() - 1);
                     rcChat_popup.setVisibility(View.GONE);
                     sendVoice(voiceName, time);
@@ -485,6 +492,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                     "account"+":"+ MyStatic.UserAccount+":"+"re_account"+":"+currentUserAccount+
                     ":"+"message"+":"+message+":"+"date"+":"+getDate();
             Log.v("aaaaa", msg);
+            System.out.println(msg);
             NetworkService.getInstance().sendUpload(msg);
         }
         else {

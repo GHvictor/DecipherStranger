@@ -91,8 +91,13 @@ public class FriendsMainTabFragment extends Fragment {
         readerContactLog = new ContactsList(this.helper.getReadableDatabase());
         contactList = new ArrayList<>();
         contactList = readerContactLog.getUserList();
-        SourceDateList = new ArrayList<>();
+        SourceDateList = new ArrayList<User>();
+        User user = new User();
+        user.setAccount("cccccc");
+        user.setUsername("cccccc");
+        SourceDateList.add(user);
         SourceDateList = filledData(contactList);
+
         if (!SourceDateList.isEmpty()) {
             //根据a-z进行排序源数据
             Collections.sort(SourceDateList, pinyinComparator);
@@ -145,7 +150,7 @@ public class FriendsMainTabFragment extends Fragment {
                 }
             }
         });
-        sortListView = (ListView) view.findViewById(R.id.country_lvcountry);
+        /*sortListView = (ListView) view.findViewById(R.id.contact_list);
         sortListView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -156,7 +161,7 @@ public class FriendsMainTabFragment extends Fragment {
                         ((User) adapter.getItem(position)).getUsername(),
                         Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
         mClearEditText = (ClearEditText)view.findViewById(R.id.filter_edit);
         //根据输入框输入值的改变来过滤搜索
         mClearEditText.addTextChangedListener(new TextWatcher() {

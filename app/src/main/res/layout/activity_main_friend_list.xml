@@ -63,7 +63,7 @@
             android:layout_gravity="right|center" />
 
         <ListView
-            android:id="@+id/country_lvcountry"
+            android:id="@+id/contact_list"
             android:layout_width="fill_parent"
             android:layout_height="409dp"
             android:layout_gravity="center_horizontal|bottom"
