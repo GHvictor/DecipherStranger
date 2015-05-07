@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.SubpageActivity.NearbyListViewActivity;
 import com.android.decipherstranger.activity.SubpageActivity.ShakeActivity;
 
 public class MorePageActivity extends Activity {
@@ -29,6 +30,8 @@ public class MorePageActivity extends Activity {
                 this.startActivity(intent);
                 break;
             case R.id.friends_near:
+                this.intent = new Intent(this, NearbyListViewActivity.class);
+                this.startActivity(intent);
                 break;
             case R.id.friends_map:
                 break;

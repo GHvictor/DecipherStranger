@@ -32,7 +32,7 @@ public class SuccessActivity extends Activity {
             public void run() {
                 SuccessActivity.this.finish();
             }
-        }, 3000);
+        }, 5000);
     }
     
     private void Send() {

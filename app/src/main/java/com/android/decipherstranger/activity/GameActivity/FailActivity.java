@@ -26,7 +26,7 @@ public class FailActivity extends Activity {
             public void run() {
                 FailActivity.this.finish();
             }
-        }, 3000);
+        }, 5000);
     }
 
     /*    重写返回键，返回主界面*/

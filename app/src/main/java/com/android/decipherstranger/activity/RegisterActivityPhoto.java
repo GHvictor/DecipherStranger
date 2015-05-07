@@ -27,6 +27,7 @@ import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.StringUtils;
 import com.android.decipherstranger.util.Tools;
 import com.android.decipherstranger.view.HandyTextView;
 
@@ -141,9 +142,10 @@ public class RegisterActivityPhoto extends Activity {
                 }
                 else
                     userGender = 0;
+                StringUtils stringUtils = null;
                 String sendInfo= "type"+":"+Integer.toString(GlobalMsgUtils.msgRegister)+":"+
                         "account"+":"+userInfo.getAccount()+":"+
-                        "password"+":"+userInfo.getPassword()+":"+
+                        "password"+":"+stringUtils.MD5(userInfo.getPassword())+":"+
                         "name"+":"+userInfo.getUsername()+":"+
                         "sex"+":"+userGender+":"+
                         "email"+":"+userInfo.getEmail()+":"+
