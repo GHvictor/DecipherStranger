@@ -4,4 +4,278 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/friends_trends"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="morePageOnClick"
+        android:background="@drawable/morepage_btn_bg"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:src="@drawable/friends_trends"
+            android:id="@+id/imageView01" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/friends_trends"
+            android:id="@+id/textView0"
+            android:paddingLeft="20dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView01" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView02"
+            android:paddingRight="20dp"
+            android:src="@drawable/right_arrow_icon"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:id="@+id/friends_invitation"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="morePageOnClick"
+            android:background="@drawable/morepage_btn_bg"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:src="@drawable/drift_bottle"
+                android:id="@+id/imageView11" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/friends_invitation"
+                android:id="@+id/textView1"
+                android:paddingLeft="20dp"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView11" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView12"
+                android:paddingRight="20dp"
+                android:src="@drawable/right_arrow_icon"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/page"
+            android:layout_gravity="center_horizontal"/>
+
+        <RelativeLayout
+            android:id="@+id/friends_shake"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="morePageOnClick"
+            android:background="@drawable/morepage_btn_bg"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:src="@drawable/shake"
+                android:id="@+id/imageView21" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shake"
+                android:id="@+id/textView2"
+                android:paddingLeft="20dp"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView21" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView22"
+                android:paddingRight="20dp"
+                android:src="@drawable/right_arrow_icon"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:id="@+id/friends_near"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="morePageOnClick"
+            android:background="@drawable/morepage_btn_bg"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:src="@drawable/friends_near"
+                android:id="@+id/imageView31" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/friends_near"
+                android:id="@+id/textView3"
+                android:paddingLeft="20dp"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView31" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView32"
+                android:paddingRight="20dp"
+                android:src="@drawable/right_arrow_icon"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/page"
+            android:layout_gravity="center_horizontal"/>
+
+        <RelativeLayout
+            android:id="@+id/friends_map"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="morePageOnClick"
+            android:background="@drawable/morepage_btn_bg"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:src="@drawable/friends_map"
+                android:id="@+id/imageView41" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/friends_map"
+                android:id="@+id/textView4"
+                android:paddingLeft="20dp"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView41" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView42"
+                android:paddingRight="20dp"
+                android:src="@drawable/right_arrow_icon"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/friends_game"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="morePageOnClick"
+        android:background="@drawable/morepage_btn_bg"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:src="@drawable/more_game"
+            android:id="@+id/imageView51" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game"
+            android:id="@+id/textView5"
+            android:paddingLeft="20dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView51" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView52"
+            android:paddingRight="20dp"
+            android:src="@drawable/right_arrow_icon"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
 </LinearLayout>

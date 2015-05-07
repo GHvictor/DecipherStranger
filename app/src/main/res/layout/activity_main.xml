@@ -9,6 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="46dp"
+        android:background="@color/text_blue"
         android:layout_gravity="center_horizontal">
 
         <TextView
@@ -17,7 +18,7 @@
             android:text="通 讯 录"
             android:id="@+id/textTab"
             android:textSize="24dp"
-            android:textColor="@color/text_blue"
+            android:textColor="@color/white"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
