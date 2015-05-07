@@ -1,4 +1,4 @@
-package com.android.decipherstranger.activity.MainPageActivity;
+package com.android.decipherstranger.activity.SubpageActivity;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.adapter.NearbyListViewAdapter;
 import com.android.decipherstranger.entity.NearbyUserInfo;
 import com.android.decipherstranger.util.MyStatic;
 

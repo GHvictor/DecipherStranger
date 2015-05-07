@@ -1,4 +1,4 @@
-package com.android.decipherstranger.activity;
+package com.android.decipherstranger.activity.SubpageActivity;
 
 import android.app.Activity;
 import android.content.Intent;

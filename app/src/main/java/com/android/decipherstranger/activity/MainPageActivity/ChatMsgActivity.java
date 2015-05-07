@@ -30,10 +30,10 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.adapter.ChatMsgViewAdapter;
 import com.android.decipherstranger.db.ChatRecord;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.RecentContacts;
-import com.android.decipherstranger.entity.ChatMsgEntity;
 import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
@@ -42,7 +42,6 @@ import com.android.decipherstranger.util.SoundMeter;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 

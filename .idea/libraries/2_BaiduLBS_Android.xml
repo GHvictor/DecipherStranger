@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="2_BaiduLBS_Android">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/BaiduLBS_Android.jar!/" />
+      <root url="jar://D:/WorkSpace/DecipherStranger/libs/BaiduLBS_Android.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

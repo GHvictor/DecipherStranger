@@ -1,12 +1,14 @@
 package com.android.decipherstranger.activity.GameActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 
 /**
  * Created by acmer on 2015/3/20.
@@ -33,8 +35,8 @@ public class FailActivity extends Activity {
         // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){// 防止连续两次返回键
             //这你写你的返回处理
-//            Intent it = new Intent(FailActivity.this,MainPage.class);
-//            startActivity(it);
+            Intent it = new Intent(FailActivity.this,MainPageActivity.class);
+            startActivity(it);
             FailActivity.this.finish();
             return true;
         }

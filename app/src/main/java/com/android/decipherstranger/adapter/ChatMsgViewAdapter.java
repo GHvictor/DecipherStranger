@@ -1,14 +1,8 @@
-package com.android.decipherstranger.activity.MainPageActivity;
+package com.android.decipherstranger.adapter;
 
-import java.io.File;
 import java.util.List;
 
 import android.content.Context;
-import android.drm.DrmRights;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.view.LayoutInflater;
@@ -20,10 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.decipherstranger.R;
-import com.android.decipherstranger.entity.ChatMsgEntity;
 import com.android.decipherstranger.entity.Contacts;
-import com.android.decipherstranger.util.ChangeUtils;
-import com.android.decipherstranger.util.SoundMeter;
 
 public class ChatMsgViewAdapter extends BaseAdapter {
 

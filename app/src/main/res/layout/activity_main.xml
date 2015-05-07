@@ -1,28 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-    <!--<LinearLayout-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_horizontal">-->
+    tools:context="com.android.conversationdemo.MainPageActivity"
+    android:orientation="vertical" >
 
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="查找附近的人"-->
-            <!--android:id="@+id/main_button" />-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_gravity="center_horizontal">
 
-    <!--</LinearLayout>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通 讯 录"
+            android:id="@+id/textTab"
+            android:textSize="24dp"
+            android:textColor="@color/text_blue"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
-    <!--<Button-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/shake"-->
-        <!--android:id="@+id/main_button3" />-->
-</RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_user_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/page"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="1dp" >
+
+        <LinearLayout
+            android:id="@+id/conversationPage"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="PageOnClick">
+
+            <ImageView
+                android:id="@+id/conversationImage"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:src="@drawable/conversation_normal"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/conversationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="会话"
+                android:textColor="@color/text_hint"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contactsPage"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="PageOnClick">
+
+            <ImageView
+                android:id="@+id/contactsImage"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:src="@drawable/contacts_normal"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/contactsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="通讯录"
+                android:textColor="@color/text_hint"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/morePage"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="PageOnClick">
+
+            <ImageView
+                android:id="@+id/moreImage"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:src="@drawable/more_normal"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/moreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="功能"
+                android:textColor="@color/text_hint"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/userPage"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="PageOnClick">
+
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:src="@drawable/user_normal"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/userText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="我"
+                android:textColor="@color/text_hint"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+        
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.android.decipherstranger.activity.ShakeActivity;
+package com.android.decipherstranger.activity.SubpageActivity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -27,10 +26,7 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
-import com.android.decipherstranger.activity.GameActivity.RockPaperScissorsActivity;
-import com.android.decipherstranger.activity.GameActivity.SuccessActivity;
 import com.android.decipherstranger.activity.GameActivity.WelcomeActivity;
-import com.android.decipherstranger.activity.LoginActivity;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
@@ -159,8 +155,8 @@ public class ShakeActivity extends Activity{
     public void shakeMain(View v) {
         switch (v.getId()) {
             case R.id.shake_back_button:
-                 //        onBackPressed();
-                onVibrator();
+                onBackPressed();
+                //  onVibrator();
                 break;
             case R.id.shakeMain:
                 if (popupWindow.isShowing()) {
@@ -195,7 +191,6 @@ public class ShakeActivity extends Activity{
     }
 
     private void searchFriend() {
-
         //创建我们的进度条
         progressDialog.setMessage("正在搜寻同一时刻摇晃手机的人");
         progressDialog.onStart();
@@ -210,7 +205,7 @@ public class ShakeActivity extends Activity{
             Toast.makeText(ShakeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
         }
- //       pop();
+        //       pop();
     }
 
     public void ShakePopup(View view) {
@@ -242,7 +237,7 @@ public class ShakeActivity extends Activity{
         Drawable sexDrawable = getResources().getDrawable(R.drawable.man);
         this.sex.setImageDrawable(sexDrawable);
     }*/
-    
+
     private void popInitView(Intent intent) {
         Drawable sexDrawable = null;
         Drawable portraitDrawable = new BitmapDrawable(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));

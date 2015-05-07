@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.UserTabOperate;
 import com.android.decipherstranger.entity.User;
@@ -156,8 +157,8 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
-//            Intent it = new Intent(LoginActivity.this,MainPage.class);
-//            startActivity(it);
+            Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
+            startActivity(it);
         }
     }
 
@@ -210,8 +211,8 @@ public class LoginActivity extends Activity {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
                     MyStatic.UserAccount = account;
                     //MyStatic.UserName = intent.putExtra("name");
-//                    Intent it = new Intent(LoginActivity.this, MainPage.class);
-//                    startActivity(it);
+                    Intent it = new Intent(LoginActivity.this, MainPageActivity.class);
+                    startActivity(it);
                 }
                 else{
                     Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();

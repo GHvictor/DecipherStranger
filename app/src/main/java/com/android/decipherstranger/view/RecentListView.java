@@ -1,4 +1,4 @@
-package com.android.decipherstranger.activity.MainPageActivity;
+package com.android.decipherstranger.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

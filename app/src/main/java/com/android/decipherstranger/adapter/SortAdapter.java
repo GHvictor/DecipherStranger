@@ -1,4 +1,4 @@
-package com.android.decipherstranger.activity.MainPageActivity;
+package com.android.decipherstranger.adapter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.android.decipherstranger.activity;
+package com.android.decipherstranger.activity.SubpageActivity;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
-import com.android.decipherstranger.activity.MainPageActivity.MainPage;
 import com.android.decipherstranger.entity.NearbyUserInfo;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.HandyTextView;
