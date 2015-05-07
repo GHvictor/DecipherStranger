@@ -531,6 +531,16 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
                     Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
+                    Contacts receiveMsg = new Contacts();
+                    receiveMsg.setAccount(currentUserAccount);
+                    receiveMsg.setUsername(currentUserName);
+                    receiveMsg.setPortrait(currentUserPhoto);
+                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
+                    receiveMsg.setWho(1);
+                    mDataArrays.add(receiveMsg);
+                    mAdapter.notifyDataSetChanged();
+                    mListView.setSelection(mListView.getCount() - 1);
                 }
                 else{
                     Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();

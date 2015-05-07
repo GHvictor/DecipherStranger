@@ -17,7 +17,6 @@ import android.widget.EditText;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.dialog.CustomDialogSex;
-import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.StringUtils;
 
 /**

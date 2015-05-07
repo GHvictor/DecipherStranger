@@ -2,9 +2,6 @@ package com.android.decipherstranger.util;
 
 /**
  * Java汉字转换为拼音
- * 
- * @author zihao
- * 
  */
 public class CharacterParser {
 	private static int[] pyvalue = new int[] { -20319, -20317, -20304, -20295,

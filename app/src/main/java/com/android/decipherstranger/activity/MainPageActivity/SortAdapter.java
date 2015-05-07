@@ -23,10 +23,10 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
     private ArrayList<User> list = null;
     private Context mContext;
 
-    public SortAdapter(Context mContext, ArrayList<User> list) {
-        this.mContext = mContext;
-        this.list = list;
-    }
+	public SortAdapter(Context mContext, ArrayList<User> list) {
+		this.mContext = mContext;
+		this.list = list;
+	}
 
     /**
      * 当ListView数据发生变化时,调用此方法来更新ListView

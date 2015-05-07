@@ -29,7 +29,7 @@ public class MyStatic {
     public static final String resultFalse = "false";
 
     public static String UserAccount = null;
-    public static String UserName = null;
+    public static String UserName = "jj";
 
     public static boolean gameEffectMusicFlag = true;         //  游戏音效控制标志
     public static boolean gameBackgroundMusicFlag = true;     //  游戏音乐控制标志

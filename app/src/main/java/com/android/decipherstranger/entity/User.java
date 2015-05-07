@@ -9,29 +9,29 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
     //用户名
-    private String account = null;
+    private String account;
     //用户密码
-    private String password = null;
+    private String password;
     //用户呢称
-    private String username = null;
+    private String username;
     //用户备注
-    private String remark = null;
+    private String remark;
     //用户性别
-    private String userSex = null;
+    private String userSex;
     //用户邮箱
-    private String email = null;
+    private String email;
     //用户电话
-    private String phone = null;
+    private String phone;
     //用户生日
-    private String birth = null;
+    private String birth;
     //用户地址
-    private String address = null;
+    private String address;
     //显示用户名拼音的首字母
     private String sortLetters;
     //  头像
-    private Bitmap portrait = null;
+    private Bitmap portrait;
     //  个性签名
-    private String signature = null;
+    private String signature;
 
     public User(){}
     public User(User user) {

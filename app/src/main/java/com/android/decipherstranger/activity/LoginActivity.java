@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -23,11 +22,9 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
-import com.android.decipherstranger.activity.MainPageActivity.MainPage;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.UserTabOperate;
 import com.android.decipherstranger.entity.User;
-import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.StringUtils;
@@ -158,9 +155,9 @@ public class LoginActivity extends Activity {
                 }
                 editor.commit();
             }
-            accountCheckByWeb(account,passwordMD5);
-            Intent it = new Intent(LoginActivity.this, MainPage.class);
-            startActivity(it);
+            accountCheckByWeb(account, passwordMD5);
+//            Intent it = new Intent(LoginActivity.this,MainPage.class);
+//            startActivity(it);
         }
     }
 
@@ -213,8 +210,8 @@ public class LoginActivity extends Activity {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
                     MyStatic.UserAccount = account;
                     //MyStatic.UserName = intent.putExtra("name");
-                    Intent it = new Intent(LoginActivity.this, MainPage.class);
-                    startActivity(it);
+//                    Intent it = new Intent(LoginActivity.this, MainPage.class);
+//                    startActivity(it);
                 }
                 else{
                     Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();

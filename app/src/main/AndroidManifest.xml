@@ -39,7 +39,6 @@
 
         <!--摇一摇-->
         <activity android:name=".activity.ShakeActivity.ShakeActivity"/>
-        <activity android:name=".activity.ShakeActivity.PortraitPopWin"/>
         
         <!--游戏-->
         <activity android:name=".activity.GameActivity.WelcomeActivity"/>
@@ -53,10 +52,6 @@
             android:label="@string/app_name_en"
             android:theme="@style/NoTheme" />
 
-        <activity
-            android:name=".activity.MainPageActivity.MainPage"
-            android:label="解密陌生人"
-            android:theme="@style/NoTheme" />
         <activity
             android:name=".activity.MainPageActivity.NearbyListViewActivity"
             android:label="解密陌生人"
