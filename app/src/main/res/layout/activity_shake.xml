@@ -11,8 +11,8 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="@color/text_blue"
+        android:layout_height="wrap_content"
+        android:background="@color/tab_blue"
         android:orientation="vertical" >
 
         <Button
@@ -30,11 +30,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
+            android:paddingLeft="20dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/shake"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="22dp"
             android:id="@+id/shake_title"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/shake_back_button"

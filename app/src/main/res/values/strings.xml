@@ -38,7 +38,9 @@
     <string name="friends_invitation">邀请券</string>
     <string name="friends_near">附近的人</string>
     <string name="friends_map">陌生人地图</string>
-    <string name="game">游戏</string>
+    <string name="game">游戏设置</string>
+    
+    <string name="portrait">头像</string>
     
     <string name="shake">摇一摇</string>
     <string name="shakeSettings">摇一摇设置</string>

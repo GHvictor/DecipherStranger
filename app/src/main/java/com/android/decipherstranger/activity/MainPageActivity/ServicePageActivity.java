@@ -6,17 +6,19 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.GameActivity.SetGradeActivity;
 import com.android.decipherstranger.activity.SubpageActivity.NearbyListViewActivity;
 import com.android.decipherstranger.activity.SubpageActivity.ShakeActivity;
+import com.android.decipherstranger.activity.SubpageActivity.ShowMapActivity;
 
-public class MorePageActivity extends Activity {
+public class ServicePageActivity extends Activity {
     
     private Intent intent = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_main_more);
+        super.setContentView(R.layout.activity_main_service);
 	}
     
     public void morePageOnClick(View view) {
@@ -34,8 +36,12 @@ public class MorePageActivity extends Activity {
                 this.startActivity(intent);
                 break;
             case R.id.friends_map:
+                this.intent = new Intent(this, ShowMapActivity.class);
+                this.startActivity(intent);
                 break;
             case R.id.friends_game:
+                this.intent = new Intent(this, SetGradeActivity.class);
+                this.startActivity(intent);
                 break;
         }
     }

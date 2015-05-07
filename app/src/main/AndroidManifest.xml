@@ -29,7 +29,7 @@
         <activity android:name=".activity.MainPageActivity.MainPageActivity"/>
         <activity android:name=".activity.MainPageActivity.ConversationPageActivity"/>
         <activity android:name=".activity.MainPageActivity.ContactsPageActivity"/>
-        <activity android:name=".activity.MainPageActivity.MorePageActivity"/>
+        <activity android:name=".activity.MainPageActivity.ServicePageActivity"/>
         <activity android:name=".activity.MainPageActivity.UserPageActivity"/>
         
         <!--摇一摇-->

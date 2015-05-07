@@ -58,7 +58,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         mListViews.add(getView("A", intent1));
         Intent intent2 = new Intent(MainPageActivity.this, ContactsPageActivity.class); // 加载activity到viewpage
         mListViews.add(getView("B", intent2));
-        Intent intent3 = new Intent(MainPageActivity.this, MorePageActivity.class); // 加载activity到viewpage
+        Intent intent3 = new Intent(MainPageActivity.this, ServicePageActivity.class); // 加载activity到viewpage
         mListViews.add(getView("C", intent3));
         Intent intent4 = new Intent(MainPageActivity.this, UserPageActivity.class); // 加载activity到viewpage
         mListViews.add(getView("D", intent4));
@@ -98,7 +98,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 break;
             case R.id.morePage:
                 this.pager.setCurrentItem(2);
-                this.textTab.setText("功能");
+                this.textTab.setText("服务");
                 this.text1.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image1.setImageDrawable(getResources().getDrawable(R.drawable.conversation_normal));
                 this.text2.setTextColor(getResources().getColor(R.color.text_hint));
