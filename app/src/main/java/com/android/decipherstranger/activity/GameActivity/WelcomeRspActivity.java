@@ -22,6 +22,7 @@ import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.util.GameUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
 
@@ -31,6 +32,7 @@ import com.android.decipherstranger.util.SharedPreferencesUtils;
  */
 public class WelcomeRspActivity extends Activity {
 
+    private MyApplication application = null;
     private int grade = 6;  //  设置等级 默认为3
     private int sum = 20;
     private GameBroadcastReceiver receiver = null;
@@ -43,6 +45,7 @@ public class WelcomeRspActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_welcome);
+        application = (MyApplication) getApplication();
         this.init();
     }
 
@@ -124,7 +127,7 @@ public class WelcomeRspActivity extends Activity {
         //  TODO 此处写与服务器的通信函数
         if(NetworkService.getInstance().getIsConnected()){
             String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneRecieve)+":"+
-                    "account"+":"+MyStatic.UserAccount+":"+
+                    "account"+":"+application.getAccount()+":"+
                     "friend"+":"+MyStatic.friendAccount;
             Log.v("aaaaa", gameUser);
             NetworkService.getInstance().sendUpload(gameUser);

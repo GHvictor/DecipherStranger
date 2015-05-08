@@ -19,6 +19,7 @@ import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
 import com.android.decipherstranger.entity.NearbyUserInfo;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.HandyTextView;
 import com.baidu.location.BDLocation;
@@ -45,6 +46,7 @@ import java.util.List;
  * Created by Administrator on 2015/3/19 0019.
  */
 public class ShowMapActivity extends Activity {
+    private MyApplication application = null;
     private MapView mMapView = null;
     private BaiduMap mBaiduMap;
     //定位相关
@@ -61,6 +63,7 @@ public class ShowMapActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        application = (MyApplication) getApplication();
         //在使用SDK各组件之前初始化context信息，传入ApplicationContext
         //注意该方法要再setContentView方法之前实现
         SDKInitializer.initialize(getApplicationContext());
@@ -254,7 +257,7 @@ public class ShowMapActivity extends Activity {
     private void sendMsg() {
         if (NetworkService.getInstance().getIsConnected()) {
             String Msg = "type" + ":" + Integer.toString(GlobalMsgUtils.msgNearBy) + ":" +
-                    "account" + ":" + MyStatic.UserAccount + ":" + "latitude" + ":" + mLatitude + ":" +
+                    "account" + ":" + application.getAccount() + ":" + "latitude" + ":" + mLatitude + ":" +
                     "longtitude" + ":" + mLongtitude;
             Log.v("aaaaa", Msg);
             NetworkService.getInstance().sendUpload(Msg);

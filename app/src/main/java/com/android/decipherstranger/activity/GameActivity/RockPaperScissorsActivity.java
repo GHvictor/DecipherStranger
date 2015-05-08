@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.dialog.CustomDialogSettings;
 import com.android.decipherstranger.util.GameUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 
 /**
@@ -51,6 +52,7 @@ import com.android.decipherstranger.util.MyStatic;
 
 public class RockPaperScissorsActivity extends Activity {
 
+    private MyApplication application = null;
     private static Intent intent = null;
     
     private TextView gradeText = null;
@@ -85,6 +87,7 @@ public class RockPaperScissorsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_game_main);
+        application = (MyApplication) getApplication();
         this.init();
         this.gameStart();
     }
@@ -309,7 +312,7 @@ public class RockPaperScissorsActivity extends Activity {
             //  上传游戏数据
             new Thread(){
                 public void run(){
-                    GameUtils.set();
+                    GameUtils.set(application.getAccount());
                 }
             }.start();
             Handler handler = new Handler();

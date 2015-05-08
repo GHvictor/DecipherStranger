@@ -12,7 +12,7 @@ import java.util.Random;
  * Created by peng on 2015/3/17.
  */
 public class GameUtils {
-
+    
     //  计算电脑出招
     public static int Answer() {
         int count = MyStatic.rockInt + MyStatic.scissorsInt + MyStatic.paperInt;
@@ -43,10 +43,10 @@ public class GameUtils {
     }
     
     //  上传用户习性
-    public static void set(){
+    public static void set(String account){
         if(NetworkService.getInstance().getIsConnected()){
             String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneSend)+
-                    ":"+"account"+":"+MyStatic.UserAccount+":"+"rock"+":"+MyStatic.rockInt+":"+
+                    ":"+"account"+":"+account+":"+"rock"+":"+MyStatic.rockInt+":"+
                     "scissors"+":"+MyStatic.scissorsInt+":"+"paper"+":"+MyStatic.paperInt;
             Log.v("aaaaa", gameUser);
             NetworkService.getInstance().sendUpload(gameUser);

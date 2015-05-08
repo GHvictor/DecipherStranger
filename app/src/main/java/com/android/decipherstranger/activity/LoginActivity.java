@@ -213,7 +213,6 @@ public class LoginActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.LOGIN")) {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
-                    MyStatic.UserAccount = account;
                     //MyStatic.UserName = intent.putExtra("name");
                     application.setAccount(account);
                     Intent it = new Intent(LoginActivity.this, MainPageActivity.class);

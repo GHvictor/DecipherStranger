@@ -29,6 +29,7 @@ import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.ShakeListener;
 
@@ -58,6 +59,7 @@ import com.android.decipherstranger.util.ShakeListener;
  */
 public class ShakeActivity extends Activity{
 
+    private MyApplication application = null;
     private ProgressDialog progressDialog = null;
     private ShakeListener shakeListener = null;
     private LayoutInflater inflater = null;
@@ -76,6 +78,7 @@ public class ShakeActivity extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shake);
+        application = (MyApplication) getApplication();
         intiView();
     }
 
@@ -196,7 +199,7 @@ public class ShakeActivity extends Activity{
         progressDialog.onStart();
         progressDialog.show();
         if(NetworkService.getInstance().getIsConnected()) {
-            String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgShake)+":"+"account"+":"+MyStatic.UserAccount;
+            String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgShake)+":"+"account"+":"+application.getAccount();
             Log.v("aaaaa", userInfo);
             NetworkService.getInstance().sendUpload(userInfo);
         }

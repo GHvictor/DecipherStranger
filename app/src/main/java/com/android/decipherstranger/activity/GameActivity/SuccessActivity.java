@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 
 /**
@@ -42,9 +43,10 @@ public class SuccessActivity extends Activity {
  *              并用Toast提示
  *       Toast.makeText(this, "\t" + 好友昵称(即上传的用户昵称) + "\n成功添加您为好友！",Toast.LENGTH_SHORT).show();
  */
+        MyApplication application = (MyApplication) getApplication();
         if(NetworkService.getInstance().getIsConnected()){
             String addUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgAddFriend)+":"+
-                    "account"+":"+MyStatic.UserAccount+":"+
+                    "account"+":"+application.getAccount()+":"+
                     "friend"+":"+MyStatic.friendAccount;
             Log.v("aaaaa", addUser);
             NetworkService.getInstance().sendUpload(addUser);

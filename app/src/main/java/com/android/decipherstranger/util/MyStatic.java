@@ -30,8 +30,8 @@ public class MyStatic {
     public static final String resultTrue = "true";
     public static final String resultFalse = "false";
 
-    public static String UserAccount = null;
-    public static String UserName = "jj";
+/*    public static String UserAccount = null;
+    public static String UserName = "jj";*/
 
     public static String friendAccount = null;          //  所添加好友account
     public static String friendName = null;             //  所添加好友昵称

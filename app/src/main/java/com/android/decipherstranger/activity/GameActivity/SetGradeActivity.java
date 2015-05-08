@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 
 /**
@@ -19,6 +20,7 @@ import com.android.decipherstranger.util.MyStatic;
  */
 public class SetGradeActivity extends Activity {
     
+    private MyApplication application = null;
     private EditText gradeEdit = null;
     private EditText sumEdit = null;
     
@@ -26,6 +28,7 @@ public class SetGradeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_rsp_set_grade);
+        application = (MyApplication) getApplication();
         this.init();
     }
     
@@ -54,7 +57,7 @@ public class SetGradeActivity extends Activity {
             //  TODO 在此处上传grade & sum至服务器
             if(NetworkService.getInstance().getIsConnected()){
                 String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneGrade)+
-                        ":"+"account"+":"+ MyStatic.UserAccount+":"+"grade"+":"+grade;
+                        ":"+"account"+":"+ application.getAccount()+":"+"grade"+":"+grade;
                 Log.v("aaaaa", gameUser);
                 NetworkService.getInstance().sendUpload(gameUser);
             }

@@ -36,6 +36,7 @@ import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.RecentContacts;
 import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SoundMeter;
 
@@ -50,6 +51,7 @@ import java.util.List;
  */
 public class ChatMsgActivity extends Activity implements OnClickListener {
 
+    private MyApplication application = null;
     //文本信息发送按钮
     private Button mBtnSend;
     //录音按钮
@@ -120,6 +122,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        application = (MyApplication) getApplication();
         // 启动activity时不自动弹出软键盘
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -488,7 +491,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
     private void sendMessage(String message){
         if(NetworkService.getInstance().getIsConnected()) {
             String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgMessage)+":"+
-                    "account"+":"+ MyStatic.UserAccount+":"+"re_account"+":"+currentUserAccount+
+                    "account"+":"+ application.getAccount()+":"+"re_account"+":"+currentUserAccount+
                     ":"+"message"+":"+message+":"+"date"+":"+getDate();
             Log.v("aaaaa", msg);
             System.out.println(msg);
@@ -504,7 +507,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
     private void sendVoice(String message, int time){
         if(NetworkService.getInstance().getIsConnected()) {
             String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgVoice)+":"+
-                    "account"+":"+ MyStatic.UserAccount+":"+"re_account"+":"+currentUserAccount+
+                    "account"+":"+ application.getAccount()+":"+"re_account"+":"+currentUserAccount+
                     ":"+"message"+":"+message+":"+"time"+":"+time+":"+"date"+":"+getDate();
             Log.v("aaaaa", msg);
             NetworkService.getInstance().sendUpload(msg);
