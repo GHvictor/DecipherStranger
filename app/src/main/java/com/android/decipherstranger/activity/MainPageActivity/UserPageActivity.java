@@ -2,6 +2,7 @@ package com.android.decipherstranger.activity.MainPageActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.android.decipherstranger.R;
 
@@ -31,5 +32,19 @@ public class UserPageActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main_user);
+    }
+    
+    public void MePageOnClick(View view) {
+        switch (view.getId()) {
+            case R.id.myPortrait:
+                break;
+            case R.id.imageButton:
+                break;
+            case R.id.myName:
+                break;
+            case R.id.button:
+                this.finish();
+                break;
+        }
     }
 }

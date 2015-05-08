@@ -6,12 +6,11 @@
 
     <RelativeLayout
         android:id="@+id/friends_trends"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:onClick="morePageOnClick"
-        android:background="@drawable/morepage_btn_bg"
+        android:background="@drawable/mainpage_btn_bg"
         android:layout_gravity="center_horizontal">
 
         <ImageView
@@ -19,24 +18,22 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:src="@drawable/friends_trends"
-            android:id="@+id/imageView01" />
+            android:id="@+id/imageView1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/friends_trends"
-            android:id="@+id/textView0"
             android:paddingLeft="20dp"
             android:textSize="20dp"
             android:textColor="@color/black"
             android:layout_gravity="center_vertical"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageView01" />
+            android:layout_toRightOf="@+id/imageView1" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView02"
             android:paddingRight="20dp"
             android:src="@drawable/right_arrow_icon"
             android:layout_centerVertical="true"
@@ -58,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="morePageOnClick"
-            android:background="@drawable/morepage_btn_bg"
+            android:background="@drawable/mainpage_btn_bg"
             android:layout_gravity="center_horizontal">
 
             <ImageView
@@ -66,24 +63,22 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:src="@drawable/drift_bottle"
-                android:id="@+id/imageView11" />
+                android:id="@+id/imageView2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/friends_invitation"
-                android:id="@+id/textView1"
                 android:paddingLeft="20dp"
                 android:textSize="20dp"
                 android:textColor="@color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView11" />
+                android:layout_toRightOf="@+id/imageView2" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView12"
                 android:paddingRight="20dp"
                 android:src="@drawable/right_arrow_icon"
                 android:layout_centerVertical="true"
@@ -106,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="morePageOnClick"
-            android:background="@drawable/morepage_btn_bg"
+            android:background="@drawable/mainpage_btn_bg"
             android:layout_gravity="center_horizontal">
 
             <ImageView
@@ -114,24 +109,22 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:src="@drawable/shake"
-                android:id="@+id/imageView21" />
+                android:id="@+id/imageView3" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/shake"
-                android:id="@+id/textView2"
                 android:paddingLeft="20dp"
                 android:textSize="20dp"
                 android:textColor="@color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView21" />
+                android:layout_toRightOf="@+id/imageView3" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView22"
                 android:paddingRight="20dp"
                 android:src="@drawable/right_arrow_icon"
                 android:layout_centerVertical="true"
@@ -155,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="morePageOnClick"
-            android:background="@drawable/morepage_btn_bg"
+            android:background="@drawable/mainpage_btn_bg"
             android:layout_gravity="center_horizontal">
 
             <ImageView
@@ -163,24 +156,22 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:src="@drawable/friends_near"
-                android:id="@+id/imageView31" />
+                android:id="@+id/imageView4" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/friends_near"
-                android:id="@+id/textView3"
                 android:paddingLeft="20dp"
                 android:textSize="20dp"
                 android:textColor="@color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView31" />
+                android:layout_toRightOf="@+id/imageView4" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView32"
                 android:paddingRight="20dp"
                 android:src="@drawable/right_arrow_icon"
                 android:layout_centerVertical="true"
@@ -203,7 +194,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="morePageOnClick"
-            android:background="@drawable/morepage_btn_bg"
+            android:background="@drawable/mainpage_btn_bg"
             android:layout_gravity="center_horizontal">
 
             <ImageView
@@ -211,24 +202,22 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:src="@drawable/friends_map"
-                android:id="@+id/imageView41" />
+                android:id="@+id/imageView5" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/friends_map"
-                android:id="@+id/textView4"
                 android:paddingLeft="20dp"
                 android:textSize="20dp"
                 android:textColor="@color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView41" />
+                android:layout_toRightOf="@+id/imageView5" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView42"
                 android:paddingRight="20dp"
                 android:src="@drawable/right_arrow_icon"
                 android:layout_centerVertical="true"
@@ -245,7 +234,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:onClick="morePageOnClick"
-        android:background="@drawable/morepage_btn_bg"
+        android:background="@drawable/mainpage_btn_bg"
         android:layout_gravity="center_horizontal">
 
         <ImageView
@@ -253,24 +242,22 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:src="@drawable/more_game"
-            android:id="@+id/imageView51" />
+            android:id="@+id/imageView6" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game"
-            android:id="@+id/textView5"
             android:paddingLeft="20dp"
             android:textSize="20dp"
             android:textColor="@color/black"
             android:layout_gravity="center_vertical"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageView51" />
+            android:layout_toRightOf="@+id/imageView6" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView52"
             android:paddingRight="20dp"
             android:src="@drawable/right_arrow_icon"
             android:layout_centerVertical="true"

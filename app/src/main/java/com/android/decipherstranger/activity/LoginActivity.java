@@ -159,6 +159,7 @@ public class LoginActivity extends Activity {
             accountCheckByWeb(account, passwordMD5);
             Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
+            finish();
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.GameActivity.SetGradeActivity;
+import com.android.decipherstranger.activity.SubpageActivity.GameListActivity;
 import com.android.decipherstranger.activity.SubpageActivity.NearbyListViewActivity;
 import com.android.decipherstranger.activity.SubpageActivity.ShakeActivity;
 import com.android.decipherstranger.activity.SubpageActivity.ShowMapActivity;
@@ -40,7 +41,7 @@ public class ServicePageActivity extends Activity {
                 this.startActivity(intent);
                 break;
             case R.id.friends_game:
-                this.intent = new Intent(this, SetGradeActivity.class);
+                this.intent = new Intent(this, GameListActivity.class);
                 this.startActivity(intent);
                 break;
         }

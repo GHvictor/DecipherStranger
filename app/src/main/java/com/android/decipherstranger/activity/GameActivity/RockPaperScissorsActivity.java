@@ -65,7 +65,7 @@ public class RockPaperScissorsActivity extends Activity {
     private Drawable playerImageSrc = null;
     private Drawable computerImageSrc = null;
     private PopupWindow popupWindow = null;
-    private MediaPlayer backgroundMusic = WelcomeActivity.backgroundMusic;
+    private MediaPlayer backgroundMusic = WelcomeRspActivity.backgroundMusic;
     private MediaPlayer winMusic = null;
     private MediaPlayer loseMusic = null;
     private MediaPlayer dogfallMusic = null;

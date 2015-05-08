@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
-import com.android.decipherstranger.activity.GameActivity.WelcomeActivity;
+import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
@@ -163,7 +163,7 @@ public class ShakeActivity extends Activity{
                     popupWindow.dismiss();
                 } break;
             case R.id.shake_imageButton:
-                Intent intent = new Intent(this,WelcomeActivity.class);
+                Intent intent = new Intent(this,WelcomeRspActivity.class);
                 intent.putExtra("Account", "20124207");
                 startActivity(intent);
                 break;
@@ -211,7 +211,7 @@ public class ShakeActivity extends Activity{
     public void ShakePopup(View view) {
         switch (view.getId()) {
             case R.id.shake_friend_info:
-                Intent intent1 = new Intent(ShakeActivity.this,WelcomeActivity.class);
+                Intent intent1 = new Intent(ShakeActivity.this,WelcomeRspActivity.class);
                 intent1.putExtra("Account", FriendAccount);
                 startActivity(intent1);
                 this.finish();

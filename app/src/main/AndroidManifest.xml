@@ -36,12 +36,15 @@
         <activity android:name=".activity.SubpageActivity.ShakeActivity"/>
         
         <!--游戏-->
-        <activity android:name=".activity.GameActivity.WelcomeActivity"/>
+        <activity android:name=".activity.SubpageActivity.GameListActivity"/>
+        <!--石头剪刀布-->
+        <activity android:name=".activity.GameActivity.WelcomeRspActivity"/>
         <activity android:name=".activity.GameActivity.SetGradeActivity"/>
         <activity android:name=".activity.GameActivity.RockPaperScissorsActivity" />
         <activity android:name=".activity.GameActivity.SuccessActivity"/>
         <activity android:name=".activity.GameActivity.FailActivity" />
         
+        <!--地图-->
         <activity android:name=".activity.SubpageActivity.ShowMapActivity"/>
 
         <activity

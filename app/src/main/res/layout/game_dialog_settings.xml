@@ -18,7 +18,7 @@
             android:layout_width="fill_parent"
             android:layout_height="40.0dip"
             android:gravity="center"
-            android:text="@string/gameSettings"
+            android:text="@string/Setting_Text"
             android:textSize="24dp"
             android:textColor="@color/white"
             android:visibility="visible"/>

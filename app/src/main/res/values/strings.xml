@@ -38,9 +38,13 @@
     <string name="friends_invitation">邀请券</string>
     <string name="friends_near">附近的人</string>
     <string name="friends_map">陌生人地图</string>
-    <string name="game">游戏设置</string>
+    <string name="game">游戏</string>
     
     <string name="portrait">头像</string>
+    <string name="name">昵称</string>
+    <string name="account_lab">解密账号</string>
+    <string name="sound">声音</string>
+    <string name="main_quit">退&#160;&#160;&#160;&#160;出</string>
     
     <string name="shake">摇一摇</string>
     <string name="shakeSettings">摇一摇设置</string>
@@ -50,9 +54,9 @@
     <string name="setImage">自定义背景图片</string>
     <string name="music_effect">音效</string>
     <string name="shake_effect">震动</string>
-    
-    <string name="game_name">石头剪刀布</string>
-    <string name="gameSettings">游&#160;&#160;戏&#160;&#160;设&#160;&#160;置</string>
+
+    <string name="game_rsp">石头剪刀布</string>
+    <string name="game_number">猜数字测缘分</string>
     <string name="Setting_Text">设&#160;&#160;置</string>
     <string name="Help_Text">帮&#160;&#160;助</string>
     <string name="Quit_Text">退&#160;&#160;出</string>

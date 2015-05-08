@@ -80,7 +80,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
                 this.text3.setTextColor(getResources().getColor(R.color.text_hint));
-                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.more_normal));
+                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
                 this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
@@ -92,7 +92,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.text2.setTextColor(getResources().getColor(R.color.text_blue));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_press));
                 this.text3.setTextColor(getResources().getColor(R.color.text_hint));
-                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.more_normal));
+                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
                 this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
@@ -104,7 +104,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
                 this.text3.setTextColor(getResources().getColor(R.color.text_blue));
-                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.more_press));
+                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_press));
                 this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
@@ -116,7 +116,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
                 this.text3.setTextColor(getResources().getColor(R.color.text_hint));
-                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.more_normal));
+                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
                 this.text4.setTextColor(getResources().getColor(R.color.text_blue));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_press));
             default:
@@ -153,7 +153,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
                 this.text3.setTextColor(getResources().getColor(R.color.text_hint));
-                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.more_normal));
+                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
                 this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
@@ -165,7 +165,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.text2.setTextColor(getResources().getColor(R.color.text_blue));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_press));
                 this.text3.setTextColor(getResources().getColor(R.color.text_hint));
-                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.more_normal));
+                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
                 this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
@@ -177,7 +177,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
                 this.text3.setTextColor(getResources().getColor(R.color.text_blue));
-                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.more_press));
+                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_press));
                 this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
@@ -189,7 +189,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
                 this.text3.setTextColor(getResources().getColor(R.color.text_hint));
-                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.more_normal));
+                this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
                 this.text4.setTextColor(getResources().getColor(R.color.text_blue));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_press));
             default:

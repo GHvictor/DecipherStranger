@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -31,7 +29,7 @@ import com.android.decipherstranger.util.SharedPreferencesUtils;
  * Created by PengHaitao on 2015/2/12.
  * toDo 获取游戏等级以及游戏设置
  */
-public class WelcomeActivity extends Activity {
+public class WelcomeRspActivity extends Activity {
 
     private int grade = 3;  //  设置等级 默认为3
     private GameBroadcastReceiver receiver = null;
@@ -64,7 +62,7 @@ public class WelcomeActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        super.unregisterReceiver(WelcomeActivity.this.receiver);
+        super.unregisterReceiver(WelcomeRspActivity.this.receiver);
     }
     
     @Override
@@ -84,9 +82,9 @@ public class WelcomeActivity extends Activity {
 
     private void init() {
         this.musicImage = (ImageButton) super.findViewById(R.id.gameSound);
-        this.sharedPreferencesUtils = new SharedPreferencesUtils(WelcomeActivity.this,MyStatic.FILENAME_SETTINGS);
+        this.sharedPreferencesUtils = new SharedPreferencesUtils(WelcomeRspActivity.this,MyStatic.FILENAME_SETTINGS);
         this.backgroundMusic = MediaPlayer.create(this, R.raw.background_music); //  获取背景音乐资源
-        LayoutInflater inflater = LayoutInflater.from(WelcomeActivity.this);
+        LayoutInflater inflater = LayoutInflater.from(WelcomeRspActivity.this);
         View view = inflater.inflate(R.layout.game_help_popup, null);
         this.helpPopWin = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
 
@@ -132,7 +130,7 @@ public class WelcomeActivity extends Activity {
         }
         else {
             NetworkService.getInstance().closeConnection();
-            Toast.makeText(WelcomeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WelcomeRspActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
         }
 
@@ -149,10 +147,10 @@ public class WelcomeActivity extends Activity {
     }
 
     private void gameStart(){
-        Intent it = new Intent(WelcomeActivity.this, RockPaperScissorsActivity.class);
+        Intent it = new Intent(WelcomeRspActivity.this, RockPaperScissorsActivity.class);
         it.putExtra("Grade", grade);        //  游戏等级
         startActivity(it);
-        WelcomeActivity.this.finish();
+        WelcomeRspActivity.this.finish();
     }
 
     private void setBackgroundMusic(){

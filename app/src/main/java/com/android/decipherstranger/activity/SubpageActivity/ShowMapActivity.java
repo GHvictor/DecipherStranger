@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
 import com.android.decipherstranger.entity.NearbyUserInfo;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.HandyTextView;
@@ -100,7 +101,7 @@ public class ShowMapActivity extends Activity {
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(ShowMapActivity.this,com.android.decipherstranger.activity.GameActivity.WelcomeActivity.class);
+                Intent it = new Intent(ShowMapActivity.this,WelcomeRspActivity.class);
                 startActivity(it);
             }
         });
