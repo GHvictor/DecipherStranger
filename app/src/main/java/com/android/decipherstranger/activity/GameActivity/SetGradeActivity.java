@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -17,49 +18,40 @@ import com.android.decipherstranger.util.MyStatic;
  * Created by acmer on 2015/3/20.
  */
 public class SetGradeActivity extends Activity {
-
-    private RadioGroup radioGroup = null;
+    
+    private EditText gradeEdit = null;
+    private EditText sumEdit = null;
     
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_set_grade);
-        
-        this.radioGroup = (RadioGroup) super.findViewById(R.id.GameRadioGroup);
-        this.radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListenerImpl());
+        setContentView(R.layout.activity_game_rsp_set_grade);
+        this.init();
     }
     
-    private class OnCheckedChangeListenerImpl implements RadioGroup.OnCheckedChangeListener {
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            switch (checkedId){
-                case R.id.radioButton1:
-                    setGradeToWeb(1);
-                    break;
-                case R.id.radioButton2:
-                    setGradeToWeb(2);
-                    break;
-                case R.id.radioButton3:
-                    setGradeToWeb(3);
-                    break;
-                case R.id.radioButton4:
-                    setGradeToWeb(4);
-                    break;
-                case R.id.radioButton5:
-                    setGradeToWeb(5);
-                    break;
-                case R.id.radioButton0:
-                    setGradeToWeb(0);
-                    break;
-            }
+    private void init() {
+        this.gradeEdit = (EditText) super.findViewById(R.id.editText1);
+        this.sumEdit = (EditText) super.findViewById(R.id.editText2);
+        this.gradeEdit.setText("6");
+        this.sumEdit.setText("20");
+    }
+    
+    public void GradeSetOnClick(View view) {
+        switch (view.getId()) {
+            case R.id.gamelist_back_button:
+                onBackPressed();
+                break;
+            case R.id.save_btn:
+                setGradeToWeb();
+                onBackPressed();
+                break;
         }
     }
  
-    private void setGradeToWeb(int grade){
-        if (grade == 0) {
-            Toast.makeText(this, "该功能尚未开放，敬请期待", Toast.LENGTH_SHORT).show();
-        } else {
-            //  TODO 在此处上传游戏等级grade至服务器
+    private void setGradeToWeb(){
+        int grade = Integer.parseInt(this.gradeEdit.getText().toString());
+        int sum = Integer.parseInt(this.sumEdit.getText().toString());
+            //  TODO 在此处上传grade & sum至服务器
             if(NetworkService.getInstance().getIsConnected()){
                 String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneGrade)+
                         ":"+"account"+":"+ MyStatic.UserAccount+":"+"grade"+":"+grade;
@@ -71,6 +63,5 @@ public class SetGradeActivity extends Activity {
                 Toast.makeText(SetGradeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
                 Log.v("Login", "已经执行T（）方法");
             }
-        }
     }
 }

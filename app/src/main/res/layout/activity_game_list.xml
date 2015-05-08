@@ -4,6 +4,37 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/tab_blue"
+        android:orientation="vertical" >
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:id="@+id/gamelist_back_button"
+            android:onClick="GameListOnClick"
+            android:background="@drawable/shake_back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/game"
+            android:textColor="@color/white"
+            android:textSize="22dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/gamelist_back_button" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/game_rsp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

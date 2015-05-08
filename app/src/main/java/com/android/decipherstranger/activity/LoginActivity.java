@@ -27,6 +27,7 @@ import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.UserTabOperate;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.StringUtils;
 
@@ -35,6 +36,7 @@ import com.android.decipherstranger.util.StringUtils;
  */
 public class LoginActivity extends Activity {
 
+    private MyApplication application = null;
     private Intent it = null;
     private StringUtils stringUtils = null;
     private SQLiteOpenHelper helper = null;
@@ -57,6 +59,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         registerBroadcas();
+        application = (MyApplication) getApplication();
         this.helper = new DATABASE(this);
         initView();
         getCheckBox();
@@ -212,6 +215,7 @@ public class LoginActivity extends Activity {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
                     MyStatic.UserAccount = account;
                     //MyStatic.UserName = intent.putExtra("name");
+                    application.setAccount(account);
                     Intent it = new Intent(LoginActivity.this, MainPageActivity.class);
                     startActivity(it);
                 }

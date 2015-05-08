@@ -1,5 +1,7 @@
 package com.android.decipherstranger.util;
 
+import com.android.decipherstranger.entity.User;
+
 /**
  *      へ　　　　　／|
  * 　　/＼7　　　 ∠＿/
@@ -31,11 +33,11 @@ public class MyStatic {
     public static String UserAccount = null;
     public static String UserName = "jj";
 
-    public static boolean gameEffectMusicFlag = true;         //  游戏音效控制标志
-    public static boolean gameBackgroundMusicFlag = true;     //  游戏音乐控制标志
-
     public static String friendAccount = null;          //  所添加好友account
     public static String friendName = null;             //  所添加好友昵称
+
+    public static boolean gameEffectMusicFlag = true;         //  游戏音效控制标志
+    public static boolean gameBackgroundMusicFlag = true;     //  游戏音乐控制标志
 
     public static int rockInt = 10;            //  当前用户出石头的几率
     public static int scissorsInt = 10;        //  当前用户出剪刀的几率

@@ -31,7 +31,8 @@ import com.android.decipherstranger.util.SharedPreferencesUtils;
  */
 public class WelcomeRspActivity extends Activity {
 
-    private int grade = 3;  //  设置等级 默认为3
+    private int grade = 6;  //  设置等级 默认为3
+    private int sum = 20;
     private GameBroadcastReceiver receiver = null;
     private PopupWindow helpPopWin = null;
     private ImageButton musicImage = null;
@@ -133,9 +134,6 @@ public class WelcomeRspActivity extends Activity {
             Toast.makeText(WelcomeRspActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
         }
-
-        //  从服务器获取用户游戏习惯 石头剪刀布概率
-        GameUtils.get();
     }
 
     private void gameBroadcas() {
@@ -174,6 +172,7 @@ public class WelcomeRspActivity extends Activity {
             if (intent.getAction().equals("com.android.decipherstranger.GAMEONE")) {
                 // TODO 将获取的数据赋值到本地
                 grade = intent.getIntExtra("reGrade", 3);
+                //sum = intent.getIntExtra("", 20);
                 MyStatic.rockInt = intent.getIntExtra("reRock", 10);
                 MyStatic.scissorsInt = intent.getIntExtra("reScissors", 10);
                 MyStatic.paperInt = intent.getIntExtra("rePaper", 10);

@@ -42,10 +42,6 @@ public class GameUtils {
         }
     }
     
-    //  获取用户习性
-    public static void get(){
-    }
-    
     //  上传用户习性
     public static void set(){
         if(NetworkService.getInstance().getIsConnected()){

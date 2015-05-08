@@ -11,8 +11,8 @@ import java.net.Socket;
 public class NetConnect extends Thread {
 
     /*  information about Server, ip address and portal number  */
-    private String HostIp = "192.168.32.128";
-
+//    private String HostIp = "192.168.32.128";
+      private String HostIp = "";
     private int HostPort = 8283;
 
     /*  socket  */

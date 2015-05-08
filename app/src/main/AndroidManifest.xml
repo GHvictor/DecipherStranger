@@ -8,6 +8,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ds_ico"
         android:label="@string/app_name_ch"
+        android:name=".util.MyApplication"
         android:theme="@style/NoTheme" >
         <activity
             android:name=".activity.WelcomeActivity"

@@ -157,7 +157,7 @@ public class RockPaperScissorsActivity extends Activity {
 
         //  获取游戏初始数据
         Intent intent = getIntent();
-        this.Grade = 2 * intent.getIntExtra("Grade", 3);    //  获取游戏等级，默认为3级
+        this.Grade = intent.getIntExtra("Grade", 6);    //  获取游戏等级，默认为3级
 
         //  获取Menu控件
         LayoutInflater inflater = LayoutInflater.from(RockPaperScissorsActivity.this);

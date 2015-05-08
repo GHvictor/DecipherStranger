@@ -42,6 +42,9 @@ public class GameListActivity extends Activity {
     
     public void GameListOnClick(View view) {
         switch (view.getId()) {
+            case R.id.gamelist_back_button:
+                onBackPressed();
+                break;
             case R.id.game_rsp:
                 this.intent = new Intent(this, WelcomeRspActivity.class);
                 this.startActivity(intent);
