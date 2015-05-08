@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.view.BadgeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +25,17 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
     private LocalActivityManager manager = null;
     private TextView text1, text2, text3, text4;
     private ImageView image1, image2, image3, image4;
-
+    private BadgeView badgeView ;
+    //新消息的总数
+    private int unReadCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initData(savedInstanceState);
         initView();
+        setUnReadMessage(7,image1);
+        setUnReadMessage(2,image2);
         initViewPage();
     }
 
@@ -63,7 +68,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         Intent intent4 = new Intent(MainPageActivity.this, UserPageActivity.class); // 加载activity到viewpage
         mListViews.add(getView("D", intent4));
         this.pager.setAdapter(new MyFramePagerAdapter(mListViews));
-        this.pager.setCurrentItem(1);
+        this.pager.setCurrentItem(0);
         this.pager.setOnPageChangeListener(this);
         this.textTab.setText("通讯录");
         this.text2.setTextColor(getResources().getColor(R.color.text_blue));
@@ -121,6 +126,18 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_press));
             default:
                 break;
+        }
+    }
+
+    //未读消息提醒
+    public void setUnReadMessage(int unReadMessageNum,ImageView unReadMessageType){
+        badgeView = new BadgeView(this,unReadMessageType);
+        badgeView.setText(String.valueOf(unReadMessageNum));
+        badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+        if (unReadMessageNum != 0){
+            badgeView.show();
+        }else {
+            badgeView.hide();
         }
     }
 

@@ -28,7 +28,8 @@
         <!--主界面-->
         <activity android:name=".activity.MainPageActivity.MainPageActivity"/>
         <activity android:name=".activity.MainPageActivity.ConversationPageActivity"/>
-        <activity android:name=".activity.MainPageActivity.ContactsPageActivity"/>
+        <activity android:name=".activity.MainPageActivity.ContactsPageActivity"
+            android:windowSoftInputMode="stateUnchanged" />
         <activity android:name=".activity.MainPageActivity.ServicePageActivity"/>
         <activity android:name=".activity.MainPageActivity.UserPageActivity"/>
         
@@ -104,7 +105,9 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <!-- 允许应用访问振动设备 -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    
+    <!--允许应用访问音频设备-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />

@@ -73,6 +73,6 @@
     <string name="title_activity_test_upload_image">TestUploadImage</string>
     <string name="hello_world">Hello world!</string>
     
-    <string name="friend_request">好友请求</string>
+    <string name="new_friend">新的好友</string>
 
 </resources>

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,9 +14,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
 import com.android.decipherstranger.entity.NearbyUserInfo;
+import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.HandyTextView;
 import com.baidu.location.BDLocation;
@@ -62,6 +65,7 @@ public class ShowMapActivity extends Activity {
         //注意该方法要再setContentView方法之前实现
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.show_map);
+        sendMsg();
         initView();
         this.context = this;
         //初始化定位
@@ -245,6 +249,18 @@ public class ShowMapActivity extends Activity {
                     Toast.makeText(context, "没人？！", Toast.LENGTH_SHORT).show();
                 }
             }
+        }
+    }
+    private void sendMsg() {
+        if (NetworkService.getInstance().getIsConnected()) {
+            String Msg = "type" + ":" + Integer.toString(GlobalMsgUtils.msgNearBy) + ":" +
+                    "account" + ":" + MyStatic.UserAccount + ":" + "latitude" + ":" + mLatitude + ":" +
+                    "longtitude" + ":" + mLongtitude;
+            Log.v("aaaaa", Msg);
+            NetworkService.getInstance().sendUpload(Msg);
+        } else {
+            NetworkService.getInstance().closeConnection();
+            Log.v("Login", "已经执行T（）方法");
         }
     }
 
