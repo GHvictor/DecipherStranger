@@ -161,9 +161,10 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
-/*            Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
+//            Intent intent = new Intent()
+            Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
-            finish();*/
+            finish();
         }
     }
 
@@ -213,20 +214,7 @@ public class LoginActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.LOGIN")) {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
-                    //MyStatic.UserName = intent.putExtra("name");
                     application.setAccount(account);
-                    Toast.makeText(context,application.getAccount(),Toast.LENGTH_SHORT).show();
-                    /*application.setName(intent.getStringExtra("name"));
-                    application.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("photo")));
-                    if(intent.getIntExtra("gender", 1) == 1) {
-                        application.setSex("男");
-                    }else{
-                        application.setSex("女");
-                    }
-                    application.setBirth(intent.getStringExtra("birth"));
-                    application.setPhone(intent.getStringExtra("phone"));
-                    application.setEmail(intent.getStringExtra("email"));*/
-
                     Intent it = new Intent(LoginActivity.this, MainPageActivity.class);
                     startActivity(it);
                 }
