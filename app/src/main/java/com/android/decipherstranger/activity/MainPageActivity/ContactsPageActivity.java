@@ -60,16 +60,16 @@ public class ContactsPageActivity extends Activity {
 		super.setContentView(R.layout.activity_main_contacts);
 		this.helper = new DATABASE(this);
         friendBroadcas();
-		initView();
 		initData();
+		initView();
 		friendsRequestCount(NORMAL);
 	}
 
 	@Override
-	protected void onRestart() {
-		initView();
+	protected void onStart() {
 		initData();
-		super.onRestart();
+		initView();
+		super.onStart();
 	}
 
     /*@Override
