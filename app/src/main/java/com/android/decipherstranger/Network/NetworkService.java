@@ -2,6 +2,8 @@ package com.android.decipherstranger.Network;
 
 import android.content.Context;
 
+import com.android.decipherstranger.util.MyApplication;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,10 +30,16 @@ public class NetworkService {
     private ClientSendThread serSendThread;
     private Socket serSocket;
     private Context serContext;
+    private MyApplication application = null;
 
     // here, it should always do nothing except set mIsConnected to false
     private NetworkService() {
         isConnectedServer = false;
+    }
+
+    public void onInit(Context context,MyApplication application) {
+        serContext = context;
+        this.application = application;
     }
 
     public void onInit(Context context) {
@@ -63,7 +71,7 @@ public class NetworkService {
     }
 
     private void startListen(Context context0) {
-        serListenThread = new ClientListenThread(context0, serSocket);
+        serListenThread = new ClientListenThread(context0, serSocket, application);
         serListenThread.start();
 
         serSendThread = new ClientSendThread();

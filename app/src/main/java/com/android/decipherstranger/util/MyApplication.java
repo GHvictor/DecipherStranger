@@ -32,7 +32,7 @@ public class MyApplication extends Application {
     //  用户头像
     private Bitmap portrait = null;
     //  用户性别
-    private String userSex = null;
+    private String sex = null;
     //  用户邮箱
     private String email = null;
     //  用户电话
@@ -78,12 +78,12 @@ public class MyApplication extends Application {
         super.onTerminate();
     }
 
-    public void setUserSex(String userSex) {
-        this.userSex = userSex;
+    public void setSex(String userSex) {
+        this.sex = userSex;
     }
 
-    public String getUserSex() {
-        return userSex;
+    public String getSex() {
+        return sex;
     }
 
     public void setEmail(String email) {

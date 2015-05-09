@@ -161,9 +161,9 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
-            Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
+/*            Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
-            finish();
+            finish();*/
         }
     }
 
@@ -180,7 +180,7 @@ public class LoginActivity extends Activity {
     private void accountCheckByWeb(String account, String password){
 
         NetworkService.getInstance().closeConnection();
-        NetworkService.getInstance().onInit(LoginActivity.this);
+        NetworkService.getInstance().onInit(LoginActivity.this,application);
         NetworkService.getInstance().setupConnection();
         if(NetworkService.getInstance().getIsConnected()) {
             String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgLogin)+":"+"account"+":"+account+":"+"password"+":"+password;
@@ -219,9 +219,9 @@ public class LoginActivity extends Activity {
                     /*application.setName(intent.getStringExtra("name"));
                     application.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("photo")));
                     if(intent.getIntExtra("gender", 1) == 1) {
-                        application.setUserSex("男");
+                        application.setSex("男");
                     }else{
-                        application.setUserSex("女");
+                        application.setSex("女");
                     }
                     application.setBirth(intent.getStringExtra("birth"));
                     application.setPhone(intent.getStringExtra("phone"));

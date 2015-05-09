@@ -42,6 +42,8 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MyApplication application = (MyApplication) getApplication();
+        System.out.println("### 我是接受到的 Name 值 " + application.getName());
         initData(savedInstanceState);
         friendBroadcas();
         initView();

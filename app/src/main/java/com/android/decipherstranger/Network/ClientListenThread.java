@@ -2,12 +2,8 @@ package com.android.decipherstranger.Network;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.hardware.usb.UsbRequest;
-import android.os.Bundle;
 import android.util.Log;
 
-import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyApplication;
@@ -18,12 +14,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by Feng on 2015/04/11.
@@ -34,10 +25,13 @@ public class ClientListenThread extends Thread {
 
     private InputStreamReader inputStreamReader;
     private BufferedReader bufferedReader;
+    
+    private MyApplication application = null;
 
-    public ClientListenThread(Context context, Socket s) {
+    public ClientListenThread(Context context, Socket s, MyApplication application) {
         this.clContext = context;
         this.clSocket = s;
+        this.application = application;
     }
 
     public void run() {
@@ -71,14 +65,14 @@ public class ClientListenThread extends Thread {
                         case GlobalMsgUtils.msgLogin:
                             Intent itLogin = new Intent("com.android.decipherstranger.LOGIN");
                             itLogin.putExtra("result", jsonObj.getString("re_message"));
-                            /*itLogin.putExtra("name", jsonObj.getString("re_name"));
-                            itLogin.putExtra("photo", jsonObj.getString("re_photo"));
-                            itLogin.putExtra("gender", jsonObj.getInt("re_gender"));
-                            itLogin.putExtra("phone", jsonObj.getString("re_phone"));
-                            itLogin.putExtra("email", jsonObj.getString("re_email"));
-                            itLogin.putExtra("birth", jsonObj.getString("re_birth"));*/
+                            application.setName(jsonObj.getString("re_name"));
+                            application.setPortrait(ChangeUtils.toBitmap(jsonObj.getString("re_photo")));
+                            if (jsonObj.getInt("re_gender") == 1){ application.setSex("男"); }
+                            else { application.setSex("女"); }
+                            application.setPhone(jsonObj.getString("re_phone"));
+                            application.setEmail(jsonObj.getString("re_email"));
+                            application.setBirth(jsonObj.getString("re_birth"));
                             clContext.sendBroadcast(itLogin);
-                            //System.out.println("aaaaaaaJustatest");
                             break;
                         case GlobalMsgUtils.msgRegister:
                             Intent itRegister = new Intent("com.android.decipherstranger.REGISTER");
