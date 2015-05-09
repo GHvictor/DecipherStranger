@@ -80,6 +80,7 @@ public class UserPageActivity extends Activity {
                 break;
             case R.id.button:
                 SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_USER);
+                sharedPreferencesUtils.clear();
                 sharedPreferencesUtils.set(MyStatic.USER_LOGIN, false);
                 this.finish();
                 break;

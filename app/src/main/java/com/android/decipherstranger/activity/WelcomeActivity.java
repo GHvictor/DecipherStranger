@@ -49,14 +49,14 @@ public class WelcomeActivity extends ActionBarActivity {
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this, MyStatic.FILENAME_USER);
         this.isLogin = (Boolean) sharedPreferencesUtils.get(MyStatic.USER_LOGIN, false);
         if (isLogin) {
-            this.application.setAccount((String) sharedPreferencesUtils.get(MyStatic.USER_ACCOUNT, null));
-            this.application.setName((String) sharedPreferencesUtils.get(MyStatic.USER_NAME, null));
+            this.application.setAccount((String) sharedPreferencesUtils.get(MyStatic.USER_ACCOUNT, ""));
+            this.application.setName((String) sharedPreferencesUtils.get(MyStatic.USER_NAME, ""));
   //          this.application.setPortrait(ChangeUtils.toBitmap((String) sharedPreferencesUtils.get(MyStatic.USER_PORTRAIT, null)));
-            this.application.setSex((String) sharedPreferencesUtils.get(MyStatic.USER_SEX, null));
-            this.application.setBirth((String) sharedPreferencesUtils.get(MyStatic.USER_BIRTH, null));
-            this.application.setEmail((String) sharedPreferencesUtils.get(MyStatic.USER_EMAIL, null));
-            this.application.setPhone((String) sharedPreferencesUtils.get(MyStatic.USER_PHONE, null));
-            this.application.setSignature((String) sharedPreferencesUtils.get(MyStatic.USER_SIGNATURE, null));
+            this.application.setSex((String) sharedPreferencesUtils.get(MyStatic.USER_SEX, ""));
+            this.application.setBirth((String) sharedPreferencesUtils.get(MyStatic.USER_BIRTH, ""));
+            this.application.setEmail((String) sharedPreferencesUtils.get(MyStatic.USER_EMAIL, ""));
+            this.application.setPhone((String) sharedPreferencesUtils.get(MyStatic.USER_PHONE, ""));
+            this.application.setSignature((String) sharedPreferencesUtils.get(MyStatic.USER_SIGNATURE, ""));
         }
     }
 

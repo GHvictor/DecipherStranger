@@ -164,6 +164,8 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
+            application.setAccount(account);
+            sharedPreferencesUtils.set(MyStatic.USER_ACCOUNT, application.getAccount());
             sharedPreferencesUtils.set(MyStatic.USER_LOGIN, true);
             Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
@@ -233,11 +235,11 @@ public class LoginActivity extends Activity {
         sharedPreferencesUtils.set(MyStatic.USER_LOGIN, true);
         sharedPreferencesUtils.set(MyStatic.USER_ACCOUNT, application.getAccount());
         sharedPreferencesUtils.set(MyStatic.USER_NAME, application.getName());
-        sharedPreferencesUtils.set(MyStatic.USER_PORTRAIT, ChangeUtils.toBinary(application.getPortrait()));
+ //       sharedPreferencesUtils.set(MyStatic.USER_PORTRAIT, ChangeUtils.toBinary(application.getPortrait()));
         sharedPreferencesUtils.set(MyStatic.USER_SEX, application.getSex());
         sharedPreferencesUtils.set(MyStatic.USER_BIRTH, application.getBirth());
         sharedPreferencesUtils.set(MyStatic.USER_EMAIL, application.getEmail());
         sharedPreferencesUtils.set(MyStatic.USER_PHONE, application.getPhone());
-        sharedPreferencesUtils.set(MyStatic.USER_SIGNATURE, application.getSignature());
+ //       sharedPreferencesUtils.set(MyStatic.USER_SIGNATURE, application.getSignature());
     }
 }
