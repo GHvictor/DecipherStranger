@@ -21,10 +21,12 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.view.BadgeView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
     private BadgeView badgeView ;
     //新消息的总数
     private int unReadCount;
+    private ArrayList<User>serverFriendListData = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +50,9 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         initData(savedInstanceState);
         friendBroadcas();
         initView();
-        setUnReadMessage(7,image1);
-        setUnReadMessage(2,image2);
         initViewPage();
+        setUnReadMessage(7,image1);
+        setUnReadMessage(2, image2);
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -75,6 +78,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         Intent intent1 = new Intent(MainPageActivity.this, ConversationPageActivity.class); // 加载activity到viewpage
         mListViews.add(getView("A", intent1));
         Intent intent2 = new Intent(MainPageActivity.this, ContactsPageActivity.class); // 加载activity到viewpage
+        intent2.putExtra("contactList",(Serializable)serverFriendListData);
         mListViews.add(getView("B", intent2));
         Intent intent3 = new Intent(MainPageActivity.this, ServicePageActivity.class); // 加载activity到viewpage
         mListViews.add(getView("C", intent3));
@@ -315,36 +319,13 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
             if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
                 if(intent.getBooleanExtra("reResult", false)) {
                     //Todo 数据接收
-                    //ArrayList<User> serverContactData = new ArrayList<>();
-                    //String a = intent.getStringExtra("reAccount");
-                    //Toast.makeText(context, a, Toast.LENGTH_SHORT).show();
-                    //serverContactData = ((ArrayList) intent.getSerializableExtra("friend"));
-                    //Toast.makeText(context, serverContactData.get(0).getAccount().toString(),Toast.LENGTH_LONG).show();
-                    //int sum = intent.getIntExtra("sum", 0);
-                    /*for (int i = 0; i < sum; i++) {
-                    String s[] = new String[5];
-                    s = intent.getStringExtra(Integer.toString(i)).split(":");
-                    Bitmap bitmap = ChangeUtils.toBitmap(s[2]);
-                    User user = new User();
-                    user.setAccount(s[0]);
-                    user.setUsername(s[1]);
-                    user.setPortrait(bitmap);
-                    serverContactData.add(user);
-                    System.out.println("qqqqqqqq" + serverContactData.get(i).getAccount());
-                }*/
-                /*
-                for(int i=0;i<serverContactData.size();i++){
-                    SourceDateList.add(serverContactData.get(i));
-                }
-                if (adapter == null){
-                    Collections.sort(SourceDateList, pinyinComparator);
-                    adapter = new SortAdapter(getActivity(), SourceDateList);
-                    sortListView.setAdapter(adapter);
-                }else{
-                    Collections.sort(SourceDateList, pinyinComparator);
-                    adapter.updateListView(SourceDateList);
-                }*/
+                    User contact = new User();
+                    contact.setAccount(intent.getStringExtra("reAccount"));
+                    contact.setUsername(intent.getStringExtra("reName"));
+                    contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("re_photo")));
+                    serverFriendListData.add(contact);
                 }else if(intent.getBooleanExtra("isfinish", false)){
+                    initViewPage();
                     //Todo 数据处理
                     //System.out.println("aacxzzxc");
                     //Toast.makeText(context, "第一次？", Toast.LENGTH_SHORT).show();

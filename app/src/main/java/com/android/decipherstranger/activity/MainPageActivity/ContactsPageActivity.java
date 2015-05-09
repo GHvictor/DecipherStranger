@@ -49,11 +49,8 @@ public class ContactsPageActivity extends Activity {
 	private ContactsList writeContactLog;
 
 	private ArrayList<User>mContactList;
-	//
 	private CharacterParser characterParser;
-	//
 	private PinyinComparator pinyinComparator;
-	//
 	private BadgeView friendsRequestCount;
 	private final static int NORMAL = 0;
 	private LinearLayout newFriends;
@@ -67,13 +64,25 @@ public class ContactsPageActivity extends Activity {
 		friendsRequestCount(NORMAL);
 	}
 
+	@Override
+	protected void onRestart() {
+		initView();
+		initData();
+		super.onRestart();
+	}
+
 	private void initData() {
 		readerContactLog = new ContactsList(this.helper.getReadableDatabase());
 		mContactList = new ArrayList<>();
-		mContactList = readerContactLog.getUserList();
+
+		if ( !readerContactLog.getUserList().isEmpty()){
+			mContactList = readerContactLog.getUserList();
+		}else {
+			mContactList = (ArrayList<User>) this.getIntent().getSerializableExtra("contactList");
+		}
 		mContactList = filledData(mContactList);
 		if(!mContactList.isEmpty()){
-			Collections.sort(mContactList,pinyinComparator);
+			Collections.sort(mContactList, pinyinComparator);
 			adapter = new SortAdapter(this,mContactList);
 			contactListView.setAdapter(adapter);
 		}
@@ -132,7 +141,6 @@ public class ContactsPageActivity extends Activity {
 		clearEditText.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				// ������������ֵΪ�գ�����Ϊԭ�����б?����Ϊ��������б�
 				if (!mContactList.isEmpty()){
 					filterData(s.toString());
 				}
@@ -197,67 +205,67 @@ public class ContactsPageActivity extends Activity {
 
 	//
 	public void friendsRequestCount(int friendsRequestCounts){
-		if (friendsRequestCounts != 0){
+		if (friendsRequestCounts == 0){
+			friendsRequestCount.hide();
+		}else {
 			friendsRequestCount.setText(friendsRequestCounts);
 			friendsRequestCount.show();
-		}else {
-			friendsRequestCount.hide();
 		}
 	}
 
-	private void friendBroadcas() {
-		//
-		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
-		FriendBroadcastReceiver receiver = new FriendBroadcastReceiver();
-		IntentFilter filter = new IntentFilter();
-		filter.addAction("com.android.decipherstranger.FRIEND");
-		broadcastManager.registerReceiver(receiver, filter);
-	}
-
-	public class FriendBroadcastReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
-				if(intent.getBooleanExtra("reResult", false)) {
-					ArrayList<User> serverContactData = new ArrayList<>();
-
-					//Toast.makeText(context, "aaaa", Toast.LENGTH_SHORT).show();
-					//serverContactData = ((ArrayList) intent.getSerializableExtra("friend"));
-					//Toast.makeText(context, serverContactData.get(0).getAccount().toString(),Toast.LENGTH_LONG).show();
-					int sum = intent.getIntExtra("sum", 0);
-					for (int i = 0; i < sum; i++) {
-						String s[] = new String[5];
-						s = intent.getStringExtra(Integer.toString(i)).split(":");
-						Bitmap bitmap = ChangeUtils.toBitmap(s[2]);
-						User user = new User();
-						user.setAccount(s[0]);
-						user.setUsername(s[1]);
-						user.setPortrait(bitmap);
-						serverContactData.add(user);
-						System.out.println("qqqqqqqq" + serverContactData.get(i).getAccount());
-					}
-					Toast.makeText(context, "af", Toast.LENGTH_LONG).show();
-					serverContactData = filledData(serverContactData);
-					for(int i=0;i<serverContactData.size();i++){
-						mContactList.add(serverContactData.get(i));
-					}
-					if (adapter == null){
-						Collections.sort(mContactList, pinyinComparator);
-						adapter = new SortAdapter(ContactsPageActivity.this, mContactList);
-						contactListView.setAdapter(adapter);
-					}else{
-						Collections.sort(mContactList, pinyinComparator);
-						adapter.updateListView(mContactList);
-					}
-				}
-				else{
-					Toast.makeText(context, "adfs", Toast.LENGTH_SHORT).show();
-				}
-			}
-			else {
-				Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
+//	private void friendBroadcas() {
+//		//
+//		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
+//		FriendBroadcastReceiver receiver = new FriendBroadcastReceiver();
+//		IntentFilter filter = new IntentFilter();
+//		filter.addAction("com.android.decipherstranger.FRIEND");
+//		broadcastManager.registerReceiver(receiver, filter);
+//	}
+//
+//	public class FriendBroadcastReceiver extends BroadcastReceiver {
+//		@Override
+//		public void onReceive(Context context, Intent intent) {
+//			if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
+//				if(intent.getBooleanExtra("reResult", false)) {
+//					ArrayList<User> serverContactData = new ArrayList<>();
+//
+//					//Toast.makeText(context, "aaaa", Toast.LENGTH_SHORT).show();
+//					//serverContactData = ((ArrayList) intent.getSerializableExtra("friend"));
+//					//Toast.makeText(context, serverContactData.get(0).getAccount().toString(),Toast.LENGTH_LONG).show();
+//					int sum = intent.getIntExtra("sum", 0);
+//					for (int i = 0; i < sum; i++) {
+//						String s[] = new String[5];
+//						s = intent.getStringExtra(Integer.toString(i)).split(":");
+//						Bitmap bitmap = ChangeUtils.toBitmap(s[2]);
+//						User user = new User();
+//						user.setAccount(s[0]);
+//						user.setUsername(s[1]);
+//						user.setPortrait(bitmap);
+//						serverContactData.add(user);
+//						System.out.println("qqqqqqqq" + serverContactData.get(i).getAccount());
+//					}
+//					Toast.makeText(context, "af", Toast.LENGTH_LONG).show();
+//					serverContactData = filledData(serverContactData);
+//					for(int i=0;i<serverContactData.size();i++){
+//						mContactList.add(serverContactData.get(i));
+//					}
+//					if (adapter == null){
+//						Collections.sort(mContactList, pinyinComparator);
+//						adapter = new SortAdapter(ContactsPageActivity.this, mContactList);
+//						contactListView.setAdapter(adapter);
+//					}else{
+//						Collections.sort(mContactList, pinyinComparator);
+//						adapter.updateListView(mContactList);
+//					}
+//				}
+//				else{
+//					Toast.makeText(context, "adfs", Toast.LENGTH_SHORT).show();
+//				}
+//			}
+//			else {
+//				Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
+//			}
+//		}
+//	}
 
 }

@@ -114,7 +114,7 @@ public class ClientListenThread extends Thread {
                                 itFriend.putExtra("reResult", true);
                                 itFriend.putExtra("reAccount", jsonObj.getString("re_account"));
                                 itFriend.putExtra("reName", jsonObj.getString("re_name"));
-                                itFriend.putExtra("rePhoto", ChangeUtils.toBitmap(jsonObj.getString("re_photo")));
+                                itFriend.putExtra("rePhoto", jsonObj.getString("re_photo"));
                                 //JSONArray jsonArrFri = new JSONArray(jsonObj.getString("re_message"));
                                 //int sum = jsonArrFri.length();
                                 //System.out.println("qqqqq"+sum);
