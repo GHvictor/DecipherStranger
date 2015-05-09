@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.util.MyStatic;
+import com.android.decipherstranger.util.SharedPreferencesUtils;
 
 /**
  * へ　　　　　／|
@@ -77,6 +79,8 @@ public class UserPageActivity extends Activity {
             case R.id.myName:
                 break;
             case R.id.button:
+                SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_USER);
+                sharedPreferencesUtils.set(MyStatic.USER_LOGIN, false);
                 this.finish();
                 break;
         }

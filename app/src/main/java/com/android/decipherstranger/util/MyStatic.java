@@ -24,6 +24,18 @@ import com.android.decipherstranger.entity.User;
  */
 public class MyStatic {
     //  设置全局变量
+    public static final String FILENAME_USER = "UserInfo";
+    public static final String USER_LOGIN = "Login";
+    public static final String USER_ACCOUNT = "Account";
+    public static final String USER_NAME = "Name";
+    public static final String USER_PORTRAIT = "Portrait";
+    public static final String USER_SEX = "sex";
+    public static final String USER_EMAIL = "Email";
+    public static final String USER_PHONE = "Phone";
+    public static final String USER_BIRTH = "Birth";
+    public static final String USER_SIGNATURE = "signature";
+    
+    
     public static final String FILENAME_SETTINGS = "Settings";
     public static final String KEY_BG = "gameBgMusic";
     public static final String KEY_EFFECT = "gameEffectMusic";

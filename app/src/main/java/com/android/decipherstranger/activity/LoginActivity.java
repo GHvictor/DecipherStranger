@@ -30,6 +30,7 @@ import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
+import com.android.decipherstranger.util.SharedPreferencesUtils;
 import com.android.decipherstranger.util.StringUtils;
 
 /**
@@ -45,6 +46,7 @@ public class LoginActivity extends Activity {
     private LoginBroadcastReceiver receiver = null;
 
     private static final String FILENAME = "Login_CheckBox";
+    private SharedPreferencesUtils sharedPreferencesUtils = null;
 
     private ImageView imageView = null;
     private AutoCompleteTextView accountEdit = null;
@@ -62,6 +64,7 @@ public class LoginActivity extends Activity {
         registerBroadcas();
         application = (MyApplication) getApplication();
         this.helper = new DATABASE(this);
+        this.sharedPreferencesUtils = new SharedPreferencesUtils(this, MyStatic.FILENAME_USER);
         initView();
         getCheckBox();
     }
@@ -161,6 +164,7 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
+            sharedPreferencesUtils.set(MyStatic.USER_LOGIN, true);
             Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
             finish();
@@ -214,6 +218,7 @@ public class LoginActivity extends Activity {
             if (intent.getAction().equals("com.android.decipherstranger.LOGIN")) {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
                     application.setAccount(account);
+                    saveUserInfo();
                     Intent it = new Intent(LoginActivity.this, MainPageActivity.class);
                     startActivity(it);
                 }
@@ -222,5 +227,17 @@ public class LoginActivity extends Activity {
                 }
             }
         }
+    }
+    
+    private void saveUserInfo() {
+        sharedPreferencesUtils.set(MyStatic.USER_LOGIN, true);
+        sharedPreferencesUtils.set(MyStatic.USER_ACCOUNT, application.getAccount());
+        sharedPreferencesUtils.set(MyStatic.USER_NAME, application.getName());
+        sharedPreferencesUtils.set(MyStatic.USER_PORTRAIT, ChangeUtils.toBinary(application.getPortrait()));
+        sharedPreferencesUtils.set(MyStatic.USER_SEX, application.getSex());
+        sharedPreferencesUtils.set(MyStatic.USER_BIRTH, application.getBirth());
+        sharedPreferencesUtils.set(MyStatic.USER_EMAIL, application.getEmail());
+        sharedPreferencesUtils.set(MyStatic.USER_PHONE, application.getPhone());
+        sharedPreferencesUtils.set(MyStatic.USER_SIGNATURE, application.getSignature());
     }
 }
