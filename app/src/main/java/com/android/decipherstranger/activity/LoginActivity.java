@@ -171,7 +171,6 @@ public class LoginActivity extends Activity {
         public void onClick(View view){
             it = new Intent(LoginActivity.this, RegisterActivityBase.class);
             startActivity(it);
-            LoginActivity.this.finish();//结束本Activity
         }
     }
     /**
