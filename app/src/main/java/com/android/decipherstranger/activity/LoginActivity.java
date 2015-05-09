@@ -161,7 +161,6 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
-//            Intent intent = new Intent()
             Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
             finish();

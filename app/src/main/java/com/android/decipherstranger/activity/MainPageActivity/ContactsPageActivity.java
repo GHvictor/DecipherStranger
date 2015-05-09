@@ -59,6 +59,7 @@ public class ContactsPageActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_main_contacts);
 		this.helper = new DATABASE(this);
+        friendBroadcas();
 		initView();
 		initData();
 		friendsRequestCount(NORMAL);
@@ -71,7 +72,14 @@ public class ContactsPageActivity extends Activity {
 		super.onRestart();
 	}
 
-	private void initData() {
+    /*@Override
+    protected void onStart() {
+        initView();
+        initData();
+        super.onStart();
+    }*/
+
+    private void initData() {
 		readerContactLog = new ContactsList(this.helper.getReadableDatabase());
 		mContactList = new ArrayList<>();
 
@@ -213,59 +221,39 @@ public class ContactsPageActivity extends Activity {
 		}
 	}
 
-//	private void friendBroadcas() {
-//		//
-//		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
-//		FriendBroadcastReceiver receiver = new FriendBroadcastReceiver();
-//		IntentFilter filter = new IntentFilter();
-//		filter.addAction("com.android.decipherstranger.FRIEND");
-//		broadcastManager.registerReceiver(receiver, filter);
-//	}
-//
-//	public class FriendBroadcastReceiver extends BroadcastReceiver {
-//		@Override
-//		public void onReceive(Context context, Intent intent) {
-//			if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
-//				if(intent.getBooleanExtra("reResult", false)) {
-//					ArrayList<User> serverContactData = new ArrayList<>();
-//
-//					//Toast.makeText(context, "aaaa", Toast.LENGTH_SHORT).show();
-//					//serverContactData = ((ArrayList) intent.getSerializableExtra("friend"));
-//					//Toast.makeText(context, serverContactData.get(0).getAccount().toString(),Toast.LENGTH_LONG).show();
-//					int sum = intent.getIntExtra("sum", 0);
-//					for (int i = 0; i < sum; i++) {
-//						String s[] = new String[5];
-//						s = intent.getStringExtra(Integer.toString(i)).split(":");
-//						Bitmap bitmap = ChangeUtils.toBitmap(s[2]);
-//						User user = new User();
-//						user.setAccount(s[0]);
-//						user.setUsername(s[1]);
-//						user.setPortrait(bitmap);
-//						serverContactData.add(user);
-//						System.out.println("qqqqqqqq" + serverContactData.get(i).getAccount());
-//					}
-//					Toast.makeText(context, "af", Toast.LENGTH_LONG).show();
-//					serverContactData = filledData(serverContactData);
-//					for(int i=0;i<serverContactData.size();i++){
-//						mContactList.add(serverContactData.get(i));
-//					}
-//					if (adapter == null){
-//						Collections.sort(mContactList, pinyinComparator);
-//						adapter = new SortAdapter(ContactsPageActivity.this, mContactList);
-//						contactListView.setAdapter(adapter);
-//					}else{
-//						Collections.sort(mContactList, pinyinComparator);
-//						adapter.updateListView(mContactList);
-//					}
-//				}
-//				else{
-//					Toast.makeText(context, "adfs", Toast.LENGTH_SHORT).show();
-//				}
-//			}
-//			else {
-//				Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
-//			}
-//		}
-//	}
+    private void friendBroadcas() {
+        //动态方式注册广播接收者
+        FriendBroadcastReceiver receiver = new FriendBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.FRIEND");
+        this.registerReceiver(receiver, filter);
+    }
 
+    public class FriendBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Toast.makeText(context, "行不行了", Toast.LENGTH_SHORT).show();
+            if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
+                if(intent.getBooleanExtra("reResult", false)) {
+                    User contact = new User();
+                    contact.setAccount(intent.getStringExtra("reAccount"));
+                    contact.setUsername(intent.getStringExtra("reName"));
+                    Toast.makeText(context, "接接", Toast.LENGTH_SHORT).show();
+                    contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+                    mContactList.add(contact);
+                    System.out.println(mContactList.get(0).getAccount().toString());
+                    //Todo 数据接收
+                }else if(intent.getBooleanExtra("isfinish", false)){
+                    //onRestart();
+                    initView();
+                    //Todo 数据处理
+                    //System.out.println("aacxzzxc");
+                    //Toast.makeText(context, "第一次？", Toast.LENGTH_SHORT).show();
+                }else{
+                    //Todo 没有好友
+                    Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
 }

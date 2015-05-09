@@ -42,15 +42,15 @@ public class ClientListenThread extends Thread {
             String reMsg = new String();
             String test = new String();
             while (true) {
-                while(true){
-                    test = bufferedReader.readLine();
-                    if(test.contains("+++++")){
-                        reMsg += test.substring(0, test.length()-5);
-                        break;
-                    }
-                    else if(test != null){
-                        reMsg += test;
-                    }
+                        while(true){
+                            test = bufferedReader.readLine();
+                            if(test.contains("+++++")){
+                                reMsg += test.substring(0, test.length()-5);
+                                break;
+                            }
+                            else if(test != null){
+                                reMsg += test;
+                            }
                     else {
                         break;
                     }
@@ -73,6 +73,7 @@ public class ClientListenThread extends Thread {
                             application.setEmail(jsonObj.getString("re_email"));
                             application.setBirth(jsonObj.getString("re_birth"));
                             clContext.sendBroadcast(itLogin);
+                            //System.out.println("aaaaaaaJustatest");
                             break;
                         case GlobalMsgUtils.msgRegister:
                             Intent itRegister = new Intent("com.android.decipherstranger.REGISTER");

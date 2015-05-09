@@ -9,15 +9,15 @@ import android.widget.Button;
 public class AudioRecorderButton extends Button {
 
     private static final int DISTANCE_Y_CANCEL = 50;
-    //默认状态
+    //
     private static final int STATE_NORMAL = 1;
-    //录音状态
+    //
     private static final int STATE_RECORDING = 2;
-    //取消录音发送
+    //
     private static final int STATE_WANG_TO_CANCEL = 3;
-    //记录当前状态
+    //
     private int mCurState = STATE_NORMAL;
-    //已经开始录音
+    //
     private boolean isRecording = false;
     public AudioRecorderButton(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -39,7 +39,7 @@ public class AudioRecorderButton extends Button {
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (isRecording){
-                    //根据X,Y的左边判断是否想要取消
+                    //
                     if (wantToCancel(x,y)){
                         changeState(STATE_WANG_TO_CANCEL);
                     }else {
@@ -59,7 +59,7 @@ public class AudioRecorderButton extends Button {
         }
         return super.onTouchEvent(event);
     }
-    //恢复状态及标志位
+    //锟街革拷状态锟斤拷锟斤拷志位
     private void reset() {
         isRecording = false;
         changeState(STATE_NORMAL);

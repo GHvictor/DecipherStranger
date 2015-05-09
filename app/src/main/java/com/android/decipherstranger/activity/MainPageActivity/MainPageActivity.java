@@ -48,7 +48,6 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         MyApplication application = (MyApplication) getApplication();
         System.out.println("### 我是接受到的 Name 值 " + application.getName());
         initData(savedInstanceState);
-        friendBroadcas();
         initView();
         initViewPage();
         setUnReadMessage(7,image1);
@@ -107,7 +106,6 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
             case R.id.contactsPage:
-                networkRequest();
                 this.pager.setCurrentItem(1);
                 this.textTab.setText("通讯录");
                 this.text1.setTextColor(getResources().getColor(R.color.text_hint));
@@ -118,6 +116,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
                 this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
+                networkRequest();
                 break;
             case R.id.morePage:
                 this.pager.setCurrentItem(2);
@@ -301,39 +300,6 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         else {
             NetworkService.getInstance().closeConnection();
             Log.v("Login", "已经执行T（）方法");
-        }
-    }
-
-    private void friendBroadcas() {
-        //动态方式注册广播接收者
-        FriendBroadcastReceiver receiver = new FriendBroadcastReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.android.decipherstranger.FRIEND");
-        this.registerReceiver(receiver, filter);
-    }
-
-    public class FriendBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //Toast.makeText(context, "行不行了", Toast.LENGTH_SHORT).show();
-            if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
-                if(intent.getBooleanExtra("reResult", false)) {
-                    //Todo 数据接收
-                    User contact = new User();
-                    contact.setAccount(intent.getStringExtra("reAccount"));
-                    contact.setUsername(intent.getStringExtra("reName"));
-                    contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("re_photo")));
-                    serverFriendListData.add(contact);
-                }else if(intent.getBooleanExtra("isfinish", false)){
-                    initViewPage();
-                    //Todo 数据处理
-                    //System.out.println("aacxzzxc");
-                    //Toast.makeText(context, "第一次？", Toast.LENGTH_SHORT).show();
-                }else{
-                    //Todo 没有好友
-                    Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
-                }
-            }
         }
     }
 }
