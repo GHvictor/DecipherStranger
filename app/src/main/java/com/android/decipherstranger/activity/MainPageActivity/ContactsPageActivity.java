@@ -49,11 +49,11 @@ public class ContactsPageActivity extends Activity {
 	private ContactsList writeContactLog;
 
 	private ArrayList<User>mContactList;
-	//ºº×Ö×ª»»³ÉÆ´ÒôµÄÀà
+	//
 	private CharacterParser characterParser;
-	//¸ù¾İÆ´ÒôÀ´ÅÅÁĞListViewÀïÃæµÄÊı¾İÀà
+	//
 	private PinyinComparator pinyinComparator;
-	//ĞÂµÄºÃÓÑÌáĞÑ
+	//
 	private BadgeView friendsRequestCount;
 	private final static int NORMAL = 0;
 	private LinearLayout newFriends;
@@ -97,12 +97,12 @@ public class ContactsPageActivity extends Activity {
 		});
 
 		sideBar.setTextView(dialog);
-		// ÉèÖÃÓÒ²à´¥Ãş¼àÌı
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ò²à´¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
 
 			@Override
 			public void onTouchingLetterChanged(String s) {
-				// ¸Ã×ÖÄ¸Ê×´Î³öÏÖµÄÎ»ÖÃ
+				// ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½×´Î³ï¿½ï¿½Öµï¿½Î»ï¿½ï¿½
 				int position = adapter.getPositionForSection(s.charAt(0));
 				if (position != -1) {
 					contactListView.setSelection(position);
@@ -132,7 +132,7 @@ public class ContactsPageActivity extends Activity {
 		clearEditText.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				// µ±ÊäÈë¿òÀïÃæµÄÖµÎª¿Õ£¬¸üĞÂÎªÔ­À´µÄÁĞ±í£¬·ñÔòÎª¹ıÂËÊı¾İÁĞ±í
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªï¿½Õ£ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÔ­ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±?ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½
 				if (!mContactList.isEmpty()){
 					filterData(s.toString());
 				}
@@ -150,7 +150,7 @@ public class ContactsPageActivity extends Activity {
 		});
 	}
 
-	//ÎªListViewÌî³äÊı¾İ
+	//
 	private ArrayList<User> filledData(ArrayList<User> contact) {
 		ArrayList<User> mSortList = new ArrayList<User>();
 		for (int i = 0; i < contact.size(); i++) {
@@ -159,10 +159,10 @@ public class ContactsPageActivity extends Activity {
 			sortModel.setUsername(contact.get(i).getUsername());
 			sortModel.setAccount(contact.get(i).getAccount());
 			sortModel.setPortrait(contact.get(i).getPortrait());
-			// ºº×Ö×ª»»³ÉÆ´Òô
+			//
 			String pinyin = characterParser.getSelling(contact.get(i).getUsername());
 			sortString = pinyin.substring(0, 1).toUpperCase();
-			// ÕıÔò±í´ïÊ½£¬ÅĞ¶ÏÊ××ÖÄ¸ÊÇ·ñÊÇÓ¢ÎÄ×ÖÄ¸
+			//
 			if (sortString.matches("[A-Z]")) {
 				sortModel.setSortLetters(sortString.toUpperCase());
 			} else {
@@ -174,7 +174,7 @@ public class ContactsPageActivity extends Activity {
 	}
 
 
-	//¸ù¾İÊäÈë¿òÖĞµÄÖµÀ´¹ıÂËÊı¾İ²¢¸üĞÂListView
+	//
 	private void filterData(String filterStr) {
 		ArrayList<User> filterDateList = new ArrayList<User>();
 		if (TextUtils.isEmpty(filterStr)) {
@@ -190,12 +190,12 @@ public class ContactsPageActivity extends Activity {
 				}
 			}
 		}
-		// ¸ù¾İa-z½øĞĞÅÅĞò
+		//
 		Collections.sort(filterDateList, pinyinComparator);
 		adapter.updateListView(filterDateList);
 	}
 
-	//ĞÂµÄºÃÓÑÌáĞÑ
+	//
 	public void friendsRequestCount(int friendsRequestCounts){
 		if (friendsRequestCounts != 0){
 			friendsRequestCount.setText(friendsRequestCounts);
@@ -206,7 +206,7 @@ public class ContactsPageActivity extends Activity {
 	}
 
 	private void friendBroadcas() {
-		//¶¯Ì¬·½Ê½×¢²á¹ã²¥½ÓÊÕÕß
+		//
 		LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
 		FriendBroadcastReceiver receiver = new FriendBroadcastReceiver();
 		IntentFilter filter = new IntentFilter();
@@ -236,7 +236,7 @@ public class ContactsPageActivity extends Activity {
 						serverContactData.add(user);
 						System.out.println("qqqqqqqq" + serverContactData.get(i).getAccount());
 					}
-					Toast.makeText(context, "³É¹¦ÁË", Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "af", Toast.LENGTH_LONG).show();
 					serverContactData = filledData(serverContactData);
 					for(int i=0;i<serverContactData.size();i++){
 						mContactList.add(serverContactData.get(i));
@@ -251,7 +251,7 @@ public class ContactsPageActivity extends Activity {
 					}
 				}
 				else{
-					Toast.makeText(context, "µÚÒ»´Î£¿", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "adfs", Toast.LENGTH_SHORT).show();
 				}
 			}
 			else {

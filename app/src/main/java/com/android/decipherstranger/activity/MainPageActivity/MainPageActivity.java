@@ -1,18 +1,27 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
 import android.app.LocalActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.view.BadgeView;
 
 import java.util.ArrayList;
@@ -33,6 +42,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initData(savedInstanceState);
+        friendBroadcas();
         initView();
         setUnReadMessage(7,image1);
         setUnReadMessage(2,image2);
@@ -90,6 +100,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
             case R.id.contactsPage:
+                networkRequest();
                 this.pager.setCurrentItem(1);
                 this.textTab.setText("通讯录");
                 this.text1.setTextColor(getResources().getColor(R.color.text_hint));
@@ -263,4 +274,72 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
 
     }
 
+    private void networkRequest(){
+        if(NetworkService.getInstance().getIsConnected()) {
+            MyApplication application = (MyApplication) getApplication();
+            String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgFriendList)+":"+"account"+":"+application.getAccount();
+            Log.v("aaaaa", msg);
+            NetworkService.getInstance().sendUpload(msg);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Log.v("Login", "已经执行T（）方法");
+        }
+    }
+
+    private void friendBroadcas() {
+        //动态方式注册广播接收者
+        FriendBroadcastReceiver receiver = new FriendBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.FRIEND");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class FriendBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Toast.makeText(context, "行不行了", Toast.LENGTH_SHORT).show();
+            if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
+                if(intent.getBooleanExtra("reResult", false)) {
+                    //Todo 数据接收
+                    //ArrayList<User> serverContactData = new ArrayList<>();
+                    //String a = intent.getStringExtra("reAccount");
+                    //Toast.makeText(context, a, Toast.LENGTH_SHORT).show();
+                    //serverContactData = ((ArrayList) intent.getSerializableExtra("friend"));
+                    //Toast.makeText(context, serverContactData.get(0).getAccount().toString(),Toast.LENGTH_LONG).show();
+                    //int sum = intent.getIntExtra("sum", 0);
+                    /*for (int i = 0; i < sum; i++) {
+                    String s[] = new String[5];
+                    s = intent.getStringExtra(Integer.toString(i)).split(":");
+                    Bitmap bitmap = ChangeUtils.toBitmap(s[2]);
+                    User user = new User();
+                    user.setAccount(s[0]);
+                    user.setUsername(s[1]);
+                    user.setPortrait(bitmap);
+                    serverContactData.add(user);
+                    System.out.println("qqqqqqqq" + serverContactData.get(i).getAccount());
+                }*/
+                /*
+                for(int i=0;i<serverContactData.size();i++){
+                    SourceDateList.add(serverContactData.get(i));
+                }
+                if (adapter == null){
+                    Collections.sort(SourceDateList, pinyinComparator);
+                    adapter = new SortAdapter(getActivity(), SourceDateList);
+                    sortListView.setAdapter(adapter);
+                }else{
+                    Collections.sort(SourceDateList, pinyinComparator);
+                    adapter.updateListView(SourceDateList);
+                }*/
+                }else if(intent.getBooleanExtra("isfinish", false)){
+                    //Todo 数据处理
+                    //System.out.println("aacxzzxc");
+                    //Toast.makeText(context, "第一次？", Toast.LENGTH_SHORT).show();
+                }else{
+                    //Todo 没有好友
+                    Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
 }

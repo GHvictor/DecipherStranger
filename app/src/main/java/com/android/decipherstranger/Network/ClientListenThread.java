@@ -10,6 +10,7 @@ import android.util.Log;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 
 import org.json.JSONArray;
@@ -70,8 +71,14 @@ public class ClientListenThread extends Thread {
                         case GlobalMsgUtils.msgLogin:
                             Intent itLogin = new Intent("com.android.decipherstranger.LOGIN");
                             itLogin.putExtra("result", jsonObj.getString("re_message"));
+                            /*itLogin.putExtra("name", jsonObj.getString("re_name"));
+                            itLogin.putExtra("photo", jsonObj.getString("re_photo"));
+                            itLogin.putExtra("gender", jsonObj.getInt("re_gender"));
+                            itLogin.putExtra("phone", jsonObj.getString("re_phone"));
+                            itLogin.putExtra("email", jsonObj.getString("re_email"));
+                            itLogin.putExtra("birth", jsonObj.getString("re_birth"));*/
                             clContext.sendBroadcast(itLogin);
-                            System.out.println("aaaaaaaJustatest");
+                            //System.out.println("aaaaaaaJustatest");
                             break;
                         case GlobalMsgUtils.msgRegister:
                             Intent itRegister = new Intent("com.android.decipherstranger.REGISTER");
@@ -107,35 +114,39 @@ public class ClientListenThread extends Thread {
                             Intent itFriend = new Intent("com.android.decipherstranger.FRIEND");
                             if(jsonObj.getString("re_message").equals(MyStatic.resultFalse)){
                                 itFriend.putExtra("reResult", false);
+                                itFriend.putExtra("isfinsh", false);
                             }
-                            else {
-                                JSONArray jsonArrFri = new JSONArray(jsonObj.getString("re_message"));
+                            else if(jsonObj.getString("re_message").equals(MyStatic.resultTrue)){
                                 itFriend.putExtra("reResult", true);
+                                itFriend.putExtra("reAccount", jsonObj.getString("re_account"));
+                                itFriend.putExtra("reName", jsonObj.getString("re_name"));
+                                itFriend.putExtra("rePhoto", ChangeUtils.toBitmap(jsonObj.getString("re_photo")));
+                                //JSONArray jsonArrFri = new JSONArray(jsonObj.getString("re_message"));
+                                //int sum = jsonArrFri.length();
+                                //System.out.println("qqqqq"+sum);
+                                //ArrayList<User> friendList = new ArrayList<User> ();
+                                //JSONObject jsonObjFri = jsonArrFri.getJSONObject(i);
+                                /*
+                                Bitmap bitmap = ChangeUtils.toBitmap(jsonObjFri.getString("re_photo"));
+                                User user = new User();
+                                user.setAccount(jsonObjFri.getString("re_account"));
+                                user.setUsername(jsonObjFri.getString("re_name"));
+                                user.setPortrait(bitmap);
+                                friendList.add(user);*/
 
-                                int sum = jsonArrFri.length();
-                                System.out.println("qqqqq"+sum);
-                                ArrayList<User> friendList = new ArrayList<User> ();
-
-
-                                for(int i = 0; i < sum; i++) {
-                                    JSONObject jsonObjFri = jsonArrFri.getJSONObject(i);
-                                    /*
-                                    Bitmap bitmap = ChangeUtils.toBitmap(jsonObjFri.getString("re_photo"));
-                                    User user = new User();
-                                    user.setAccount(jsonObjFri.getString("re_account"));
-                                    user.setUsername(jsonObjFri.getString("re_name"));
-                                    user.setPortrait(bitmap);
-                                    friendList.add(user);*/
-                                    itFriend.putExtra(Integer.toString(i), jsonObjFri.getString("re_account")+":"+jsonObjFri.getString("re_name")+":"+jsonObjFri.getString("re_photo"));
-                                }
-                                //itFriend.putExtra("friend", (Serializable)friendList);
-                                itFriend.putExtra("sum", sum);
+                                /*itFriend.putExtra(Integer.toString(i), jsonObjFri.getString("re_account")+":"+jsonObjFri.getString("re_name")+":"+jsonObjFri.getString("re_photo"));
+                                itFriend.putExtra("friend", (Serializable)friendList);
+                                itFriend.putExtra("sum", sum);*/
                                 /*
                                 ArrayList<User> lll = (ArrayList<User>) itFriend.getSerializableExtra("friend");
                                 for(int i = 0 ; i < lll.size(); i++) {
                                     System.out.println(lll.get(i).getAccount() + "+++++++" + lll.get(i).getUsername() + "++++++" + lll.size());
                                 }*/
-                                //itFriend.putExtra("friend","lalalal");
+                                //8itFriend.putExtra("reResult", true);
+                            }
+                            else{
+                                itFriend.putExtra("reResult", false);
+                                itFriend.putExtra("isfinish", true);
                             }
                             clContext.sendBroadcast(itFriend);
                             Log.v("Test","发送啦！！！");
@@ -143,6 +154,7 @@ public class ClientListenThread extends Thread {
                         case GlobalMsgUtils.msgGameOneRecieve:
                             Intent itGameRec = new Intent("com.android.decipherstranger.GAMEONE");
                             itGameRec.putExtra("reGrade", jsonObj.getInt("re_grade"));
+                            itGameRec.putExtra("reSum", jsonObj.getInt("re_sum"));
                             itGameRec.putExtra("reRock", jsonObj.getInt("re_rock"));
                             itGameRec.putExtra("reScissors", jsonObj.getInt("re_scissors"));
                             itGameRec.putExtra("rePaper", jsonObj.getInt("re_paper"));

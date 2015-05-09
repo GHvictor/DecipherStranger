@@ -26,6 +26,7 @@ import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.UserTabOperate;
 import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
@@ -215,6 +216,18 @@ public class LoginActivity extends Activity {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
                     //MyStatic.UserName = intent.putExtra("name");
                     application.setAccount(account);
+                    Toast.makeText(context,application.getAccount(),Toast.LENGTH_SHORT).show();
+                    /*application.setName(intent.getStringExtra("name"));
+                    application.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("photo")));
+                    if(intent.getIntExtra("gender", 1) == 1) {
+                        application.setUserSex("男");
+                    }else{
+                        application.setUserSex("女");
+                    }
+                    application.setBirth(intent.getStringExtra("birth"));
+                    application.setPhone(intent.getStringExtra("phone"));
+                    application.setEmail(intent.getStringExtra("email"));*/
+
                     Intent it = new Intent(LoginActivity.this, MainPageActivity.class);
                     startActivity(it);
                 }

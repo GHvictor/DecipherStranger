@@ -65,7 +65,7 @@ public class ConversationPageActivity extends Activity implements RecentListView
 		});
 
 	}
-	//设置消息个数提示
+	//
 	public void setNewMessageCount(int newMessage){
 		if (newMessage != NO_MESSAGE){
 			newMessageCount.setText(newMessage);
@@ -82,13 +82,13 @@ public class ConversationPageActivity extends Activity implements RecentListView
 		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				//获取最新数据
+				//
 				setRefreshData();
-				//通知界面显示
+				//
 				if (!readerConversationLog.isEmpty()){
 					refreshList(readerConversationLog);
 				}
-				//通知listView数据刷新完毕
+				//
 				listView.reFreshComplete();
 			}
 		},2000);

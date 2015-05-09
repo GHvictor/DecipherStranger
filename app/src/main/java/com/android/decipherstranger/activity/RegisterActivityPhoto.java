@@ -166,7 +166,7 @@ public class RegisterActivityPhoto extends Activity {
     }
 
     @Override
-    protected void onActivityResult( int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case IMAGE_REQUEST_CODE:
                 startPhotoZoom(data.getData());

@@ -1,17 +1,29 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.MainPageActivity.ChatMsgActivity;
+import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
+import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.HandyTextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by WangXin on 2015/4/19 0019.
@@ -39,6 +51,8 @@ public class FriendInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_info);
+        //friendBroadcas();
+        //networkRequest();
         initView();
         initData();
     }
@@ -99,4 +113,61 @@ public class FriendInfoActivity extends Activity {
             }
         });
     }
+
+    /*private void friendBroadcas() {
+        //动态方式注册广播接收者
+        FriendBroadcastReceiver receiver = new FriendBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.FRIEND");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class FriendBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(context, "行不行了", Toast.LENGTH_SHORT).show();
+            if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
+                if(intent.getBooleanExtra("reResult", false)) {
+                    ArrayList<User> serverContactData = new ArrayList<>();
+
+                    //Toast.makeText(context, "aaaa", Toast.LENGTH_SHORT).show();
+                    //serverContactData = ((ArrayList) intent.getSerializableExtra("friend"));
+                    //Toast.makeText(context, serverContactData.get(0).getAccount().toString(),Toast.LENGTH_LONG).show();
+                    //int sum = intent.getIntExtra("sum", 0);
+                    *//*for (int i = 0; i < sum; i++) {
+                        String s[] = new String[5];
+                        s = intent.getStringExtra(Integer.toString(i)).split(":");
+                        Bitmap bitmap = ChangeUtils.toBitmap(s[2]);
+                        User user = new User();
+                        user.setAccount(s[0]);
+                        user.setUsername(s[1]);
+                        user.setPortrait(bitmap);
+                        serverContactData.add(user);
+                        System.out.println("qqqqqqqq" + serverContactData.get(i).getAccount());
+                    }*//*
+                    System.out.println("wowowowo");
+                    Toast.makeText(context, "成功了", Toast.LENGTH_LONG).show();
+                *//*
+                for(int i=0;i<serverContactData.size();i++){
+                    SourceDateList.add(serverContactData.get(i));
+                }
+                if (adapter == null){
+                    Collections.sort(SourceDateList, pinyinComparator);
+                    adapter = new SortAdapter(getActivity(), SourceDateList);
+                    sortListView.setAdapter(adapter);
+                }else{
+                    Collections.sort(SourceDateList, pinyinComparator);
+                    adapter.updateListView(SourceDateList);
+                }*//*
+                }
+                else{
+                    System.out.println("aacxzzxc");
+                    Toast.makeText(context, "第一次？", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }*/
 }

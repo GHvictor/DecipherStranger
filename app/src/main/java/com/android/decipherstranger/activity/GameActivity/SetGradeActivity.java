@@ -57,7 +57,8 @@ public class SetGradeActivity extends Activity {
             //  TODO 在此处上传grade & sum至服务器
             if(NetworkService.getInstance().getIsConnected()){
                 String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneGrade)+
-                        ":"+"account"+":"+ application.getAccount()+":"+"grade"+":"+grade;
+                        ":"+"account"+":"+ application.getAccount()+":"+"grade"+":"+grade+":"+
+                        "sum"+":"+sum;
                 Log.v("aaaaa", gameUser);
                 NetworkService.getInstance().sendUpload(gameUser);
             }

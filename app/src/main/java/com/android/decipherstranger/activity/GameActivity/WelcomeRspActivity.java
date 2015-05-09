@@ -175,7 +175,7 @@ public class WelcomeRspActivity extends Activity {
             if (intent.getAction().equals("com.android.decipherstranger.GAMEONE")) {
                 // TODO 将获取的数据赋值到本地
                 grade = intent.getIntExtra("reGrade", 3);
-                //sum = intent.getIntExtra("", 20);
+                sum = intent.getIntExtra("reSum", 20);
                 MyStatic.rockInt = intent.getIntExtra("reRock", 10);
                 MyStatic.scissorsInt = intent.getIntExtra("reScissors", 10);
                 MyStatic.paperInt = intent.getIntExtra("rePaper", 10);
