@@ -25,9 +25,24 @@ import android.graphics.Bitmap;
  */
 public class MyApplication extends Application {
     
+    //  用户账号
     private String account = null;
+    //  用户昵称
     private String name = null;
+    //  用户头像
     private Bitmap portrait = null;
+    //  用户性别
+    private String userSex = null;
+    //  用户邮箱
+    private String email = null;
+    //  用户电话
+    private String phone = null;
+    //  用户生日
+    private String birth = null;
+    //  用户地址
+    private String address = null;
+    //  个性签名
+    private String signature = null;
 
     public void setAccount(String account) {
         this.account = account;
@@ -61,5 +76,53 @@ public class MyApplication extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
+    }
+
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
+    }
+
+    public String getUserSex() {
+        return userSex;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getSignature() {
+        return signature;
     }
 }

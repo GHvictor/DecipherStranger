@@ -35,10 +35,6 @@ public class SharedPreferencesUtils {
         this.context = context;
         this.FILENAME = FILENAME;
     }
-    
-/*    public SharedPreferencesUtils(Activity activity, String FILENAME) {
-        this.ac
-    }*/
 
     //  新增或更新数据
     public void set(String KEY, Object object) {
