@@ -1,15 +1,19 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.LoginActivity;
+import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
@@ -56,12 +60,12 @@ public class UserPageActivity extends Activity {
         this.application = (MyApplication) getApplication();
 
         Bitmap bitmap = application.getPortrait();
-        Drawable portraitDrawable = new BitmapDrawable();
         this.portraitImage = (ImageView) super.findViewById(R.id.portraitImage);
         this.nameText = (TextView) super.findViewById(R.id.nameText);
         this.accountText = (TextView) super.findViewById(R.id.accountText);
         this.sexText = (TextView) super.findViewById(R.id.sexText);
-        
+
+        Drawable portraitDrawable = new BitmapDrawable(bitmap);
         this.portraitImage.setImageDrawable(portraitDrawable);
         this.nameText.setText(application.getName());
         this.accountText.setText(application.getAccount());
@@ -83,6 +87,8 @@ public class UserPageActivity extends Activity {
                 sharedPreferencesUtils.clear();
                 sharedPreferencesUtils.set(MyStatic.USER_LOGIN, false);
                 this.finish();
+                System.exit(0);
+                android.os.Process.killProcess(android.os.Process.myPid());
                 break;
         }
     }

@@ -155,6 +155,9 @@ public class RegisterActivityPhoto extends Activity {
                 //System.out.println(userInfo.getPortrait());
                 Log.v("aaaaa", sendInfo);
                 NetworkService.getInstance().sendUpload(sendInfo);
+                Intent intent = new Intent(RegisterActivityPhoto.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
             else {
                 NetworkService.getInstance().closeConnection();

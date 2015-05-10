@@ -73,7 +73,6 @@ public class ClientListenThread extends Thread {
                             application.setEmail(jsonObj.getString("re_email"));
                             application.setBirth(jsonObj.getString("re_birth"));
                             clContext.sendBroadcast(itLogin);
-                            //System.out.println("aaaaaaaJustatest");
                             break;
                         case GlobalMsgUtils.msgRegister:
                             Intent itRegister = new Intent("com.android.decipherstranger.REGISTER");
