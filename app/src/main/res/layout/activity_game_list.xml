@@ -88,7 +88,7 @@
             android:layout_height="40dp"
             android:id="@+id/imageView4"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/game_rsp_ico"
+            android:background="@drawable/game_number_icon"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true" />
 

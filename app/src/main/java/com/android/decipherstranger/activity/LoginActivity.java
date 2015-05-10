@@ -55,6 +55,7 @@ public class LoginActivity extends Activity {
     private CheckBox checkBox = null;
     private Button registerButton = null;
     private String account = null;
+    private String passwordMD5 = null;
 
 
     @Override
@@ -132,7 +133,7 @@ public class LoginActivity extends Activity {
         public void onClick(View view){
             account = LoginActivity.this.accountEdit.getText().toString();
             String password = LoginActivity.this.pawEdit.getText().toString();
-            String passwordMD5 = stringUtils.MD5(password);
+            passwordMD5 = stringUtils.MD5(password);
 
             if (account.equals("")){
                 Toast.makeText(LoginActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
@@ -233,9 +234,10 @@ public class LoginActivity extends Activity {
     
     private void saveUserInfo() {
         sharedPreferencesUtils.set(MyStatic.USER_LOGIN, true);
-        sharedPreferencesUtils.set(MyStatic.USER_ACCOUNT, application.getAccount());
+        sharedPreferencesUtils.set(MyStatic.USER_ACCOUNT, account);
+        sharedPreferencesUtils.set(MyStatic.USER_PASSWORD, passwordMD5);
         sharedPreferencesUtils.set(MyStatic.USER_NAME, application.getName());
- //       sharedPreferencesUtils.set(MyStatic.USER_PORTRAIT, ChangeUtils.toBinary(application.getPortrait()));
+        sharedPreferencesUtils.set(MyStatic.USER_PORTRAIT, ChangeUtils.toBinary(application.getPortrait()));
         sharedPreferencesUtils.set(MyStatic.USER_SEX, application.getSex());
         sharedPreferencesUtils.set(MyStatic.USER_BIRTH, application.getBirth());
         sharedPreferencesUtils.set(MyStatic.USER_EMAIL, application.getEmail());

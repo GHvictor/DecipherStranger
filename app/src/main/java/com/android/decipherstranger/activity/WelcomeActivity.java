@@ -1,8 +1,10 @@
 package com.android.decipherstranger.activity;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.util.ChangeUtils;
+import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
@@ -12,8 +14,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 /**
@@ -50,14 +54,38 @@ public class WelcomeActivity extends ActionBarActivity {
         this.isLogin = (Boolean) sharedPreferencesUtils.get(MyStatic.USER_LOGIN, false);
         if (isLogin) {
             this.application.setAccount((String) sharedPreferencesUtils.get(MyStatic.USER_ACCOUNT, ""));
+            final String password = (String) sharedPreferencesUtils.get(MyStatic.USER_PASSWORD, "");
+            new Thread() {
+                public void run() {
+                    tellWebLogin(application.getAccount(), password);
+                }
+            }.start();
             this.application.setName((String) sharedPreferencesUtils.get(MyStatic.USER_NAME, ""));
-  //          this.application.setPortrait(ChangeUtils.toBitmap((String) sharedPreferencesUtils.get(MyStatic.USER_PORTRAIT, null)));
+            this.application.setPortrait(ChangeUtils.toBitmap((String) sharedPreferencesUtils.get(MyStatic.USER_PORTRAIT, null)));
             this.application.setSex((String) sharedPreferencesUtils.get(MyStatic.USER_SEX, ""));
             this.application.setBirth((String) sharedPreferencesUtils.get(MyStatic.USER_BIRTH, ""));
             this.application.setEmail((String) sharedPreferencesUtils.get(MyStatic.USER_EMAIL, ""));
             this.application.setPhone((String) sharedPreferencesUtils.get(MyStatic.USER_PHONE, ""));
             this.application.setSignature((String) sharedPreferencesUtils.get(MyStatic.USER_SIGNATURE, ""));
         }
+    }
+
+    private void tellWebLogin(String account, String password){
+
+        NetworkService.getInstance().closeConnection();
+        NetworkService.getInstance().onInit(WelcomeActivity.this,application);
+        NetworkService.getInstance().setupConnection();
+        if(NetworkService.getInstance().getIsConnected()) {
+            String userInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgLogin)+":"+"account"+":"+account+":"+"password"+":"+password;
+            Log.v("aaaaa", userInfo);
+            NetworkService.getInstance().sendUpload(userInfo);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(WelcomeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+            Log.v("Login", "已经执行T（）方法");
+        }
+
     }
 
     @Override

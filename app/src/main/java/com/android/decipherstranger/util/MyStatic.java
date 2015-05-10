@@ -27,6 +27,7 @@ public class MyStatic {
     public static final String FILENAME_USER = "UserInfo";
     public static final String USER_LOGIN = "Login";
     public static final String USER_ACCOUNT = "Account";
+    public static final String USER_PASSWORD = "Password";
     public static final String USER_NAME = "Name";
     public static final String USER_PORTRAIT = "Portrait";
     public static final String USER_SEX = "sex";
