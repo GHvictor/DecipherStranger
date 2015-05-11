@@ -62,7 +62,7 @@ public class WelcomeActivity extends ActionBarActivity {
             this.application.setAccount((String) sharedPreferencesUtils.get(MyStatic.USER_ACCOUNT, ""));
             this.password = (String) sharedPreferencesUtils.get(MyStatic.USER_PASSWORD, "");
             this.application.setName((String) sharedPreferencesUtils.get(MyStatic.USER_NAME, ""));
-            this.application.setPortrait(ChangeUtils.toBitmap((String) sharedPreferencesUtils.get(MyStatic.USER_PORTRAIT, "")));
+     //       this.application.setPortrait(ChangeUtils.toBitmap((String) sharedPreferencesUtils.get(MyStatic.USER_PORTRAIT, "")));
             this.application.setSex((String) sharedPreferencesUtils.get(MyStatic.USER_SEX, ""));
             this.application.setBirth((String) sharedPreferencesUtils.get(MyStatic.USER_BIRTH, ""));
             this.application.setEmail((String) sharedPreferencesUtils.get(MyStatic.USER_EMAIL, ""));
