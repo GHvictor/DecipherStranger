@@ -50,6 +50,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         initViewPage();
         setUnReadMessage(7,image1);
         setUnReadMessage(2, image2);
+        chatBroadcas();
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         this.textTab.setText("通讯录");
         this.text2.setTextColor(getResources().getColor(R.color.text_blue));
         this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_press));
+        networkRequest();
     }
 
     public void PageOnClick(View view) {
@@ -114,7 +116,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
                 this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
-                networkRequest();
+                //networkRequest();
                 break;
             case R.id.morePage:
                 this.pager.setCurrentItem(2);
@@ -298,6 +300,40 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         else {
             NetworkService.getInstance().closeConnection();
             Log.v("Login", "已经执行T（）方法");
+        }
+    }
+
+    private void chatBroadcas() {
+        //动态方式注册广播接收者
+        ChatBroadcastReceiver receiver = new ChatBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.MESSAGE");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class ChatBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
+
+                Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
+                System.out.println("接到了！！！");
+                /*Contacts receiveMsg = new Contacts();
+                receiveMsg.setAccount(currentUserAccount);
+                receiveMsg.setUsername(currentUserName);
+                receiveMsg.setPortrait(currentUserPhoto);
+                receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                receiveMsg.setDatetime(intent.getStringExtra("reDate"));
+                receiveMsg.setWho(1);
+                mDataArrays.add(receiveMsg);
+                if (mAdapter == null) {
+                    mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
+                    mListView.setAdapter(mAdapter);
+                } else {
+                    mAdapter.notifyDataSetChanged();
+                    mListView.setSelection(mListView.getCount() - 1);
+                }*/
+            }
         }
     }
 }

@@ -127,7 +127,6 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         this.helper = new DATABASE(this);
-        chatBroadcas();
         initView();
         initData();
     }
@@ -516,38 +515,6 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
             NetworkService.getInstance().closeConnection();
             Toast.makeText(ChatMsgActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
-        }
-    }
-
-    private void chatBroadcas() {
-        //动态方式注册广播接收者
-        ChatBroadcastReceiver receiver = new ChatBroadcastReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.android.decipherstranger.MESSAGE");
-        this.registerReceiver(receiver, filter);
-    }
-
-    public class ChatBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
-                if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
-                    Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
-                    Contacts receiveMsg = new Contacts();
-                    receiveMsg.setAccount(currentUserAccount);
-                    receiveMsg.setUsername(currentUserName);
-                    receiveMsg.setPortrait(currentUserPhoto);
-                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
-                    receiveMsg.setWho(1);
-                    mDataArrays.add(receiveMsg);
-                    mAdapter.notifyDataSetChanged();
-                    mListView.setSelection(mListView.getCount() - 1);
-                }
-                else{
-                    Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();
-                }
-            }
         }
     }
 }

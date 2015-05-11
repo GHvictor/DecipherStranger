@@ -85,6 +85,7 @@ public class ClientListenThread extends Thread {
                             itMessage.putExtra("reSender", jsonObj.getString("re_sender"));
                             itMessage.putExtra("reDate", jsonObj.getString("re_date"));
                             clContext.sendBroadcast(itMessage);
+                            System.out.println("发送成功");
                             break;
                         case GlobalMsgUtils.msgShake:
                             Intent itShake = new Intent("com.android.decipherstranger.SHAKE");

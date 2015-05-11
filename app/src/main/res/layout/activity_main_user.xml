@@ -236,7 +236,6 @@
             android:background="@drawable/quit_btn_bg"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
-        
     </RelativeLayout>
 
 </LinearLayout>
