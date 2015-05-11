@@ -7,19 +7,21 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="40dp"
         android:layout_gravity="center"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/setting_title"
-            android:background="@drawable/shape_dialog_title_bg"
+            android:background="@color/tab_blue"
             android:layout_width="fill_parent"
-            android:layout_height="40.0dip"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/Setting_Text"
-            android:textSize="24dp"
+            android:padding="5dp"
+            android:text="@string/setting"
+            android:textSize="26dp"
             android:textColor="@color/white"
             android:visibility="visible"/>
 
@@ -28,7 +30,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginTop="2dp"
-            android:background="@drawable/shape_dialog_body_bg">
+            android:background="@color/white">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -46,7 +48,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="游 戏 音 效"
+                        android:text="@string/effectMusic"
                         android:textSize="22dp"
                         android:textColor="@color/orange"
                         android:textStyle="bold"
@@ -76,12 +78,13 @@
 
             </LinearLayout>
 
-            <view
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="2px"
-                class="android.support.v7.widget.LinearLayoutCompat"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/shape_line" />
+                android:background="@color/grey" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -99,7 +102,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="背 景 音 乐"
+                        android:text="@string/backgroundMusic"
                         android:textSize="22dp"
                         android:textColor="@color/orange"
                         android:textStyle="bold"
@@ -128,25 +131,18 @@
 
             </LinearLayout>
 
-            <view
-                android:layout_width="fill_parent"
-                android:layout_height="2px"
-                class="android.support.v7.widget.LinearLayoutCompat"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/shape_line" />
-
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/confirm"
                 android:id="@+id/confirm"
                 android:textSize="22dp"
                 android:textColor="@color/black"
                 android:background="@drawable/dialog_confirm_btn"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_centerVertical="true"/>
 
         </LinearLayout>
 

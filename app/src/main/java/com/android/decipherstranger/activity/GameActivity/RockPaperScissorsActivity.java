@@ -74,7 +74,9 @@ public class RockPaperScissorsActivity extends Activity {
     private SlidingDrawer slidingDrawer = null;
     private MyBroadcastReceiver receiver = null;
 
-    private int Grade = 3;              //  存储所接收等级
+    private int Grade = 6;              //  存储所接收等级
+    private int MaxSum = 20;
+    private int sum = 0;
     private boolean isRun = true;      //  游戏运行标志 默认游戏运行    
     private int gameGradeInt = 0;
     private int playerGradeInt = 0;
@@ -161,6 +163,7 @@ public class RockPaperScissorsActivity extends Activity {
         //  获取游戏初始数据
         Intent intent = getIntent();
         this.Grade = intent.getIntExtra("Grade", 6);    //  获取游戏等级，默认为3级
+        this.MaxSum = intent.getIntExtra("Sum", 20);    
 
         //  获取Menu控件
         LayoutInflater inflater = LayoutInflater.from(RockPaperScissorsActivity.this);
@@ -226,6 +229,7 @@ public class RockPaperScissorsActivity extends Activity {
     }
 
     private void gameStart(){
+        this.sum += 1;
         this.gameAnswerImage.setImageDrawable(null);
         this.playerImage.setImageDrawable(this.animationDrawablePlayer);
         this.computerImage.setImageDrawable(this.animationDrawableComputer);
@@ -301,10 +305,10 @@ public class RockPaperScissorsActivity extends Activity {
 
     private void IfGameOver(){
         boolean flag = false;
-        if (this.gameGradeInt >= this.Grade) {
+        if (this.gameGradeInt >= this.Grade && this.sum <= this.MaxSum) {
             flag = true;
             intent = new Intent(RockPaperScissorsActivity.this, SuccessActivity.class);   //  根据实际情况跳转
-        } else if (this.gameGradeInt <= -this.Grade) {
+        } else if (this.gameGradeInt <= -this.Grade || this.sum > this.MaxSum) {
             flag = true;
             intent = new Intent(RockPaperScissorsActivity.this, FailActivity.class);   //  根据实际情况跳转
         }

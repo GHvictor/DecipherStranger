@@ -59,8 +59,10 @@
     <string name="game_rsp">石头剪刀布</string>
     <string name="game_number">猜数字</string>
     <string name="grade_settings">难度设置</string>
-    <string name="save">保存</string>
-    <string name="Setting_Text">设&#160;&#160;置</string>
+    <string name="save">保存</string>    
+    <string name="effectMusic">游戏音效</string>
+    <string name="backgroundMusic">背景音乐</string>
+    <string name="setting">设&#160;&#160;置</string>
     <string name="Help_Text">帮&#160;&#160;助</string>
     <string name="Quit_Text">退&#160;&#160;出</string>
     

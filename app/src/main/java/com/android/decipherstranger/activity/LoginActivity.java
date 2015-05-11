@@ -166,12 +166,10 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
-/*            application.setAccount(account);
-            sharedPreferencesUtils.set(MyStatic.USER_ACCOUNT, application.getAccount());
-            sharedPreferencesUtils.set(MyStatic.USER_LOGIN, true);
+            saveUserInfo();
             Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
-            finish();*/
+            finish();
         }
     }
 
@@ -225,6 +223,7 @@ public class LoginActivity extends Activity {
                     saveUserInfo();
                     Intent it = new Intent(LoginActivity.this, MainPageActivity.class);
                     startActivity(it);
+                    finish();
                 }
                 else{
                     Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();

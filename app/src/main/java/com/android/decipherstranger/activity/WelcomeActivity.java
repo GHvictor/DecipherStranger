@@ -9,6 +9,8 @@ import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -25,27 +27,31 @@ import android.widget.Toast;
  */
 public class WelcomeActivity extends ActionBarActivity {
 
+    private String password = "";
     private Boolean isLogin = false;
     private MyApplication application = null;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         this.getLoginFlag();
+        System.out.println("### isLogin " + isLogin);
+        System.out.println("### password " + password);
         Handler handler = new Handler();
         handler.postDelayed( new Runnable() {
             public void run() {
-                Intent intent = null;
-                if (isLogin) {
-                    intent = new Intent(WelcomeActivity.this, MainPageActivity.class);
+                if (isLogin && !password.equals("")) {
+                    Intent intent = new Intent(WelcomeActivity.this, MainPageActivity.class);
+                    startActivity(intent);
+                    tellWebLogin(application.getAccount(), password);
                 } else {
-                    intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }
-                startActivity(intent);
                 WelcomeActivity.this.finish();//结束本Activity
             }
-        }, 1000);
+        }, 3000);
     }
     
     private void getLoginFlag() {
@@ -54,8 +60,7 @@ public class WelcomeActivity extends ActionBarActivity {
         this.isLogin = (Boolean) sharedPreferencesUtils.get(MyStatic.USER_LOGIN, false);
         if (isLogin) {
             this.application.setAccount((String) sharedPreferencesUtils.get(MyStatic.USER_ACCOUNT, ""));
-            String password = (String) sharedPreferencesUtils.get(MyStatic.USER_PASSWORD, "");
-            this.tellWebLogin(application.getAccount(), password);
+            this.password = (String) sharedPreferencesUtils.get(MyStatic.USER_PASSWORD, "");
             this.application.setName((String) sharedPreferencesUtils.get(MyStatic.USER_NAME, ""));
             this.application.setPortrait(ChangeUtils.toBitmap((String) sharedPreferencesUtils.get(MyStatic.USER_PORTRAIT, "")));
             this.application.setSex((String) sharedPreferencesUtils.get(MyStatic.USER_SEX, ""));

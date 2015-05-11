@@ -48,6 +48,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         initData(savedInstanceState);
         initView();
         initViewPage();
+        networkRequest();
         setUnReadMessage(7,image1);
         setUnReadMessage(2, image2);
         chatBroadcas();
@@ -83,12 +84,11 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
         Intent intent4 = new Intent(MainPageActivity.this, UserPageActivity.class); // 加载activity到viewpage
         mListViews.add(getView("D", intent4));
         this.pager.setAdapter(new MyFramePagerAdapter(mListViews));
-        this.pager.setCurrentItem(0);
+        this.pager.setCurrentItem(1);
         this.pager.setOnPageChangeListener(this);
         this.textTab.setText("通讯录");
         this.text2.setTextColor(getResources().getColor(R.color.text_blue));
         this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_press));
-        networkRequest();
     }
 
     public void PageOnClick(View view) {
@@ -116,7 +116,7 @@ public class MainPageActivity extends ActionBarActivity implements OnPageChangeL
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
                 this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
-                //networkRequest();
+        //        networkRequest();
                 break;
             case R.id.morePage:
                 this.pager.setCurrentItem(2);

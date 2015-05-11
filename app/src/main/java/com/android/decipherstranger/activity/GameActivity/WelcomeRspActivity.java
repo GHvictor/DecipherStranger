@@ -150,6 +150,7 @@ public class WelcomeRspActivity extends Activity {
     private void gameStart(){
         Intent it = new Intent(WelcomeRspActivity.this, RockPaperScissorsActivity.class);
         it.putExtra("Grade", grade);        //  游戏等级
+        it.putExtra("Sum", sum);
         startActivity(it);
         WelcomeRspActivity.this.finish();
     }
