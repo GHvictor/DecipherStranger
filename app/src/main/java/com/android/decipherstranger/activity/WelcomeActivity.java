@@ -54,14 +54,10 @@ public class WelcomeActivity extends ActionBarActivity {
         this.isLogin = (Boolean) sharedPreferencesUtils.get(MyStatic.USER_LOGIN, false);
         if (isLogin) {
             this.application.setAccount((String) sharedPreferencesUtils.get(MyStatic.USER_ACCOUNT, ""));
-            final String password = (String) sharedPreferencesUtils.get(MyStatic.USER_PASSWORD, "");
-            new Thread() {
-                public void run() {
-                    tellWebLogin(application.getAccount(), password);
-                }
-            }.start();
+            String password = (String) sharedPreferencesUtils.get(MyStatic.USER_PASSWORD, "");
+            this.tellWebLogin(application.getAccount(), password);
             this.application.setName((String) sharedPreferencesUtils.get(MyStatic.USER_NAME, ""));
-            this.application.setPortrait(ChangeUtils.toBitmap((String) sharedPreferencesUtils.get(MyStatic.USER_PORTRAIT, null)));
+            this.application.setPortrait(ChangeUtils.toBitmap((String) sharedPreferencesUtils.get(MyStatic.USER_PORTRAIT, "")));
             this.application.setSex((String) sharedPreferencesUtils.get(MyStatic.USER_SEX, ""));
             this.application.setBirth((String) sharedPreferencesUtils.get(MyStatic.USER_BIRTH, ""));
             this.application.setEmail((String) sharedPreferencesUtils.get(MyStatic.USER_EMAIL, ""));

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -165,12 +166,12 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
-            application.setAccount(account);
+/*            application.setAccount(account);
             sharedPreferencesUtils.set(MyStatic.USER_ACCOUNT, application.getAccount());
             sharedPreferencesUtils.set(MyStatic.USER_LOGIN, true);
             Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
-            finish();
+            finish();*/
         }
     }
 
