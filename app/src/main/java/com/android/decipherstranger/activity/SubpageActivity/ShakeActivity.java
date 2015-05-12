@@ -26,10 +26,11 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.ShakeListener;
 
@@ -57,7 +58,7 @@ import com.android.decipherstranger.util.ShakeListener;
  *　　　　　　　　　　┗┻┛　┗┻┛+ + + + 
  *          @Created by peng on 2015/3/23.
  */
-public class ShakeActivity extends Activity{
+public class ShakeActivity extends BaseActivity {
 
     private MyApplication application = null;
     private ProgressDialog progressDialog = null;
@@ -208,7 +209,6 @@ public class ShakeActivity extends Activity{
             Toast.makeText(ShakeActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
             Log.v("Login", "已经执行T（）方法");
         }
-        //       pop();
     }
 
     public void ShakePopup(View view) {
@@ -229,17 +229,6 @@ public class ShakeActivity extends Activity{
                 }break;
         }
     }
-
-/*    private void pop() {
-        progressDialog.dismiss();
-        FriendAccount = "penghaitao";
-        popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
-        popupWindow.showAsDropDown(findViewById(R.id.shake_image));
-        this.portrait.setImageDrawable(getResources().getDrawable(R.drawable.mypic));
-        this.userName.setText("我是小涛啊");
-        Drawable sexDrawable = getResources().getDrawable(R.drawable.man);
-        this.sex.setImageDrawable(sexDrawable);
-    }*/
 
     private void popInitView(Intent intent) {
         Drawable sexDrawable = null;

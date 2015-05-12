@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" 
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/LinearLayout1"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -156,9 +157,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/LinearLyout2"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/LinearLayout1"
         android:background="@color/white"
         android:layout_marginTop="16dp">
 
@@ -220,22 +223,22 @@
         
     </LinearLayout>
 
-    <RelativeLayout
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="60dp"
+        android:id="@+id/button"
+        android:textSize="22dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/main_quit"
+        android:onClick="MePageOnClick"
+        android:background="@drawable/quit_btn_bg"
+        android:layout_below="@+id/LinearLyout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:id="@+id/button"
-            android:textSize="22dp"
-            android:text="@string/main_quit"
-            android:onClick="MePageOnClick"
-            android:background="@drawable/quit_btn_bg"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
 
-</LinearLayout>
+
+
+
+</RelativeLayout>

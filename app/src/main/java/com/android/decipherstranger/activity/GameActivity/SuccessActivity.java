@@ -9,14 +9,15 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.util.GlobalMsgUtils;
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 
 /**
  * Created by acmer on 2015/3/20.
  */
-public class SuccessActivity extends Activity {
+public class SuccessActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

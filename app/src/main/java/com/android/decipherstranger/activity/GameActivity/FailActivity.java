@@ -8,12 +8,13 @@ import android.os.Handler;
 import android.view.KeyEvent;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 
 /**
  * Created by acmer on 2015/3/20.
  */
-public class FailActivity extends Activity {
+public class FailActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

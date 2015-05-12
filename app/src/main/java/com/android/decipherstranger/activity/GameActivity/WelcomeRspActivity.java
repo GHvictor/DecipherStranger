@@ -20,9 +20,10 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.util.GameUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
 
@@ -30,7 +31,7 @@ import com.android.decipherstranger.util.SharedPreferencesUtils;
  * Created by PengHaitao on 2015/2/12.
  * toDo 获取游戏等级以及游戏设置
  */
-public class WelcomeRspActivity extends Activity {
+public class WelcomeRspActivity extends BaseActivity {
 
     private MyApplication application = null;
     private int grade = 6;  //  设置等级 默认为3

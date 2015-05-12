@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.GameActivity.RockPaperScissorsActivity;
 import com.android.decipherstranger.activity.GameActivity.SetGradeActivity;
 import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
@@ -30,7 +31,7 @@ import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
  * @Date 2015/5/8 12:47
  * @e-mail 785351408@qq.com
  */
-public class GameListActivity extends Activity {
+public class GameListActivity extends BaseActivity {
     
     private Intent intent = null;
     

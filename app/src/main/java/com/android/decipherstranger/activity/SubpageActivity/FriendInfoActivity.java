@@ -15,11 +15,12 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.MainPageActivity.ChatMsgActivity;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.HandyTextView;
 
@@ -29,7 +30,7 @@ import java.util.ArrayList;
  * Created by WangXin on 2015/4/19 0019.
  *
  **/
-public class FriendInfoActivity extends Activity {
+public class FriendInfoActivity extends BaseActivity {
     private ImageView friendPhoto;
     private ImageView friendSex;
     private HandyTextView friendName;

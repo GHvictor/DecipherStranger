@@ -16,10 +16,11 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
 import com.android.decipherstranger.entity.NearbyUserInfo;
 import com.android.decipherstranger.util.GlobalMsgUtils;
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.HandyTextView;
 import com.baidu.location.BDLocation;
@@ -45,7 +46,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/3/19 0019.
  */
-public class ShowMapActivity extends Activity {
+public class ShowMapActivity extends BaseActivity {
     private MyApplication application = null;
     private MapView mMapView = null;
     private BaiduMap mBaiduMap;
