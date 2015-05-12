@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.adapter.NearbyListViewAdapter;
 import com.android.decipherstranger.entity.NearbyUserInfo;
 import com.android.decipherstranger.util.MyStatic;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
  * 　　＞―r￣￣`ｰ―＿
  * Created by WangXin on 2015/4/6 0006.
  */
-public class NearbyListViewActivity extends Activity {
+public class NearbyListViewActivity extends BaseActivity {
 
     private ListView nearbyListView;
     private NearbyListViewAdapter adapter;

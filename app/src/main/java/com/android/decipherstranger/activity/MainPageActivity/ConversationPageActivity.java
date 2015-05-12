@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.adapter.RecentListViewAdapter;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.RecentContacts;
@@ -18,7 +19,7 @@ import com.android.decipherstranger.view.RecentListView;
 
 import java.util.ArrayList;
 
-public class ConversationPageActivity extends Activity implements RecentListView.IRefreshListener {
+public class ConversationPageActivity extends BaseActivity implements RecentListView.IRefreshListener {
 	private RecentListViewAdapter adapter;
 	private RecentListView listView;
 	private ArrayList<Contacts> readerConversationLog;

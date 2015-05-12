@@ -23,9 +23,10 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.dialog.CustomDialogSettings;
 import com.android.decipherstranger.util.GameUtils;
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 
 /**
@@ -50,7 +51,7 @@ import com.android.decipherstranger.util.MyStatic;
  *       @e-mail           785351408@qq.com
  **/
 
-public class RockPaperScissorsActivity extends Activity {
+public class RockPaperScissorsActivity extends BaseActivity {
 
     private MyApplication application = null;
     private static Intent intent = null;

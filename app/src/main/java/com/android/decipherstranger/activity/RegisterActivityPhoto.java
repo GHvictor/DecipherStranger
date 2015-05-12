@@ -21,6 +21,7 @@ import com.android.decipherstranger.R;
 
 import java.io.File;
 
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 
@@ -35,7 +36,7 @@ import com.android.decipherstranger.view.HandyTextView;
 /**
  * Created by Administrator on 2015/3/15 0015.
  */
-public class RegisterActivityPhoto extends Activity {
+public class RegisterActivityPhoto extends BaseActivity {
 
     private HandyTextView test;
     private LinearLayout selectPhoto;

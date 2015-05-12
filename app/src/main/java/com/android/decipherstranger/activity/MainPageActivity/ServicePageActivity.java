@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.GameActivity.SetGradeActivity;
 import com.android.decipherstranger.activity.SubpageActivity.GameListActivity;
 import com.android.decipherstranger.activity.SubpageActivity.NearbyListViewActivity;
 import com.android.decipherstranger.activity.SubpageActivity.ShakeActivity;
 import com.android.decipherstranger.activity.SubpageActivity.ShowMapActivity;
 
-public class ServicePageActivity extends Activity {
+public class ServicePageActivity extends BaseActivity {
     
     private Intent intent = null;
 	

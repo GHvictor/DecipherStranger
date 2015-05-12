@@ -1,7 +1,11 @@
-package com.android.decipherstranger.util;
+package com.android.decipherstranger.activity.Base;
 
+import android.app.Activity;
 import android.app.Application;
 import android.graphics.Bitmap;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * へ　　　　　／|
@@ -25,6 +29,43 @@ import android.graphics.Bitmap;
  */
 public class MyApplication extends Application {
     
+    private List<Activity> activityList = new LinkedList<Activity>();
+    private static MyApplication instance;
+
+    // 单例模式中获取唯一的MyApplication实例  
+    public static MyApplication getInstance() {
+        if (null == instance) {
+            instance = new MyApplication();
+        }
+        return instance;
+    }
+
+    // 添加Activity到容器中  
+    public void addActivity(Activity activity) {
+        activityList.add(activity);
+    }
+
+    // 遍历所有Activity并finish  
+    public void exit() {
+        for (Activity activity : activityList) {
+            System.out.println("tag_activity﹕ Exit" + activity.getClass().getSimpleName());
+            activity.finish();
+        }
+        System.exit(0);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+    }
+    
+    /*******全局变量***********************************************************************************************/
+
     //  用户账号
     private String account = null;
     //  用户昵称
@@ -66,16 +107,6 @@ public class MyApplication extends Application {
 
     public Bitmap getPortrait() {
         return portrait;
-    }
-    
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-    
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
     }
 
     public void setSex(String userSex) {

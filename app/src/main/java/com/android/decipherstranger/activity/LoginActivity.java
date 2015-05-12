@@ -1,6 +1,7 @@
 package com.android.decipherstranger.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,13 +24,14 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.UserTabOperate;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
 import com.android.decipherstranger.util.StringUtils;
@@ -37,7 +39,7 @@ import com.android.decipherstranger.util.StringUtils;
 /**
  * Created by PengHaitao on 2015/2/10.
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
 
     private MyApplication application = null;
     private Intent it = null;
@@ -45,6 +47,7 @@ public class LoginActivity extends Activity {
     private SQLiteOpenHelper helper = null;
     private UserTabOperate userInfo = null;
     private LoginBroadcastReceiver receiver = null;
+    private ProgressDialog progressDialog = null;
 
     private static final String FILENAME = "Login_CheckBox";
     private SharedPreferencesUtils sharedPreferencesUtils = null;
@@ -78,6 +81,7 @@ public class LoginActivity extends Activity {
     }
 
     private void initView(){
+        this.progressDialog = new ProgressDialog(LoginActivity.this);
         this.imageView = (ImageView)super.findViewById(R.id.login_image);
         Bitmap bitmap = BitmapFactory.decodeFile("mypic.png");
         this.imageView.setImageBitmap(bitmap);
@@ -141,6 +145,9 @@ public class LoginActivity extends Activity {
             }else if (password.equals("")){
                 Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
             }else {
+                progressDialog.setMessage("Login...");
+                progressDialog.onStart();
+                progressDialog.show();
                 LoginActivity.this.userInfo = new UserTabOperate(LoginActivity.this.helper.getReadableDatabase());
                 User user = LoginActivity.this.userInfo.userTabInfo(account);
 
@@ -166,7 +173,7 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
-            saveUserInfo();
+//            saveUserInfo();
             Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
             finish();
@@ -221,6 +228,7 @@ public class LoginActivity extends Activity {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
                     application.setAccount(account);
                     saveUserInfo();
+                    progressDialog.dismiss();
                     Intent it = new Intent(LoginActivity.this, MainPageActivity.class);
                     startActivity(it);
                     finish();

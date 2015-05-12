@@ -16,13 +16,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.dialog.CustomDialogSex;
 import com.android.decipherstranger.util.StringUtils;
 
 /**
  * Created by PengHaitao on 2015/2/10.
  */
-public class RegisterActivityBase extends Activity {
+public class RegisterActivityBase extends BaseActivity {
 
     private StringUtils stringUtils = null;
     private Drawable OkIcon = null;

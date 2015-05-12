@@ -2,10 +2,11 @@ package com.android.decipherstranger.activity;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
 
@@ -25,7 +26,7 @@ import android.widget.Toast;
 /**
  * Created by PengHaitao on 2015/2/10.
  */
-public class WelcomeActivity extends ActionBarActivity {
+public class WelcomeActivity extends BaseActivity {
 
     private String password = "";
     private Boolean isLogin = false;

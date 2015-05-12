@@ -12,9 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.LoginActivity;
 import com.android.decipherstranger.util.ChangeUtils;
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
 
@@ -38,7 +39,7 @@ import com.android.decipherstranger.util.SharedPreferencesUtils;
  * @Date 2015/5/6 21:39
  * @e-mail 785351408@qq.com
  */
-public class UserPageActivity extends Activity {
+public class UserPageActivity extends BaseActivity {
     
     private MyApplication application = null;
 
@@ -86,9 +87,8 @@ public class UserPageActivity extends Activity {
                 SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_USER);
                 sharedPreferencesUtils.clear();
                 sharedPreferencesUtils.set(MyStatic.USER_LOGIN, false);
+                MyApplication.getInstance().exit();
                 this.finish();
-                System.exit(0);
-                android.os.Process.killProcess(android.os.Process.myPid());
                 break;
         }
     }

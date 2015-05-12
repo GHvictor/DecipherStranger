@@ -2,7 +2,7 @@ package com.android.decipherstranger.Network;
 
 import android.content.Context;
 
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;

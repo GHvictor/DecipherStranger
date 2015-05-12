@@ -30,13 +30,14 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.adapter.ChatMsgViewAdapter;
 import com.android.decipherstranger.db.ChatRecord;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.RecentContacts;
 import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.util.GlobalMsgUtils;
-import com.android.decipherstranger.util.MyApplication;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SoundMeter;
 
@@ -49,7 +50,7 @@ import java.util.List;
 /*
  * Created by WangXin on 2015/4/12 0012.
  */
-public class ChatMsgActivity extends Activity implements OnClickListener {
+public class ChatMsgActivity extends BaseActivity implements OnClickListener {
 
     private MyApplication application = null;
     //文本信息发送按钮

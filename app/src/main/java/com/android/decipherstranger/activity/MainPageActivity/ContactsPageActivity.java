@@ -16,10 +16,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.SubpageActivity.FriendInfoActivity;
 import com.android.decipherstranger.adapter.SortAdapter;
 import com.android.decipherstranger.db.ContactsList;
@@ -36,7 +38,7 @@ import com.android.decipherstranger.view.SideBar;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ContactsPageActivity extends Activity {
+public class ContactsPageActivity extends BaseActivity {
 
     private ListView contactListView;
     private SideBar sideBar;
@@ -54,7 +56,7 @@ public class ContactsPageActivity extends Activity {
     private PinyinComparator pinyinComparator;
     private BadgeView friendsRequestCount;
     private final static int NORMAL = 0;
-    private LinearLayout newFriends;
+    private RelativeLayout newFriends;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +89,8 @@ public class ContactsPageActivity extends Activity {
         dialog = (TextView) findViewById(R.id.dialog);
 
         friendsRequestCount = (BadgeView)findViewById(R.id.friends_request_count);
-        newFriends = (LinearLayout) findViewById(R.id.new_friends);
+        newFriends = (RelativeLayout) findViewById(R.id.new_friends);
+//        newFriends = (LinearLayout) findViewById(R.id.new_friends);
         newFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
