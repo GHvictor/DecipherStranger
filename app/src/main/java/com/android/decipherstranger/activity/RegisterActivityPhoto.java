@@ -3,6 +3,7 @@ package com.android.decipherstranger.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -27,6 +28,7 @@ import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.ImageCompression;
 import com.android.decipherstranger.util.StringUtils;
 import com.android.decipherstranger.util.Tools;
 import com.android.decipherstranger.view.HandyTextView;
@@ -43,6 +45,7 @@ public class RegisterActivityPhoto extends Activity {
     private ImageView userPhoto;
     private User userInfo;
     private String portraitUrl;
+    private String sPortaitUrl;
 
     private Button previousStepButton;
     private Button registerButton;
@@ -151,8 +154,8 @@ public class RegisterActivityPhoto extends Activity {
                         "email"+":"+userInfo.getEmail()+":"+
                         "phone"+":"+userInfo.getPhone()+":"+
                         "birth"+":"+userInfo.getBirth()+":"+
-                        "photo"+":"+portraitUrl;
-                //System.out.println(userInfo.getPortrait());
+                        "photo"+":"+portraitUrl+":"+
+                        "sphoto"+":"+sPortaitUrl;
                 Log.v("aaaaa", sendInfo);
                 NetworkService.getInstance().sendUpload(sendInfo);
                 Intent intent = new Intent(RegisterActivityPhoto.this, LoginActivity.class);
@@ -222,10 +225,9 @@ public class RegisterActivityPhoto extends Activity {
         Bundle extras = data.getExtras();
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
-            ChangeUtils changeUtils = new ChangeUtils();
-            portraitUrl = changeUtils.toBinary(photo);
-            Bitmap p = changeUtils.toBitmap(portraitUrl);
-            Drawable drawable = new BitmapDrawable(this.getResources(),p);
+            portraitUrl = ChangeUtils.toBinary(photo);
+            sPortaitUrl = ChangeUtils.toBinary(ImageCompression.compressSimplify(photo, 0.3f));
+            Drawable drawable = new BitmapDrawable(this.getResources(), photo);
             userPhoto.setImageDrawable(drawable);
         }
     }

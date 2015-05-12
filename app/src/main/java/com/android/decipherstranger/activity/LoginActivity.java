@@ -166,7 +166,7 @@ public class LoginActivity extends Activity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
-            saveUserInfo();
+            //saveUserInfo();
             Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
             finish();

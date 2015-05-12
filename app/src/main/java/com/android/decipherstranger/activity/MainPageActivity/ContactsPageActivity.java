@@ -12,6 +12,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -19,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.SubpageActivity.FriendInfoActivity;
 import com.android.decipherstranger.adapter.SortAdapter;
@@ -28,6 +30,8 @@ import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.CharacterParser;
+import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.MyApplication;
 import com.android.decipherstranger.util.PinyinComparator;
 import com.android.decipherstranger.view.BadgeView;
 import com.android.decipherstranger.view.ClearEditText;
@@ -64,6 +68,7 @@ public class ContactsPageActivity extends Activity {
         initData();
         friendBroadcas();
         friendsRequestCount(NORMAL);
+        //networkRequest();
     }
 
     private void initData() {
@@ -199,6 +204,19 @@ public class ContactsPageActivity extends Activity {
         }else {
             friendsRequestCount.setText(friendsRequestCounts);
             friendsRequestCount.show();
+        }
+    }
+
+    private void networkRequest(){
+        if(NetworkService.getInstance().getIsConnected()) {
+            MyApplication application = (MyApplication) getApplication();
+            String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgFriendList)+":"+"account"+":"+application.getAccount();
+            Log.v("aaaaa", msg);
+            NetworkService.getInstance().sendUpload(msg);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Log.v("Login", "已经执行T（）方法");
         }
     }
 
