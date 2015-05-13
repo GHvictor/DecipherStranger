@@ -174,9 +174,9 @@ public class LoginActivity extends BaseActivity {
             }
             accountCheckByWeb(account, passwordMD5);
 //            saveUserInfo();
-            Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
+            /*Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
-            finish();
+            finish();*/
         }
     }
 

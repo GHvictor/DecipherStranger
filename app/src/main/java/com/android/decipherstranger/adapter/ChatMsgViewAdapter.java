@@ -4,6 +4,8 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.util.DisplayMetrics;
@@ -148,8 +150,8 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 			}
 		});
 		viewHolder.tvUserName.setText(entity.getUsername());
-//		Drawable drawable = new BitmapDrawable(convertView.getResources(),entity.getPortrait());
-//		viewHolder.ivUserPhoto.setImageDrawable(drawable);
+		Drawable drawable = new BitmapDrawable(convertView.getResources(),entity.getPortrait());
+		viewHolder.ivUserPhoto.setImageDrawable(drawable);
 		return convertView;
 	}
 

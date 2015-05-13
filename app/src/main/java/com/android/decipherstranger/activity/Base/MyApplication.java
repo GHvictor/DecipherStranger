@@ -84,6 +84,17 @@ public class MyApplication extends Application {
     private String address = null;
     //  个性签名
     private String signature = null;
+    //未读消息
+    private int unReadMessage;
+
+    public int getUnReadMessage() {
+        return unReadMessage;
+
+    }
+
+    public void setUnReadMessage(int unReadMessage) {
+        this.unReadMessage = unReadMessage;
+    }
 
     public void setAccount(String account) {
         this.account = account;

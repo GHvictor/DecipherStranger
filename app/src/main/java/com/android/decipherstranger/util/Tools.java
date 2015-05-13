@@ -4,7 +4,7 @@ import android.os.Environment;
 
 public class Tools {
 	/**
-	 * ����Ƿ����SDCard
+	 * SDCard
 	 * @return
 	 */
 	public static boolean hasSdcard(){

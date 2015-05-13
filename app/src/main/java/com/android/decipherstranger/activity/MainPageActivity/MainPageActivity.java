@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -22,6 +23,9 @@ import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.adapter.ChatMsgViewAdapter;
+import com.android.decipherstranger.db.ChatRecord;
+import com.android.decipherstranger.db.DATABASE;
+import com.android.decipherstranger.db.RecentContacts;
 import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
@@ -41,18 +45,25 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     private TextView text1, text2, text3, text4;
     private ImageView image1, image2, image3, image4;
     private BadgeView badgeView ;
-    //新消息的总数
-    private int unReadCount;
+
+    //写入本地缓存聊天记录
+    private ChatRecord writeChatLog;
+    //写入最近聊天列表缓存
+    private RecentContacts writeRecentLog;
+    private SQLiteOpenHelper helper = null;
+    private MyApplication application = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initData(savedInstanceState);
+        this.helper = new DATABASE(this);
+        application = (MyApplication) getApplication();
         initView();
         initViewPage();
-        setUnReadMessage(7,image1);
+        setUnReadMessage(application.getUnReadMessage(), image1);
         setUnReadMessage(2, image2);
-        chatBroadcas();
+//        chatBroadcas();
         networkRequest();
     }
 
@@ -62,6 +73,9 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     }
     
     private void initView() {
+        //将聊天记录写入本地
+        this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
+        this.writeRecentLog = new RecentContacts(this.helper.getWritableDatabase());
         this.textTab = (TextView) super.findViewById(R.id.textTab);
         this.image1 = (ImageView) super.findViewById(R.id.conversationImage);
         this.image2 = (ImageView) super.findViewById(R.id.contactsImage);
@@ -305,39 +319,33 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         }
     }
 
-    private void chatBroadcas() {
-        //动态方式注册广播接收者
-        ChatBroadcastReceiver receiver = new ChatBroadcastReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.android.decipherstranger.MESSAGE");
-        this.registerReceiver(receiver, filter);
-    }
-
-    public class ChatBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
-                Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
-                System.out.println("接到了！！！");
-                Contacts receiveMsg = new Contacts();
-                receiveMsg.setAccount(intent.getStringExtra(""));
-                receiveMsg.setUsername(intent.getStringExtra(""));
-                receiveMsg.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("")));
-                receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                receiveMsg.setDatetime(intent.getStringExtra("reDate"));
-                receiveMsg.setWho(1);
-                unReadCount+=1;
-                setUnReadMessage(7,image1);
-//                mDataArrays.add(receiveMsg);
-
-//                if (mAdapter == null) {
-//                    mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
-//                    mListView.setAdapter(mAdapter);
-//                } else {
-//                    mAdapter.notifyDataSetChanged();
-//                    mListView.setSelection(mListView.getCount() - 1);
-//                }
-            }
-        }
-    }
+//    private void chatBroadcas() {
+//        //动态方式注册广播接收者
+//        ChatBroadcastReceiver receiver = new ChatBroadcastReceiver();
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction("com.android.decipherstranger.MESSAGE");
+//        this.registerReceiver(receiver, filter);
+//    }
+//
+//    public class ChatBroadcastReceiver extends BroadcastReceiver {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
+//                Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
+//                System.out.println("接到了！！！");
+//                Contacts receiveMsg = new Contacts();
+//                receiveMsg.setAccount(intent.getStringExtra(""));
+//                receiveMsg.setUsername(intent.getStringExtra(""));
+//                receiveMsg.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("")));
+//                receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+//                receiveMsg.setDatetime(intent.getStringExtra("reDate"));
+//                receiveMsg.setWho(1);
+//                application.setUnReadMessage(application.getUnReadMessage() + 1);
+//                setUnReadMessage(application.getUnReadMessage(), image1);
+////                writeChatLog.insert(intent.getStringExtra(""), 1, intent.getStringExtra("reMessage"), null);
+////                writeRecentLog.update(intent.getStringExtra("userAccount"),intent.getStringExtra("userName"),
+////                        ChangeUtils.toBitmap(intent.getStringExtra("userPhoto")),intent.getStringExtra("reMessage"));
+//            }
+//        }
+//    }
 }

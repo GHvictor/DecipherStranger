@@ -16,9 +16,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="2dp"
-            android:textColor="#ffffff"
+            android:textColor="@color/black"
             android:textSize="12sp"
-            android:background="#bfbfbf"/>
+            android:background="@color/transparent"/>
 	        
 	    </LinearLayout>
 	

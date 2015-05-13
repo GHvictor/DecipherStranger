@@ -66,8 +66,6 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
     private ChatRecord readerChatLog;
     //写入本地缓存聊天记录
     private ChatRecord writeChatLog;
-    //最近聊天列表
-    private List<Contacts>recentChat;
     //写入最近聊天列表缓存
     private RecentContacts writeRecentLog;
     //图片信息发送按钮
@@ -109,7 +107,8 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         this.readerChatLog = new ChatRecord(this.helper.getReadableDatabase());
         //将聊天记录写入本地
         this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
-        //写入最近聊天缓存记录
+        ////写入最近聊天列表缓存
+        this.writeRecentLog = new RecentContacts(this.helper.getWritableDatabase());
         Bundle bundle =this.getIntent().getExtras();
         currentUserAccount = bundle.getString("userAccount");
         currentUserName = bundle.getString("userName");
@@ -132,6 +131,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
                 mListView.setSelection(mListView.getCount() - 1);
 //                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, seconds + "\"");
                 sendVoice(filePath, Math.round(seconds));
+//                writeRecentLog.update(currentUserAccount,currentUserName,currentUserPhoto,"[语音]");
             }
         });
         mBtnSend = (Button) findViewById(R.id.btn_send);
@@ -192,6 +192,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
             }
             else{
                 mDataArrays.get(i).setUsername(application.getName());
+                mDataArrays.get(i).setPortrait(application.getPortrait());
             }
         }
         mAdapter = new ChatMsgViewAdapter(this, mDataArrays);
@@ -233,6 +234,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
             entity.setDatetime(getDate());
             entity.setUsername(application.getName());
             entity.setWho(SEND_TO_MSG);
+            entity.setPortrait(application.getPortrait());
             entity.setMessage(contString);
             mDataArrays.add(entity);
             mAdapter.notifyDataSetChanged();
@@ -240,6 +242,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
             mEditTextContent.setText("");
             mListView.setSelection(mListView.getCount() - 1);
             sendMessage(contString);
+//            writeRecentLog.update(currentUserAccount,currentUserName,currentUserPhoto,contString);
         }
     }
 
@@ -306,26 +309,24 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
-                if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
-                    Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
-                    Contacts receiveMsg = new Contacts();
-                    receiveMsg.setAccount(currentUserAccount);
-                    receiveMsg.setUsername(currentUserName);
-                    receiveMsg.setPortrait(currentUserPhoto);
-                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
-                    receiveMsg.setWho(IS_COM_MSG);
-                    mDataArrays.add(receiveMsg);
-                    if (mAdapter == null){
-                        mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this,mDataArrays);
-                        mListView.setAdapter(mAdapter);
-                    }else{
-                        mAdapter.notifyDataSetChanged();
-                        mListView.setSelection(mListView.getCount() - 1);}
+                Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
+                Contacts receiveMsg = new Contacts();
+                receiveMsg.setAccount(currentUserAccount);
+                receiveMsg.setUsername(currentUserName);
+                receiveMsg.setPortrait(currentUserPhoto);
+                receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                receiveMsg.setDatetime(intent.getStringExtra("reDate"));
+                receiveMsg.setWho(IS_COM_MSG);
+                mDataArrays.add(receiveMsg);
+                if (mAdapter == null) {
+                    mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
+                    mListView.setAdapter(mAdapter);
+                } else {
+                    mAdapter.notifyDataSetChanged();
+                    mListView.setSelection(mListView.getCount() - 1);
                 }
-                else{
-                    Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();
-                }
+            } else {
+                Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();
             }
         }
     }

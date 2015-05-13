@@ -38,6 +38,19 @@ public class ConversationPageActivity extends BaseActivity implements RecentList
 		initView();
 	}
 
+//	@Override
+//	protected void onStart(){
+//		initData();
+//		refreshData();
+//	}
+
+	private void refreshData() {
+		if (mRecentContacts == null){
+			mRecentContacts = new RecentContacts(this.helper.getReadableDatabase());
+
+		}
+	}
+
 	private void initData() {
 		mRecentContacts = new RecentContacts(this.helper.getReadableDatabase());
 		readerConversationLog = new ArrayList<>();
