@@ -18,7 +18,6 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/mypic"
                 android:layout_marginLeft="5dp"
                 android:id="@+id/conversationPortrait"
                 android:layout_centerVertical="true"
@@ -38,7 +37,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我是小涛啊"
                 android:textSize="20dp"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/text_blue"
@@ -51,7 +49,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="这个UI到底好不好使啊"
                 android:id="@+id/conversationMessage"
                 android:textSize="16dp"
                 android:layout_alignParentBottom="true"

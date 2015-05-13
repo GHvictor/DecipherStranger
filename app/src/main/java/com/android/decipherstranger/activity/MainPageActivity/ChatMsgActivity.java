@@ -239,7 +239,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
             entity.setMessage(contString);
             mDataArrays.add(entity);
             mAdapter.notifyDataSetChanged();
-//            writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, null);
+    //        this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
+            writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, "");
             mEditTextContent.setText("");
             mListView.setSelection(mListView.getCount() - 1);
             sendMessage(contString);

@@ -34,6 +34,7 @@ public class ChatRecord {
     private SQLiteDatabase db = null;
     
     public ChatRecord(SQLiteDatabase db) {
+       System.out.println("### AAAAAAa");
         this.db = db;
     }
     
@@ -42,7 +43,7 @@ public class ChatRecord {
      * @param String account(好友账号),int who(0/1 0为用户发给好友，1为好友发给用户) Sting message String timeLen
      */
     public void insert(String account, int who, String message, String timeLen){
-        String insert = "INSERT INTO chatrecord VALUES(?,?,?,?,datetime())";
+        String insert = "INSERT INTO chatrecord VALUES ( ? , ? , ? , ? , datetime( ) )";
         Object args[] = new Object[]{account,who,message,timeLen};
         this.db.execSQL(insert,args);
         this.db.close();

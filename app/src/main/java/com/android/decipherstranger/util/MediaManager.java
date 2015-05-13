@@ -6,20 +6,7 @@ import android.media.AudioManager;
 import java.io.IOException;
 
 /**
- * *
- * ¤Ø¡¡¡¡¡¡¡¡¡¡£¯|
- * ¡¡¡¡/£Ü7¡¡¡¡¡¡ ¡Ï£ß/
- * ¡¡ /¡¡©¦¡¡¡¡ £¯¡¡£¯
- * ¡¡©¦¡¡Z £ß,£¼¡¡£¯¡¡¡¡ /`©c
- * ¡¡©¦¡¡¡¡¡¡¡¡¡¡©c¡¡¡¡ /¡¡¡¡¡µ
- * ¡¡ Y¡¡¡¡¡¡¡¡¡¡`¡¡ /¡¡¡¡/
- * ¡¡?¡ñ¡¡?¡¡¡ñ¡¡¡¡??¡´¡¡¡¡/
- * ¡¡()¡¡ ¤Ø¡¡¡¡¡¡¡¡|¡¡£Ü¡´
- * ¡¡¡¡>? ?_¡¡ ¥£¡¡ ©¦ £¯£¯      È¥°É£¡
- * ¡¡ / ¤Ø¡¡¡¡ /¡¡?£¼| £Ü£Ü        ±È¿¨Çð~
- * ¡¡ ©c_?¡¡¡¡(_£¯¡¡ ©¦£¯£¯           ÏûÃð´úÂëBUG
- * ¡¡¡¡7¡¡¡¡¡¡¡¡¡¡¡¡¡¡|£¯
- * ¡¡¡¡£¾¨Dr£þ£þ`?¨D£ß
+ * 
  * Created by WangXin on 2015/5/12 0012.
  */
 public class MediaManager {
