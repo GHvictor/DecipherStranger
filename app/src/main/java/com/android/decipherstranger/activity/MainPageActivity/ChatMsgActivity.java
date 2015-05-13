@@ -106,8 +106,6 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     public void initView() {
         //获取本地聊天记录
         this.readerChatLog = new ChatRecord(this.helper.getReadableDatabase());
-        //将聊天记录写入本地
-        this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
         ////写入最近聊天列表缓存
         this.writeRecentLog = new ConversationList(this.helper.getWritableDatabase());
         Bundle bundle =this.getIntent().getExtras();
@@ -130,7 +128,9 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 mDataArrays.add(recorderMessage);
                 mAdapter.notifyDataSetChanged();
                 mListView.setSelection(mListView.getCount() - 1);
-//                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, seconds + "\"");
+                //将聊天记录写入本地
+                writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, seconds + "\"");
                 sendVoice(filePath, Math.round(seconds));
 //                writeRecentLog.update(currentUserAccount,currentUserName,currentUserPhoto,"[语音]");
             }
@@ -239,7 +239,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
             entity.setMessage(contString);
             mDataArrays.add(entity);
             mAdapter.notifyDataSetChanged();
-    //        this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
+            this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
             writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, "");
             mEditTextContent.setText("");
             mListView.setSelection(mListView.getCount() - 1);
@@ -320,6 +320,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                 receiveMsg.setWho(IS_COM_MSG);
                 mDataArrays.add(receiveMsg);
+                writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                writeRecentLog.update(currentUserAccount,currentUserName,currentUserPhoto,intent.getStringExtra("reMessage"));
                 if (mAdapter == null) {
                     mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
                     mListView.setAdapter(mAdapter);

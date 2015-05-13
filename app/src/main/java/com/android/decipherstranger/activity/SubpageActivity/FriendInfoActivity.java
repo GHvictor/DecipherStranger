@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -72,7 +74,8 @@ public class FriendInfoActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        friendPhoto.setImageBitmap(photo);
+        Drawable drawable = new BitmapDrawable(getResources(),photo);
+        friendPhoto.setImageDrawable(drawable);
         friendName.setText(friendInfo.getString("userName"));
         friendAtavar.setText(friendInfo.getString("userAtavar"));
         friendEmail.setText(friendInfo.getString("userEmail"));
