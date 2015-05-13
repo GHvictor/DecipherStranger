@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
+import com.android.decipherstranger.adapter.ChatMsgViewAdapter;
+import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
@@ -41,7 +43,6 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     private BadgeView badgeView ;
     //新消息的总数
     private int unReadCount;
-    private ArrayList<User>serverFriendListData = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,6 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         Intent intent1 = new Intent(MainPageActivity.this, ConversationPageActivity.class); // 加载activity到viewpage
         mListViews.add(getView("A", intent1));
         Intent intent2 = new Intent(MainPageActivity.this, ContactsPageActivity.class); // 加载activity到viewpage
-        intent2.putExtra("contactList",(Serializable)serverFriendListData);
         mListViews.add(getView("B", intent2));
         Intent intent3 = new Intent(MainPageActivity.this, ServicePageActivity.class); // 加载activity到viewpage
         mListViews.add(getView("C", intent3));
@@ -319,21 +319,24 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
                 Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
                 System.out.println("接到了！！！");
-                /*Contacts receiveMsg = new Contacts();
-                receiveMsg.setAccount(currentUserAccount);
-                receiveMsg.setUsername(currentUserName);
-                receiveMsg.setPortrait(currentUserPhoto);
+                Contacts receiveMsg = new Contacts();
+                receiveMsg.setAccount(intent.getStringExtra(""));
+                receiveMsg.setUsername(intent.getStringExtra(""));
+                receiveMsg.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("")));
                 receiveMsg.setMessage(intent.getStringExtra("reMessage"));
                 receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                 receiveMsg.setWho(1);
-                mDataArrays.add(receiveMsg);
-                if (mAdapter == null) {
-                    mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
-                    mListView.setAdapter(mAdapter);
-                } else {
-                    mAdapter.notifyDataSetChanged();
-                    mListView.setSelection(mListView.getCount() - 1);
-                }*/
+                unReadCount+=1;
+                setUnReadMessage(7,image1);
+//                mDataArrays.add(receiveMsg);
+
+//                if (mAdapter == null) {
+//                    mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
+//                    mListView.setAdapter(mAdapter);
+//                } else {
+//                    mAdapter.notifyDataSetChanged();
+//                    mListView.setSelection(mListView.getCount() - 1);
+//                }
             }
         }
     }

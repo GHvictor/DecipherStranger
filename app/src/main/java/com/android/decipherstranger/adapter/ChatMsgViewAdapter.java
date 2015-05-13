@@ -3,18 +3,23 @@ package com.android.decipherstranger.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.entity.Contacts;
+import com.android.decipherstranger.util.MediaManager;
 
 public class ChatMsgViewAdapter extends BaseAdapter {
 
@@ -30,13 +35,21 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 	private Context ctx;
 
 	private LayoutInflater mInflater;
-	private MediaPlayer mMediaPlayer = new MediaPlayer();
 	private Boolean flag = false;
+	private int mMinItemWidth;
+	private int mMaxItemWidth;
+	private View mAnimView;
 
 	public ChatMsgViewAdapter(Context context, List<Contacts> coll) {
 		ctx = context;
 		this.coll = coll;
 		mInflater = LayoutInflater.from(context);
+
+		WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		DisplayMetrics outMetrics = new DisplayMetrics();
+		manager.getDefaultDisplay().getMetrics(outMetrics);
+		mMaxItemWidth = (int) (outMetrics.widthPixels*0.7f);
+		mMinItemWidth = (int) (outMetrics.widthPixels*0.15f);
 	}
 
 	public int getCount() {
@@ -90,33 +103,47 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_chatcontent);
 			viewHolder.tvTime = (TextView) convertView
 					.findViewById(R.id.tv_time);
+			viewHolder.mLength = convertView
+					.findViewById(R.id.recorder_length);
 			viewHolder.isComMsg = isComMsg;
-
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
 		viewHolder.tvSendTime.setText(entity.getDatetime());
-		
+
 		if (entity.getMessage().contains(".amr")) {
-			viewHolder.tvContent.setText("");
-			viewHolder.tvContent.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.chatto_voice_playing, 0);
-			viewHolder.tvTime.setText(entity.getTimeLen());
+			viewHolder.tvContent.setVisibility(View.GONE);
+			viewHolder.mLength.setVisibility(View.VISIBLE);
+			viewHolder.tvTime.setText(entity.getTimeLen() + "\"");
+			ViewGroup.LayoutParams lp = viewHolder.mLength.getLayoutParams();
+			int timeLength = Integer.parseInt(entity.getTimeLen());
+			lp.width = (mMinItemWidth + (mMaxItemWidth / 60 * timeLength));
 		} else {
+			viewHolder.tvContent.setVisibility(View.VISIBLE);
+			viewHolder.mLength.setVisibility(View.GONE);
 			viewHolder.tvContent.setText(entity.getMessage());
-			viewHolder.tvContent.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			viewHolder.tvTime.setText("");
 		}
-		viewHolder.tvContent.setOnClickListener(new OnClickListener() {
-			ViewHolder viewHolder = new ViewHolder();
+		viewHolder.mLength.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v) {
-				if (entity.getMessage().contains(".amr") && !flag) {
-					flag = true;
-					playMusic(android.os.Environment.getExternalStorageDirectory() + "/" + entity.getMessage());
-				} else {
-					mMediaPlayer.stop();
-					flag = false;
+				if (mAnimView != null) {
+					mAnimView.setBackgroundResource(R.drawable.adj);
+					mAnimView = null;
+				}
+				if (entity.getMessage().contains(".amr")) {
+					mAnimView = v.findViewById(R.id.recorder_anim);
+					mAnimView.setBackgroundResource(R.drawable.play_anim);
+					AnimationDrawable anim = (AnimationDrawable) mAnimView.getBackground();
+					anim.start();
+					MediaManager.playSound(entity.getMessage(), new OnCompletionListener() {
+						@Override
+						public void onCompletion(MediaPlayer mp) {
+							mAnimView.setBackgroundResource(R.drawable.adj);
+						}
+					});
 				}
 			}
 		});
@@ -133,35 +160,6 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 		public TextView tvTime;
 		public int isComMsg;
 		public ImageView ivUserPhoto;
+		private View mLength;
 	}
-
-	/**
-	 * @Description
-	 * @param name
-	 */
-	private void playMusic(String name) {
-		try {
-			if (mMediaPlayer.isPlaying()) {
-				mMediaPlayer.stop();
-			}
-			mMediaPlayer.reset();
-			mMediaPlayer.setDataSource(name);
-			mMediaPlayer.prepare();
-			mMediaPlayer.start();
-			mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
-				public void onCompletion(MediaPlayer mp) {
-
-				}
-			});
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	private void stop() {
-
-	}
-
 }

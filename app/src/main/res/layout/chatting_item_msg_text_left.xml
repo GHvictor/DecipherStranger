@@ -19,7 +19,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp" >
@@ -32,7 +32,22 @@
             android:layout_alignParentTop="true"
             android:clickable="true"
              />
-
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/recorder_length"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/chatfrom_bg"
+            android:layout_toRightOf="@+id/iv_userhead"
+            android:visibility="gone">
+            <View
+                android:id="@+id/recorder_anim"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="right|center_vertical"
+                android:background="@drawable/adj">
+            </View>
+        </FrameLayout>
         <TextView
             android:id="@+id/tv_chatcontent"
             style="@style/chat_content_date_style"
