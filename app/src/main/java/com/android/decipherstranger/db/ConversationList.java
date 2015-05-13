@@ -5,11 +5,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.android.decipherstranger.R;
 import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.MyStatic;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *      へ　　　　　／|
@@ -31,12 +35,12 @@ import java.util.ArrayList;
  * @Date 2015/4/17 22:19
  * @e-mail 785351408@qq.com
  */
-public class RecentContacts {
+public class ConversationList {
 
     private SQLiteDatabase db = null;
     private static final String TABLE_NAME = "recent_contacts";
 
-    public RecentContacts(SQLiteDatabase db){
+    public ConversationList(SQLiteDatabase db){
         this.db = db;
     }
 
@@ -84,6 +88,23 @@ public class RecentContacts {
             contacts.setDatetime(result.getString(4));
             all.add(contacts);
         } this.db.close();
+        return all;
+    }
+
+    public ArrayList<Map<String, Object>> selectAll (){
+        ArrayList<Map<String, Object>> all = new ArrayList<Map<String, Object>>();
+   //     String sql = "SELECT * FROM 'recent_contacts' ORDER BY contacts_time DESC";
+  //      Cursor result = this.db.rawQuery(sql, null);
+ //       for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
+            for (int i = 0; i < 10; ++ i) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put(MyStatic.CONVERSATION_PORTRAIT, R.drawable.mypic);
+            map.put(MyStatic.CONVERSATION_NAME, "我是小涛啊");
+            map.put(MyStatic.CONVERSATION_MESSAGE, "这个UI到底好不好使啊");
+            map.put(MyStatic.CONVERSATION_TIME, "16:39");
+            all.add(map);
+        }
+        this.db.close();
         return all;
     }
 

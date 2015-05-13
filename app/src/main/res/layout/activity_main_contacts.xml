@@ -84,7 +84,7 @@
         android:text="A"
         android:id="@+id/dialog"
         android:textSize="100dp"
-        android:gravity="center"
+        android:gravity="center_horizontal|top"
         android:background="@color/gray"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />

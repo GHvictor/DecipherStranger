@@ -43,9 +43,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
-
         </LinearLayout>
-
         <TextView
             android:id="@+id/dialog"
             android:layout_width="80.0dip"
@@ -56,13 +54,11 @@
             android:textColor="#ffffffff"
             android:textSize="30.0dip"
             android:visibility="invisible" />
-
         <com.android.decipherstranger.view.SideBar
             android:id="@+id/sidrbar"
             android:layout_width="30.0dip"
             android:layout_height="fill_parent"
             android:layout_gravity="right|center" />
-
         <ListView
             android:id="@+id/contact_list"
             android:layout_width="fill_parent"

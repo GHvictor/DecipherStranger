@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/white"
+        android:background="@drawable/mainpage_btn_bg"
         android:onClick="GameListOnClick"
         android:layout_gravity="center_horizontal">
 
@@ -48,7 +48,7 @@
             android:layout_height="40dp"
             android:id="@+id/imageView3"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/game_rsp_ico"
+            android:background="@drawable/game_rsp_icon"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true" />
 
@@ -79,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/white"
+        android:background="@drawable/mainpage_btn_bg"
         android:onClick="GameListOnClick"
         android:layout_gravity="center_horizontal">
 

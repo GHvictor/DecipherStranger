@@ -66,12 +66,17 @@ public class LoginActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        registerBroadcas();
         application = (MyApplication) getApplication();
         this.helper = new DATABASE(this);
         this.sharedPreferencesUtils = new SharedPreferencesUtils(this, MyStatic.FILENAME_USER);
         initView();
         getCheckBox();
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerBroadcas();
     }
     
     @Override

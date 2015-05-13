@@ -24,8 +24,8 @@ import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.adapter.ChatMsgViewAdapter;
 import com.android.decipherstranger.db.ChatRecord;
+import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.db.DATABASE;
-import com.android.decipherstranger.db.RecentContacts;
 import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
@@ -49,7 +49,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     //写入本地缓存聊天记录
     private ChatRecord writeChatLog;
     //写入最近聊天列表缓存
-    private RecentContacts writeRecentLog;
+    private ConversationList writeRecentLog;
     private SQLiteOpenHelper helper = null;
     private MyApplication application = null;
     @Override
@@ -75,7 +75,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     private void initView() {
         //将聊天记录写入本地
         this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
-        this.writeRecentLog = new RecentContacts(this.helper.getWritableDatabase());
+        this.writeRecentLog = new ConversationList(this.helper.getWritableDatabase());
         this.textTab = (TextView) super.findViewById(R.id.textTab);
         this.image1 = (ImageView) super.findViewById(R.id.conversationImage);
         this.image2 = (ImageView) super.findViewById(R.id.contactsImage);

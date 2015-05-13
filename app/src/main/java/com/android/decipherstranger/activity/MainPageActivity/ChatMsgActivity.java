@@ -22,11 +22,12 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
+import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.adapter.ChatMsgViewAdapter;
 import com.android.decipherstranger.db.ChatRecord;
+import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.db.DATABASE;
-import com.android.decipherstranger.db.RecentContacts;
 import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
@@ -41,7 +42,7 @@ import java.util.List;
 /*
  * Created by WangXin on 2015/4/12 0012.
  */
-public class ChatMsgActivity extends Activity implements OnClickListener {
+public class ChatMsgActivity extends BaseActivity implements OnClickListener {
 
     private MyApplication application = null;
     //文本信息发送按钮
@@ -67,7 +68,7 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
     //写入本地缓存聊天记录
     private ChatRecord writeChatLog;
     //写入最近聊天列表缓存
-    private RecentContacts writeRecentLog;
+    private ConversationList writeRecentLog;
     //图片信息发送按钮
     private ImageView add_panel_im;
     //图片偏选择面板
@@ -108,12 +109,12 @@ public class ChatMsgActivity extends Activity implements OnClickListener {
         //将聊天记录写入本地
         this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
         ////写入最近聊天列表缓存
-        this.writeRecentLog = new RecentContacts(this.helper.getWritableDatabase());
+        this.writeRecentLog = new ConversationList(this.helper.getWritableDatabase());
         Bundle bundle =this.getIntent().getExtras();
         currentUserAccount = bundle.getString("userAccount");
         currentUserName = bundle.getString("userName");
         currentUserPhoto = bundle.getParcelable("userPhoto");
-        this.writeRecentLog = new RecentContacts(this.helper.getWritableDatabase());
+        this.writeRecentLog = new ConversationList(this.helper.getWritableDatabase());
         mListView = (ListView) findViewById(R.id.chat_listview);
         mAudioRecorderButton = (AudioRecorderButton) findViewById(R.id.recorder_button);
         mAudioRecorderButton.setAudioFinishRecorderListener(new AudioRecorderButton.AudioFinishRecorderListener() {

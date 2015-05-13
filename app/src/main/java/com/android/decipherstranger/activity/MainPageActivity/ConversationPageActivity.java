@@ -1,123 +1,72 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
-import com.android.decipherstranger.adapter.RecentListViewAdapter;
 import com.android.decipherstranger.db.DATABASE;
-import com.android.decipherstranger.db.RecentContacts;
+import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.entity.Contacts;
-import com.android.decipherstranger.view.BadgeView;
-import com.android.decipherstranger.view.RecentListView;
+import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.MyStatic;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-public class ConversationPageActivity extends BaseActivity implements RecentListView.IRefreshListener {
-	private RecentListViewAdapter adapter;
-	private RecentListView listView;
-	private ArrayList<Contacts> readerConversationLog;
-	private SQLiteOpenHelper helper;
-	private RecentContacts mRecentContacts;
-	private BadgeView newMessageCount;
+/**
+ * へ　　　　　／|
+ * 　　/＼7　　　 ∠＿/
+ * 　 /　│　　 ／　／
+ * 　│　Z ＿,＜　／　　 /`ヽ
+ * 　│　　　　　ヽ　　 /　　〉
+ * 　 Y　　　　　`　 /　　/
+ * 　ｲ●　､　●　　⊂⊃〈　　/
+ * 　()　 へ　　　　|　＼〈
+ * 　　>ｰ ､_　 ィ　 │ ／／      去吧！
+ * 　 / へ　　 /　ﾉ＜| ＼＼        比卡丘~
+ * 　 ヽ_ﾉ　　(_／　 │／／           消灭代码BUG
+ * 　　7　　　　　　　|／
+ * 　　＞―r￣￣`ｰ―＿
+ *
+ * @author penghaitao
+ * @version V1.0
+ * @Date 2015/5/13 16:27
+ * @e-mail 785351408@qq.com
+ */
+public class ConversationPageActivity extends BaseActivity {
 
-	private static final int NO_MESSAGE = 0;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+    private ListView dataList = null;
+    private List<Map<String, Object>> list = null;
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main_conversation);
-		helper = new DATABASE(this);
-		initData();
-		initView();
-	}
+        this.init();
+        this.setData();
+    }
+    
+    private void init() {
+        this.list = new ArrayList<Map<String, Object>>();
+        this.dataList = (ListView) super.findViewById(R.id.listView);
+    }
 
-//	@Override
-//	protected void onStart(){
-//		initData();
-//		refreshData();
-//	}
+    private void setData() {
+        SQLiteOpenHelper helper = new DATABASE(this);
+        ConversationList conversationList = new ConversationList(helper.getReadableDatabase());
+        this.list.addAll(conversationList.selectAll());
 
-	private void refreshData() {
-		if (mRecentContacts == null){
-			mRecentContacts = new RecentContacts(this.helper.getReadableDatabase());
-
-		}
-	}
-
-	private void initData() {
-		mRecentContacts = new RecentContacts(this.helper.getReadableDatabase());
-		readerConversationLog = new ArrayList<>();
-		readerConversationLog = mRecentContacts.refresh();
-		if(!readerConversationLog.isEmpty()){
-			adapter = new RecentListViewAdapter(readerConversationLog,this);
-			listView.setAdapter(adapter);
-		}
-	}
-
-	private void initView() {
-		listView = (RecentListView) findViewById(R.id.recent_view_list);
-		listView.setInterface(this);
-		newMessageCount = (BadgeView) findViewById(R.id.new_message_count);
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = new Intent(ConversationPageActivity.this, ChatMsgActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putString("userAccount", readerConversationLog.get(position).getAccount());
-				bundle.putString("userName", readerConversationLog.get(position).getUsername());
-				bundle.putParcelable("userPhoto", readerConversationLog.get(position).getPortrait());
-				intent.putExtras(bundle);
-				startActivity(intent);
-			}
-		});
-
-	}
-	//
-	public void setNewMessageCount(int newMessage){
-		if (newMessage != NO_MESSAGE){
-			newMessageCount.setText(newMessage);
-			newMessageCount.show();
-		}else {
-			newMessageCount.hide();
-		}
-	}
-
-
-	@Override
-	public void onRefresh() {
-		Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				//
-				setRefreshData();
-				//
-				if (!readerConversationLog.isEmpty()){
-					refreshList(readerConversationLog);
-				}
-				//
-				listView.reFreshComplete();
-			}
-		},2000);
-	}
-
-	private void refreshList(ArrayList<Contacts>Conversation) {
-		if (adapter == null){
-			adapter = new RecentListViewAdapter(Conversation,this);
-			listView.setAdapter(adapter);
-		}else {
-			adapter.onDateChange(Conversation);
-		}
-	}
-
-	private void setRefreshData() {
-
-	}
+        SimpleAdapter simpleAdapter = new SimpleAdapter(this,
+                this.list,
+                R.layout.data_conversation_list,
+                new String[] {MyStatic.CONVERSATION_PORTRAIT, MyStatic.CONVERSATION_NAME, MyStatic.CONVERSATION_MESSAGE, MyStatic.CONVERSATION_TIME},
+                new int[] {R.id.conversationPortrait, R.id.conversationName, R.id.conversationMessage, R.id.conversationTime}
+        );
+        this.dataList.setAdapter(simpleAdapter);
+    }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_margin="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/mypic"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/conversationPortrait"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="14dp"
+                android:layout_marginRight="5dp"
+                android:id="@+id/conversationTime"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我是小涛啊"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text_blue"
+                android:id="@+id/conversationName"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/conversationPortrait"
+                android:layout_toEndOf="@+id/conversationPortrait" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="这个UI到底好不好使啊"
+                android:id="@+id/conversationMessage"
+                android:textSize="16dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignLeft="@+id/conversationName"
+                android:layout_alignStart="@+id/conversationName" />
+
+        </RelativeLayout>
+        
+    </LinearLayout>
+    
+</LinearLayout>

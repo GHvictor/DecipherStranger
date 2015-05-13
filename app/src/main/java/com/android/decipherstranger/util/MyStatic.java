@@ -35,7 +35,11 @@ public class MyStatic {
     public static final String USER_PHONE = "Phone";
     public static final String USER_BIRTH = "Birth";
     public static final String USER_SIGNATURE = "signature";
-    
+
+    public static final String CONVERSATION_PORTRAIT = "conversationPortrait";
+    public static final String CONVERSATION_NAME = "conversationName";
+    public static final String CONVERSATION_MESSAGE = "conversationMessage";
+    public static final String CONVERSATION_TIME = "conversationTime";
     
     public static final String FILENAME_SETTINGS = "Settings";
     public static final String KEY_BG = "gameBgMusic";

@@ -21,6 +21,21 @@ public abstract class BaseActivity extends Activity {
 		MyApplication.getInstance().addActivity(this);
 	}
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+    
 	@Override
 	protected void onStop() {
 		super.onStop();
