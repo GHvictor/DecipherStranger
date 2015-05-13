@@ -12,7 +12,7 @@ import com.android.decipherstranger.util.MyStatic;
 public class DATABASE extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "ds_chat.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     
     public DATABASE(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -46,11 +46,13 @@ public class DATABASE extends SQLiteOpenHelper {
     //  最近联系人
     private void CreateRecentContactsTab(SQLiteDatabase db) {
         String sql = "CREATE TABLE `recent_contacts` (" +
-                "  `account` varchar(20) DEFAULT NULL," +
+                "  `account` varchar(20) NOT NULL," +
                 "  `username` varchar(20) DEFAULT NULL," +
                 "  `userphoto` mediumblob," +
                 "  `newest` varchar(30) DEFAULT NULL," +
-                "  `contacts_time` datetime DEFAULT NULL)" ;
+                "  `contacts_time` datetime DEFAULT NULL," +
+                "  PRIMARY KEY (`account`)" +
+                ")" ;
         db.execSQL(sql);
     }
     

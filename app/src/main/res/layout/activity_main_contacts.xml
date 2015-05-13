@@ -78,14 +78,12 @@
         android:layout_toStartOf="@+id/sidrbar" />
 
     <TextView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="A"
         android:id="@+id/dialog"
         android:textSize="100dp"
         android:gravity="center_horizontal|top"
-        android:background="@color/gray"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

@@ -10,8 +10,6 @@ import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.ConversationList;
-import com.android.decipherstranger.entity.Contacts;
-import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.MyStatic;
 
 import java.util.ArrayList;

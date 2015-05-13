@@ -38,57 +38,33 @@ import java.util.Map;
 public class ConversationList {
 
     private SQLiteDatabase db = null;
-    private static final String TABLE_NAME = "recent_contacts";
 
     public ConversationList(SQLiteDatabase db){
         this.db = db;
     }
 
     //  更新数据
-    public ArrayList<Contacts> update(String account, String name, Bitmap bitmap, String message) {
+    public void create(String account, String name, Bitmap bitmap) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
         try {
-            String insert = "insert into recent_contacts VALUES(?,?,?,?,datetime())";
-            Object args[] = new Object[]{account,name,os.toByteArray(),message};
-            this.db.execSQL(insert,args);
+            String sql = "insert into recent_contacts VALUES(?,?,?,null,null)";
+            Object args[] = new Object[]{account,name,os.toByteArray()};
+            this.db.execSQL(sql,args);
         }catch (Exception e) {
-            String sql = "UPDATE recent_contacts SET username=?, userphoto=?, newest=?, contacts_time=datetime() WHERE account=?";
-            Object args[] = new Object[]{name,os.toByteArray(),message,account};
+            String sql = "UPDATE recent_contacts SET username=?, userphoto=? WHERE account=?";
+            Object args[] = new Object[]{name,os.toByteArray(),account};
             this.db.execSQL(sql,args);
         }
-        String select = "select * from recent_contacts order by contacts_time";
-        Cursor result = this.db.rawQuery(select, null);
-        ArrayList<Contacts> all = new ArrayList<Contacts>();
-        for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
-            Contacts user = new Contacts();
-            user.setAccount(result.getString(0));
-            user.setUsername(result.getString(1));
-            byte[] in = result.getBlob(2);
-            user.setPortrait(BitmapFactory.decodeByteArray(in, 0, in.length));
-            user.setMessage(result.getString(3));
-            user.setDatetime(result.getString(4));
-            all.add(user);
-        } this.db.close();
-        return all;
+        this.db.close();
     }
 
     //  列表刷新
-    public ArrayList<Contacts> refresh() {
-        String sql = "select * from recent_contacts order by contacts_time";
-        Cursor result = this.db.rawQuery(sql, null);
-        ArrayList<Contacts> all = new ArrayList<Contacts>();
-        for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
-            Contacts contacts = new Contacts();
-            contacts.setAccount(result.getString(0));
-            contacts.setUsername(result.getString(1));
-            byte[] in = result.getBlob(2);
-            contacts.setPortrait(BitmapFactory.decodeByteArray(in, 0, in.length));
-            contacts.setMessage(result.getString(3));
-            contacts.setDatetime(result.getString(4));
-            all.add(contacts);
-        } this.db.close();
-        return all;
+    public void setMessage(String account, String message) {
+        String sql = "UPDATE recent_contacts SET message=?, contacts_time=datetime() WHERE account=?";
+        Object args[] = new Object[]{account,message};
+        this.db.execSQL(sql, args);
+        this.db.close();
     }
 
     public ArrayList<Map<String, Object>> selectAll (){
