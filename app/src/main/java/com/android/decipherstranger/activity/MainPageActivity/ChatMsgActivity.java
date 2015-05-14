@@ -104,6 +104,12 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         initData();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        super.unregisterReceiver(ChatMsgActivity.this.receiver);
+    }
+
     public void initView() {
         Bundle bundle =this.getIntent().getExtras();
         currentUserAccount = bundle.getString("userAccount");
@@ -310,7 +316,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     public class ChatBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
+            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")
+                    &&intent.getStringExtra("rereSender")==currentUserAccount) {
                 Contacts receiveMsg = new Contacts();
                 if(intent.getBooleanExtra("isVoice", false)) {
                     //Todo 用来写语音接收处理
@@ -347,7 +354,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                         mListView.setSelection(mListView.getCount() - 1);
                     }
             } else {
-                Toast.makeText(context, "接收失败？！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "这不是发给你的，小朋友！", Toast.LENGTH_SHORT).show();
             }
         }
     }
