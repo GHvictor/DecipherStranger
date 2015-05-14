@@ -247,6 +247,8 @@ public class ContactsPageActivity extends BaseActivity {
                     Toast.makeText(context, "接接", Toast.LENGTH_SHORT).show();
                     contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
                     mContactList.add(contact);
+                    writeContactLog = new ContactsList(helper.getWritableDatabase());
+                    writeContactLog.insert(contact);
                     System.out.println(mContactList.get(0).getAccount().toString());
                 }else if(intent.getBooleanExtra("isfinish", false)){
                     mContactList = filledData(mContactList);

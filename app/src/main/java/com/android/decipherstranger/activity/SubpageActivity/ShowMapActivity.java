@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
 import com.android.decipherstranger.entity.NearbyUserInfo;
+import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
@@ -41,6 +44,8 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 
+import java.nio.DoubleBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,6 +61,7 @@ public class ShowMapActivity extends BaseActivity {
     private Boolean isFristIn = true;
     private double mLatitude;
     private double mLongtitude;
+    private ArrayList<NearbyUserInfo>nearbyInfo;
     private ShowMapBroadcastReceiver receiver = null;
 
     private Context context;
@@ -72,12 +78,11 @@ public class ShowMapActivity extends BaseActivity {
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.show_map);
         sendMsg();
+        showMapBroadcas();
         initView();
         this.context = this;
         //初始化定位
         initLocation();
-        //覆盖物相关
-        initMarker();
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -88,7 +93,7 @@ public class ShowMapActivity extends BaseActivity {
                 HandyTextView nearByUserSex = (HandyTextView) mMarkerlayout.findViewById(R.id.nearby_user_sex);
                 HandyTextView distance = (HandyTextView) mMarkerlayout.findViewById(R.id.distance);
 
-                nearByUserPhoto.setImageResource(nearByUserInfo.getImgId());
+                nearByUserPhoto.setImageBitmap(nearByUserInfo.getImgId());
                 nearByUserName.setText(nearByUserInfo.getUserName());
                 nearByUserSex.setText(nearByUserInfo.getSex());
                 distance.setText(nearByUserInfo.getDistance());
@@ -111,7 +116,7 @@ public class ShowMapActivity extends BaseActivity {
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(ShowMapActivity.this,WelcomeRspActivity.class);
+                Intent it = new Intent(ShowMapActivity.this, WelcomeRspActivity.class);
                 startActivity(it);
             }
         });
@@ -125,7 +130,7 @@ public class ShowMapActivity extends BaseActivity {
     }
 
     private void initMarker() {
-         addOverlays(NearbyUserInfo.infos);
+         addOverlays(nearbyInfo);
          mMarkerlayout = (RelativeLayout) findViewById(R.id.nearby_info);
     }
 
@@ -139,7 +144,7 @@ public class ShowMapActivity extends BaseActivity {
             //经纬度
             latLng = new LatLng(nearByUserInfo.getLatitude(),nearByUserInfo.getLongtitude());
             //图标
-            mMarker = BitmapDescriptorFactory.fromResource(nearByUserInfo.getImgId());
+            mMarker = BitmapDescriptorFactory.fromBitmap(nearByUserInfo.getImgId());
             options = new MarkerOptions().position(latLng).icon(mMarker).zIndex(5);
             marker = (Marker) mBaiduMap.addOverlay(options);
             Bundle bundle = new Bundle();
@@ -266,8 +271,19 @@ public class ShowMapActivity extends BaseActivity {
             if (intent.getAction().equals("com.android.decipherstranger.NEARBY")) {
                 if(intent.getBooleanExtra("reResult", false)) {
                     //Todo 数据接收
+                    NearbyUserInfo info = new NearbyUserInfo();
+                    info.setUserAccount(intent.getStringExtra("reUserAccount"));
+                    info.setUserName(intent.getStringExtra("reUserName"));
+                    info.setImgId(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+                    info.setSex(intent.getStringExtra("reGender"));
+                    info.setLatitude(Double.parseDouble(intent.getStringExtra("reLatitude")));
+                    info.setLongtitude(Double.parseDouble(intent.getStringExtra("reLongtitude")));
+                    info.setDistance(intent.getStringExtra("reDistance"));
+                    nearbyInfo.add(info);
                 }else if(intent.getBooleanExtra("isfinish", false)){
                     //Todo 数据处理
+                    //覆盖物相关
+                    initMarker();
                 }else{
                     //Todo 没有人
                     Toast.makeText(context, "竟然没有人:)", Toast.LENGTH_SHORT).show();
