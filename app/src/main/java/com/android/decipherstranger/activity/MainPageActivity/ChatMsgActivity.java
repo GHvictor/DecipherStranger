@@ -321,6 +321,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                     receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                     receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
                     receiveMsg.setWho(IS_COM_MSG);
+                    writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                    writeChatLog.insert(currentUserAccount, IS_COM_MSG, intent.getStringExtra("reMessage"), intent.getStringExtra("reTime"));
                 }
                 else {
                     //Todo 用来写消息传送
@@ -331,10 +333,11 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                     receiveMsg.setMessage(intent.getStringExtra("reMessage"));
                     receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                     receiveMsg.setWho(IS_COM_MSG);
+                    writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                    writeChatLog.insert(currentUserAccount, IS_COM_MSG, intent.getStringExtra("reMessage"),"");
                 }
                     mDataArrays.add(receiveMsg);
-                    writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                    writeChatLog.insert(currentUserAccount,IS_COM_MSG,intent.getStringExtra("reMessage"),"");
+
 /*                writeRecentLog.update(currentUserAccount,currentUserName,currentUserPhoto,intent.getStringExtra("reMessage"));        penghaitao*/
                     if (mAdapter == null) {
                         mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
