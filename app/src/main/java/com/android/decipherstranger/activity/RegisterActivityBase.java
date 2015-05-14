@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
@@ -373,17 +374,27 @@ public class RegisterActivityBase extends BaseActivity {
     private class nextStepOnclickListenerImpl implements View.OnClickListener {
         @Override
         public void onClick(View view){
-            Intent it = new Intent(RegisterActivityBase.this,RegisterActivityPhoto.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("account", String.valueOf(accountEdit.getText()));
-            bundle.putString("possword", String.valueOf(passwordEdit.getText()));
-            bundle.putString("name", String.valueOf(nameEdit.getText()));
-            bundle.putString("sex", (String) sexButton.getText());
-            bundle.putString("email", String.valueOf(emailEdit.getText()));
-            bundle.putString("phone", String.valueOf(phoneEdit.getText()));
-            bundle.putString("birth", (String) birthButton.getText());
-            it.putExtras(bundle);
-            startActivity(it);
+            RegisterActivityBase.this.nextStepButton.setFocusable(true);
+            RegisterActivityBase.this.nextStepButton.setFocusableInTouchMode(true);
+            RegisterActivityBase.this.nextStepButton.requestFocus();
+            RegisterActivityBase.this.nextStepButton.requestFocusFromTouch();
+            if (accountBool && passwordBool && rePawBool && nameBool && emailBool && phoneBool && birthBool && sexBool){
+                Intent it = new Intent(RegisterActivityBase.this,RegisterActivityPhoto.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("account", String.valueOf(accountEdit.getText()));
+                bundle.putString("possword", String.valueOf(passwordEdit.getText()));
+                bundle.putString("name", String.valueOf(nameEdit.getText()));
+                bundle.putString("sex", (String) sexButton.getText());
+                bundle.putString("email", String.valueOf(emailEdit.getText()));
+                bundle.putString("phone", String.valueOf(phoneEdit.getText()));
+                bundle.putString("birth", (String) birthButton.getText());
+                it.putExtras(bundle);
+                startActivity(it);
+            }else {
+                 Toast toast = Toast.makeText(RegisterActivityBase.this, "请确认信息是否填写完整", Toast.LENGTH_LONG);
+                 toast.show();
+            }
+
         }
     }
 

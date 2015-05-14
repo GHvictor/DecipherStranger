@@ -104,16 +104,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         initData();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.unregisterReceiver(ChatMsgActivity.this.receiver);
-        super.onDestroy();
-    }
-
     public void initView() {
-        //获取本地聊天记录
-        this.readerChatLog = new ChatRecord(this.helper.getReadableDatabase());
-
         Bundle bundle =this.getIntent().getExtras();
         currentUserAccount = bundle.getString("userAccount");
         currentUserName = bundle.getString("userName");
@@ -189,6 +180,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
 
     public void initData() {
         who.setText(currentUserName);
+        //获取本地聊天记录
+        this.readerChatLog = new ChatRecord(this.helper.getReadableDatabase());
         mDataArrays = readerChatLog.getInfo(currentUserAccount);
         int length = mDataArrays.size();
         for (int i = 0; i < length; i++) {
@@ -318,21 +311,30 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
+                Contacts receiveMsg = new Contacts();
                 if(intent.getBooleanExtra("isVoice", false)) {
                     //Todo 用来写语音接收处理
+                    receiveMsg.setAccount(currentUserAccount);
+                    receiveMsg.setUsername(currentUserName);
+                    receiveMsg.setPortrait(currentUserPhoto);
+                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
+                    receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
+                    receiveMsg.setWho(IS_COM_MSG);
                 }
                 else {
                     //Todo 用来写消息传送
                     Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
-                    Contacts receiveMsg = new Contacts();
                     receiveMsg.setAccount(currentUserAccount);
                     receiveMsg.setUsername(currentUserName);
                     receiveMsg.setPortrait(currentUserPhoto);
                     receiveMsg.setMessage(intent.getStringExtra("reMessage"));
                     receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                     receiveMsg.setWho(IS_COM_MSG);
+                }
                     mDataArrays.add(receiveMsg);
                     writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                    writeChatLog.insert(currentUserAccount,IS_COM_MSG,intent.getStringExtra("reMessage"),"");
 /*                writeRecentLog.update(currentUserAccount,currentUserName,currentUserPhoto,intent.getStringExtra("reMessage"));        penghaitao*/
                     if (mAdapter == null) {
                         mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
@@ -341,7 +343,6 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                         mAdapter.notifyDataSetChanged();
                         mListView.setSelection(mListView.getCount() - 1);
                     }
-                }
             } else {
                 Toast.makeText(context, "接收失败？！", Toast.LENGTH_SHORT).show();
             }
