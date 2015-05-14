@@ -59,8 +59,10 @@ public class ContactsPageActivity extends BaseActivity {
     private CharacterParser characterParser;
     private PinyinComparator pinyinComparator;
     private BadgeView friendsRequestCount;
+    private FriendBroadcastReceiver receiver = null;
     private final static int NORMAL = 0;
     private RelativeLayout newFriends;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +75,12 @@ public class ContactsPageActivity extends BaseActivity {
         //networkRequest();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.unregisterReceiver(ContactsPageActivity.this.receiver);
+        super.onDestroy();
+    }
+
     private void initData() {
         readerContactLog = new ContactsList(this.helper.getReadableDatabase());
         mContactList = new ArrayList<>();
@@ -83,7 +91,6 @@ public class ContactsPageActivity extends BaseActivity {
             adapter = new SortAdapter(this,mContactList);
             contactListView.setAdapter(adapter);
         }
-
     }
 
     private void initView() {
@@ -156,7 +163,6 @@ public class ContactsPageActivity extends BaseActivity {
         });
     }
 
-    //
     private ArrayList<User> filledData(ArrayList<User> contact) {
         ArrayList<User> mSortList = new ArrayList<User>();
         for (int i = 0; i < contact.size(); i++) {
@@ -178,7 +184,6 @@ public class ContactsPageActivity extends BaseActivity {
         }
         return mSortList;
     }
-
 
     //
     private void filterData(String filterStr) {
@@ -225,7 +230,7 @@ public class ContactsPageActivity extends BaseActivity {
 
     private void friendBroadcas() {
         //动态方式注册广播接收者
-        FriendBroadcastReceiver receiver = new FriendBroadcastReceiver();
+        this.receiver = new FriendBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.android.decipherstranger.FRIEND");
         this.registerReceiver(receiver, filter);
@@ -243,9 +248,7 @@ public class ContactsPageActivity extends BaseActivity {
                     contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
                     mContactList.add(contact);
                     System.out.println(mContactList.get(0).getAccount().toString());
-                    //Todo 数据接收
                 }else if(intent.getBooleanExtra("isfinish", false)){
-                    //Todo 数据处理
                     mContactList = filledData(mContactList);
                     Collections.sort(mContactList, pinyinComparator);
                     if(adapter == null){
@@ -255,8 +258,7 @@ public class ContactsPageActivity extends BaseActivity {
                         adapter.updateListView(mContactList);
                     }
                 }else{
-                    //Todo 没有好友
-                    Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "没有好友=_=！！！", Toast.LENGTH_SHORT).show();
                 }
             }
         }

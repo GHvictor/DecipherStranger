@@ -87,6 +87,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     //当前聊天好友头像
     private Bitmap currentUserPhoto;
 
+    private ChatBroadcastReceiver receiver = null;
     private static final int IS_COM_MSG = 1;
     private static final int SEND_TO_MSG = 0;
 
@@ -101,6 +102,12 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         chatBroadcas();
         initView();
         initData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.unregisterReceiver(ChatMsgActivity.this.receiver);
+        super.onDestroy();
     }
 
     public void initView() {
@@ -301,7 +308,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
 
     private void chatBroadcas() {
         //动态方式注册广播接收者
-        ChatBroadcastReceiver receiver = new ChatBroadcastReceiver();
+        this.receiver = new ChatBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.android.decipherstranger.MESSAGE");
         this.registerReceiver(receiver, filter);
@@ -311,23 +318,29 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
-                Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
-                Contacts receiveMsg = new Contacts();
-                receiveMsg.setAccount(currentUserAccount);
-                receiveMsg.setUsername(currentUserName);
-                receiveMsg.setPortrait(currentUserPhoto);
-                receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                receiveMsg.setDatetime(intent.getStringExtra("reDate"));
-                receiveMsg.setWho(IS_COM_MSG);
-                mDataArrays.add(receiveMsg);
-                writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                if(intent.getBooleanExtra("isVoice", false)) {
+                    //Todo 用来写消息传送
+                    Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
+                    Contacts receiveMsg = new Contacts();
+                    receiveMsg.setAccount(currentUserAccount);
+                    receiveMsg.setUsername(currentUserName);
+                    receiveMsg.setPortrait(currentUserPhoto);
+                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
+                    receiveMsg.setWho(IS_COM_MSG);
+                    mDataArrays.add(receiveMsg);
+                    writeChatLog = new ChatRecord(helper.getWritableDatabase());
 /*                writeRecentLog.update(currentUserAccount,currentUserName,currentUserPhoto,intent.getStringExtra("reMessage"));        penghaitao*/
-                if (mAdapter == null) {
-                    mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
-                    mListView.setAdapter(mAdapter);
-                } else {
-                    mAdapter.notifyDataSetChanged();
-                    mListView.setSelection(mListView.getCount() - 1);
+                    if (mAdapter == null) {
+                        mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
+                        mListView.setAdapter(mAdapter);
+                    } else {
+                        mAdapter.notifyDataSetChanged();
+                        mListView.setSelection(mListView.getCount() - 1);
+                    }
+                }
+                else {
+                    //Todo 用来写语音接收处理
                 }
             } else {
                 Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();

@@ -6,7 +6,7 @@ import android.media.AudioManager;
 import java.io.IOException;
 
 /**
- * 
+ * *
  * Created by WangXin on 2015/5/12 0012.
  */
 public class MediaManager {

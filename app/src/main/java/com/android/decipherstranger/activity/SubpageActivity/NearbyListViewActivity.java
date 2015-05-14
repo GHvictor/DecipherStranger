@@ -39,6 +39,7 @@ public class NearbyListViewActivity extends BaseActivity {
     private ListView nearbyListView;
     private NearbyListViewAdapter adapter;
     private ArrayList<NearbyUserInfo>nearbyUserInfos;
+    private NearbyBroadcastReceiver receiver = null;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -50,6 +51,12 @@ public class NearbyListViewActivity extends BaseActivity {
         nearbyListView = (ListView) findViewById(R.id.nearby_list_view);
         setData();
         showList(nearbyUserInfos);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        super.unregisterReceiver(NearbyListViewActivity.this.receiver);
     }
 
     private void setData() {
@@ -78,7 +85,7 @@ public class NearbyListViewActivity extends BaseActivity {
 
     private void nearbyBroadcas() {
         //动态方式注册广播接收者
-        NearbyBroadcastReceiver receiver = new NearbyBroadcastReceiver();
+        this.receiver = new NearbyBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.android.decipherstranger.NEARBY");
         this.registerReceiver(receiver, filter);
@@ -88,11 +95,13 @@ public class NearbyListViewActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.NEARBY")) {
-                if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
-
-                }
-                else{
-                    Toast.makeText(context, "没人？！", Toast.LENGTH_SHORT).show();
+                if(intent.getBooleanExtra("reResult", false)) {
+                    //Todo 数据接收
+                }else if(intent.getBooleanExtra("isfinish", false)){
+                    //Todo 数据处理
+                }else{
+                    //Todo 没有好友
+                    Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
                 }
             }
         }

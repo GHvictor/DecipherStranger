@@ -84,6 +84,7 @@ public class ClientListenThread extends Thread {
                             itMessage.putExtra("reMessage", jsonObj.getString("re_message"));
                             itMessage.putExtra("reSender", jsonObj.getString("re_sender"));
                             itMessage.putExtra("reDate", jsonObj.getString("re_date"));
+                            itMessage.putExtra("isVoice", false);
                             clContext.sendBroadcast(itMessage);
                             System.out.println("发送成功");
                             break;
@@ -158,10 +159,37 @@ public class ClientListenThread extends Thread {
                         case GlobalMsgUtils.msgGameOneSend:
                             break;
                         case GlobalMsgUtils.msgVoice:
+                            Intent itVoice = new Intent("com.android.decipherstranger.MESSAGE");
+                            itVoice.putExtra("reMessage", jsonObj.getString("re_message"));
+                            itVoice.putExtra("reSender", jsonObj.getString("re_sender"));
+                            itVoice.putExtra("reDate", jsonObj.getString("re_date"));
+                            itVoice.putExtra("reTime", jsonObj.getString("re_time"));
+                            itVoice.putExtra("isVoice", true);
+                            clContext.sendBroadcast(itVoice);
+                            System.out.println("发送成功");
                             break;
                         case GlobalMsgUtils.msgNearBy:
                             Intent itNearBy = new Intent("com.android.decipherstranger.NEARBY");
-                            //itNearBy.putExtra("",);
+                            if(jsonObj.getString("re_message").equals(MyStatic.resultFalse)){
+                                itNearBy.putExtra("reResult", false);
+                                itNearBy.putExtra("isfinsh", false);
+                            }
+                            else if(jsonObj.getString("re_message").equals(MyStatic.resultTrue)){
+                                itNearBy.putExtra("reResult", true);
+                                itNearBy.putExtra("reAccount", jsonObj.getString("re_account"));
+                                itNearBy.putExtra("reName", jsonObj.getString("re_name"));
+                                itNearBy.putExtra("rePhoto", jsonObj.getString("re_photo"));
+                                itNearBy.putExtra("reGender", jsonObj.getInt("re_gender"));
+                                itNearBy.putExtra("reLongtitude", jsonObj.getDouble("re_longtitude"));
+                                itNearBy.putExtra("reLatitude", jsonObj.getDouble("re_latitude"));
+                                itNearBy.putExtra("reDistance", jsonObj.getDouble("re_distance"));
+                            }
+                            else{
+                                itNearBy.putExtra("reResult", false);
+                                itNearBy.putExtra("isfinish", true);
+                            }
+                            clContext.sendBroadcast(itNearBy);
+                            Log.v("Test","发送啦！！！");
                             break;
                     }
                     reMsg = "";

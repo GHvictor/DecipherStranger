@@ -56,10 +56,12 @@ public class ShowMapActivity extends BaseActivity {
     private Boolean isFristIn = true;
     private double mLatitude;
     private double mLongtitude;
+    private ShowMapBroadcastReceiver receiver = null;
 
     private Context context;
     private BitmapDescriptor mMarker;
     private RelativeLayout mMarkerlayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,12 +169,15 @@ public class ShowMapActivity extends BaseActivity {
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(15.0f);
         mBaiduMap.setMapStatus(msu);
     }
+
     @Override
     protected void onDestroy() {
+        super.unregisterReceiver(ShowMapActivity.this.receiver);
         super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -234,27 +239,6 @@ public class ShowMapActivity extends BaseActivity {
         }
     }
 
-    private void showMapBroadcas() {
-        //动态方式注册广播接收者
-        ShowMapBroadcastReceiver receiver = new ShowMapBroadcastReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.android.decipherstranger.NEARBY");
-        this.registerReceiver(receiver, filter);
-    }
-
-    public class ShowMapBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.android.decipherstranger.NEARBY")) {
-                if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
-
-                }
-                else{
-                    Toast.makeText(context, "没人？！", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
     private void sendMsg() {
         if (NetworkService.getInstance().getIsConnected()) {
             String Msg = "type" + ":" + Integer.toString(GlobalMsgUtils.msgNearBy) + ":" +
@@ -268,6 +252,29 @@ public class ShowMapActivity extends BaseActivity {
         }
     }
 
+    private void showMapBroadcas() {
+        //动态方式注册广播接收者
+        this.receiver = new ShowMapBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.NEARBY");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class ShowMapBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.android.decipherstranger.NEARBY")) {
+                if(intent.getBooleanExtra("reResult", false)) {
+                    //Todo 数据接收
+                }else if(intent.getBooleanExtra("isfinish", false)){
+                    //Todo 数据处理
+                }else{
+                    //Todo 没有好友
+                    Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
 /*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
