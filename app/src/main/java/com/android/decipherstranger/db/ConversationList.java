@@ -61,23 +61,23 @@ public class ConversationList {
 
     //  列表刷新
     public void setMessage(String account, String message) {
-        String sql = "UPDATE recent_contacts SET message=?, contacts_time=datetime() WHERE account=?";
-        Object args[] = new Object[]{account,message};
+        String sql = "UPDATE recent_contacts SET newest=?, contacts_time=datetime() WHERE account=?";
+        Object args[] = new Object[]{message,account};
         this.db.execSQL(sql, args);
         this.db.close();
     }
 
     public ArrayList<Map<String, Object>> selectAll (){
         ArrayList<Map<String, Object>> all = new ArrayList<Map<String, Object>>();
-   //     String sql = "SELECT * FROM 'recent_contacts' ORDER BY contacts_time DESC";
-  //      Cursor result = this.db.rawQuery(sql, null);
- //       for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
-            for (int i = 0; i < 10; ++ i) {
+        String sql = "SELECT * FROM 'recent_contacts' WHERE contacts_time is not null order BY contacts_time DESC";
+        Cursor result = this.db.rawQuery(sql, null);
+        for (result.moveToFirst(); !result.isAfterLast(); result.moveToNext()) {
             Map<String, Object> map = new HashMap<String, Object>();
+            map.put(MyStatic.CONVERSATION_ACCOUNT,  result.getString(0));
+            map.put(MyStatic.CONVERSATION_NAME, result.getString(1));
             map.put(MyStatic.CONVERSATION_PORTRAIT, R.drawable.mypic);
-            map.put(MyStatic.CONVERSATION_NAME, "我是小涛啊");
-            map.put(MyStatic.CONVERSATION_MESSAGE, "这个UI到底好不好使啊");
-            map.put(MyStatic.CONVERSATION_TIME, "16:39");
+            map.put(MyStatic.CONVERSATION_MESSAGE, result.getString(3));
+            map.put(MyStatic.CONVERSATION_TIME, result.getString(4));
             all.add(map);
         }
         this.db.close();

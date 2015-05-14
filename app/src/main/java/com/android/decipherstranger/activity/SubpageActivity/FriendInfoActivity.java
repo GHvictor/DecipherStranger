@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -19,6 +20,8 @@ import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.MainPageActivity.ChatMsgActivity;
+import com.android.decipherstranger.db.ConversationList;
+import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
@@ -33,6 +36,7 @@ import java.util.ArrayList;
  *
  **/
 public class FriendInfoActivity extends BaseActivity {
+    
     private ImageView friendPhoto;
     private ImageView friendSex;
     private HandyTextView friendName;
@@ -46,9 +50,16 @@ public class FriendInfoActivity extends BaseActivity {
 
     private Bundle friendInfo;
 
-    private ChangeUtils changeUtils;
-
     private final static String MALE = "男";
+
+    /*
+    *  Created by penghaitao 2015/05/13
+    **/
+    private SQLiteOpenHelper helper = null;
+    private ConversationList conversationList = null;
+    private String userAccount = null;
+    private String userName = null;
+    private Bitmap userPhoto = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,27 +67,23 @@ public class FriendInfoActivity extends BaseActivity {
         setContentView(R.layout.contact_info);
         initView();
         initData();
+        initListener();
     }
 
     private void initData() {
         friendInfo = this.getIntent().getExtras();
-        friendAccount.setText(friendInfo.getString("userAccount"));
-        System.out.println("asdasd"+friendInfo.getString("userAccount"));
+        this.userAccount = friendInfo.getString("userAccount");
+        this.userPhoto = friendInfo.getParcelable("userPhoto");
+        this.userName = friendInfo.getString("userName");
+        friendAccount.setText(userAccount);
         if (friendInfo.getString("userSex") == MALE){
             friendSex.setImageResource(R.drawable.ic_sex_male);
         }else{
             friendSex.setImageResource(R.drawable.ic_sex_female);
         }
-        changeUtils = new ChangeUtils();
-        Bitmap photo = null;
-        try {
-            photo = changeUtils.toBitmap(friendInfo.getString("userPhoto"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Drawable drawable = new BitmapDrawable(getResources(),photo);
+        Drawable drawable = new BitmapDrawable(getResources(),userPhoto);
         friendPhoto.setImageDrawable(drawable);
-        friendName.setText(friendInfo.getString("userName"));
+        friendName.setText(userName);
         friendAtavar.setText(friendInfo.getString("userAtavar"));
         friendEmail.setText(friendInfo.getString("userEmail"));
         friendBirth.setText(friendInfo.getString("userBirth"));
@@ -84,6 +91,7 @@ public class FriendInfoActivity extends BaseActivity {
     }
 
     private void initView() {
+        this.helper = new DATABASE(this);
         friendPhoto = (ImageView) findViewById(R.id.friend_photo);
         friendSex = (ImageView) findViewById(R.id.friend_sex);
         friendName = (HandyTextView) findViewById(R.id.friend_name);
@@ -94,15 +102,19 @@ public class FriendInfoActivity extends BaseActivity {
         friendPhone = (HandyTextView) findViewById(R.id.friend_phone);
         sendMessage = (Button) findViewById(R.id.send_message);
         deleteFriend = (Button) findViewById(R.id.delete_friend);
-
+    }
+    
+    private void initListener() {
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                conversationList = new ConversationList(helper.getWritableDatabase());
+                conversationList.create(userAccount, userName, userPhoto);
                 Intent intent = new Intent(FriendInfoActivity.this, ChatMsgActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("userName",friendInfo.getString("userName"));
-                bundle.putString("userAccount", friendInfo.getString("userAccount"));
-                bundle.putString("userPhoto", friendInfo.getString("userPhoto"));
+                bundle.putString("userName",userName);
+                bundle.putString("userAccount", userAccount);
+                bundle.putParcelable("userPhoto", userPhoto);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

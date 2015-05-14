@@ -31,19 +31,16 @@
                 android:layout_marginRight="5dp"
                 android:id="@+id/conversationTime"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentRight="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="30dp"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/text_blue"
                 android:id="@+id/conversationName"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/conversationPortrait"
-                android:layout_toEndOf="@+id/conversationPortrait" />
+                android:layout_toRightOf="@+id/conversationPortrait"/>
 
             <TextView
                 android:layout_width="wrap_content"

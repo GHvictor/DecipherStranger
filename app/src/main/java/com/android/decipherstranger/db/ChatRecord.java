@@ -34,7 +34,6 @@ public class ChatRecord {
     private SQLiteDatabase db = null;
     
     public ChatRecord(SQLiteDatabase db) {
-       System.out.println("### AAAAAAa");
         this.db = db;
     }
     

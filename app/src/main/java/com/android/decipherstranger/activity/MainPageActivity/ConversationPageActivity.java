@@ -48,6 +48,43 @@ public class ConversationPageActivity extends BaseActivity {
         this.init();
         this.setData();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        System.out.println("### ABCD onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("### ABCD onResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        System.out.println("### ABCD onRestart");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("### ABCD onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        super.onDestroy();
+        System.out.println("### ABCD onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("### ABCD onDestroy");
+    }
     
     private void init() {
         this.list = new ArrayList<Map<String, Object>>();

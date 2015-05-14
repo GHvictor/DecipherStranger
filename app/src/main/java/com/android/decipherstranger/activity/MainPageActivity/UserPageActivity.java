@@ -60,14 +60,12 @@ public class UserPageActivity extends BaseActivity {
     private void init() {
         this.application = (MyApplication) getApplication();
 
-        Bitmap bitmap = application.getPortrait();
         this.portraitImage = (ImageView) super.findViewById(R.id.portraitImage);
         this.nameText = (TextView) super.findViewById(R.id.nameText);
         this.accountText = (TextView) super.findViewById(R.id.accountText);
         this.sexText = (TextView) super.findViewById(R.id.sexText);
 
-        Drawable portraitDrawable = new BitmapDrawable(bitmap);
-        this.portraitImage.setImageDrawable(portraitDrawable);
+        portraitImage.setImageBitmap(application.getPortrait());
         this.nameText.setText(application.getName());
         this.accountText.setText(application.getAccount());
         this.sexText.setText(application.getSex());
