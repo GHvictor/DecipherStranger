@@ -319,33 +319,41 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         }
     }
 
-//    private void chatBroadcas() {
-//        //动态方式注册广播接收者
-//        ChatBroadcastReceiver receiver = new ChatBroadcastReceiver();
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction("com.android.decipherstranger.MESSAGE");
-//        this.registerReceiver(receiver, filter);
-//    }
-//
-//    public class ChatBroadcastReceiver extends BroadcastReceiver {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
-//                Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
-//                System.out.println("接到了！！！");
-//                Contacts receiveMsg = new Contacts();
-//                receiveMsg.setAccount(intent.getStringExtra(""));
-//                receiveMsg.setUsername(intent.getStringExtra(""));
-//                receiveMsg.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("")));
-//                receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-//                receiveMsg.setDatetime(intent.getStringExtra("reDate"));
-//                receiveMsg.setWho(1);
-//                application.setUnReadMessage(application.getUnReadMessage() + 1);
-//                setUnReadMessage(application.getUnReadMessage(), image1);
-////                writeChatLog.insert(intent.getStringExtra(""), 1, intent.getStringExtra("reMessage"), null);
-////                writeRecentLog.update(intent.getStringExtra("userAccount"),intent.getStringExtra("userName"),
-////                        ChangeUtils.toBitmap(intent.getStringExtra("userPhoto")),intent.getStringExtra("reMessage"));
-//            }
-//        }
-//    }
+    /*private void chatBroadcas() {
+        //动态方式注册广播接收者
+        ChatBroadcastReceiver receiver = new ChatBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.MESSAGE");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class ChatBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
+                if(intent.getBooleanExtra("isVoice", false)) {
+                    //Todo 用来写语音接收处理
+                }
+                else {
+                    //Todo 用来写消息传送
+                    Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
+                    System.out.println("接到了！！！");
+                    Contacts receiveMsg = new Contacts();
+                    receiveMsg.setAccount(intent.getStringExtra(""));
+                    receiveMsg.setUsername(intent.getStringExtra(""));
+                    receiveMsg.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("")));
+                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
+                    receiveMsg.setWho(1);
+                    application.setUnReadMessage(application.getUnReadMessage() + 1);
+                    setUnReadMessage(application.getUnReadMessage(), image1);
+//                  writeChatLog.insert(intent.getStringExtra(""), 1, intent.getStringExtra("reMessage"), null);
+//                  writeRecentLog.update(intent.getStringExtra("userAccount"),intent.getStringExtra("userName"),
+//                  ChangeUtils.toBitmap(intent.getStringExtra("userPhoto")),intent.getStringExtra("reMessage"));
+                }
+            } else {
+                Toast.makeText(context, "接收失败？！", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }*/
 }

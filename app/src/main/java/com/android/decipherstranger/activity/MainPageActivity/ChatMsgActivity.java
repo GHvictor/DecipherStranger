@@ -319,6 +319,9 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
                 if(intent.getBooleanExtra("isVoice", false)) {
+                    //Todo 用来写语音接收处理
+                }
+                else {
                     //Todo 用来写消息传送
                     Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
                     Contacts receiveMsg = new Contacts();
@@ -339,11 +342,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                         mListView.setSelection(mListView.getCount() - 1);
                     }
                 }
-                else {
-                    //Todo 用来写语音接收处理
-                }
             } else {
-                Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "接收失败？！", Toast.LENGTH_SHORT).show();
             }
         }
     }

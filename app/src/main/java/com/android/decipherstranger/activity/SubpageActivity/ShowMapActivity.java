@@ -269,8 +269,8 @@ public class ShowMapActivity extends BaseActivity {
                 }else if(intent.getBooleanExtra("isfinish", false)){
                     //Todo 数据处理
                 }else{
-                    //Todo 没有好友
-                    Toast.makeText(context, "bbbbbb", Toast.LENGTH_SHORT).show();
+                    //Todo 没有人
+                    Toast.makeText(context, "竟然没有人:)", Toast.LENGTH_SHORT).show();
                 }
             }
         }
