@@ -7,7 +7,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/mainpage_btn_bg"
         android:layout_gravity="center_horizontal">
 
         <RelativeLayout
@@ -23,34 +23,45 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="14dp"
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:id="@+id/conversationTime"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_toRightOf="@+id/conversationPortrait">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/text_blue"
-                android:id="@+id/conversationName"
-                android:layout_toRightOf="@+id/conversationPortrait"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:textSize="20dp"
+                    android:id="@+id/conversationName"
+                    android:textColor="@color/text_blue"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/conversationMessage"
-                android:textSize="16dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignLeft="@+id/conversationName"
-                android:layout_alignStart="@+id/conversationName" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:textSize="14dp"
+                    android:id="@+id/conversationTime"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/conversationMessage"
+                    android:textSize="16dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true" />
+                
+            </RelativeLayout>
 
         </RelativeLayout>
         

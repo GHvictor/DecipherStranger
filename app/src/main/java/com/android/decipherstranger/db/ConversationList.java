@@ -75,7 +75,9 @@ public class ConversationList {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put(MyStatic.CONVERSATION_ACCOUNT,  result.getString(0));
             map.put(MyStatic.CONVERSATION_NAME, result.getString(1));
-            map.put(MyStatic.CONVERSATION_PORTRAIT, R.drawable.mypic);
+            byte[] in = result.getBlob(2);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(in, 0, in.length);
+            map.put(MyStatic.CONVERSATION_PORTRAIT, bitmap);
             map.put(MyStatic.CONVERSATION_MESSAGE, result.getString(3));
             map.put(MyStatic.CONVERSATION_TIME, result.getString(4));
             all.add(map);
