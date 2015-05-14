@@ -43,7 +43,7 @@ public class ConversationList {
         this.db = db;
     }
 
-    //  更新数据
+    //  更新数据    在每次 获取了新的好友时 和 产生聊天框时  调用
     public void create(String account, String name, Bitmap bitmap) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
@@ -59,7 +59,7 @@ public class ConversationList {
         this.db.close();
     }
 
-    //  列表刷新
+    //  刷新最新会话  在发送或接收到新的信息时调用 若信息为语音 则 message=“” 若信息为图片 则 message=“【图片】”
     public void setMessage(String account, String message) {
         String sql = "UPDATE recent_contacts SET newest=?, contacts_time=datetime() WHERE account=?";
         Object args[] = new Object[]{message,account};
