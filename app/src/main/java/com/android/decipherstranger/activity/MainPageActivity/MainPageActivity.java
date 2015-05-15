@@ -332,7 +332,9 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
-                
+/*      在广播好使了之后去掉此处注释         
+                ConversationList saveConversationList = new ConversationList(helper.getWritableDatabase());
+                saveConversationList.create(String account, String name, Bitmap bitmap);
                 Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
                 it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
                 it.putExtra(MyStatic.CONVERSATION_ACCOUNT, "账号");
@@ -340,7 +342,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                 it.putExtra(MyStatic.CONVERSATION_PORTRAIT, "头像");
                 it.putExtra(MyStatic.CONVERSATION_MESSAGE, "信息");
                 sendBroadcast(it);
-                
+                */
                 Contacts receiveMsg = new Contacts();
                 if(intent.getBooleanExtra("isVoice", false)) {
                     //Todo 用来写语音接收处理
