@@ -123,7 +123,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
                     sp = str.substring(0,i);
                 }
             }*/
-            int timeLength = Integer.parseInt(entity.getTimeLen());
+            int timeLength = (int)Double.parseDouble(entity.getTimeLen());
       //      int timeLength = Integer.parseInt(sp) + 1;
 			viewHolder.tvContent.setVisibility(View.GONE);
 			viewHolder.mLength.setVisibility(View.VISIBLE);
