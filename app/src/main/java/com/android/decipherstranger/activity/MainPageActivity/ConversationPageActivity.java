@@ -68,38 +68,12 @@ public class ConversationPageActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         registerBroadcas();
-        System.out.println("### ABCD onStart");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        System.out.println("### ABCD onResume");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        System.out.println("### ABCD onRestart");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("### ABCD onPause");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        System.out.println("### ABCD onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         super.unregisterReceiver(receiver);
-        System.out.println("### ABCD onDestroy");
     }
 
     private void init() {
@@ -169,18 +143,27 @@ public class ConversationPageActivity extends BaseActivity {
     public class ConversationBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Boolean flag = false;
             Map<String, Object> map = null;
             String type = intent.getStringExtra(MyStatic.CONVERSATION_TYPE);
             String account = intent.getStringExtra(MyStatic.CONVERSATION_ACCOUNT);
             String message = intent.getStringExtra(MyStatic.CONVERSATION_MESSAGE);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            ConversationList conversationList = new ConversationList(helper.getWritableDatabase());
+            ConversationList saveConversationList = new ConversationList(helper.getWritableDatabase());
+            saveConversationList.setMessage(account, message);
             for(int i = 0;i < list.size(); ++ i){
                 if (list.get(i).get(MyStatic.CONVERSATION_ACCOUNT).equals(account)){
                     map = list.get(i);
                     list.remove(i);
+                    flag = true;
                     break;
                 }
+            }
+            if (!flag) {
+                ConversationList loadConversationList = new ConversationList(helper.getReadableDatabase());
+                list.addAll(loadConversationList.selectAll());
+                map = list.get(0);
+                list.remove(0);
             }
             map.put(MyStatic.CONVERSATION_MESSAGE,  message);
             map.put(MyStatic.CONVERSATION_TIME, dateFormat.format(new java.util.Date()));
@@ -205,7 +188,6 @@ public class ConversationPageActivity extends BaseActivity {
             list.add(0,map);
             simpleAdapter.notifyDataSetChanged();
             dataList.setAdapter(simpleAdapter);
-            conversationList.setMessage(account, message);
         }
     }
 

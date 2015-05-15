@@ -31,6 +31,7 @@ import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
+import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.BadgeView;
 
 import java.io.Serializable;
@@ -331,6 +332,13 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
+                
+                Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
+                it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
+                it.putExtra(MyStatic.CONVERSATION_ACCOUNT, intent.getStringExtra("reSender"));
+                it.putExtra(MyStatic.CONVERSATION_MESSAGE, intent.getStringExtra("reMessage"));
+                sendBroadcast(it);
+                
                 Contacts receiveMsg = new Contacts();
                 if(intent.getBooleanExtra("isVoice", false)) {
                     //Todo 用来写语音接收处理

@@ -133,9 +133,9 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 mListView.setSelection(mListView.getCount() - 1);
                 //将聊天记录写入本地
                 writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, seconds + "\"");
+                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, seconds + "");
                 sendVoice(filePath, Math.round(seconds));
-//                writeRecentLog.update(currentUserAccount,currentUserName,currentUserPhoto,"[语音]");
+                sendToConversation("[语音]");
             }
         });
         mBtnSend = (Button) findViewById(R.id.btn_send);
@@ -232,16 +232,19 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
             }
         });
     }
+    
+    private void sendToConversation(String message) {
+        Intent intent = new Intent(MyStatic.CONVERSATION_BOARD);
+        intent.putExtra(MyStatic.CONVERSATION_TYPE, "Default");
+        intent.putExtra(MyStatic.CONVERSATION_ACCOUNT, currentUserAccount);
+        intent.putExtra(MyStatic.CONVERSATION_MESSAGE, message);
+        sendBroadcast(intent); 
+    }
 
     private void send() {
         String contString = mEditTextContent.getText().toString();
         if (contString.length() > 0) {
-            
-            Intent intent = new Intent(MyStatic.CONVERSATION_BOARD);
-            intent.putExtra(MyStatic.CONVERSATION_TYPE, "Default");
-            intent.putExtra(MyStatic.CONVERSATION_ACCOUNT, currentUserAccount);
-            intent.putExtra(MyStatic.CONVERSATION_MESSAGE, contString);
-            sendBroadcast(intent);
+            sendToConversation(contString);
             
             Contacts entity = new Contacts();
             entity.setDatetime(getDate());
@@ -322,7 +325,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")
-                    &&intent.getStringExtra("rereSender")==currentUserAccount) {
+                    &&intent.getStringExtra("reSender").equals(currentUserAccount)) {
+                sendToConversation(intent.getStringExtra("reMessage"));
                 Contacts receiveMsg = new Contacts();
                 if(intent.getBooleanExtra("isVoice", false)) {
                     //Todo 用来写语音接收处理
@@ -349,8 +353,6 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                     writeChatLog.insert(currentUserAccount, IS_COM_MSG, intent.getStringExtra("reMessage"),"");
                 }
                     mDataArrays.add(receiveMsg);
-
-/*                writeRecentLog.update(currentUserAccount,currentUserName,currentUserPhoto,intent.getStringExtra("reMessage"));        penghaitao*/
                     if (mAdapter == null) {
                         mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
                         mListView.setAdapter(mAdapter);
