@@ -46,8 +46,20 @@ public class ContactsList {
     public void insert(User user){
         String insert = "INSERT INTO contacts_list VALUES(?,?,?,?,?,?,?,?)";
         Object args[] = new Object[]{user.getAccount(),user.getUsername(),user.getRemark(),user.getPortrait(),
-                user.getUserSex(),user.getBirth(),user.getEmail(),user.getPhone()};
-        this.db.execSQL(insert,args);
+                user.getUserSex(),user.getEmail(),user.getBirth(),user.getPhone()};
+//        this.db.execSQL(insert,args);
+        this.db.close();
+    }
+    
+    /*
+   ` * 更新联系人信息
+     * @param User user
+     */
+    public void update(User user) {
+        String sql = "UPDATE contacts_list SET username=?, remark=? , portrait=? , sex=? , email=? , birth=? , phone=? WHERE account=?";
+        Object args[] = new Object[]{user.getUsername(),user.getRemark(),user.getPortrait(),user.getUserSex(),
+                user.getEmail(),user.getBirth(),user.getPhone(),user.getAccount()};
+        this.db.execSQL(sql,args);
         this.db.close();
     }
     

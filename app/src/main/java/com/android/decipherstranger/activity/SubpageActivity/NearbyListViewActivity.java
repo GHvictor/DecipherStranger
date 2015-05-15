@@ -61,7 +61,7 @@ public class NearbyListViewActivity extends BaseActivity {
 
     private void setData() {
         nearbyUserInfos = new ArrayList<NearbyUserInfo>();
-        for (int i = 0;i<5;i++){
+/*        for (int i = 0;i<5;i++){
             NearbyUserInfo nearbyUserInfo = new NearbyUserInfo();
             nearbyUserInfo.setImgId(R.drawable.user_photo5);
             nearbyUserInfo.setUserName("如果的事");
@@ -74,7 +74,7 @@ public class NearbyListViewActivity extends BaseActivity {
             nearbyUserInfo1.setSex("男");
             nearbyUserInfo1.setDistance("0.5公里");
             nearbyUserInfos.add(nearbyUserInfo1);
-        }
+        }*/
     }
 
     private void showList(ArrayList<NearbyUserInfo>nearbyUserInfos) {

@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -237,6 +238,11 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         if (contString.length() > 0) {
             conversationList = new ConversationList(helper.getWritableDatabase());
             conversationList.setMessage(currentUserAccount, contString);
+            
+            Intent intent = new Intent(MyStatic.CONVERSATION_UPDATE);
+            intent.putExtra(MyStatic.CONVERSATION_ACCOUNT, currentUserAccount);
+            sendBroadcast(intent);
+            
             Contacts entity = new Contacts();
             entity.setDatetime(getDate());
             entity.setUsername(application.getName());

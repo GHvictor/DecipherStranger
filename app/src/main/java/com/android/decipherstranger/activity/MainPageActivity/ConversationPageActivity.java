@@ -1,9 +1,15 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -17,6 +23,7 @@ import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.util.MyStatic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +50,9 @@ import java.util.Map;
 public class ConversationPageActivity extends BaseActivity {
 
     private ListView dataList = null;
+    private SimpleAdapter simpleAdapter = null;
     private ArrayList<Map<String, Object>> list = null;
+    private ConversationBroadcastReceiver receiver= null;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,7 @@ public class ConversationPageActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        registerBroadcas();
         System.out.println("### ABCD onStart");
     }
 
@@ -80,13 +90,13 @@ public class ConversationPageActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        super.onDestroy();
         System.out.println("### ABCD onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        super.unregisterReceiver(receiver);
         System.out.println("### ABCD onDestroy");
     }
     
@@ -101,7 +111,7 @@ public class ConversationPageActivity extends BaseActivity {
         ConversationList conversationList = new ConversationList(helper.getReadableDatabase());
         this.list.addAll(conversationList.selectAll());
 
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this,
+        this.simpleAdapter = new SimpleAdapter(this,
                 this.list,
                 R.layout.data_conversation_list,
                 new String[] {MyStatic.CONVERSATION_PORTRAIT, MyStatic.CONVERSATION_NAME, MyStatic.CONVERSATION_MESSAGE, MyStatic.CONVERSATION_TIME},
@@ -144,6 +154,40 @@ public class ConversationPageActivity extends BaseActivity {
             intent.putExtras(bundle);
             startActivity(intent);
         }
+    }
+
+    private void registerBroadcas() {
+        //动态方式注册广播接收者
+        IntentFilter filter = new IntentFilter();
+        this.receiver = new ConversationBroadcastReceiver();
+        filter.addAction(MyStatic.CONVERSATION_UPDATE);
+        this.registerReceiver(receiver, filter);
+    }
+    
+    public class ConversationBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()) {
+                case MyStatic.CONVERSATION_UPDATE:
+                    String account = intent.getStringExtra(MyStatic.CONVERSATION_ACCOUNT);
+                    System.out.println("### 看见了吗？看见了吗？" + account);
+            }
+        }
+/*        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MyStatic.CONVERSATION_UPDATE:
+                    System.out.println("### 看见了吗？看见了吗？");
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put(MyStatic.CONVERSATION_ACCOUNT,  "785351408");
+                    map.put(MyStatic.CONVERSATION_NAME, "我是小涛啊");
+                    map.put(MyStatic.CONVERSATION_PORTRAIT, R.drawable.mypic);
+                    map.put(MyStatic.CONVERSATION_MESSAGE, "看见了吗？看见了吗？");
+                    map.put(MyStatic.CONVERSATION_TIME, "12:33");
+                    list.add(0,map);
+                    simpleAdapter.notifyDataSetChanged();
+                    dataList.setAdapter(simpleAdapter);
+            }
+        }*/
     }
     
 }

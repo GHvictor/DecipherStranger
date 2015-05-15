@@ -36,6 +36,7 @@ public class MyStatic {
     public static final String USER_BIRTH = "Birth";
     public static final String USER_SIGNATURE = "signature";
 
+    public static final String CONVERSATION_UPDATE = "com.android.conversation.update";
     public static final String CONVERSATION_ACCOUNT = "conversationAccount";
     public static final String CONVERSATION_PORTRAIT = "conversationPortrait";
     public static final String CONVERSATION_NAME = "conversationName";
