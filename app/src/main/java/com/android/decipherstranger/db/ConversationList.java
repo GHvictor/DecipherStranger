@@ -80,6 +80,8 @@ public class ConversationList {
             map.put(MyStatic.CONVERSATION_PORTRAIT, bitmap);
             map.put(MyStatic.CONVERSATION_MESSAGE, result.getString(3));
             map.put(MyStatic.CONVERSATION_TIME, result.getString(4));
+            map.put(MyStatic.CONVERSATION_COUNT, "");
+            map.put(MyStatic.CONVERSATION_IMAGE, null);
             all.add(map);
         }
         this.db.close();

@@ -60,7 +60,31 @@
                     android:textSize="16dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true" />
-                
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/conversationTime">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/countImage"
+                        android:src="@drawable/badge_ifaux"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="1"
+                        android:id="@+id/count"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+
             </RelativeLayout>
 
         </RelativeLayout>

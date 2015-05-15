@@ -22,6 +22,7 @@ import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.util.MyStatic;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,10 +51,11 @@ import java.util.Map;
 public class ConversationPageActivity extends BaseActivity {
 
     private ListView dataList = null;
+    private SQLiteOpenHelper helper = null;
     private SimpleAdapter simpleAdapter = null;
     private ArrayList<Map<String, Object>> list = null;
     private ConversationBroadcastReceiver receiver= null;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +101,7 @@ public class ConversationPageActivity extends BaseActivity {
         super.unregisterReceiver(receiver);
         System.out.println("### ABCD onDestroy");
     }
-    
+
     private void init() {
         this.list = new ArrayList<Map<String, Object>>();
         this.dataList = (ListView) super.findViewById(R.id.listView);
@@ -107,15 +109,15 @@ public class ConversationPageActivity extends BaseActivity {
     }
 
     private void setData() {
-        SQLiteOpenHelper helper = new DATABASE(this);
+        this.helper = new DATABASE(this);
         ConversationList conversationList = new ConversationList(helper.getReadableDatabase());
         this.list.addAll(conversationList.selectAll());
 
         this.simpleAdapter = new SimpleAdapter(this,
                 this.list,
                 R.layout.data_conversation_list,
-                new String[] {MyStatic.CONVERSATION_PORTRAIT, MyStatic.CONVERSATION_NAME, MyStatic.CONVERSATION_MESSAGE, MyStatic.CONVERSATION_TIME},
-                new int[] {R.id.conversationPortrait, R.id.conversationName, R.id.conversationMessage, R.id.conversationTime}
+                new String[] {MyStatic.CONVERSATION_PORTRAIT, MyStatic.CONVERSATION_NAME, MyStatic.CONVERSATION_MESSAGE, MyStatic.CONVERSATION_TIME, MyStatic.CONVERSATION_COUNT, MyStatic.CONVERSATION_IMAGE},
+                new int[] {R.id.conversationPortrait, R.id.conversationName, R.id.conversationMessage, R.id.conversationTime, R.id.count, R.id.countImage}
         );
         /*实现ViewBinder()这个接口*/
         simpleAdapter.setViewBinder(new ViewBinderImpl());
@@ -123,7 +125,7 @@ public class ConversationPageActivity extends BaseActivity {
         /*动态跟新ListView*/
         simpleAdapter.notifyDataSetChanged();
     }
-    
+
     private class ViewBinderImpl implements SimpleAdapter.ViewBinder {
         @Override
         public boolean setViewValue(View view, Object data, String textRepresentation) {
@@ -136,11 +138,11 @@ public class ConversationPageActivity extends BaseActivity {
             return false;
         }
     }
-    
+
     private class OnItemClickListenerImpl implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            
+
             String userAccount = (String) list.get(position).get(MyStatic.CONVERSATION_ACCOUNT);
             String userName = (String) list.get(position).get(MyStatic.CONVERSATION_NAME);
             Bitmap userPhoto = (Bitmap) list.get(position).get(MyStatic.CONVERSATION_PORTRAIT);
@@ -149,7 +151,7 @@ public class ConversationPageActivity extends BaseActivity {
             bundle.putString("userName",userName);
             bundle.putString("userAccount", userAccount);
             bundle.putParcelable("userPhoto", userPhoto);
-            
+
             Intent intent = new Intent(ConversationPageActivity.this, ChatMsgActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -160,34 +162,51 @@ public class ConversationPageActivity extends BaseActivity {
         //动态方式注册广播接收者
         IntentFilter filter = new IntentFilter();
         this.receiver = new ConversationBroadcastReceiver();
-        filter.addAction(MyStatic.CONVERSATION_UPDATE);
+        filter.addAction(MyStatic.CONVERSATION_BOARD);
         this.registerReceiver(receiver, filter);
     }
-    
+
     public class ConversationBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()) {
-                case MyStatic.CONVERSATION_UPDATE:
-                    String account = intent.getStringExtra(MyStatic.CONVERSATION_ACCOUNT);
-                    System.out.println("### 看见了吗？看见了吗？" + account);
+            Map<String, Object> map = null;
+            String type = intent.getStringExtra(MyStatic.CONVERSATION_TYPE);
+            String account = intent.getStringExtra(MyStatic.CONVERSATION_ACCOUNT);
+            String message = intent.getStringExtra(MyStatic.CONVERSATION_MESSAGE);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            ConversationList conversationList = new ConversationList(helper.getWritableDatabase());
+            for(int i = 0;i < list.size(); ++ i){
+                if (list.get(i).get(MyStatic.CONVERSATION_ACCOUNT).equals(account)){
+                    map = list.get(i);
+                    list.remove(i);
+                    break;
+                }
             }
+            map.put(MyStatic.CONVERSATION_MESSAGE,  message);
+            map.put(MyStatic.CONVERSATION_TIME, dateFormat.format(new java.util.Date()));
+            switch (type) {
+                case "Update":
+                    int sum = 0;
+                    String count = (String) map.get(MyStatic.CONVERSATION_COUNT);
+                    if (count.equals("")) {
+                        sum = 1;
+                    } else {
+                        sum = Integer.parseInt(count) + 1;
+                    }
+                    map.put(MyStatic.CONVERSATION_COUNT, String.valueOf(sum));
+                    map.put(MyStatic.CONVERSATION_IMAGE, R.drawable.badge_ifaux);
+                    break;
+                case "Default":
+                    map.put(MyStatic.CONVERSATION_COUNT, "");
+                    map.put(MyStatic.CONVERSATION_IMAGE, null);
+                    break;
+                    
+            }
+            list.add(0,map);
+            simpleAdapter.notifyDataSetChanged();
+            dataList.setAdapter(simpleAdapter);
+            conversationList.setMessage(account, message);
         }
-/*        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MyStatic.CONVERSATION_UPDATE:
-                    System.out.println("### 看见了吗？看见了吗？");
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    map.put(MyStatic.CONVERSATION_ACCOUNT,  "785351408");
-                    map.put(MyStatic.CONVERSATION_NAME, "我是小涛啊");
-                    map.put(MyStatic.CONVERSATION_PORTRAIT, R.drawable.mypic);
-                    map.put(MyStatic.CONVERSATION_MESSAGE, "看见了吗？看见了吗？");
-                    map.put(MyStatic.CONVERSATION_TIME, "12:33");
-                    list.add(0,map);
-                    simpleAdapter.notifyDataSetChanged();
-                    dataList.setAdapter(simpleAdapter);
-            }
-        }*/
     }
-    
+
 }

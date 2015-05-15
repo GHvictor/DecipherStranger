@@ -236,11 +236,11 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     private void send() {
         String contString = mEditTextContent.getText().toString();
         if (contString.length() > 0) {
-            conversationList = new ConversationList(helper.getWritableDatabase());
-            conversationList.setMessage(currentUserAccount, contString);
             
-            Intent intent = new Intent(MyStatic.CONVERSATION_UPDATE);
+            Intent intent = new Intent(MyStatic.CONVERSATION_BOARD);
+            intent.putExtra(MyStatic.CONVERSATION_TYPE, "Default");
             intent.putExtra(MyStatic.CONVERSATION_ACCOUNT, currentUserAccount);
+            intent.putExtra(MyStatic.CONVERSATION_MESSAGE, contString);
             sendBroadcast(intent);
             
             Contacts entity = new Contacts();
@@ -256,7 +256,6 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
             mEditTextContent.setText("");
             mListView.setSelection(mListView.getCount() - 1);
             sendMessage(contString);
-//            writeRecentLog.update(currentUserAccount,currentUserName,currentUserPhoto,contString);
         }
     }
 
