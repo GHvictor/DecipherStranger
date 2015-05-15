@@ -335,8 +335,10 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                 
                 Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
                 it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
-                it.putExtra(MyStatic.CONVERSATION_ACCOUNT, intent.getStringExtra("reSender"));
-                it.putExtra(MyStatic.CONVERSATION_MESSAGE, intent.getStringExtra("reMessage"));
+                it.putExtra(MyStatic.CONVERSATION_ACCOUNT, "账号");
+                it.putExtra(MyStatic.CONVERSATION_NAME, "昵称");
+                it.putExtra(MyStatic.CONVERSATION_PORTRAIT, "头像");
+                it.putExtra(MyStatic.CONVERSATION_MESSAGE, "信息");
                 sendBroadcast(it);
                 
                 Contacts receiveMsg = new Contacts();
