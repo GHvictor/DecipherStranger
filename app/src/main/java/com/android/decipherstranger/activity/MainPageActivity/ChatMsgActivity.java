@@ -104,6 +104,12 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         initView();
         initData();
     }
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        sendToConversation(null);
+    }
 
     @Override
     protected void onDestroy() {

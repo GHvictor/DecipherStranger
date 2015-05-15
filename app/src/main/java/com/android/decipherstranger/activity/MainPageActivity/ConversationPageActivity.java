@@ -150,7 +150,6 @@ public class ConversationPageActivity extends BaseActivity {
             String message = intent.getStringExtra(MyStatic.CONVERSATION_MESSAGE);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             ConversationList saveConversationList = new ConversationList(helper.getWritableDatabase());
-            saveConversationList.setMessage(account, message);
             for(int i = 0;i < list.size(); ++ i){
                 if (list.get(i).get(MyStatic.CONVERSATION_ACCOUNT).equals(account)){
                     map = list.get(i);
@@ -165,8 +164,11 @@ public class ConversationPageActivity extends BaseActivity {
                 map = list.get(0);
                 list.remove(0);
             }
-            map.put(MyStatic.CONVERSATION_MESSAGE,  message);
-            map.put(MyStatic.CONVERSATION_TIME, dateFormat.format(new java.util.Date()));
+            if (message != null) {
+                saveConversationList.setMessage(account, message);
+                map.put(MyStatic.CONVERSATION_MESSAGE,  message);
+                map.put(MyStatic.CONVERSATION_TIME, dateFormat.format(new java.util.Date()));
+            }
             switch (type) {
                 case "Update":
                     int sum = 0;
