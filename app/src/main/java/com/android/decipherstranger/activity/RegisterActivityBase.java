@@ -86,7 +86,6 @@ public class RegisterActivityBase extends BaseActivity {
         this.nameEdit.setOnFocusChangeListener(new nameOnFocusChangeListenerImpl());
         this.emailEdit.setOnFocusChangeListener(new emailOnFocusChangeListenerImpl());
         this.phoneEdit.setOnFocusChangeListener(new phoneOnFocusChangeListenerImpl());
-        this.sexButton.setOnFocusChangeListener(new sexOnFocusChangeListenerImpl());
         this.backButton.setOnClickListener(new backOnClickListenerImpl());
         this.nextStepButton.setOnClickListener(new nextStepOnclickListenerImpl());
     }
@@ -174,6 +173,7 @@ public class RegisterActivityBase extends BaseActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             RegisterActivityBase.this.birthButton.setTextColor(Color.parseColor("#000000"));
                             RegisterActivityBase.this.sexButton.setText("男");
+                            sexBool = true;
                             dialog.dismiss();
                             RegisterActivityBase.this.sexIcon.setError("Success", OkIcon);
                         }
@@ -183,6 +183,7 @@ public class RegisterActivityBase extends BaseActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             RegisterActivityBase.this.birthButton.setTextColor(Color.parseColor("#000000"));
                             RegisterActivityBase.this.sexButton.setText("女");
+                            sexBool = true;
                             dialog.dismiss();
                             RegisterActivityBase.this.sexIcon.setError("Success", OkIcon);
                         }
@@ -338,31 +339,6 @@ public class RegisterActivityBase extends BaseActivity {
         }
     }
 
-    private class sexOnFocusChangeListenerImpl implements View.OnFocusChangeListener {
-        @Override
-        public void onFocusChange(View view,boolean focus){
-            if (view.getId() == RegisterActivityBase.this.sexButton.getId()){
-                if (!focus){
-                    sexBool = false;
-                    if (RegisterActivityBase.this.sexButton.getText().equals("请选择性别")){
-                        RegisterActivityBase.this.sexButton.setError("Error");
-                        RegisterActivityBase.this.sexButton.setTextColor(Color.parseColor("#FF0000"));
-                        RegisterActivityBase.this.sexButton.setText("性别不能为空");
-                    }else{
-                        sexBool = true;
-                        RegisterActivityBase.this.sexButton.setError("Success",OkIcon);
-                    }
-                }else {
-                    if (birthButton.getText().toString().equals("请输入出生年月")){
-                        RegisterActivityBase.this.birthButton.setTextColor(Color.parseColor("#FF0000"));
-                        RegisterActivityBase.this.birthButton.setText("日期不能为空");
-                        RegisterActivityBase.this.birthIcon.setError("Error");
-                    }
-                }
-            }
-        }
-    }
-
     private class backOnClickListenerImpl implements View.OnClickListener {
         @Override
         public void onClick(View view){
@@ -378,7 +354,7 @@ public class RegisterActivityBase extends BaseActivity {
             RegisterActivityBase.this.nextStepButton.setFocusableInTouchMode(true);
             RegisterActivityBase.this.nextStepButton.requestFocus();
             RegisterActivityBase.this.nextStepButton.requestFocusFromTouch();
-            if (accountBool && passwordBool && rePawBool && nameBool && emailBool && phoneBool && birthBool && sexBool){
+            if (accountBool && passwordBool && rePawBool && nameBool && sexBool && emailBool && phoneBool && birthBool){
                 Intent it = new Intent(RegisterActivityBase.this,RegisterActivityPhoto.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("account", String.valueOf(accountEdit.getText()));
