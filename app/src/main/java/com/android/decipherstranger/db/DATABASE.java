@@ -48,7 +48,7 @@ public class DATABASE extends SQLiteOpenHelper {
                 "  `username` varchar(20) DEFAULT NULL," +
                 "  `userphoto` mediumblob," +
                 "  `newest` varchar(30) DEFAULT NULL," +
-                "  `contacts_time` datetime DEFAULT NULL," +
+                "  `contacts_time` varchar(20) DEFAULT NULL," +
                 "  PRIMARY KEY (`account`)" +
                 ")" ;
         db.execSQL(sql);

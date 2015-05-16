@@ -21,7 +21,6 @@ import com.android.decipherstranger.util.MyStatic;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -145,25 +144,25 @@ public class ConversationPageActivity extends BaseActivity {
             String account = intent.getStringExtra(MyStatic.CONVERSATION_ACCOUNT);
             String message = intent.getStringExtra(MyStatic.CONVERSATION_MESSAGE);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            if (!flag) {
-/*                ConversationList loadConversationList = new ConversationList(helper.getReadableDatabase());
-                list.addAll(loadConversationList.selectAll());*/
-                map = new HashMap<String, Object>();
-                flag = true;
-            } else {
-                for (int i = 0; i < list.size(); ++i) {
-                    if (list.get(i).get(MyStatic.CONVERSATION_ACCOUNT).equals(account)) {
-                        map = list.get(i);
-                        list.remove(i);
-                        break;
-                    }
+            for(int i = 0;i < list.size(); ++ i){
+                if (list.get(i).get(MyStatic.CONVERSATION_ACCOUNT).equals(account)){
+                    map = list.get(i);
+                    list.remove(i);
+                    flag = true;
+                    break;
                 }
             }
+            if (!flag) {
+                flag = true;
+                ConversationList loadConversationList = new ConversationList(helper.getReadableDatabase());
+                map = loadConversationList.select(account);
+            }
             if (message != null) {
+                String time = dateFormat.format(new java.util.Date());
                 ConversationList saveConversationList = new ConversationList(helper.getWritableDatabase());
-                saveConversationList.setMessage(account, message);
+                saveConversationList.setMessage(account, message, time);
                 map.put(MyStatic.CONVERSATION_MESSAGE,  message);
-                map.put(MyStatic.CONVERSATION_TIME, dateFormat.format(new java.util.Date()));
+                map.put(MyStatic.CONVERSATION_TIME, time);
             }
             switch (type) {
                 case "Update":

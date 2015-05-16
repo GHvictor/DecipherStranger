@@ -57,11 +57,30 @@ public class ConversationList {
     }
 
     //  刷新最新会话  在发送或接收到新的信息时调用 若信息为语音 则 message=“” 若信息为图片 则 message=“【图片】”
-    public void setMessage(String account, String message) {
-        String sql = "UPDATE recent_contacts SET newest=?, contacts_time=datetime() WHERE account=?";
-        Object args[] = new Object[]{message,account};
+    public void setMessage(String account, String message, String time) {
+        String sql = "UPDATE recent_contacts SET newest=?, contacts_time=? WHERE account=?";
+        Object args[] = new Object[]{message, time, account};
         this.db.execSQL(sql, args);
         this.db.close();
+    }
+    
+    public Map<String, Object> select(String account) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        String sql = "SELECT * FROM 'recent_contacts' WHERE account=?";
+        String args[] = new String[]{account};
+        Cursor result = this.db.rawQuery(sql, args);
+        if (result.moveToNext()){          
+            map.put(MyStatic.CONVERSATION_ACCOUNT,  result.getString(0));
+            map.put(MyStatic.CONVERSATION_NAME, result.getString(1));
+            byte[] in = result.getBlob(2);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(in, 0, in.length);
+            map.put(MyStatic.CONVERSATION_PORTRAIT, bitmap);
+            map.put(MyStatic.CONVERSATION_MESSAGE, result.getString(3));
+            map.put(MyStatic.CONVERSATION_TIME, result.getString(4));
+            map.put(MyStatic.CONVERSATION_COUNT, "");
+            map.put(MyStatic.CONVERSATION_IMAGE, null);
+        }
+        return map;
     }
 
     public ArrayList<Map<String, Object>> selectAll (){
