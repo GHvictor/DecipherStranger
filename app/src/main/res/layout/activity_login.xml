@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/login_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="62dp"
-        android:background="@drawable/ic_launcher"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/mypic"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

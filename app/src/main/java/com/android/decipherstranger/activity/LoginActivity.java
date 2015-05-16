@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
+import com.android.decipherstranger.activity.MainPageActivity.ChatMsgActivity;
 import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.UserTabOperate;
@@ -43,6 +45,7 @@ public class LoginActivity extends BaseActivity {
 
     private MyApplication application = null;
     private Intent it = null;
+    private ArrayAdapter<String> adapter = null;
     private StringUtils stringUtils = null;
     private SQLiteOpenHelper helper = null;
     private UserTabOperate userInfo = null;
@@ -52,7 +55,6 @@ public class LoginActivity extends BaseActivity {
     private static final String FILENAME = "Login_CheckBox";
     private SharedPreferencesUtils sharedPreferencesUtils = null;
 
-    private ImageView imageView = null;
     private AutoCompleteTextView accountEdit = null;
     private EditText pawEdit = null;
     private Button loginButton = null;
@@ -87,12 +89,9 @@ public class LoginActivity extends BaseActivity {
 
     private void initView(){
         this.progressDialog = new ProgressDialog(LoginActivity.this);
-        this.imageView = (ImageView)super.findViewById(R.id.login_image);
-        Bitmap bitmap = BitmapFactory.decodeFile("mypic.png");
-        this.imageView.setImageBitmap(bitmap);
 
         LoginActivity.this.userInfo = new UserTabOperate(LoginActivity.this.helper.getReadableDatabase());
-        ArrayAdapter<String> adapter =
+        this.adapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,LoginActivity.this.userInfo.accountInfo());
 
         this.accountEdit = (AutoCompleteTextView)super.findViewById(R.id.login_edit_account);
@@ -102,8 +101,7 @@ public class LoginActivity extends BaseActivity {
         this.checkBox = (CheckBox)super.findViewById(R.id.auto_save_password);
         this.registerButton = (Button)super.findViewById(R.id.register_button);
 
-        this.accountEdit.setAdapter(adapter);
-        this.accountEdit.setOnFocusChangeListener(new passwordOnFocusChangeListenerImpl());
+        this.accountEdit.setOnItemClickListener(new OnItemClickListenerImpl());
         this.accountEdit.setOnClickListener(new accountOnClickListenerImpl());
         this.pawEdit.setOnClickListener(new passwordOnClickListenerImpl());
         this.loginButton.setOnClickListener(new loginOnClickListenerImpl());
@@ -124,17 +122,13 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private class passwordOnFocusChangeListenerImpl implements View.OnFocusChangeListener {
+    private class OnItemClickListenerImpl implements AdapterView.OnItemClickListener {
         @Override
-        public void onFocusChange(View view,boolean focus){
-            if (view.getId() == LoginActivity.this.accountEdit.getId()){
-                if (!focus){
-                    String account = LoginActivity.this.accountEdit.getText().toString();
-                    LoginActivity.this.userInfo = new UserTabOperate(LoginActivity.this.helper.getReadableDatabase());
-                    User user = LoginActivity.this.userInfo.userTabInfo(account);
-                    LoginActivity.this.pawEdit.setText(user.getPassword());
-                }
-            }
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String userAccount = adapter.getItem(position);
+            userInfo = new UserTabOperate(LoginActivity.this.helper.getReadableDatabase());
+            User user = LoginActivity.this.userInfo.userTabInfo(userAccount);
+            pawEdit.setText(user.getPassword());
         }
     }
 

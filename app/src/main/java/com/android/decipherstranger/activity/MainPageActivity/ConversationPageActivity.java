@@ -143,7 +143,7 @@ public class ConversationPageActivity extends BaseActivity {
             String type = intent.getStringExtra(MyStatic.CONVERSATION_TYPE);
             String account = intent.getStringExtra(MyStatic.CONVERSATION_ACCOUNT);
             String message = intent.getStringExtra(MyStatic.CONVERSATION_MESSAGE);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             for(int i = 0;i < list.size(); ++ i){
                 if (list.get(i).get(MyStatic.CONVERSATION_ACCOUNT).equals(account)){
                     map = list.get(i);
@@ -186,6 +186,10 @@ public class ConversationPageActivity extends BaseActivity {
             simpleAdapter.notifyDataSetChanged();
             dataList.setAdapter(simpleAdapter);
         }
+    }
+    
+    private String timeToString(String time) {
+        return time.replace(':', '-');
     }
 
 }

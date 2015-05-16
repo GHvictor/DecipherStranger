@@ -230,8 +230,9 @@ public class ShakeActivity extends BaseActivity {
 
     private void popInitView(Intent intent) {
         Drawable sexDrawable = null;
-        Drawable portraitDrawable = new BitmapDrawable(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
-        this.portrait.setImageDrawable(portraitDrawable);
+/*        Drawable portraitDrawable = new BitmapDrawable(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+        this.portrait.setImageDrawable(portraitDrawable);*/
+        this.portrait.setImageBitmap(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
         this.userName.setText(intent.getStringExtra("reName"));
         if (intent.getIntExtra("reGender", 1) == 1) {
             sexDrawable = getResources().getDrawable(R.drawable.man);
