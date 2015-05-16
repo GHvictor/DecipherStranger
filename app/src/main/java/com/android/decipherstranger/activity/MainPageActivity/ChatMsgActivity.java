@@ -127,10 +127,11 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         mAudioRecorderButton.setAudioFinishRecorderListener(new AudioRecorderButton.AudioFinishRecorderListener() {
             @Override
             public void onFinish(float seconds, String filePath) {
+                String time = getDate();
                 Contacts recorderMessage = new Contacts();
                 recorderMessage.setAccount(currentUserAccount);
                 recorderMessage.setUsername(application.getName());
-                recorderMessage.setDatetime(getDate());
+                recorderMessage.setDatetime(time);
                 recorderMessage.setWho(SEND_TO_MSG);
                 recorderMessage.setTimeLen(Math.round(seconds) + "");
                 recorderMessage.setMessage(filePath);
@@ -139,8 +140,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 mListView.setSelection(mListView.getCount() - 1);
                 //将聊天记录写入本地
                 writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, seconds + "");
-                sendVoice(filePath, Math.round(seconds));
+                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, seconds + "", time);
+                sendVoice(filePath, Math.round(seconds), time);
                 sendToConversation("[语音]");
             }
         });
@@ -250,10 +251,11 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     private void send() {
         String contString = mEditTextContent.getText().toString();
         if (contString.length() > 0) {
+            String time = getDate();
             sendToConversation(contString);
             
             Contacts entity = new Contacts();
-            entity.setDatetime(getDate());
+            entity.setDatetime(time);
             entity.setUsername(application.getName());
             entity.setWho(SEND_TO_MSG);
             entity.setPortrait(application.getPortrait());
@@ -261,38 +263,25 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
             mDataArrays.add(entity);
             mAdapter.notifyDataSetChanged();
             this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
-            writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, "");
+            writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, "", time);
             mEditTextContent.setText("");
             mListView.setSelection(mListView.getCount() - 1);
-            sendMessage(contString);
+            sendMessage(contString, time);
         }
     }
 
     private String getDate() {
-//        Calendar c = Calendar.getInstance();
-
-//        String year = String.valueOf(c.get(Calendar.YEAR));
-//        String month = String.valueOf(c.get(Calendar.MONTH));
-//        String day = String.valueOf(c.get(Calendar.DAY_OF_MONTH) + 1);
-//        String hour = String.valueOf(c.get(Calendar.HOUR_OF_DAY));
-//        String mins = String.valueOf(c.get(Calendar.MINUTE));
-//
-//        StringBuffer sbBuffer = new StringBuffer();
-//        sbBuffer.append(year + "-" + month + "-" + day + "-" + hour + "-"
-//                + mins);
-        Date now = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH-mm-ss");//可以方便地修改日期格式
-
-
-        String hehe = dateFormat.format( now );
-
-        return hehe;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.format(new java.util.Date());
+        String time = dateFormat.format(new java.util.Date());
+        return time;
     }
-    private void sendMessage(String message){
+    
+    private void sendMessage(String message, String time){
         if(NetworkService.getInstance().getIsConnected()) {
             String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgMessage)+":"+
                     "account"+":"+ application.getAccount()+":"+"re_account"+":"+currentUserAccount+
-                    ":"+"message"+":"+message+":"+"date"+":"+getDate();
+                    ":"+"message"+":"+message+":"+"date"+":"+time.replace(':', '-');
             Log.v("aaaaa", msg);
             System.out.println(msg);
             NetworkService.getInstance().sendUpload(msg);
@@ -304,11 +293,11 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-    private void sendVoice(String message, int time){
+    private void sendVoice(String message, int time, String dataTime){
         if(NetworkService.getInstance().getIsConnected()) {
             String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgVoice)+":"+
                     "account"+":"+ application.getAccount()+":"+"re_account"+":"+currentUserAccount+
-                    ":"+"message"+":"+message+":"+"time"+":"+time+":"+"date"+":"+getDate();
+                    ":"+"message"+":"+message+":"+"time"+":"+time+":"+"date"+":"+dataTime.replace(':', '-');
             Log.v("aaaaa", msg);
             NetworkService.getInstance().sendUpload(msg);
         }
@@ -333,6 +322,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")
                     &&intent.getStringExtra("reSender").equals(currentUserAccount)) {
                 sendToConversation(intent.getStringExtra("reMessage"));
+                String time = getDate();
                 Contacts receiveMsg = new Contacts();
                 if(intent.getBooleanExtra("isVoice", false)) {
                     //Todo 用来写语音接收处理
@@ -344,7 +334,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                     receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
                     receiveMsg.setWho(IS_COM_MSG);
                     writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                    writeChatLog.insert(currentUserAccount, IS_COM_MSG, intent.getStringExtra("reMessage"), intent.getStringExtra("reTime"));
+                    writeChatLog.insert(currentUserAccount, IS_COM_MSG, intent.getStringExtra("reMessage"), intent.getStringExtra("reTime"), time);
                 }
                 else {
                     //Todo 用来写消息传送
@@ -356,7 +346,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                     receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                     receiveMsg.setWho(IS_COM_MSG);
                     writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                    writeChatLog.insert(currentUserAccount, IS_COM_MSG, intent.getStringExtra("reMessage"),"");
+                    writeChatLog.insert(currentUserAccount, IS_COM_MSG, intent.getStringExtra("reMessage"),"", time);
                 }
                     mDataArrays.add(receiveMsg);
                     if (mAdapter == null) {

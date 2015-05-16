@@ -34,6 +34,7 @@
             android:windowSoftInputMode="stateUnchanged" />
         <activity android:name=".activity.MainPageActivity.ServicePageActivity"/>
         <activity android:name=".activity.MainPageActivity.UserPageActivity"/>
+        <activity android:name=".activity.SubpageActivity.UpdateNameActivity"/>
         
         <!--摇一摇-->
         <activity android:name=".activity.SubpageActivity.ShakeActivity"/>

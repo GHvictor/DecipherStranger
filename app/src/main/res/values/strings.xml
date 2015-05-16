@@ -42,6 +42,8 @@
     
     <string name="portrait">头像</string>
     <string name="name">昵称</string>
+    <string name="updateName">更改昵称</string>
+    <string name="nameTip">好的昵称可以让你的朋友更容易记住你</string>
     <string name="account_lab">解密账号</string>
     <string name="sex">性别</string>
     <string name="sound">声音</string>

@@ -35,6 +35,8 @@ public class MyStatic {
     public static final String USER_SIGNATURE = "signature";
 
     public static final String CONVERSATION_BOARD = "com.android.conversation.board";
+    public static final String USER_BOARD = "com.android.user.board";
+    
     public static final String CONVERSATION_TYPE = "Type";
     public static final String CONVERSATION_ACCOUNT = "conversationAccount";
     public static final String CONVERSATION_PORTRAIT = "conversationPortrait";

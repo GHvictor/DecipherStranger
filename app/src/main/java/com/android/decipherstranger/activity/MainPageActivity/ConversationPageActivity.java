@@ -21,6 +21,7 @@ import com.android.decipherstranger.util.MyStatic;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -144,19 +145,19 @@ public class ConversationPageActivity extends BaseActivity {
             String account = intent.getStringExtra(MyStatic.CONVERSATION_ACCOUNT);
             String message = intent.getStringExtra(MyStatic.CONVERSATION_MESSAGE);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            for(int i = 0;i < list.size(); ++ i){
-                if (list.get(i).get(MyStatic.CONVERSATION_ACCOUNT).equals(account)){
-                    map = list.get(i);
-                    list.remove(i);
-                    flag = true;
-                    break;
-                }
-            }
             if (!flag) {
-                ConversationList loadConversationList = new ConversationList(helper.getReadableDatabase());
-                list.addAll(loadConversationList.selectAll());
-                map = list.get(0);
-                list.remove(0);
+/*                ConversationList loadConversationList = new ConversationList(helper.getReadableDatabase());
+                list.addAll(loadConversationList.selectAll());*/
+                map = new HashMap<String, Object>();
+                flag = true;
+            } else {
+                for (int i = 0; i < list.size(); ++i) {
+                    if (list.get(i).get(MyStatic.CONVERSATION_ACCOUNT).equals(account)) {
+                        map = list.get(i);
+                        list.remove(i);
+                        break;
+                    }
+                }
             }
             if (message != null) {
                 ConversationList saveConversationList = new ConversationList(helper.getWritableDatabase());

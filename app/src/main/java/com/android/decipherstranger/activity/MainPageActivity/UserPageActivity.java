@@ -1,5 +1,9 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,8 +12,13 @@ import android.widget.TextView;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.Base.MyApplication;
+import com.android.decipherstranger.activity.SubpageActivity.UpdateNameActivity;
+import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Map;
 
 /**
  * へ　　　　　／|
@@ -34,7 +43,7 @@ import com.android.decipherstranger.util.SharedPreferencesUtils;
 public class UserPageActivity extends BaseActivity {
     
     private MyApplication application = null;
-
+    private UserBroadcastReceiver receiver = null;
     private ImageView PopPortrait = null;
     
     private ImageView portraitImage = null;
@@ -46,7 +55,13 @@ public class UserPageActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main_user);
+        this.registerBroadcas();
         this.init();
+    }
+    
+    protected void onDestroy() {
+        super.onDestroy();
+        super.unregisterReceiver(receiver);
     }
     
     private void init() {
@@ -72,7 +87,8 @@ public class UserPageActivity extends BaseActivity {
                 //  放大头像
                 break;
             case R.id.myName:
-                //  改变昵称并上传
+                Intent intent = new Intent(this, UpdateNameActivity.class);
+                startActivity(intent);
                 break;
             case R.id.button:
                 SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_USER);
@@ -81,6 +97,21 @@ public class UserPageActivity extends BaseActivity {
                 MyApplication.getInstance().exit();
                 this.finish();
                 break;
+        }
+    }
+
+    private void registerBroadcas() {
+        //动态方式注册广播接收者
+        IntentFilter filter = new IntentFilter();
+        this.receiver = new UserBroadcastReceiver();
+        filter.addAction(MyStatic.USER_BOARD);
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class UserBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            init();
         }
     }
 }
