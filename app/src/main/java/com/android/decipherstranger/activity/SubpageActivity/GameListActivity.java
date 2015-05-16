@@ -1,13 +1,11 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
-import com.android.decipherstranger.activity.GameActivity.RockPaperScissorsActivity;
 import com.android.decipherstranger.activity.GameActivity.SetGradeActivity;
 import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
 

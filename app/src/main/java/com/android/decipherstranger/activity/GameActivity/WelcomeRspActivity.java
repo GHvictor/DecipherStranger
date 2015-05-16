@@ -1,6 +1,5 @@
 package com.android.decipherstranger.activity.GameActivity;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
-import com.android.decipherstranger.util.GameUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
@@ -29,7 +27,6 @@ import com.android.decipherstranger.util.SharedPreferencesUtils;
 
 /**
  * Created by PengHaitao on 2015/2/12.
- * toDo 获取游戏等级以及游戏设置
  */
 public class WelcomeRspActivity extends BaseActivity {
 

@@ -1,6 +1,5 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -160,7 +159,6 @@ public class ShakeActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.shake_back_button:
                 onBackPressed();
-                //  onVibrator();
                 break;
             case R.id.shakeMain:
                 if (popupWindow.isShowing()) {

@@ -1,7 +1,5 @@
 package com.android.decipherstranger.util;
 
-import com.android.decipherstranger.entity.User;
-
 /**
  *      へ　　　　　／|
  * 　　/＼7　　　 ∠＿/
@@ -23,7 +21,7 @@ import com.android.decipherstranger.entity.User;
  * @e-mail 785351408@qq.com
  */
 public class MyStatic {
-    //  设置全局变量
+    //  设置全局静态常量
     public static final String FILENAME_USER = "UserInfo";
     public static final String USER_LOGIN = "Login";
     public static final String USER_ACCOUNT = "Account";
@@ -52,9 +50,7 @@ public class MyStatic {
     public static final String resultTrue = "true";
     public static final String resultFalse = "false";
 
-/*    public static String UserAccount = null;
-    public static String UserName = "jj";*/
-
+    //  设置全局静态变量
     public static String friendAccount = null;          //  所添加好友account
     public static String friendName = null;             //  所添加好友昵称
 

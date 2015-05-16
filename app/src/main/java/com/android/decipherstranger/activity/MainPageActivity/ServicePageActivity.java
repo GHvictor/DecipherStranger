@@ -1,13 +1,11 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
-import com.android.decipherstranger.activity.GameActivity.SetGradeActivity;
 import com.android.decipherstranger.activity.SubpageActivity.GameListActivity;
 import com.android.decipherstranger.activity.SubpageActivity.NearbyListViewActivity;
 import com.android.decipherstranger.activity.SubpageActivity.ShakeActivity;

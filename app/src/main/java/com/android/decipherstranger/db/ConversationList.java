@@ -5,9 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.android.decipherstranger.R;
-import com.android.decipherstranger.entity.Contacts;
-import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.MyStatic;
 
 import java.io.ByteArrayOutputStream;

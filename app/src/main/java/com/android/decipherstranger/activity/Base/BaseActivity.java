@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 
-import com.android.decipherstranger.activity.Base.MyApplication;
-
 public abstract class BaseActivity extends Activity {
 	
 	private static final String TAG = "tag_activity";

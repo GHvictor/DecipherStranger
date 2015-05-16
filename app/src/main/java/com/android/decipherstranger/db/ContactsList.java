@@ -2,12 +2,9 @@ package com.android.decipherstranger.db;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.BitmapFactory;
 
-import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.entity.User;
-import com.android.decipherstranger.util.StringUtils;
 
 import java.util.ArrayList;
 

@@ -1,12 +1,9 @@
 package com.android.decipherstranger.activity.GameActivity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
@@ -14,7 +11,6 @@ import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
-import com.android.decipherstranger.util.MyStatic;
 
 /**
  * Created by acmer on 2015/3/20.

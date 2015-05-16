@@ -1,6 +1,5 @@
 package com.android.decipherstranger.activity.GameActivity;
 
-import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,12 +37,6 @@ public class SuccessActivity extends BaseActivity {
     }
     
     private void Send() {
-/*          type && MyStatic.UserAccount && MyStatic.friendAccount && 用户昵称
- *         聊天主界面创建接收
- *              实时刷新列表
- *              并用Toast提示
- *       Toast.makeText(this, "\t" + 好友昵称(即上传的用户昵称) + "\n成功添加您为好友！",Toast.LENGTH_SHORT).show();
- */
         MyApplication application = (MyApplication) getApplication();
         if(NetworkService.getInstance().getIsConnected()){
             String addUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgAddFriend)+":"+

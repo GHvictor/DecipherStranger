@@ -1,20 +1,12 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
-import com.android.decipherstranger.activity.LoginActivity;
-import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
@@ -74,12 +66,13 @@ public class UserPageActivity extends BaseActivity {
     public void MePageOnClick(View view) {
         switch (view.getId()) {
             case R.id.myPortrait:
-//                this.PopPortrait.setImageDrawable(portrait.getDrawable());
-//                this.PortraitWindow.showAsDropDown(findViewById(R.id.top));
+                // 从本地文档获取图片并上传
                 break;
             case R.id.portraitImage:
+                //  放大头像
                 break;
             case R.id.myName:
+                //  改变昵称并上传
                 break;
             case R.id.button:
                 SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_USER);
