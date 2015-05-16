@@ -1,6 +1,7 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -59,6 +60,7 @@ public class ShowMapActivity extends BaseActivity {
     private LocationClient mLocationClient;
     private MyLocationListener mLocationListener;
     private Boolean isFristIn = true;
+    private ProgressDialog progressDialog = null;
     private double mLatitude;
     private double mLongtitude;
     private ArrayList<NearbyUserInfo>nearbyInfo;
@@ -77,12 +79,41 @@ public class ShowMapActivity extends BaseActivity {
         //注意该方法要再setContentView方法之前实现
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.show_map);
+        //初始化定位
+        initLocation();
         sendMsg();
         showMapBroadcas();
         initView();
         this.context = this;
-        //初始化定位
-        initLocation();
+    }
+
+    private void initMarker() {
+         addOverlays(nearbyInfo);
+         mMarkerlayout = (RelativeLayout) findViewById(R.id.nearby_info);
+    }
+
+    //添加覆盖物
+    private void addOverlays(List<NearbyUserInfo> infos) {
+        mBaiduMap.clear();
+        LatLng latLng = null;
+        Marker marker = null;
+        OverlayOptions options;
+        if (!infos.isEmpty()){
+            for(NearbyUserInfo nearByUserInfo:infos){
+                //经纬度
+                latLng = new LatLng(nearByUserInfo.getLatitude(),nearByUserInfo.getLongtitude());
+                //图标
+                mMarker = BitmapDescriptorFactory.fromBitmap(nearByUserInfo.getImgId());
+                options = new MarkerOptions().position(latLng).icon(mMarker).zIndex(5);
+                marker = (Marker) mBaiduMap.addOverlay(options);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("nearByUserInfo", nearByUserInfo) ;
+                marker.setExtraInfo(bundle);
+            }
+        }
+    }
+
+    private void markerOnclick(){
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -128,31 +159,6 @@ public class ShowMapActivity extends BaseActivity {
             }
         });
     }
-
-    private void initMarker() {
-         addOverlays(nearbyInfo);
-         mMarkerlayout = (RelativeLayout) findViewById(R.id.nearby_info);
-    }
-
-    //添加覆盖物
-    private void addOverlays(List<NearbyUserInfo> infos) {
-        mBaiduMap.clear();
-        LatLng latLng = null;
-        Marker marker = null;
-        OverlayOptions options;
-        for(NearbyUserInfo nearByUserInfo:infos){
-            //经纬度
-            latLng = new LatLng(nearByUserInfo.getLatitude(),nearByUserInfo.getLongtitude());
-            //图标
-            mMarker = BitmapDescriptorFactory.fromBitmap(nearByUserInfo.getImgId());
-            options = new MarkerOptions().position(latLng).icon(mMarker).zIndex(5);
-            marker = (Marker) mBaiduMap.addOverlay(options);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("nearByUserInfo", nearByUserInfo) ;
-            marker.setExtraInfo(bundle);
-        }
-    }
-
     private void initLocation() {
         mLocationClient = new LocationClient(this);
         mLocationListener = new MyLocationListener();
@@ -168,7 +174,6 @@ public class ShowMapActivity extends BaseActivity {
     }
 
     private void initView(){
-
         mMapView = (MapView)findViewById(R.id.user_map_view);
         mBaiduMap = mMapView.getMap();
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(15.0f);
@@ -245,6 +250,11 @@ public class ShowMapActivity extends BaseActivity {
     }
 
     private void sendMsg() {
+        this.progressDialog = new ProgressDialog(ShowMapActivity.this);
+        //创建我们的进度条
+        progressDialog.setMessage("正在搜寻附近的人");
+        progressDialog.onStart();
+        progressDialog.show();
         if (NetworkService.getInstance().getIsConnected()) {
             String Msg = "type" + ":" + Integer.toString(GlobalMsgUtils.msgNearBy) + ":" +
                     "account" + ":" + application.getAccount() + ":" + "latitude" + ":" + mLatitude + ":" +
@@ -284,9 +294,13 @@ public class ShowMapActivity extends BaseActivity {
                     //Todo 数据处理
                     //覆盖物相关
                     initMarker();
+                    markerOnclick();
+                    progressDialog.dismiss();
                 }else{
                     //Todo 没有人
                     Toast.makeText(context, "竟然没有人:)", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                    Toast.makeText(ShowMapActivity.this, "附近好像还没有人哦( ⊙ o ⊙ )！啦啦啦~~", Toast.LENGTH_SHORT).show();
                 }
             }
         }

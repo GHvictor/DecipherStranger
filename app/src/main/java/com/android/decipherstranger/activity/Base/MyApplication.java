@@ -87,6 +87,7 @@ public class MyApplication extends Application {
     //未读消息
     private int unReadMessage;
 
+
     public int getUnReadMessage() {
         return unReadMessage;
 

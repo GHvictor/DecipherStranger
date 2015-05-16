@@ -7,8 +7,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Message;
+import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,8 +36,11 @@ import com.android.decipherstranger.db.ChatRecord;
 import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.entity.Contacts;
+import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.android.decipherstranger.util.ImageCompression;
 import com.android.decipherstranger.util.MyStatic;
+import com.android.decipherstranger.util.Tools;
 import com.android.decipherstranger.view.AudioRecorderButton;
 
 import java.io.File;
@@ -88,9 +97,18 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     //当前聊天好友头像
     private Bitmap currentUserPhoto;
 
+    private static final int IMAGE_REQUEST_CODE = 0;
+    private static final int CAMERA_REQUEST_CODE = 1;
+    private static final int RESULT_REQUEST_CODE = 2;
+
+    private static final String IMAGE_FILE_NAME = "faceImage.jpg";
+
     private ChatBroadcastReceiver receiver = null;
     private static final int IS_COM_MSG = 1;
     private static final int SEND_TO_MSG = 0;
+
+    private String portraitUrl;
+    private String sPortaitUrl;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +158,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 mListView.setSelection(mListView.getCount() - 1);
                 //将聊天记录写入本地
                 writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, seconds + "", time);
+                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, Math.round(seconds)+ "", time);
                 sendVoice(filePath, Math.round(seconds), time);
                 sendToConversation("[语音]");
             }
@@ -299,6 +317,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                     "account"+":"+ application.getAccount()+":"+"re_account"+":"+currentUserAccount+
                     ":"+"message"+":"+message+":"+"time"+":"+time+":"+"date"+":"+dataTime.replace(':', '-');
             Log.v("aaaaa", msg);
+            System.out.println(msg);
             NetworkService.getInstance().sendUpload(msg);
         }
         else {
@@ -319,35 +338,26 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     public class ChatBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")
-                    &&intent.getStringExtra("reSender").equals(currentUserAccount)) {
+            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
                 sendToConversation(intent.getStringExtra("reMessage"));
-                String time = getDate();
                 Contacts receiveMsg = new Contacts();
-                if(intent.getBooleanExtra("isVoice", false)) {
+                receiveMsg.setAccount(currentUserAccount);
+                receiveMsg.setUsername(currentUserName);
+                receiveMsg.setPortrait(currentUserPhoto);
+                receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                receiveMsg.setDatetime(intent.getStringExtra("reDate"));
+                receiveMsg.setDatetime(getDate());
+                receiveMsg.setWho(IS_COM_MSG);
+                if (intent.getBooleanExtra("isVoice", false)) {
                     //Todo 用来写语音接收处理
-                    receiveMsg.setAccount(currentUserAccount);
-                    receiveMsg.setUsername(currentUserName);
-                    receiveMsg.setPortrait(currentUserPhoto);
-                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                     receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
-                    receiveMsg.setWho(IS_COM_MSG);
-                    writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                    writeChatLog.insert(currentUserAccount, IS_COM_MSG, intent.getStringExtra("reMessage"), intent.getStringExtra("reTime"), time);
-                }
-                else {
+                } else {
                     //Todo 用来写消息传送
-                    Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
-                    receiveMsg.setAccount(currentUserAccount);
-                    receiveMsg.setUsername(currentUserName);
-                    receiveMsg.setPortrait(currentUserPhoto);
-                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
-                    receiveMsg.setWho(IS_COM_MSG);
-                    writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                    writeChatLog.insert(currentUserAccount, IS_COM_MSG, intent.getStringExtra("reMessage"),"", time);
+                    receiveMsg.setTimeLen(intent.getStringExtra(""));
                 }
+                writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(), receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate());
+                if (intent.getStringExtra("reSender").equals(currentUserAccount)) {
                     mDataArrays.add(receiveMsg);
                     if (mAdapter == null) {
                         mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
@@ -356,9 +366,21 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                         mAdapter.notifyDataSetChanged();
                         mListView.setSelection(mListView.getCount() - 1);
                     }
-            } else {
-                Toast.makeText(context, "这不是发给你的，小朋友！", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "这不是发给你的，小朋友！", Toast.LENGTH_SHORT).show();
+                    Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
+                    it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
+                    it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
+                    it.putExtra(MyStatic.CONVERSATION_NAME, receiveMsg.getUsername());
+                    it.putExtra(MyStatic.CONVERSATION_PORTRAIT, receiveMsg.getPortrait());
+                    if (receiveMsg.getMessage().contains(".amr")){
+                        it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
+                    }else {
+                        it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
+                    }
+                    sendBroadcast(it);
+                    }
+                }
             }
         }
     }
-}

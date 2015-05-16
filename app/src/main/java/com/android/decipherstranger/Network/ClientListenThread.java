@@ -117,28 +117,6 @@ public class ClientListenThread extends Thread {
                                 itFriend.putExtra("reAccount", jsonObj.getString("re_account"));
                                 itFriend.putExtra("reName", jsonObj.getString("re_name"));
                                 itFriend.putExtra("rePhoto", jsonObj.getString("re_photo"));
-                                //JSONArray jsonArrFri = new JSONArray(jsonObj.getString("re_message"));
-                                //int sum = jsonArrFri.length();
-                                //System.out.println("qqqqq"+sum);
-                                //ArrayList<User> friendList = new ArrayList<User> ();
-                                //JSONObject jsonObjFri = jsonArrFri.getJSONObject(i);
-                                /*
-                                Bitmap bitmap = ChangeUtils.toBitmap(jsonObjFri.getString("re_photo"));
-                                User user = new User();
-                                user.setAccount(jsonObjFri.getString("re_account"));
-                                user.setUsername(jsonObjFri.getString("re_name"));
-                                user.setPortrait(bitmap);
-                                friendList.add(user);*/
-
-                                /*itFriend.putExtra(Integer.toString(i), jsonObjFri.getString("re_account")+":"+jsonObjFri.getString("re_name")+":"+jsonObjFri.getString("re_photo"));
-                                itFriend.putExtra("friend", (Serializable)friendList);
-                                itFriend.putExtra("sum", sum);*/
-                                /*
-                                ArrayList<User> lll = (ArrayList<User>) itFriend.getSerializableExtra("friend");
-                                for(int i = 0 ; i < lll.size(); i++) {
-                                    System.out.println(lll.get(i).getAccount() + "+++++++" + lll.get(i).getUsername() + "++++++" + lll.size());
-                                }*/
-                                //8itFriend.putExtra("reResult", true);
                             }
                             else{
                                 itFriend.putExtra("reResult", false);

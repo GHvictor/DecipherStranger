@@ -24,6 +24,7 @@ import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.adapter.ChatMsgViewAdapter;
 import com.android.decipherstranger.db.ChatRecord;
+import com.android.decipherstranger.db.ContactsList;
 import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.entity.Contacts;
@@ -35,6 +36,7 @@ import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.BadgeView;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +67,6 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         setUnReadMessage(application.getUnReadMessage(), image1);
         setUnReadMessage(2, image2);
 //        chatBroadcas();
-        networkRequest();
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -74,9 +75,6 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     }
     
     private void initView() {
-        //将聊天记录写入本地
-        this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
-        this.writeRecentLog = new ConversationList(this.helper.getWritableDatabase());
         this.textTab = (TextView) super.findViewById(R.id.textTab);
         this.image1 = (ImageView) super.findViewById(R.id.conversationImage);
         this.image2 = (ImageView) super.findViewById(R.id.contactsImage);
@@ -307,17 +305,11 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         return super.onKeyDown(keyCode, event);
     }
 
-    private void networkRequest(){
-        if(NetworkService.getInstance().getIsConnected()) {
-            MyApplication application = (MyApplication) getApplication();
-            String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgFriendList)+":"+"account"+":"+application.getAccount();
-            Log.v("aaaaa", msg);
-            NetworkService.getInstance().sendUpload(msg);
-        }
-        else {
-            NetworkService.getInstance().closeConnection();
-            Log.v("Login", "已经执行T（）方法");
-        }
+    private String getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.format(new java.util.Date());
+        String time = dateFormat.format(new java.util.Date());
+        return time;
     }
 
     private void chatBroadcas() {
@@ -332,44 +324,38 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
-/*      在广播好使了之后去掉此处注释         
-                ConversationList saveConversationList = new ConversationList(helper.getWritableDatabase());
-                saveConversationList.create(String account, String name, Bitmap bitmap);
-                Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
-                it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
-                it.putExtra(MyStatic.CONVERSATION_ACCOUNT, "账号");
-                it.putExtra(MyStatic.CONVERSATION_NAME, "昵称");
-                it.putExtra(MyStatic.CONVERSATION_PORTRAIT, "头像");
-                it.putExtra(MyStatic.CONVERSATION_MESSAGE, "信息");
-                sendBroadcast(it);
-                */
                 Contacts receiveMsg = new Contacts();
+                User contact = new User();
+                ContactsList contactInfo = new ContactsList(helper.getWritableDatabase());
+                contact = contactInfo.getInfo(intent.getStringExtra("reSender"));
+                receiveMsg.setAccount(intent.getStringExtra("reSender"));
+                receiveMsg.setUsername(contact.getUsername());
+                receiveMsg.setPortrait(contact.getPortrait());
+                receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                receiveMsg.setDatetime(intent.getStringExtra("reDate"));
+                receiveMsg.setWho(1);
                 if(intent.getBooleanExtra("isVoice", false)) {
                     //Todo 用来写语音接收处理
-                    receiveMsg.setAccount(intent.getStringExtra(""));
-                    receiveMsg.setUsername(intent.getStringExtra(""));
-                    receiveMsg.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("")));
-                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                     receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
-                    receiveMsg.setWho(1);
+                }else {
+                    receiveMsg.setTimeLen(intent.getStringExtra(""));
                 }
-                else {
-                    //Todo 用来写消息传送
-                    Toast.makeText(context, intent.getStringExtra("reMessage"), Toast.LENGTH_LONG).show();
-                    System.out.println("接到了！！！");
-                    receiveMsg.setAccount(intent.getStringExtra(""));
-                    receiveMsg.setUsername(intent.getStringExtra(""));
-                    receiveMsg.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("")));
-                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
-                    receiveMsg.setWho(1);
+                application.setUnReadMessage(application.getUnReadMessage() + 1);
+                setUnReadMessage(application.getUnReadMessage(), image1);
+                writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(), receiveMsg.getTimeLen(),getDate());
+                ConversationList saveConversationList = new ConversationList(helper.getWritableDatabase());
+                saveConversationList.create(receiveMsg.getAccount(), receiveMsg.getUsername(), receiveMsg.getPortrait());
+                Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
+                it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
+                it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
+                it.putExtra(MyStatic.CONVERSATION_NAME, receiveMsg.getUsername());
+                it.putExtra(MyStatic.CONVERSATION_PORTRAIT, receiveMsg.getPortrait());
+                if (receiveMsg.getMessage().contains(".amr")){
+                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
+                }else {
+                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
                 }
-                    application.setUnReadMessage(application.getUnReadMessage() + 1);
-                    setUnReadMessage(application.getUnReadMessage(), image1);
-//                  writeChatLog.insert(intent.getStringExtra(""), 1, intent.getStringExtra("reMessage"), null);
-//                  writeRecentLog.update(intent.getStringExtra("userAccount"),intent.getStringExtra("userName"),
-//                  ChangeUtils.toBitmap(intent.getStringExtra("userPhoto")),intent.getStringExtra("reMessage"));
+                sendBroadcast(it);
             } else {
                 Toast.makeText(context, "接收失败？！", Toast.LENGTH_SHORT).show();
             }

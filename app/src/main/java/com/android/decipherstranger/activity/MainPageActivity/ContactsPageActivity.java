@@ -74,6 +74,22 @@ public class ContactsPageActivity extends BaseActivity {
         friendsRequestCount(NORMAL);
         //networkRequest();
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        System.out.println("### ABCD onStart");
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        System.out.println("这是通讯录重新显示");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println("### ABCD onResume");
+    }
 
     @Override
     protected void onDestroy() {
@@ -90,6 +106,8 @@ public class ContactsPageActivity extends BaseActivity {
             Collections.sort(mContactList, pinyinComparator);
             adapter = new SortAdapter(this,mContactList);
             contactListView.setAdapter(adapter);
+        }else {
+            networkRequest();
         }
     }
 

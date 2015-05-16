@@ -1,6 +1,8 @@
 package com.android.decipherstranger.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +73,8 @@ public class NearbyListViewAdapter extends BaseAdapter {
             holder = (viewHolder) convertView.getTag();
         }
         try {
-         //   holder.nearbyUserPhoto.setImageResource(nearbyUserInfo.getImgId());
+            Drawable drawable = new BitmapDrawable(convertView.getResources(),nearbyUserInfo.getImgId());
+            holder.nearbyUserPhoto.setImageDrawable(drawable);
             holder.nearbyUserName.setText(nearbyUserInfo.getUserName());
             holder.nearbyUserDistance.setText(nearbyUserInfo.getDistance());
             if (nearbyUserInfo.getSex() == MAN){

@@ -116,15 +116,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 		viewHolder.tvSendTime.setText(entity.getDatetime());
 
 		if (entity.getMessage().contains(".amr")) {
-/*            String sp = null;
-            String str = entity.getTimeLen() + ".";
-            for (int i = 0; i <str.length(); ++ i) {
-                if (str.charAt(i) == '.') {
-                    sp = str.substring(0,i);
-                }
-            }*/
-            int timeLength = (int)Double.parseDouble(entity.getTimeLen());
-      //      int timeLength = Integer.parseInt(sp) + 1;
+            int timeLength = Integer.parseInt(entity.getTimeLen());
 			viewHolder.tvContent.setVisibility(View.GONE);
 			viewHolder.mLength.setVisibility(View.VISIBLE);
             viewHolder.tvTime.setText(timeLength + "\"");

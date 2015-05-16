@@ -1,19 +1,32 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
+import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.adapter.NearbyListViewAdapter;
 import com.android.decipherstranger.entity.NearbyUserInfo;
-import com.android.decipherstranger.util.MyStatic;
+import com.android.decipherstranger.util.ChangeUtils;
+import com.android.decipherstranger.util.DialogManager;
+import com.android.decipherstranger.util.GlobalMsgUtils;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.MyLocationData;
 
 import java.util.ArrayList;
 
@@ -36,20 +49,62 @@ import java.util.ArrayList;
  */
 public class NearbyListViewActivity extends BaseActivity {
 
+    private MyApplication application = null;
     private ListView nearbyListView;
     private NearbyListViewAdapter adapter;
     private ArrayList<NearbyUserInfo>nearbyUserInfos;
     private NearbyBroadcastReceiver receiver = null;
+    private LocationClient mLocationClient;
+    private MyLocationListener mLocationListener;
+    private ProgressDialog progressDialog = null;
+    private double mLatitude;
+    private double mLongtitude;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        SDKInitializer.initialize(getApplicationContext());
+        application = (MyApplication) getApplication();
         setContentView(R.layout.activity_nearby_listview);
-        initView();
+        initLocation();
+        sendMsg();
+        nearbyBroadcas();
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if(!mLocationClient.isStarted()){
+            mLocationClient.start();
+        }
+    }
+
+    @Override
+    protected  void onStop(){
+        super.onStop();
+        mLocationClient.stop();
+    }
+
+
+    private void initLocation() {
+        mLocationClient = new LocationClient(this);
+        mLocationListener = new MyLocationListener();
+        mLocationClient.registerLocationListener(mLocationListener);
+
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenGps(true);
+        mLocationClient.setLocOption(option);
+    }
+
+    public class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location){
+            mLatitude = location.getLatitude();
+            mLongtitude = location.getLongitude();
+        }
+    }
     private void initView() {
         nearbyListView = (ListView) findViewById(R.id.nearby_list_view);
-        setData();
         showList(nearbyUserInfos);
     }
 
@@ -59,23 +114,6 @@ public class NearbyListViewActivity extends BaseActivity {
         super.unregisterReceiver(NearbyListViewActivity.this.receiver);
     }
 
-    private void setData() {
-        nearbyUserInfos = new ArrayList<NearbyUserInfo>();
-/*        for (int i = 0;i<5;i++){
-            NearbyUserInfo nearbyUserInfo = new NearbyUserInfo();
-            nearbyUserInfo.setImgId(R.drawable.user_photo5);
-            nearbyUserInfo.setUserName("如果的事");
-            nearbyUserInfo.setSex("女");
-            nearbyUserInfo.setDistance("1公里");
-            nearbyUserInfos.add(nearbyUserInfo);
-            NearbyUserInfo nearbyUserInfo1 = new NearbyUserInfo();
-            nearbyUserInfo1.setImgId(R.drawable.user_photo7);
-            nearbyUserInfo1.setUserName("十年");
-            nearbyUserInfo1.setSex("男");
-            nearbyUserInfo1.setDistance("0.5公里");
-            nearbyUserInfos.add(nearbyUserInfo1);
-        }*/
-    }
 
     private void showList(ArrayList<NearbyUserInfo>nearbyUserInfos) {
         nearbyListView = (ListView) findViewById(R.id.nearby_list_view);
@@ -83,6 +121,23 @@ public class NearbyListViewActivity extends BaseActivity {
         nearbyListView.setAdapter(adapter);
     }
 
+    private void sendMsg() {
+        this.progressDialog = new ProgressDialog(NearbyListViewActivity.this);
+        //创建我们的进度条
+        progressDialog.setMessage("正在搜寻附近的人");
+        progressDialog.onStart();
+        progressDialog.show();
+        if (NetworkService.getInstance().getIsConnected()) {
+            String Msg = "type" + ":" + Integer.toString(GlobalMsgUtils.msgNearBy) + ":" +
+                    "account" + ":" + application.getAccount() + ":" + "latitude" + ":" + mLatitude + ":" +
+                    "longtitude" + ":" + mLongtitude;
+            Log.v("aaaaa", Msg);
+            NetworkService.getInstance().sendUpload(Msg);
+        } else {
+            NetworkService.getInstance().closeConnection();
+            Log.v("Login", "已经执行T（）方法");
+        }
+    }
     private void nearbyBroadcas() {
         //动态方式注册广播接收者
         this.receiver = new NearbyBroadcastReceiver();
@@ -96,12 +151,25 @@ public class NearbyListViewActivity extends BaseActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.NEARBY")) {
                 if(intent.getBooleanExtra("reResult", false)) {
+                    NearbyUserInfo info = new NearbyUserInfo();
+                    info.setUserAccount(intent.getStringExtra("reUserAccount"));
+                    info.setUserName(intent.getStringExtra("reUserName"));
+                    info.setImgId(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+                    info.setSex(intent.getStringExtra("reGender"));
+                    info.setLatitude(Double.parseDouble(intent.getStringExtra("reLatitude")));
+                    info.setLongtitude(Double.parseDouble(intent.getStringExtra("reLongtitude")));
+                    info.setDistance(intent.getStringExtra("reDistance"));
+                    nearbyUserInfos.add(info);
                     //Todo 数据接收
                 }else if(intent.getBooleanExtra("isfinish", false)){
                     //Todo 数据处理
+                    initView();
+                    progressDialog.dismiss();
                 }else{
                     //Todo 没有人
                     Toast.makeText(context, "竟然没有人:)", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                    Toast.makeText(NearbyListViewActivity.this, "附近好像还没有人哦( ⊙ o ⊙ )！啦啦啦~~", Toast.LENGTH_SHORT).show();
                 }
             }
         }
