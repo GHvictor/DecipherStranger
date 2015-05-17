@@ -158,7 +158,8 @@ public class ShakeActivity extends BaseActivity {
     public void shakeMain(View v) {
         switch (v.getId()) {
             case R.id.shake_back_button:
-                onBackPressed();
+                //onBackPressed();
+                  onVibrator();
                 break;
             case R.id.shakeMain:
                 if (popupWindow.isShowing()) {

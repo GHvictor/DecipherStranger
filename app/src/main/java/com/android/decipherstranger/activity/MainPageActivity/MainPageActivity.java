@@ -65,8 +65,8 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         initView();
         initViewPage();
         setUnReadMessage(application.getUnReadMessage(), image1);
-        setUnReadMessage(2, image2);
-//        chatBroadcas();
+//        setUnReadMessage(2, image2);
+        chatBroadcas();
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -338,13 +338,13 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                     //Todo 用来写语音接收处理
                     receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
                 }else {
-                    receiveMsg.setTimeLen(intent.getStringExtra(""));
+                    receiveMsg.setTimeLen("");
                 }
                 application.setUnReadMessage(application.getUnReadMessage() + 1);
                 setUnReadMessage(application.getUnReadMessage(), image1);
-                writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(), receiveMsg.getTimeLen(),getDate());
-                ConversationList saveConversationList = new ConversationList(helper.getWritableDatabase());
-                saveConversationList.create(receiveMsg.getAccount(), receiveMsg.getUsername(), receiveMsg.getPortrait());
+                System.out.println(receiveMsg.getAccount() + "++++" + receiveMsg.getMessage() + "++++" + receiveMsg.getTimeLen() + "+++" + getDate());
+                writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate());
                 Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
                 it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
                 it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());

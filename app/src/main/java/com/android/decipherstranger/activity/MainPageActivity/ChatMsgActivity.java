@@ -131,8 +131,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         super.unregisterReceiver(ChatMsgActivity.this.receiver);
+        super.onDestroy();
     }
 
     public void initView() {
@@ -353,7 +353,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                     receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
                 } else {
                     //Todo 用来写消息传送
-                    receiveMsg.setTimeLen(intent.getStringExtra(""));
+                    receiveMsg.setTimeLen("");
                 }
                 writeChatLog = new ChatRecord(helper.getWritableDatabase());
                 writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(), receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate());
@@ -366,21 +366,21 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                         mAdapter.notifyDataSetChanged();
                         mListView.setSelection(mListView.getCount() - 1);
                     }
-                } else {
+                }else {
                     Toast.makeText(context, "这不是发给你的，小朋友！", Toast.LENGTH_SHORT).show();
                     Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
                     it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
                     it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
                     it.putExtra(MyStatic.CONVERSATION_NAME, receiveMsg.getUsername());
                     it.putExtra(MyStatic.CONVERSATION_PORTRAIT, receiveMsg.getPortrait());
-                    if (receiveMsg.getMessage().contains(".amr")){
+                    if (receiveMsg.getMessage().contains(".amr")) {
                         it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
                     }else {
                         it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
                     }
                     sendBroadcast(it);
-                    }
                 }
             }
         }
     }
+}

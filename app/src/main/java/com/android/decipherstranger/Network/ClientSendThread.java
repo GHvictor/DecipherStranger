@@ -23,8 +23,8 @@ public class ClientSendThread {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socketServer.getOutputStream());
             outputStreamWriter.write(strToSend + "\n");
             outputStreamWriter.flush();
-            //System.out.println(strToSend);
-            Log.d("mStrToSend = " + strToSend, "发送啦");
+            System.out.println(strToSend+"成功发送啦");
+            //Log.d("mStrToSend = " + strToSend, "发送啦");
         } catch (Exception e) {
             Log.d("cannot send to ", "发送失败了");
         }
