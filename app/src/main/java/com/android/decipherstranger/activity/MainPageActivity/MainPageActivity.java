@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -51,8 +52,6 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
 
     //写入本地缓存聊天记录
     private ChatRecord writeChatLog;
-    //写入最近聊天列表缓存
-    private ConversationList writeRecentLog;
     private SQLiteOpenHelper helper = null;
     private MyApplication application = null;
     @Override
@@ -342,14 +341,16 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                 }
                 application.setUnReadMessage(application.getUnReadMessage() + 1);
                 setUnReadMessage(application.getUnReadMessage(), image1);
-                System.out.println(receiveMsg.getAccount() + "++++" + receiveMsg.getMessage() + "++++" + receiveMsg.getTimeLen() + "+++" + getDate());
                 writeChatLog = new ChatRecord(helper.getWritableDatabase());
                 writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate());
+                ConversationList conversationList = new ConversationList(helper.getWritableDatabase());
+                System.out.println("### Account " + receiveMsg.getAccount());
+                System.out.println("### Name " + receiveMsg.getUsername());
+                System.out.println("### Portrait " + receiveMsg.getPortrait());
+                conversationList.create(receiveMsg.getAccount(), receiveMsg.getUsername(),  receiveMsg.getPortrait());
                 Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
                 it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
                 it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
-                it.putExtra(MyStatic.CONVERSATION_NAME, receiveMsg.getUsername());
-                it.putExtra(MyStatic.CONVERSATION_PORTRAIT, receiveMsg.getPortrait());
                 if (receiveMsg.getMessage().contains(".amr")){
                     it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
                 }else {

@@ -168,7 +168,7 @@ public class ConversationPageActivity extends BaseActivity {
                 case "Update":
                     int sum = 0;
                     String count = (String) map.get(MyStatic.CONVERSATION_COUNT);
-                    if (count.equals("")) {
+                    if (count == null) {
                         sum = 1;
                     } else {
                         sum = Integer.parseInt(count) + 1;
@@ -177,7 +177,7 @@ public class ConversationPageActivity extends BaseActivity {
                     map.put(MyStatic.CONVERSATION_IMAGE, R.drawable.badge_ifaux);
                     break;
                 case "Default":
-                    map.put(MyStatic.CONVERSATION_COUNT, "");
+                    map.put(MyStatic.CONVERSATION_COUNT, null);
                     map.put(MyStatic.CONVERSATION_IMAGE, null);
                     break;
                     
