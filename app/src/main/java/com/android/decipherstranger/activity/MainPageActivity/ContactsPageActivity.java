@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -77,7 +78,6 @@ public class ContactsPageActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        System.out.println("### ABCD onStart");
     }
     @Override
     protected void onRestart() {
@@ -88,7 +88,6 @@ public class ContactsPageActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        System.out.println("### ABCD onResume");
     }
 
     @Override
@@ -262,12 +261,10 @@ public class ContactsPageActivity extends BaseActivity {
                     User contact = new User();
                     contact.setAccount(intent.getStringExtra("reAccount"));
                     contact.setUsername(intent.getStringExtra("reName"));
-                    Toast.makeText(context, "接接", Toast.LENGTH_SHORT).show();
                     contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
                     mContactList.add(contact);
                     writeContactLog = new ContactsList(helper.getWritableDatabase());
                     writeContactLog.insert(contact);
-                    System.out.println(mContactList.get(0).getAccount().toString());
                 }else if(intent.getBooleanExtra("isfinish", false)){
                     mContactList = filledData(mContactList);
                     Collections.sort(mContactList, pinyinComparator);

@@ -344,9 +344,6 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                 writeChatLog = new ChatRecord(helper.getWritableDatabase());
                 writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate());
                 ConversationList conversationList = new ConversationList(helper.getWritableDatabase());
-                System.out.println("### Account " + receiveMsg.getAccount());
-                System.out.println("### Name " + receiveMsg.getUsername());
-                System.out.println("### Portrait " + receiveMsg.getPortrait());
                 conversationList.create(receiveMsg.getAccount(), receiveMsg.getUsername(),  receiveMsg.getPortrait());
                 Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
                 it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");

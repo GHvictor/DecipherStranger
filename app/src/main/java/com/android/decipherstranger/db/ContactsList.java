@@ -2,10 +2,12 @@ package com.android.decipherstranger.db;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.android.decipherstranger.entity.User;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -37,26 +39,24 @@ public class ContactsList {
     }
 
     /*
-     * 添加联系人
+     * 添加或更新 联系人
      * @param User user
      */
     public void insert(User user){
-        String insert = "INSERT INTO contacts_list VALUES(?,?,?,?,?,?,?,?)";
-        Object args[] = new Object[]{user.getAccount(),user.getUsername(),user.getRemark(),user.getPortrait(),
-                user.getUserSex(),user.getEmail(),user.getBirth(),user.getPhone()};
-//        this.db.execSQL(insert,args);
-        this.db.close();
-    }
-    
-    /*
-   ` * 更新联系人信息
-     * @param User user
-     */
-    public void update(User user) {
-        String sql = "UPDATE contacts_list SET username=?, remark=? , portrait=? , sex=? , email=? , birth=? , phone=? WHERE account=?";
-        Object args[] = new Object[]{user.getUsername(),user.getRemark(),user.getPortrait(),user.getUserSex(),
-                user.getEmail(),user.getBirth(),user.getPhone(),user.getAccount()};
-        this.db.execSQL(sql,args);
+        Bitmap bitmap = user.getPortrait();
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
+        try {
+            String insert = "INSERT INTO contacts_list VALUES(?,?,?,?,?,?,?,?)";
+            Object args[] = new Object[]{user.getAccount(),user.getUsername(),user.getRemark(),os.toByteArray(),
+                    user.getUserSex(),user.getEmail(),user.getBirth(),user.getPhone()};
+            this.db.execSQL(insert,args);         
+        } catch (Exception e) {
+            String sql = "UPDATE contacts_list SET username=?, remark=? , portrait=? , sex=? , email=? , birth=? , phone=? WHERE account=?";
+            Object args[] = new Object[]{user.getUsername(),user.getRemark(),os.toByteArray(),user.getUserSex(),
+                    user.getEmail(),user.getBirth(),user.getPhone(),user.getAccount()};
+            this.db.execSQL(sql,args);
+        }
         this.db.close();
     }
     
