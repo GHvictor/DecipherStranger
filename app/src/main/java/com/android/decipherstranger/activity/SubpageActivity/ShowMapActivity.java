@@ -1,13 +1,10 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,12 +17,11 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
-import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
+import com.android.decipherstranger.activity.GameOneActivity.WelcomeRspActivity;
 import com.android.decipherstranger.entity.NearbyUserInfo;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
-import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.view.HandyTextView;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -45,7 +41,6 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 
-import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 import java.util.List;
 

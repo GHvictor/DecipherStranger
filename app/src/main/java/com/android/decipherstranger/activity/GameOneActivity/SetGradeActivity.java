@@ -1,4 +1,4 @@
-package com.android.decipherstranger.activity.GameActivity;
+package com.android.decipherstranger.activity.GameOneActivity;
 
 import android.os.Bundle;
 import android.util.Log;

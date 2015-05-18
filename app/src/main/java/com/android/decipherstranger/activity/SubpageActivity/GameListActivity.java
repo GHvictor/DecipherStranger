@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
-import com.android.decipherstranger.activity.GameActivity.SetGradeActivity;
-import com.android.decipherstranger.activity.GameActivity.WelcomeRspActivity;
+import com.android.decipherstranger.activity.GameOneActivity.SetGradeActivity;
+import com.android.decipherstranger.activity.GameOneActivity.WelcomeRspActivity;
 
 /**
  *       へ　　　　　／|
@@ -51,6 +51,12 @@ public class GameListActivity extends BaseActivity {
             case R.id.button1:
                 this.intent = new Intent(this, SetGradeActivity.class);
                 this.startActivity(intent);
+                break;
+            case R.id.game_number:
+                //this.intent = new Intent(this, )\
+                this.startActivity(intent);
+                break;
+            case R.id.button2:
                 break;
         }
     }

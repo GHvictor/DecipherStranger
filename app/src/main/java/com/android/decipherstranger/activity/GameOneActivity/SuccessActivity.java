@@ -1,4 +1,4 @@
-package com.android.decipherstranger.activity.GameActivity;
+package com.android.decipherstranger.activity.GameOneActivity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;

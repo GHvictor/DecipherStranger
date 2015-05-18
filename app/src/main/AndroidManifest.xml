@@ -4,86 +4,6 @@
     android:versionCode="1"
     android:versionName="0.3" >
 
-    <application
-        android:allowBackup="true"
-        android:icon="@drawable/ds_ico"
-        android:label="@string/app_name_ch"
-        android:name=".activity.Base.MyApplication"
-        android:theme="@style/NoTheme" >
-        <activity
-            android:name=".activity.WelcomeActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        
-        <!--登录-->
-        <activity android:name=".activity.LoginActivity"/>
-        
-        <!--注册-->
-        <activity android:name=".activity.RegisterActivityBase"/>
-        <activity android:name=".activity.RegisterActivityPhoto"/>
-
-        <!--主界面-->
-        <activity android:windowSoftInputMode="adjustPan"
-            android:name=".activity.MainPageActivity.MainPageActivity"/>
-        <activity android:name=".activity.MainPageActivity.ConversationPageActivity"/>
-        <activity android:name=".activity.MainPageActivity.ContactsPageActivity"
-            android:windowSoftInputMode="stateUnchanged" />
-        <activity android:name=".activity.MainPageActivity.ServicePageActivity"/>
-        <activity android:name=".activity.MainPageActivity.UserPageActivity"/>
-        <activity android:name=".activity.SubpageActivity.UpdateNameActivity"/>
-        
-        <!--摇一摇-->
-        <activity android:name=".activity.SubpageActivity.ShakeActivity"/>
-        
-        <!--游戏-->
-        <activity android:name=".activity.SubpageActivity.GameListActivity"/>
-        <!--石头剪刀布-->
-        <activity android:name=".activity.GameActivity.WelcomeRspActivity"/>
-        <activity android:name=".activity.GameActivity.SetGradeActivity"/>
-        <activity android:name=".activity.GameActivity.RockPaperScissorsActivity" />
-        <activity android:name=".activity.GameActivity.SuccessActivity"/>
-        <activity android:name=".activity.GameActivity.FailActivity" />
-        
-        <!--地图-->
-        <activity android:name=".activity.SubpageActivity.ShowMapActivity"/>
-
-        <activity
-            android:name=".activity.SubpageActivity.NearbyListViewActivity"
-            android:label="解密陌生人"
-            android:theme="@style/AppBaseTheme" />
-        <activity
-            android:name=".activity.MainPageActivity.ChatMsgActivity"
-            android:label="解密陌生人"
-            android:theme="@style/AppBaseTheme" />
-        <activity
-            android:name=".activity.SubpageActivity.FriendInfoActivity"
-            android:label="解密陌生人"
-            android:theme="@style/AppBaseTheme" />
-
-
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="WN8ktA9ihtBXFIHKPszx64G9" />
-        <!-- 彭海涛 -->
-        <!-- android:value="WN8ktA9ihtBXFIHKPszx64G9" -->
-        <!-- 王鑫 -->
-        <!-- android:value="Lzh3rZgTDGNbzDAxY6me92lz" -->
-
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" >
-            <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2" />
-            </intent-filter>
-        </service>
-
-    </application>
-    
     <uses-sdk android:minSdkVersion="17" />
 
     <!-- 这个权限用于进行网络定位 -->
@@ -109,9 +29,8 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <!-- 允许应用访问振动设备 -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!--允许应用访问音频设备-->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-
+    <!-- 允许应用访问音频设备 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
@@ -120,5 +39,86 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <application
+        android:name=".activity.Base.MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ds_ico"
+        android:label="@string/app_name_ch"
+        android:theme="@style/NoTheme" >
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 登录 -->
+        <activity android:name=".activity.LoginActivity" />
+
+        <!-- 注册 -->
+        <activity android:name=".activity.RegisterActivityBase" />
+        <activity android:name=".activity.RegisterActivityPhoto" />
+
+        <!-- 主界面 -->
+        <activity
+            android:name=".activity.MainPageActivity.MainPageActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.MainPageActivity.ConversationPageActivity" />
+        <activity
+            android:name=".activity.MainPageActivity.ContactsPageActivity"
+            android:windowSoftInputMode="stateUnchanged" />
+        <activity android:name=".activity.MainPageActivity.ServicePageActivity" />
+        <activity android:name=".activity.MainPageActivity.UserPageActivity" />
+        <activity android:name=".activity.SubpageActivity.UpdateNameActivity" />
+
+        <!-- 摇一摇 -->
+        <activity android:name=".activity.SubpageActivity.ShakeActivity" />
+
+        <!-- 游戏 -->
+        <activity android:name=".activity.SubpageActivity.GameListActivity" />
+        <!-- 石头剪刀布 -->
+        <activity android:name=".activity.GameOneActivity.WelcomeRspActivity" />
+        <activity android:name=".activity.GameOneActivity.SetGradeActivity" />
+        <activity android:name=".activity.GameOneActivity.RockPaperScissorsActivity" />
+        <activity android:name=".activity.GameOneActivity.SuccessActivity" />
+        <activity android:name=".activity.GameOneActivity.FailActivity" />
+
+        <!-- 地图 -->
+        <activity android:name=".activity.SubpageActivity.ShowMapActivity" />
+        <activity
+            android:name=".activity.SubpageActivity.NearbyListViewActivity"
+            android:label="解密陌生人"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name=".activity.MainPageActivity.ChatMsgActivity"
+            android:label="解密陌生人"
+            android:theme="@style/AppBaseTheme" />
+        <activity
+            android:name=".activity.SubpageActivity.FriendInfoActivity"
+            android:label="解密陌生人"
+            android:theme="@style/AppBaseTheme" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="WN8ktA9ihtBXFIHKPszx64G9" />
+        <!-- 彭海涛 -->
+        <!-- android:value="WN8ktA9ihtBXFIHKPszx64G9" -->
+        <!-- 王鑫 -->
+        <!-- android:value="Lzh3rZgTDGNbzDAxY6me92lz" -->
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" />
+            </intent-filter>
+        </service>
+
+    </application>
 
 </manifest>
