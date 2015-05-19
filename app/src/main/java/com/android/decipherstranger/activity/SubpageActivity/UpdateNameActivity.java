@@ -53,6 +53,7 @@ public class UpdateNameActivity extends BaseActivity {
         Intent intent = new Intent(MyStatic.USER_BOARD);
         sendBroadcast(intent);
         // 上传至服务器
+        //  update Table set Name = ? where = account
     }
     
     public void UpdateNameOnClick(View view) {
