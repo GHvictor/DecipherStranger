@@ -42,7 +42,7 @@ public class WelcomeRspActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_welcome);
+        setContentView(R.layout.activity_game1_welcome);
         application = (MyApplication) getApplication();
         this.init();
     }

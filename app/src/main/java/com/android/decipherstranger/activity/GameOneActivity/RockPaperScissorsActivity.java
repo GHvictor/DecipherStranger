@@ -54,7 +54,7 @@ public class RockPaperScissorsActivity extends BaseActivity {
 
     private MyApplication application = null;
     private static Intent intent = null;
-    
+
     private TextView gradeText = null;
     private TextView playerText = null;
     private TextView computerText = null;
@@ -163,7 +163,7 @@ public class RockPaperScissorsActivity extends BaseActivity {
         //  获取游戏初始数据
         Intent intent = getIntent();
         this.Grade = intent.getIntExtra("Grade", 6);    //  获取游戏等级，默认为3级
-        this.MaxSum = intent.getIntExtra("Sum", 20);    
+        this.MaxSum = intent.getIntExtra("Sum", 20);
 
         //  获取Menu控件
         LayoutInflater inflater = LayoutInflater.from(RockPaperScissorsActivity.this);
@@ -314,19 +314,10 @@ public class RockPaperScissorsActivity extends BaseActivity {
         }
         if (flag) {
             //  上传游戏数据
-            new Thread(){
-                public void run(){
-                    GameUtils.set(application.getAccount());
-                }
-            }.start();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    RockPaperScissorsActivity.this.closeMusic();
-                    RockPaperScissorsActivity.this.startActivity(intent);
-                    RockPaperScissorsActivity.this.finish();
-                }
-            }, 1000);
+            GameUtils.set(application.getAccount());
+            RockPaperScissorsActivity.this.closeMusic();
+            RockPaperScissorsActivity.this.startActivity(intent);
+            RockPaperScissorsActivity.this.finish();
         } else {
             this.isRun = false;
         }
