@@ -76,7 +76,6 @@ public class ShowMapActivity extends BaseActivity {
         setContentView(R.layout.show_map);
         //初始化定位
         initLocation();
-        sendMsg();
         showMapBroadcas();
         initView();
         this.context = this;
@@ -239,6 +238,7 @@ public class ShowMapActivity extends BaseActivity {
                 MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
                 mBaiduMap.animateMapStatus(msu);
                 isFristIn = false;
+                sendMsg();
                 Toast.makeText(context,location.getAddrStr(),Toast.LENGTH_SHORT).show();
             }
         }
@@ -274,6 +274,7 @@ public class ShowMapActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.NEARBY")) {
+                nearbyInfo = new ArrayList<>();
                 if(intent.getBooleanExtra("reResult", false)) {
                     //Todo 数据接收
                     NearbyUserInfo info = new NearbyUserInfo();
@@ -285,6 +286,7 @@ public class ShowMapActivity extends BaseActivity {
                     info.setLongtitude(Double.parseDouble(intent.getStringExtra("reLongtitude")));
                     info.setDistance(intent.getStringExtra("reDistance"));
                     nearbyInfo.add(info);
+                    System.out.println("账号"+info.getUserAccount()+"姓名"+info.getUserName()+"距离"+info.getDistance());
                 }else if(intent.getBooleanExtra("isfinish", false)){
                     //Todo 数据处理
                     //覆盖物相关

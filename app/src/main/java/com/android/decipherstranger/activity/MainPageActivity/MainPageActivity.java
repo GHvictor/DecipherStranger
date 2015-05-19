@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -34,12 +35,15 @@ import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
+import com.android.decipherstranger.util.Tools;
 import com.android.decipherstranger.view.BadgeView;
 
+import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MainPageActivity extends BaseActivity implements OnPageChangeListener {
 
@@ -54,6 +58,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     private ChatRecord writeChatLog;
     private SQLiteOpenHelper helper = null;
     private MyApplication application = null;
+    private ChatBroadcastReceiver receiver = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +68,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         application = (MyApplication) getApplication();
         initView();
         initViewPage();
-        setUnReadMessage(application.getUnReadMessage(), image1);
+        setUnReadMessage(application.getUnReadMessage());
 //        setUnReadMessage(2, image2);
         chatBroadcas();
     }
@@ -72,7 +77,13 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         this.manager = new LocalActivityManager(this, true);
         this.manager.dispatchCreate(savedInstanceState);
     }
-    
+
+    @Override
+    protected void onDestroy() {
+        super.unregisterReceiver(MainPageActivity.this.receiver);
+        super.onDestroy();
+    }
+
     private void initView() {
         this.textTab = (TextView) super.findViewById(R.id.textTab);
         this.image1 = (ImageView) super.findViewById(R.id.conversationImage);
@@ -83,6 +94,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         this.text2 = (TextView) super.findViewById(R.id.contactsText);
         this.text3 = (TextView) super.findViewById(R.id.moreText);
         this.text4 = (TextView) super.findViewById(R.id.userText);
+        badgeView = new BadgeView(this,image1);
     }
 
     private void initViewPage() {
@@ -160,8 +172,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     }
 
     //未读消息提醒
-    public void setUnReadMessage(int unReadMessageNum,ImageView unReadMessageType){
-        badgeView = new BadgeView(this,unReadMessageType);
+    public void setUnReadMessage(int unReadMessageNum){
         badgeView.setText(String.valueOf(unReadMessageNum));
         badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
         if (unReadMessageNum != 0){
@@ -311,6 +322,17 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         return time;
     }
 
+    public String getDir(){
+        String dir = null;
+        if (Tools.hasSdcard()){}
+        dir = Environment.getExternalStorageDirectory()+"/JMMSH/voiceMsg";
+        return dir;
+    }
+
+    public String getFileName(){
+        return UUID.randomUUID().toString()+".amr";
+    }
+
     private void chatBroadcas() {
         //动态方式注册广播接收者
         ChatBroadcastReceiver receiver = new ChatBroadcastReceiver();
@@ -324,25 +346,28 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
                 Contacts receiveMsg = new Contacts();
-                User contact = new User();
+                User contact;
                 ContactsList contactInfo = new ContactsList(helper.getWritableDatabase());
                 contact = contactInfo.getInfo(intent.getStringExtra("reSender"));
+                System.out.println(contact.getUsername() + "++++" + contact.getPortrait());
                 receiveMsg.setAccount(intent.getStringExtra("reSender"));
                 receiveMsg.setUsername(contact.getUsername());
                 receiveMsg.setPortrait(contact.getPortrait());
-                receiveMsg.setMessage(intent.getStringExtra("reMessage"));
                 receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                 receiveMsg.setWho(1);
                 if(intent.getBooleanExtra("isVoice", false)) {
                     //Todo 用来写语音接收处理
                     receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
+                    File file = ChangeUtils.toFile(intent.getStringExtra("reMessage"),getDir(),getFileName());
+                    receiveMsg.setMessage(file.getAbsolutePath());
                 }else {
                     receiveMsg.setTimeLen("");
+                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
                 }
                 application.setUnReadMessage(application.getUnReadMessage() + 1);
-                setUnReadMessage(application.getUnReadMessage(), image1);
+                setUnReadMessage(application.getUnReadMessage());
                 writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate());
+                writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), 0);
                 ConversationList conversationList = new ConversationList(helper.getWritableDatabase());
                 conversationList.create(receiveMsg.getAccount(), receiveMsg.getUsername(),  receiveMsg.getPortrait());
                 Intent it = new Intent(MyStatic.CONVERSATION_BOARD);

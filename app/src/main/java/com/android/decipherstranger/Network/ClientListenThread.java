@@ -58,7 +58,6 @@ public class ClientListenThread extends Thread {
                 if (reMsg != null) {
                     System.out.println(reMsg);
                     JSONObject jsonObj = new JSONObject(reMsg);
-
                     Log.v("能不能接到aaaaa", reMsg);
                     int msgType = jsonObj.getInt("re_type");            // type of message received
                     switch (msgType) {
@@ -145,6 +144,7 @@ public class ClientListenThread extends Thread {
                             clContext.sendBroadcast(itAddFriend);
                             break;
                         case GlobalMsgUtils.msgVoice:
+                            System.out.println("daacallll");
                             Intent itVoice = new Intent("com.android.decipherstranger.MESSAGE");
                             itVoice.putExtra("reMessage", jsonObj.getString("re_message"));
                             itVoice.putExtra("reSender", jsonObj.getString("re_sender"));
@@ -166,9 +166,10 @@ public class ClientListenThread extends Thread {
                                 itNearBy.putExtra("reName", jsonObj.getString("re_name"));
                                 itNearBy.putExtra("rePhoto", jsonObj.getString("re_photo"));
                                 itNearBy.putExtra("reGender", jsonObj.getInt("re_gender"));
-                                itNearBy.putExtra("reLongtitude", jsonObj.getDouble("re_longtitude"));
-                                itNearBy.putExtra("reLatitude", jsonObj.getDouble("re_latitude"));
-                                itNearBy.putExtra("reDistance", jsonObj.getDouble("re_distance"));
+                                itNearBy.putExtra("reLongtitude", jsonObj.getString("re_longtitude"));
+                                itNearBy.putExtra("reLatitude", jsonObj.getString("re_latitude"));
+                                itNearBy.putExtra("reDistance", jsonObj.getString("re_distance"));
+                                System.out.println(jsonObj.getString("re_longtitude")+"+++++++"+jsonObj.getString("re_distance"));
                             }
                             else{
                                 itNearBy.putExtra("reResult", false);

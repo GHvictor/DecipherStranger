@@ -2,9 +2,11 @@ package com.android.decipherstranger.db;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 
 import com.android.decipherstranger.entity.Contacts;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -34,14 +36,13 @@ public class ChatRecord {
     public ChatRecord(SQLiteDatabase db) {
         this.db = db;
     }
-    
+
     /*
      * 添加聊天记录
-     * @param String account(好友账号),int who(0/1 0为用户发给好友，1为好友发给用户) Sting message String timeLen
      */
-    public void insert(String account, int who, String message, String timeLen, String time){
-        String insert = "INSERT INTO chatrecord VALUES ( ? , ? , ? , ? , ? )";
-        Object args[] = new Object[]{account,who,message,timeLen, time};
+    public void insert(String account, int who, String message, String timeLen, String time, int type){
+        String insert = "INSERT INTO chatrecord VALUES ( ? , ? , ? , ? , ? , ? )";
+        Object args[] = new Object[]{account,who,message,timeLen, time, type};
         this.db.execSQL(insert,args);
         this.db.close();
     }
@@ -52,7 +53,7 @@ public class ChatRecord {
      * @return who,message,time
      */
     public ArrayList<Contacts> getInfo(String account) {
-        String select = "SELECT ismine,message,chat_time,timeLen FROM chatrecord WHERE contacts=? ORDER BY chat_time";
+        String select = "SELECT ismine,message,chat_time,timeLen, type FROM chatrecord WHERE contacts=? ORDER BY chat_time";
         String args[] = new String[]{account};
         Cursor result = this.db.rawQuery(select, args);
         ArrayList<Contacts> all = new ArrayList<Contacts>();
@@ -62,6 +63,7 @@ public class ChatRecord {
             contacts.setMessage(result.getString(1));
             contacts.setDatetime(result.getString(2));
             contacts.setTimeLen(result.getString(3));
+            contacts.setType(result.getInt(4));
             all.add(contacts);
         } this.db.close();
         return all;

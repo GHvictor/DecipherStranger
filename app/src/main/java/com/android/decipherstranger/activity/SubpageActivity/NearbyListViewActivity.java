@@ -26,7 +26,10 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 
 import java.util.ArrayList;
 
@@ -59,6 +62,7 @@ public class NearbyListViewActivity extends BaseActivity {
     private ProgressDialog progressDialog = null;
     private double mLatitude;
     private double mLongtitude;
+    private boolean isFristIn=true;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -101,6 +105,11 @@ public class NearbyListViewActivity extends BaseActivity {
         public void onReceiveLocation(BDLocation location){
             mLatitude = location.getLatitude();
             mLongtitude = location.getLongitude();
+            if (isFristIn){
+                sendMsg();
+                System.out.println("经度" + mLatitude);
+                System.out.println("纬度"+mLongtitude);
+            }
         }
     }
     private void initView() {

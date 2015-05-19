@@ -33,9 +33,11 @@ import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.adapter.ChatMsgViewAdapter;
 import com.android.decipherstranger.db.ChatRecord;
+import com.android.decipherstranger.db.ContactsList;
 import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.entity.Contacts;
+import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.ImageCompression;
@@ -48,6 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /*
  * Created by WangXin on 2015/4/12 0012.
@@ -151,16 +154,21 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 recorderMessage.setUsername(application.getName());
                 recorderMessage.setDatetime(time);
                 recorderMessage.setWho(SEND_TO_MSG);
+                File file = new File(filePath);
+                System.out.println("语音" + ChangeUtils.toBinary(file));
+                String s = ChangeUtils.toBinary(file);
+                File file1 = ChangeUtils.toFile(s,getDir(),getFileName());
                 recorderMessage.setTimeLen(Math.round(seconds) + "");
-                recorderMessage.setMessage(filePath);
+                recorderMessage.setMessage(file1.getAbsolutePath());
+                System.out.println("+++++++++"+file1.getAbsolutePath());
                 mDataArrays.add(recorderMessage);
                 mAdapter.notifyDataSetChanged();
                 mListView.setSelection(mListView.getCount() - 1);
                 //将聊天记录写入本地
-                writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, Math.round(seconds)+ "", time);
-                sendVoice(filePath, Math.round(seconds), time);
-                sendToConversation("[语音]");
+//                writeChatLog = new ChatRecord(helper.getWritableDatabase());
+//                writeChatLog.insert(currentUserAccount, SEND_TO_MSG, filePath, Math.round(seconds)+ "", time);
+//                sendVoice(ChangeUtils.toBinary(file), Math.round(seconds), time);
+//                sendToConversation("[语音]");
             }
         });
         mBtnSend = (Button) findViewById(R.id.btn_send);
@@ -247,7 +255,12 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         select_photo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intentFromGallery = new Intent();
+                intentFromGallery.setType("image/*"); // 设置文件类型
+                intentFromGallery
+                        .setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intentFromGallery,
+                        IMAGE_REQUEST_CODE);
             }
         });
         take_picture.setOnClickListener(new OnClickListener() {
@@ -256,6 +269,59 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case IMAGE_REQUEST_CODE:
+                startPhotoZoom(data.getData());
+                break;
+            case CAMERA_REQUEST_CODE:
+                if (Tools.hasSdcard()) {
+                    File path = Environment
+                            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                    File tempFile = new File(path, IMAGE_FILE_NAME);
+                    startPhotoZoom(Uri.fromFile(tempFile));
+                } else {
+                    Toast.makeText(ChatMsgActivity.this, "未找到存储卡，无法存储照片！",
+                            Toast.LENGTH_LONG).show();
+                }
+                break;
+            case RESULT_REQUEST_CODE:
+                if (data != null) {
+                    getImageToView(data);
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void getImageToView(Intent data) {
+        Bundle extras = data.getExtras();
+        if (extras!=null){
+            Bitmap photo = extras.getParcelable("data");
+            Contacts entity = new Contacts();
+            entity.setAccount(application.getAccount());
+            entity.setUsername(application.getName());
+            entity.setPortrait(application.getPortrait());
+        }
+    }
+
+    public void startPhotoZoom(Uri uri) {
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        // 设置裁剪
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 340);
+        intent.putExtra("outputY", 340);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, RESULT_REQUEST_CODE);
     }
     
     private void sendToConversation(String message) {
@@ -281,10 +347,18 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
             mDataArrays.add(entity);
             mAdapter.notifyDataSetChanged();
             this.writeChatLog = new ChatRecord(this.helper.getWritableDatabase());
-            writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, "", time);
+            writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, "", time, 0);
             mEditTextContent.setText("");
             mListView.setSelection(mListView.getCount() - 1);
             sendMessage(contString, time);
+            ContactsList contact = new ContactsList(helper.getReadableDatabase());
+            User user = contact.getInfo(currentUserAccount);
+            System.out.println("name"+"   "+user.getUsername());
+            System.out.println("photo"+"  "+user.getPortrait());
+            contact = new ContactsList(helper.getReadableDatabase());
+            ArrayList<User>contactList = contact.getUserList();
+            System.out.println("name"+"  "+contactList.get(0).getUsername());
+            System.out.println("photo"+"  "+contactList.get(0).getPortrait());
         }
     }
 
@@ -294,7 +368,17 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         String time = dateFormat.format(new java.util.Date());
         return time;
     }
-    
+    public String getDir(){
+        String dir = null;
+        if (Tools.hasSdcard()){}
+            dir = Environment.getExternalStorageDirectory()+"/JMMSH/voiceMsg";
+        return dir;
+    }
+
+    public String getFileName(){
+        return UUID.randomUUID().toString()+".amr";
+    }
+
     private void sendMessage(String message, String time){
         if(NetworkService.getInstance().getIsConnected()) {
             String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgMessage)+":"+
@@ -344,19 +428,25 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 receiveMsg.setAccount(currentUserAccount);
                 receiveMsg.setUsername(currentUserName);
                 receiveMsg.setPortrait(currentUserPhoto);
-                receiveMsg.setMessage(intent.getStringExtra("reMessage"));
                 receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                 receiveMsg.setDatetime(getDate());
                 receiveMsg.setWho(IS_COM_MSG);
-                if (intent.getBooleanExtra("isVoice", false)) {
+                System.out.println("wwwwww");
+                if (intent.getBooleanExtra("isVoice",false)) {
                     //Todo 用来写语音接收处理
                     receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
+                    System.out.println("语音消息"+intent.getStringExtra("reMessage"));
+                    File file = ChangeUtils.toFile(intent.getStringExtra("reMessage"),getDir(),getFileName());
+                    receiveMsg.setMessage(file.getAbsolutePath());
+                    System.out.println("语音"+file.getAbsolutePath());
                 } else {
                     //Todo 用来写消息传送
                     receiveMsg.setTimeLen("");
+                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                    System.out.println("文本消息"+intent.getStringExtra("reMessage"));
                 }
                 writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(), receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate());
+                writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(), receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), 0);
                 if (intent.getStringExtra("reSender").equals(currentUserAccount)) {
                     mDataArrays.add(receiveMsg);
                     if (mAdapter == null) {

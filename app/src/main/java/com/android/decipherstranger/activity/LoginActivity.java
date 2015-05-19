@@ -183,6 +183,7 @@ public class LoginActivity extends BaseActivity {
         public void onClick(View view){
             it = new Intent(LoginActivity.this, RegisterActivityBase.class);
             startActivity(it);
+            finish();
         }
     }
     /**

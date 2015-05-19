@@ -7,10 +7,12 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -63,6 +65,18 @@ public class RegisterActivityPhoto extends BaseActivity {
         initView();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 防止连续两次返回键
+            //这你写你的返回处理
+            Intent intent = new Intent(RegisterActivityPhoto.this, RegisterActivityBase.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
     private void initData() {
         Intent  intent = getIntent();
         userInfo = new User();
@@ -111,15 +125,15 @@ public class RegisterActivityPhoto extends BaseActivity {
         @Override
         public void onClick(View view) {
             Intent intentFromCapture = new Intent(
-                    MediaStore.ACTION_IMAGE_CAPTURE);
-            // 判断存储卡是否可以用，可用进行存储
-            if (Tools.hasSdcard()) {
-                File path = Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                File file = new File(path, IMAGE_FILE_NAME);
-                intentFromCapture.putExtra(
-                        MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(file));
+                        MediaStore.ACTION_IMAGE_CAPTURE);
+                // 判断存储卡是否可以用，可用进行存储
+                if (Tools.hasSdcard()) {
+                    File path = Environment
+                            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                    File file = new File(path, IMAGE_FILE_NAME);
+                    intentFromCapture.putExtra(
+                            MediaStore.EXTRA_OUTPUT,
+                            Uri.fromFile(file));
                 startActivityForResult(intentFromCapture,
                         CAMERA_REQUEST_CODE);
             }
@@ -128,7 +142,9 @@ public class RegisterActivityPhoto extends BaseActivity {
     public class previousStepButtonOnClickListenerImpl implements View.OnClickListener{
         @Override
         public void onClick(View view){
-
+            Intent intent = new Intent(RegisterActivityPhoto.this, RegisterActivityBase.class);
+            startActivity(intent);
+            finish();
         }
     }
     public class registerButtonOnClickListenerImpl implements View.OnClickListener{

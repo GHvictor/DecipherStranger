@@ -39,7 +39,7 @@ public class ContactsList {
     }
 
     /*
-     * 添加或更新 联系人
+     * 添加联系人
      * @param User user
      */
     public void insert(User user){

@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DATABASE extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "ds_chat.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     
     public DATABASE(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -59,9 +59,10 @@ public class DATABASE extends SQLiteOpenHelper {
         String sql = "CREATE TABLE `chatrecord` (" +
                 "  `contacts` varchar(20) NOT NULL," +
                 "  `ismine` tinyint(1) DEFAULT NULL," +
-                "  `message` varchar(20) DEFAULT NULL," +
+                "  `message` mediumblob DEFAULT NULL," +
                 "  `timeLen` varbinary(5) DEFAULT NULL," +
-                "  `chat_time` datetime DEFAULT NULL)";
+                "  `chat_time` datetime DEFAULT NULL," +
+                "  `type` tinyint(1) DEFAULT NULL)";
         db.execSQL(sql);
     }
     

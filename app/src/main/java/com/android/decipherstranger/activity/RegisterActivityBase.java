@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -51,6 +52,17 @@ public class RegisterActivityBase extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_base);
         initView();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 防止连续两次返回键
+            //这你写你的返回处理
+            Intent intent = new Intent(RegisterActivityBase.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void initView(){

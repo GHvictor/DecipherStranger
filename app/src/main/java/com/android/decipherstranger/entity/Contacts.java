@@ -31,6 +31,7 @@ public class Contacts {
     private String datetime = null;
     private String message = null;
     private String timeLen = null;
+    private int type = 0;
     
     public Contacts(){}
     public Contacts(Contacts contacts) {
@@ -98,5 +99,12 @@ public class Contacts {
     public void setTimeLen(String timeLen) {
         this.timeLen = timeLen;
     }
-    
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getType() {
+        return type;
+    }
 }
