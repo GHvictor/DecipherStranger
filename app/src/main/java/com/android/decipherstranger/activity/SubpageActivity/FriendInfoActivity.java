@@ -28,6 +28,7 @@ import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
