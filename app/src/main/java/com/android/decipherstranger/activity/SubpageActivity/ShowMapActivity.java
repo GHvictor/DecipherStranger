@@ -115,12 +115,16 @@ public class ShowMapActivity extends BaseActivity {
                 NearbyUserInfo nearByUserInfo = (NearbyUserInfo) extraInfo.getSerializable("nearByUserInfo");
                 ImageView nearByUserPhoto = (ImageView) mMarkerlayout.findViewById(R.id.nearby_user_photo);
                 TextView nearByUserName = (TextView) mMarkerlayout.findViewById(R.id.nearby_user_name);
-                TextView nearByUserSex = (TextView) mMarkerlayout.findViewById(R.id.nearby_user_sex);
+                ImageView nearByUserSex = (ImageView) mMarkerlayout.findViewById(R.id.nearby_user_sex);
                 TextView distance = (TextView) mMarkerlayout.findViewById(R.id.distance);
 
                 nearByUserPhoto.setImageBitmap(nearByUserInfo.getImgId());
                 nearByUserName.setText(nearByUserInfo.getUserName());
-                nearByUserSex.setText(nearByUserInfo.getSex());
+                if (nearByUserInfo.getSex().equals("0")){
+                    nearByUserSex.setImageResource(R.drawable.ic_sex_male);
+                }else {
+                    nearByUserSex.setImageResource(R.drawable.ic_sex_female);
+                }
                 distance.setText(nearByUserInfo.getDistance());
                 mMarkerlayout.setVisibility(View.VISIBLE);
                 return true;

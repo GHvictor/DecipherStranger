@@ -257,15 +257,17 @@ public class ContactsPageActivity extends BaseActivity {
                     reFresh = new ArrayList<>();
                     readerContactLog = new ContactsList(helper.getReadableDatabase());
                     reFresh = readerContactLog.getUserList();
-                    reFresh = filledData(reFresh);
-                    if(!reFresh.isEmpty()){
+                    try {
+                        reFresh = filledData(reFresh);
                         Collections.sort(reFresh, pinyinComparator);
                         if (adapter == null){
                             adapter = new SortAdapter(context,reFresh);
                             contactListView.setAdapter(adapter);
                         }else {
-                            adapter.updateListView(reFresh);
+                                adapter.updateListView(reFresh);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                 }else {

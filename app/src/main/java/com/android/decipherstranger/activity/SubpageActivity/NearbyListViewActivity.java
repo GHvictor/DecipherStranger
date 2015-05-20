@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -111,6 +113,16 @@ public class NearbyListViewActivity extends BaseActivity {
     }
     private void initView() {
         nearbyListView = (ListView) findViewById(R.id.nearby_list_view);
+        nearbyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(NearbyListViewActivity.this,NearbyInfoActivity.class);
+                intent.putExtra("photo",nearbyUserInfos.get(position).getImgId());
+                intent.putExtra("name",nearbyUserInfos.get(position).getUserName());
+                intent.putExtra("sex",nearbyUserInfos.get(position).getSex());
+                startActivity(intent);
+            }
+        });
         showList(nearbyUserInfos);
     }
 
