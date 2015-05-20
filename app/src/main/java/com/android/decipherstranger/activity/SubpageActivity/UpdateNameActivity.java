@@ -2,12 +2,16 @@ package com.android.decipherstranger.activity.SubpageActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.Base.MyApplication;
+import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
 
 /**
@@ -54,6 +58,17 @@ public class UpdateNameActivity extends BaseActivity {
         sendBroadcast(intent);
         // 上传至服务器
         //  update Table set Name = ? where = account
+        if(NetworkService.getInstance().getIsConnected()) {
+            String changeInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgChangeInf)+":"+
+                              "account"+":"+application.getAccount()+":"+
+                              "cname"+":"+Name;
+            Log.v("aaaaa", changeInfo);
+            NetworkService.getInstance().sendUpload(changeInfo);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(UpdateNameActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+        }
     }
     
     public void UpdateNameOnClick(View view) {

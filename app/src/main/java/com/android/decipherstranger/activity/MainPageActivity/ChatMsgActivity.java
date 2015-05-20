@@ -350,7 +350,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
             writeChatLog.insert(currentUserAccount, SEND_TO_MSG, contString, "", time, 0);
             mEditTextContent.setText("");
             mListView.setSelection(mListView.getCount() - 1);
-            sendMessage(contString, time);
+            sendMessage(GlobalMsgUtils.msgMessage, contString, time);
             ContactsList contact = new ContactsList(helper.getReadableDatabase());
             User user = contact.getInfo(currentUserAccount);
             System.out.println("name"+"   "+user.getUsername());
@@ -379,9 +379,10 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         return UUID.randomUUID().toString()+".amr";
     }
 
-    private void sendMessage(String message, String time){
+    private void sendMessage(int Msg, String message, String time){
+        //Todo 图片传输调用例子 ChangeUtils.toBinary(ImageCompression.compressSimplify(photo, 0.3f));
         if(NetworkService.getInstance().getIsConnected()) {
-            String msg = "type"+":"+Integer.toString(GlobalMsgUtils.msgMessage)+":"+
+            String msg = "type"+":"+Integer.toString(Msg)+":"+
                     "account"+":"+ application.getAccount()+":"+"re_account"+":"+currentUserAccount+
                     ":"+"message"+":"+message+":"+"date"+":"+time.replace(':', '-');
             Log.v("aaaaa", msg);
@@ -411,6 +412,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+
     private void chatBroadcas() {
         //动态方式注册广播接收者
         this.receiver = new ChatBroadcastReceiver();
@@ -432,6 +434,10 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 receiveMsg.setDatetime(getDate());
                 receiveMsg.setWho(IS_COM_MSG);
                 System.out.println("wwwwww");
+                switch (intent.getIntExtra("msgType", 0)){
+                    default:
+                        break;
+                }
                 if (intent.getBooleanExtra("isVoice",false)) {
                     //Todo 用来写语音接收处理
                     receiveMsg.setTimeLen(intent.getStringExtra("reTime"));

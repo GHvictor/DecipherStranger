@@ -83,7 +83,8 @@ public class ClientListenThread extends Thread {
                             itMessage.putExtra("reMessage", jsonObj.getString("re_message"));
                             itMessage.putExtra("reSender", jsonObj.getString("re_sender"));
                             itMessage.putExtra("reDate", jsonObj.getString("re_date"));
-                            itMessage.putExtra("isVoice", false);
+                            //itMessage.putExtra("isVoice", false);
+                            itMessage.putExtra("msgType", 0);
                             clContext.sendBroadcast(itMessage);
                             System.out.println("发送成功");
                             break;
@@ -107,6 +108,7 @@ public class ClientListenThread extends Thread {
                             break;
                         case GlobalMsgUtils.msgFriendList:
                             Intent itFriend = new Intent("com.android.decipherstranger.FRIEND");
+                            itFriend.putExtra("isAdd", false);
                             if(jsonObj.getString("re_message").equals(MyStatic.resultFalse)){
                                 itFriend.putExtra("reResult", false);
                                 itFriend.putExtra("isfinsh", false);
@@ -136,11 +138,14 @@ public class ClientListenThread extends Thread {
                         case GlobalMsgUtils.msgGameOneSend:
                             break;
                         case GlobalMsgUtils.msgAddFriend:
-                            Intent itAddFriend = new Intent("com.android.decipherstranger.ADDFRIEND");
+                            Intent itAddFriend = new Intent("com.android.decipherstranger.FRIEND");
                             itAddFriend.putExtra("reAccount", jsonObj.getString("re_account"));
                             itAddFriend.putExtra("rePhoto", jsonObj.getString("re_photo"));
                             itAddFriend.putExtra("reGender", jsonObj.getInt("re_gender"));
                             itAddFriend.putExtra("reName", jsonObj.getString("re_name"));
+                            itAddFriend.putExtra("reResult", true);
+                            itAddFriend.putExtra("isfinish", true);
+                            itAddFriend.putExtra("isAdd", true);
                             clContext.sendBroadcast(itAddFriend);
                             break;
                         case GlobalMsgUtils.msgVoice:
@@ -150,7 +155,8 @@ public class ClientListenThread extends Thread {
                             itVoice.putExtra("reSender", jsonObj.getString("re_sender"));
                             itVoice.putExtra("reDate", jsonObj.getString("re_date"));
                             itVoice.putExtra("reTime", jsonObj.getString("re_time"));
-                            itVoice.putExtra("isVoice", true);
+                            //itVoice.putExtra("isVoice", true);
+                            itVoice.putExtra("msgType", 1);
                             clContext.sendBroadcast(itVoice);
                             System.out.println("发送成功");
                             break;
@@ -169,7 +175,6 @@ public class ClientListenThread extends Thread {
                                 itNearBy.putExtra("reLongtitude", jsonObj.getString("re_longtitude"));
                                 itNearBy.putExtra("reLatitude", jsonObj.getString("re_latitude"));
                                 itNearBy.putExtra("reDistance", jsonObj.getString("re_distance"));
-                                System.out.println(jsonObj.getString("re_longtitude")+"+++++++"+jsonObj.getString("re_distance"));
                             }
                             else{
                                 itNearBy.putExtra("reResult", false);
@@ -177,6 +182,19 @@ public class ClientListenThread extends Thread {
                             }
                             clContext.sendBroadcast(itNearBy);
                             Log.v("Test","发送啦！！！");
+                            break;
+                        case GlobalMsgUtils.msgChangeInf:
+
+                            break;
+                        case GlobalMsgUtils.msgImage:
+                            Intent itImage = new Intent("com.android.decipherstranger.MESSAGE");
+                            itImage.putExtra("reMessage", jsonObj.getString("re_message"));
+                            itImage.putExtra("reSender", jsonObj.getString("re_sender"));
+                            itImage.putExtra("reDate", jsonObj.getString("re_date"));
+                            //itImage.putExtra("isVoice", false);
+                            itImage.putExtra("msgType", 2);
+                            clContext.sendBroadcast(itImage);
+                            System.out.println("发送成功");
                             break;
                         default:
                             break;
