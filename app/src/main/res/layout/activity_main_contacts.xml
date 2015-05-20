@@ -36,8 +36,8 @@
         android:layout_toStartOf="@+id/sidrbar">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:id="@+id/imageView"
             android:src="@drawable/friends_request_icon"
             android:layout_centerVertical="true"

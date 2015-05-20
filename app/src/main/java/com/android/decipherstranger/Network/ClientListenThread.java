@@ -182,6 +182,7 @@ public class ClientListenThread extends Thread {
                         case GlobalMsgUtils.msgChangeInf:
                             Intent itChange = new Intent("com.android.decipherstranger.CHANGE");
                             itChange.putExtra("reResult", true);
+                            clContext.sendBroadcast(itChange);
                             break;
                         case GlobalMsgUtils.msgImage:
                             Intent itImage = new Intent("com.android.decipherstranger.MESSAGE");

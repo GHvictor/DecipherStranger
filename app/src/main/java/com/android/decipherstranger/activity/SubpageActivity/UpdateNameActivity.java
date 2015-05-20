@@ -1,6 +1,9 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +16,7 @@ import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
+import com.android.decipherstranger.util.SharedPreferencesUtils;
 
 /**
  * へ　　　　　／|
@@ -38,29 +42,36 @@ public class UpdateNameActivity extends BaseActivity {
     
     private EditText editText = null;
     private MyApplication application = null;
+
+    private UpdateBroadcastReceiver receiver = null;
+    private SharedPreferencesUtils sharedPreferencesUtils = null;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_user_update_name);
+        this.registerBroadcas();
         this.init();
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        super.unregisterReceiver(receiver);
     }
     
     private void init() {
         this.editText = (EditText) super.findViewById(R.id.nameText);
         this.application = (MyApplication) getApplication();
+
+        this.sharedPreferencesUtils = new SharedPreferencesUtils(this, MyStatic.FILENAME_USER);
     }
     
     private void updateName() {
-        String Name = this.editText.getText().toString();
-        application.setName(Name);       
-        Intent intent = new Intent(MyStatic.USER_BOARD);
-        sendBroadcast(intent);
         // 上传至服务器
         if(NetworkService.getInstance().getIsConnected()) {
             String changeInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgChangeInf)+":"+
                               "account"+":"+application.getAccount()+":"+
-                              "cname"+":"+Name;
+                              "cname"+":"+this.editText.getText().toString();
             Log.v("aaaaa", changeInfo);
             NetworkService.getInstance().sendUpload(changeInfo);
         }
@@ -78,6 +89,27 @@ public class UpdateNameActivity extends BaseActivity {
                 break;
             case R.id.updateName_back_button:
                 onBackPressed();
+        }
+    }
+
+    private void registerBroadcas() {
+        //动态方式注册广播接收者
+        IntentFilter filter = new IntentFilter();
+        this.receiver = new UpdateBroadcastReceiver();
+        filter.addAction("com.android.decipherstranger.CHANGE");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class UpdateBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            System.out.println("### 我已经修改了");
+            if (intent.getBooleanExtra("reResult", false)) {
+                application.setName(editText.getText().toString());
+                sharedPreferencesUtils.set(MyStatic.USER_NAME, application.getName());
+                Intent it = new Intent(MyStatic.USER_BOARD);
+                sendBroadcast(it);
+            }
         }
     }
 }

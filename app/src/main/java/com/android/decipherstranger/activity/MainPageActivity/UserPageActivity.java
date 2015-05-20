@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -73,6 +74,18 @@ public class UserPageActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         super.unregisterReceiver(receiver);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(false);
+            System.out.println("### 这样是对的 4");
+            return true;
+        }
+        System.out.println("### TMD 这样是对的 4");
+        return super.onKeyDown(keyCode, event);
     }
     
     private void init() {

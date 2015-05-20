@@ -310,7 +310,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
 
     }
 
-    @Override
+/*    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
@@ -318,7 +318,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
 
     private String getDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -351,11 +351,9 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
                 if (intent.getStringExtra("Decrease") != null && intent.getStringExtra("Decrease").equals("Decrease")) {
-                    System.out.println("### A");
                     application.setUnReadMessage(application.getUnReadMessage() - intent.getIntExtra("DecreaseCount", 0));
                     setUnReadMessage(application.getUnReadMessage());
                 } else {
-                    System.out.println("### B");
                     Contacts receiveMsg = new Contacts();
                     User contact;
                     ContactsList contactInfo = new ContactsList(helper.getWritableDatabase());

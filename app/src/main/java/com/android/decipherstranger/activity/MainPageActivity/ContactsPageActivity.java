@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -94,6 +95,19 @@ public class ContactsPageActivity extends BaseActivity {
         super.unregisterReceiver(ContactsPageActivity.this.receiver);
         super.onDestroy();
     }
+    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(false);
+            System.out.println("### 这样是对的 2");
+            return true;
+        }
+        System.out.println("### TMD 这样是对的 2");
+        return super.onKeyDown(keyCode, event);
+    }
+    
 
     private void initData() {
         readerContactLog = new ContactsList(this.helper.getReadableDatabase());

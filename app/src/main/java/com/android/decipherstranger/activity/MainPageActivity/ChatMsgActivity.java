@@ -99,6 +99,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     private String currentUserName;
     //当前聊天好友头像
     private Bitmap currentUserPhoto;
+    
+    private RelativeLayout blank = null;
 
     private static final int IMAGE_REQUEST_CODE = 0;
     private static final int CAMERA_REQUEST_CODE = 1;
@@ -143,6 +145,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     }
 
     public void initView() {
+        this.blank = (RelativeLayout) super.findViewById(R.id.blank);
+        this.blank.setOnClickListener(this);
         Bundle bundle =this.getIntent().getExtras();
         currentUserAccount = bundle.getString("userAccount");
         currentUserName = bundle.getString("userName");
@@ -188,6 +192,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         select_photo = (ImageView) findViewById(R.id.select_photo);
         take_picture = (ImageView) findViewById(R.id.take_picture);
         mEditTextContent = (EditText) findViewById(R.id.et_sendmessage);
+        mEditTextContent.setOnClickListener(this);
 
         //发送照片相关
         add_panel_im.setOnClickListener(new OnClickListener() {
@@ -241,7 +246,6 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         }
         mAdapter = new ChatMsgViewAdapter(this, mDataArrays);
         mListView.setAdapter(mAdapter);
-
     }
 
     public void onClick(View v) {
@@ -252,6 +256,14 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_back:
                 finish();
                 break;
+            case R.id.blank:
+                if (panel_add_rl.isShown()) {
+                    panel_add_rl.setVisibility(View.GONE);
+                } break;
+            case R.id.et_sendmessage:
+                if (panel_add_rl.isShown()) {
+                    panel_add_rl.setVisibility(View.GONE);
+                } break;
         }
     }
 

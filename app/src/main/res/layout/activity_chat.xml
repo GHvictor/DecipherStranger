@@ -152,4 +152,12 @@
         android:dividerHeight="5dp"
         android:scrollbarStyle="outsideOverlay"
         android:stackFromBottom="true" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:id="@+id/blank"
+        android:layout_below="@+id/rl_layout"
+        android:layout_above="@+id/input"/>
 </RelativeLayout>
