@@ -115,16 +115,30 @@ public class ConversationPageActivity extends BaseActivity {
             String userAccount = (String) list.get(position).get(MyStatic.CONVERSATION_ACCOUNT);
             String userName = (String) list.get(position).get(MyStatic.CONVERSATION_NAME);
             Bitmap userPhoto = (Bitmap) list.get(position).get(MyStatic.CONVERSATION_PORTRAIT);
+            String messageCount = (String) list.get(position).get(MyStatic.CONVERSATION_COUNT);
 
             Bundle bundle = new Bundle();
             bundle.putString("userName",userName);
             bundle.putString("userAccount", userAccount);
             bundle.putParcelable("userPhoto", userPhoto);
-
+            
+            if (messageCount == null) {
+                sendDecreaseToMainTab(0);
+            } else {
+                sendDecreaseToMainTab(Integer.parseInt(messageCount));
+            }
+            
             Intent intent = new Intent(ConversationPageActivity.this, ChatMsgActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
         }
+    }
+    
+    private void sendDecreaseToMainTab(int number) {
+        Intent intent = new Intent("com.android.decipherstranger.MESSAGE");
+        intent.putExtra("Decrease", "Decrease");
+        intent.putExtra("DecreaseCount", number);
+        sendBroadcast(intent);
     }
 
     private void registerBroadcas() {
@@ -186,10 +200,6 @@ public class ConversationPageActivity extends BaseActivity {
             simpleAdapter.notifyDataSetChanged();
             dataList.setAdapter(simpleAdapter);
         }
-    }
-    
-    private String timeToString(String time) {
-        return time.replace(':', '-');
     }
 
 }

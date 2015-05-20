@@ -350,59 +350,66 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
-                Contacts receiveMsg = new Contacts();
-                User contact;
-                ContactsList contactInfo = new ContactsList(helper.getWritableDatabase());
-                contact = contactInfo.getInfo(intent.getStringExtra("reSender"));
-                System.out.println(contact.getUsername() + "++++" + contact.getPortrait());
-                receiveMsg.setAccount(intent.getStringExtra("reSender"));
-                receiveMsg.setUsername(contact.getUsername());
-                receiveMsg.setPortrait(contact.getPortrait());
-                receiveMsg.setDatetime(intent.getStringExtra("reDate"));
-                receiveMsg.setWho(1);
-                switch (intent.getIntExtra("msgType", 0)){
-                    case TEXT_MESSAGE:
-                        receiveMsg.setTimeLen("");
-                        receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                        receiveMsg.setType(TEXT_MESSAGE);
-                        writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                        writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
-                                receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), receiveMsg.getType());
-                        break;
-                    case VOICE_MESSAGE:
-                        receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
-                        File file = ChangeUtils.toFile(intent.getStringExtra("reMessage"),getDir(),getFileName());
-                        receiveMsg.setMessage(file.getAbsolutePath());
-                        System.out.println("语音" + file.getAbsolutePath());
-                        receiveMsg.setType(VOICE_MESSAGE);
-                        writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                        writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
-                                receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(),receiveMsg.getType());
-                        break;
-                    case PHOTO_MESSAGE:
-                        receiveMsg.setTimeLen("");
-                        receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                        receiveMsg.setType(PHOTO_MESSAGE);
-                        writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                        writeChatLog.insert(receiveMsg.getAccount(),receiveMsg.getWho(),receiveMsg.getMessage(),
-                                receiveMsg.getTimeLen(),getDate(),receiveMsg.getType());
-                        break;
+                if (intent.getStringExtra("Decrease") != null && intent.getStringExtra("Decrease").equals("Decrease")) {
+                    System.out.println("### A");
+                    application.setUnReadMessage(application.getUnReadMessage() - intent.getIntExtra("DecreaseCount", 0));
+                    setUnReadMessage(application.getUnReadMessage());
+                } else {
+                    System.out.println("### B");
+                    Contacts receiveMsg = new Contacts();
+                    User contact;
+                    ContactsList contactInfo = new ContactsList(helper.getWritableDatabase());
+                    contact = contactInfo.getInfo(intent.getStringExtra("reSender"));
+                    System.out.println(contact.getUsername() + "++++" + contact.getPortrait());
+                    receiveMsg.setAccount(intent.getStringExtra("reSender"));
+                    receiveMsg.setUsername(contact.getUsername());
+                    receiveMsg.setPortrait(contact.getPortrait());
+                    receiveMsg.setDatetime(intent.getStringExtra("reDate"));
+                    receiveMsg.setWho(1);
+                    switch (intent.getIntExtra("msgType", 0)) {
+                        case TEXT_MESSAGE:
+                            receiveMsg.setTimeLen("");
+                            receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                            receiveMsg.setType(TEXT_MESSAGE);
+                            writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                            writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
+                                    receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), receiveMsg.getType());
+                            break;
+                        case VOICE_MESSAGE:
+                            receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
+                            File file = ChangeUtils.toFile(intent.getStringExtra("reMessage"), getDir(), getFileName());
+                            receiveMsg.setMessage(file.getAbsolutePath());
+                            System.out.println("语音" + file.getAbsolutePath());
+                            receiveMsg.setType(VOICE_MESSAGE);
+                            writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                            writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
+                                    receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), receiveMsg.getType());
+                            break;
+                        case PHOTO_MESSAGE:
+                            receiveMsg.setTimeLen("");
+                            receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                            receiveMsg.setType(PHOTO_MESSAGE);
+                            writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                            writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(), receiveMsg.getMessage(),
+                                    receiveMsg.getTimeLen(), getDate(), receiveMsg.getType());
+                            break;
+                    }
+                    application.setUnReadMessage(application.getUnReadMessage() + 1);
+                    setUnReadMessage(application.getUnReadMessage());
+                    ConversationList conversationList = new ConversationList(helper.getWritableDatabase());
+                    conversationList.create(receiveMsg.getAccount(), receiveMsg.getUsername(), receiveMsg.getPortrait());
+                    Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
+                    it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
+                    it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
+                    if (receiveMsg.getType() == VOICE_MESSAGE) {
+                        it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
+                    } else if (receiveMsg.getType() == TEXT_MESSAGE) {
+                        it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
+                    } else {
+                        it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[图片]");
+                    }
+                    sendBroadcast(it);
                 }
-                application.setUnReadMessage(application.getUnReadMessage() + 1);
-                setUnReadMessage(application.getUnReadMessage());
-                ConversationList conversationList = new ConversationList(helper.getWritableDatabase());
-                conversationList.create(receiveMsg.getAccount(), receiveMsg.getUsername(),  receiveMsg.getPortrait());
-                Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
-                it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
-                it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
-                if (receiveMsg.getType() == VOICE_MESSAGE){
-                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
-                }else if (receiveMsg.getType() == TEXT_MESSAGE){
-                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
-                }else{
-                    it.putExtra(MyStatic.CONVERSATION_MESSAGE,"[图片]");
-                }
-                sendBroadcast(it);
             } else {
                 Toast.makeText(context, "接收失败？！", Toast.LENGTH_SHORT).show();
             }
