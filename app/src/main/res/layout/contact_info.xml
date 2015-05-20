@@ -151,14 +151,17 @@
         android:layout_height="fill_parent"
         android:background="@color/grey"
         android:orientation="vertical">
+        
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dip"
+            android:layout_marginTop="40dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginBottom="20dip"
             android:textSize="15dip"
             android:text="发送消息"
-            android:id="@+id/send_message"
-            android:background="@null"/>
+            android:id="@+id/send_message"/>
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -166,7 +169,7 @@
             android:layout_marginRight="20dip"
             android:textSize="15dip"
             android:text="删除好友"
-            android:id="@+id/delete_friend"
-            android:background="@null"/>
+            android:id="@+id/delete_friend"/>
     </LinearLayout>
+    
 </LinearLayout>
