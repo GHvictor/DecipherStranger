@@ -60,6 +60,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
 
     //写入本地缓存聊天记录
     private ChatRecord writeChatLog;
+    private ContactsList contactsList;
     private SQLiteOpenHelper helper = null;
     private MyApplication application = null;
     private ChatBroadcastReceiver receiver = null;
@@ -410,14 +411,20 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                     }
                     sendBroadcast(it);
                 }
-            } else {
-                Toast.makeText(context, "接收失败？！", Toast.LENGTH_SHORT).show();
-            }
-            if(intent.getAction().equals("com.android.decipherstranger.ADDFRIEND")){
+            } else if (intent.getAction().equals("com.android.decipherstranger.ADDFRIEND")){
                 //Todo reAccount rePhoto reGender reName
+
+
             }
-            if(intent.getAction().equals("com.android.decipherstranger.DELFRIEND")){
+            else if(intent.getAction().equals("com.android.decipherstranger.DELFRIEND")){
                 //Todo reAccount就是要删的
+                writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                writeChatLog.delete(intent.getStringExtra("reAccount"));
+                contactsList = new ContactsList(helper.getWritableDatabase());
+                contactsList.delete(intent.getStringExtra("reAccount"));
+            }
+           else{
+                Toast.makeText(context, "接收失败？！", Toast.LENGTH_SHORT).show();
             }
         }
     }

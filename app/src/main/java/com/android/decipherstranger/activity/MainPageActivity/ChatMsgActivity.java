@@ -156,16 +156,13 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 Contacts recorderMessage = new Contacts();
                 recorderMessage.setAccount(currentUserAccount);
                 recorderMessage.setUsername(application.getName());
+                recorderMessage.setPortrait(application.getPortrait());
                 recorderMessage.setDatetime(time);
                 recorderMessage.setWho(SEND_TO_MSG);
                 recorderMessage.setType(VOICE_MESSAGE);
+                recorderMessage.setMessage(filePath);
                 File file = new File(filePath);
-                System.out.println("语音" + ChangeUtils.toBinary(file));
-                String s = ChangeUtils.readStream(file);
-                File file1 = ChangeUtils.stringFile(s,getDir());
                 recorderMessage.setTimeLen(Math.round(seconds) + "");
-                recorderMessage.setMessage(file1.getAbsolutePath());
-                System.out.println("+++++++++" + file1.getAbsolutePath());
                 mDataArrays.add(recorderMessage);
                 mAdapter.notifyDataSetChanged();
                 mListView.setSelection(mListView.getCount() - 1);
@@ -465,7 +462,6 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                         receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
                         File file = ChangeUtils.toFile(intent.getStringExtra("reMessage"),getDir(),getFileName());
                         receiveMsg.setMessage(file.getAbsolutePath());
-                        System.out.println("语音" + file.getAbsolutePath());
                         receiveMsg.setType(VOICE_MESSAGE);
                         writeChatLog = new ChatRecord(helper.getWritableDatabase());
                         writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
