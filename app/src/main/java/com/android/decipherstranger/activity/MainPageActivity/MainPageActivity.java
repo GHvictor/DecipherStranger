@@ -359,21 +359,33 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                 receiveMsg.setPortrait(contact.getPortrait());
                 receiveMsg.setDatetime(intent.getStringExtra("reDate"));
                 receiveMsg.setWho(1);
-                if(intent.getBooleanExtra("isVoice", false)) {
-                    //Todo 用来写语音接收处理
-                    receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
-                    File file = ChangeUtils.toFile(intent.getStringExtra("reMessage"),getDir(),getFileName());
-                    receiveMsg.setMessage(file.getAbsolutePath());
-                    receiveMsg.setType(VOICE_MESSAGE);
-                    writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                    writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(),
-                            receiveMsg.getTimeLen(), getDate(), VOICE_MESSAGE);
-                }else {
-                    receiveMsg.setTimeLen("");
-                    receiveMsg.setMessage(intent.getStringExtra("reMessage"));
-                    receiveMsg.setType(TEXT_MESSAGE);
-                    writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                    writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), TEXT_MESSAGE);
+                switch (intent.getIntExtra("msgType", 0)){
+                    case TEXT_MESSAGE:
+                        receiveMsg.setTimeLen("");
+                        receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                        receiveMsg.setType(TEXT_MESSAGE);
+                        writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                        writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
+                                receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), receiveMsg.getType());
+                        break;
+                    case VOICE_MESSAGE:
+                        receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
+                        File file = ChangeUtils.toFile(intent.getStringExtra("reMessage"),getDir(),getFileName());
+                        receiveMsg.setMessage(file.getAbsolutePath());
+                        System.out.println("语音" + file.getAbsolutePath());
+                        receiveMsg.setType(VOICE_MESSAGE);
+                        writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                        writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
+                                receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(),receiveMsg.getType());
+                        break;
+                    case PHOTO_MESSAGE:
+                        receiveMsg.setTimeLen("");
+                        receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                        receiveMsg.setType(PHOTO_MESSAGE);
+                        writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                        writeChatLog.insert(receiveMsg.getAccount(),receiveMsg.getWho(),receiveMsg.getMessage(),
+                                receiveMsg.getTimeLen(),getDate(),receiveMsg.getType());
+                        break;
                 }
                 application.setUnReadMessage(application.getUnReadMessage() + 1);
                 setUnReadMessage(application.getUnReadMessage());

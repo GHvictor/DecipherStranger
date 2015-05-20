@@ -149,7 +149,6 @@ public class ClientListenThread extends Thread {
                             clContext.sendBroadcast(itAddFriend);
                             break;
                         case GlobalMsgUtils.msgVoice:
-                            System.out.println("daacallll");
                             Intent itVoice = new Intent("com.android.decipherstranger.MESSAGE");
                             itVoice.putExtra("reMessage", jsonObj.getString("re_message"));
                             itVoice.putExtra("reSender", jsonObj.getString("re_sender"));
@@ -161,6 +160,7 @@ public class ClientListenThread extends Thread {
                             System.out.println("发送成功");
                             break;
                         case GlobalMsgUtils.msgNearBy:
+                            System.out.println("daacallll");
                             Intent itNearBy = new Intent("com.android.decipherstranger.NEARBY");
                             if(jsonObj.getString("re_message").equals(MyStatic.resultFalse)){
                                 itNearBy.putExtra("reResult", false);

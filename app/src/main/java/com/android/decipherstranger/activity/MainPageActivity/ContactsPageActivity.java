@@ -73,7 +73,6 @@ public class ContactsPageActivity extends BaseActivity {
         initData();
         friendBroadcas();
         friendsRequestCount(NORMAL);
-        //networkRequest();
     }
     @Override
     protected void onStart() {

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +14,11 @@ import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.activity.SubpageActivity.UpdateNameActivity;
+import com.android.decipherstranger.db.ChatRecord;
+import com.android.decipherstranger.db.ContactsList;
 import com.android.decipherstranger.db.ConversationList;
+import com.android.decipherstranger.db.DATABASE;
+import com.android.decipherstranger.entity.Contacts;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
 
@@ -45,6 +50,11 @@ public class UserPageActivity extends BaseActivity {
     private MyApplication application = null;
     private UserBroadcastReceiver receiver = null;
     private ImageView PopPortrait = null;
+
+    private SQLiteOpenHelper helper = null;
+    private ChatRecord chatRecord;
+    private ContactsList contacts;
+    private ConversationList conversationList;
     
     private ImageView portraitImage = null;
     private TextView nameText = null;
@@ -54,6 +64,7 @@ public class UserPageActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.helper = new DATABASE(this);
         super.setContentView(R.layout.activity_main_user);
         this.registerBroadcas();
         this.init();
@@ -94,11 +105,18 @@ public class UserPageActivity extends BaseActivity {
                 SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_USER);
                 sharedPreferencesUtils.clear();
                 sharedPreferencesUtils.set(MyStatic.USER_LOGIN, false);
+                chatRecord = new ChatRecord(this.helper.getWritableDatabase());
+                chatRecord.clear();
+                contacts = new ContactsList(this.helper.getWritableDatabase());
+                contacts.clear();
+                conversationList = new ConversationList(this.helper.getWritableDatabase());
+                conversationList.clear();
                 MyApplication.getInstance().exit();
                 this.finish();
                 break;
         }
     }
+
 
     private void registerBroadcas() {
         //动态方式注册广播接收者
