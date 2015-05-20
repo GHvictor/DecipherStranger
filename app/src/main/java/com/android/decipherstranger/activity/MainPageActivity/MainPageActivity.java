@@ -358,7 +358,17 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                 if (intent.getStringExtra("Decrease") != null && intent.getStringExtra("Decrease").equals("Decrease")) {
                     application.setUnReadMessage(application.getUnReadMessage() - intent.getIntExtra("DecreaseCount", 0));
                     setUnReadMessage(application.getUnReadMessage());
-                } else {
+                } else if(intent.getStringExtra("Friend") !=null && intent.getStringExtra("Friend").equals("Friend")) {
+                    if (intent.getStringExtra("Del") != null && intent.getStringExtra("Del").equals("Del")){
+                        //Todo reAccount就是要删的
+                        writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                        writeChatLog.delete(intent.getStringExtra("reAccount"));
+                        contactsList = new ContactsList(helper.getWritableDatabase());
+                        contactsList.delete(intent.getStringExtra("reAccount"));
+                    }else {
+                        //Todo reAccount rePhoto reGender reName
+                    }
+                } else{
                     Contacts receiveMsg = new Contacts();
                     User contact;
                     ContactsList contactInfo = new ContactsList(helper.getWritableDatabase());
@@ -413,18 +423,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                     }
                     sendBroadcast(it);
                 }
-            } else if (intent.getAction().equals("com.android.decipherstranger.ADDFRIEND")){
-                //Todo reAccount rePhoto reGender reName
-
-            }
-            else if(intent.getAction().equals("com.android.decipherstranger.DELFRIEND")){
-                //Todo reAccount就是要删的
-                writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                writeChatLog.delete(intent.getStringExtra("reAccount"));
-                contactsList = new ContactsList(helper.getWritableDatabase());
-                contactsList.delete(intent.getStringExtra("reAccount"));
-            }
-           else{
+            } else{
                 Toast.makeText(context, "接收失败？！", Toast.LENGTH_SHORT).show();
             }
         }
