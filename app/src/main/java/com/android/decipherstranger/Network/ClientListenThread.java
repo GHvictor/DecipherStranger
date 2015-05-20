@@ -116,6 +116,7 @@ public class ClientListenThread extends Thread {
                                 itFriend.putExtra("reResult", true);
                                 itFriend.putExtra("reAccount", jsonObj.getString("re_account"));
                                 itFriend.putExtra("reName", jsonObj.getString("re_name"));
+                                itFriend.putExtra("reGender", jsonObj.getString("re_gender"));
                                 itFriend.putExtra("rePhoto", jsonObj.getString("re_photo"));
                             }
                             else{

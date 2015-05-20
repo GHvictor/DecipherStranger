@@ -1,8 +1,10 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -21,6 +23,8 @@ import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.MainPageActivity.ChatMsgActivity;
+import com.android.decipherstranger.db.ChatRecord;
+import com.android.decipherstranger.db.ContactsList;
 import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.entity.User;
@@ -57,33 +61,44 @@ public class FriendInfoActivity extends BaseActivity {
     **/
     private SQLiteOpenHelper helper = null;
     private ConversationList conversationList = null;
+    private ContactsList contactsList= null;
+    private ChatRecord chatRecord = null;
     private String userAccount = null;
     private String userName = null;
     private Bitmap userPhoto = null;
     private MyApplication application = null;
-    private BroadcastReceiver receiver = null;
+    private ShowBroadcastReceiver receiver = null;
+    private AlertDialog.Builder builder = null;
+    private User presonalInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_info);
+        showBroadcas();
+        initData();
+        SendInf();
         application = (MyApplication) getApplication();
         initView();
-        initData();
         initListener();
     }
-/*
+
     @Override
-    protected void onDestroy() {
-       // super.unregisterReceiver(FriendInfoActivity.this.receiver);
+    protected void onDestroy(){
+        super.unregisterReceiver(FriendInfoActivity.this.receiver);
         super.onDestroy();
-    }*/
+    }
 
     private void initData() {
         friendInfo = this.getIntent().getExtras();
         this.userAccount = friendInfo.getString("userAccount");
         this.userPhoto = friendInfo.getParcelable("userPhoto");
         this.userName = friendInfo.getString("userName");
+        presonalInfo = new User();
+        presonalInfo.setUserSex(friendInfo.getString("userSex"));
+    }
+
+    private void showInfo(){
         friendAccount.setText(userAccount);
         if (friendInfo.getString("userSex") == MALE){
             friendSex.setImageResource(R.drawable.ic_sex_male);
@@ -93,10 +108,9 @@ public class FriendInfoActivity extends BaseActivity {
         Drawable drawable = new BitmapDrawable(getResources(),userPhoto);
         friendPhoto.setImageDrawable(drawable);
         friendName.setText(userName);
-        friendAtavar.setText(friendInfo.getString("userAtavar"));
-        friendEmail.setText(friendInfo.getString("userEmail"));
-        friendBirth.setText(friendInfo.getString("userBirth"));
-        friendPhone.setText(friendInfo.getString("userPhone"));
+        friendEmail.setText(presonalInfo.getEmail());
+        friendBirth.setText(presonalInfo.getBirth());
+        friendPhone.setText(presonalInfo.getPhone());
     }
 
     private void initView() {
@@ -111,6 +125,13 @@ public class FriendInfoActivity extends BaseActivity {
         friendPhone = (TextView) findViewById(R.id.friend_phone);
         sendMessage = (Button) findViewById(R.id.send_message);
         deleteFriend = (Button) findViewById(R.id.delete_friend);
+        builder =  new AlertDialog.Builder(FriendInfoActivity.this);
+    }
+
+    private void reFresh(){
+        Intent intent = new Intent("com.android.decipherstranger.FRIEND");
+        intent.putExtra("reFresh","reFresh");
+        sendBroadcast(intent);
     }
     
     private void initListener() {
@@ -132,7 +153,26 @@ public class FriendInfoActivity extends BaseActivity {
         deleteFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                builder.setTitle("你确定要删除" + userName + "吗?");
+                Drawable drawable = new BitmapDrawable(getResources(),userPhoto);
+                builder.setIcon(drawable);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //这里添加点击确定后的逻辑
+//                        SendMsg();
+                        chatRecord = new ChatRecord(helper.getWritableDatabase());
+                        chatRecord.delete(userAccount);
+                        contactsList = new ContactsList(helper.getWritableDatabase());
+                        contactsList.delete(userAccount);
+                        reFresh();
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //这里添加点击确定后的逻辑
+                    }
+                });
+                builder.create().show();
             }
         });
     }
@@ -177,6 +217,10 @@ public class FriendInfoActivity extends BaseActivity {
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals("com.android.decipherstranger.SHOWFRI")){
                 //Todo reEmail rePhone reBirth
+                presonalInfo.setEmail(intent.getStringExtra("reEmail"));
+                presonalInfo.setBirth(intent.getStringExtra("reBirth"));
+                presonalInfo.setPhone(intent.getStringExtra("rePhone"));
+                showInfo();
             }
         }
     }

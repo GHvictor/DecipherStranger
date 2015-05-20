@@ -56,7 +56,7 @@ public class ContactsPageActivity extends BaseActivity {
     private ContactsList readerContactLog;
     private ContactsList writeContactLog;
 
-    private ArrayList<User> sereverData;
+    private ArrayList<User> reFresh;
     private ArrayList<User>mContactList;
     private CharacterParser characterParser;
     private PinyinComparator pinyinComparator;
@@ -150,10 +150,6 @@ public class ContactsPageActivity extends BaseActivity {
                 bundle.putString("userName",mContactList.get(position).getUsername());
                 bundle.putString("userSex",mContactList.get(position).getUserSex());
                 bundle.putString("userAccount",mContactList.get(position).getAccount());
-                bundle.putString("userAtavar",mContactList.get(position).getUsername());
-                bundle.putString("userEmail",mContactList.get(position).getEmail());
-                bundle.putString("userBirth",mContactList.get(position).getBirth());
-                bundle.putString("userPhone",mContactList.get(position).getPhone());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -257,25 +253,43 @@ public class ContactsPageActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
-                if(intent.getBooleanExtra("reResult", false)) {
-                    User contact = new User();
-                    contact.setAccount(intent.getStringExtra("reAccount"));
-                    contact.setUsername(intent.getStringExtra("reName"));
-                    contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
-                    mContactList.add(contact);
-                    writeContactLog = new ContactsList(helper.getWritableDatabase());
-                    writeContactLog.insert(contact);
-                }else if(intent.getBooleanExtra("isfinish", false)) {
-                    mContactList = filledData(mContactList);
-                    Collections.sort(mContactList, pinyinComparator);
-                    if (adapter == null) {
-                        adapter = new SortAdapter(ContactsPageActivity.this, mContactList);
-                        contactListView.setAdapter(adapter);
-                    } else {
-                        adapter.updateListView(mContactList);
+                if (intent.getStringExtra("reFresh")!=null && intent.getStringExtra("reFresh").equals("reFresh")){
+                    reFresh = new ArrayList<>();
+                    readerContactLog = new ContactsList(helper.getReadableDatabase());
+                    reFresh = readerContactLog.getUserList();
+                    reFresh = filledData(reFresh);
+                    if(!reFresh.isEmpty()){
+                        Collections.sort(reFresh, pinyinComparator);
+                        if (adapter == null){
+                            adapter = new SortAdapter(context,reFresh);
+                            contactListView.setAdapter(adapter);
+                        }else {
+                            adapter.updateListView(reFresh);
+                        }
                     }
+
                 }else {
-                    Toast.makeText(context, "没有好友=_=！！！", Toast.LENGTH_SHORT).show();
+                    if(intent.getBooleanExtra("reResult", false)) {
+                        User contact = new User();
+                        contact.setAccount(intent.getStringExtra("reAccount"));
+                        contact.setUsername(intent.getStringExtra("reName"));
+                        contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+                        contact.setUserSex(intent.getStringExtra("reGender"));
+                        mContactList.add(contact);
+                        writeContactLog = new ContactsList(helper.getWritableDatabase());
+                        writeContactLog.insert(contact);
+                    }else if(intent.getBooleanExtra("isfinish", false)) {
+                        mContactList = filledData(mContactList);
+                        Collections.sort(mContactList, pinyinComparator);
+                        if (adapter == null) {
+                            adapter = new SortAdapter(ContactsPageActivity.this, mContactList);
+                            contactListView.setAdapter(adapter);
+                        } else {
+                            adapter.updateListView(mContactList);
+                        }
+                    }else {
+                        Toast.makeText(context, "没有好友=_=！！！", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }

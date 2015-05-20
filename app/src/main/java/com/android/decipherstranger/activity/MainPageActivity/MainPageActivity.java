@@ -343,6 +343,13 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         return UUID.randomUUID().toString()+".amr";
     }
 
+    private void reFreshContact(){
+        Intent intent = new Intent("com.android.decipherstranger.FRIEND");
+        intent.putExtra("reFresh","reFresh");
+        sendBroadcast(intent);
+    }
+
+
     private void chatBroadcas() {
         //动态方式注册广播接收者
         this.receiver = new ChatBroadcastReceiver();
@@ -365,8 +372,16 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                         writeChatLog.delete(intent.getStringExtra("reAccount"));
                         contactsList = new ContactsList(helper.getWritableDatabase());
                         contactsList.delete(intent.getStringExtra("reAccount"));
+                        reFreshContact();
                     }else {
                         //Todo reAccount rePhoto reGender reName
+                        contactsList = new ContactsList(helper.getWritableDatabase());
+                        User contact = new User();
+                        contact.setAccount(intent.getStringExtra("reAccount"));
+                        contact.setUsername(intent.getStringExtra("reName"));
+                        contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+                        contactsList.insert(contact);
+                        reFreshContact();
                     }
                 } else{
                     Contacts receiveMsg = new Contacts();

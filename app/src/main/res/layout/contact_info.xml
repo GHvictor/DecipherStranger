@@ -25,8 +25,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dip"
                     android:textSize="18dip"
-                    android:id="@+id/friend_name"
-                    android:text="蔡雨桐"/>
+                    android:id="@+id/friend_name"/>
                 <ImageView
                     android:layout_width="20dip"
                     android:layout_height="20dip"
@@ -48,8 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dip"
-                    android:id="@+id/friend_account"
-                    android:text="18866642"/>
+                    android:id="@+id/friend_account" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -66,8 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
-            android:id="@+id/friend_atavar"
-            android:text="我会好好的"/>
+            android:id="@+id/friend_atavar"/>
     </LinearLayout>
     <view
         android:layout_width="fill_parent"
@@ -89,8 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
-            android:id="@+id/friend_email"
-            android:text="644948528@qq.com"/>
+            android:id="@+id/friend_email"/>
     </LinearLayout>
     <view
         android:layout_width="fill_parent"
@@ -112,8 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
-            android:id="@+id/friend_birth"
-            android:text="1994-02-18"/>
+            android:id="@+id/friend_birth"/>
     </LinearLayout>
     <view
         android:layout_width="fill_parent"
@@ -135,8 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
-            android:id="@+id/friend_phone"
-            android:text="1555555"/>
+            android:id="@+id/friend_phone"/>
     </LinearLayout>
     <view
         android:layout_width="fill_parent"
