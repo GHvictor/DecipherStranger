@@ -58,7 +58,7 @@ public class ShowMapActivity extends BaseActivity {
     private ProgressDialog progressDialog = null;
     private double mLatitude;
     private double mLongtitude;
-    private ArrayList<NearbyUserInfo>nearbyInfo;
+    private ArrayList<NearbyUserInfo>nearbyInfo = new ArrayList<>();
     private ShowMapBroadcastReceiver receiver = null;
 
     private Context context;
@@ -274,28 +274,32 @@ public class ShowMapActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.NEARBY")) {
-                nearbyInfo = new ArrayList<>();
                 if(intent.getBooleanExtra("reResult", false)) {
                     //Todo 数据接收
+                    System.out.println("+++++++++++++++++++++++AAAAAAAA");
                     NearbyUserInfo info = new NearbyUserInfo();
-                    info.setUserAccount(intent.getStringExtra("reUserAccount"));
-                    info.setUserName(intent.getStringExtra("reUserName"));
+                    info.setUserAccount(intent.getStringExtra("reAccount"));
+                    info.setUserName(intent.getStringExtra("reName"));
                     info.setImgId(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
-                    info.setSex(intent.getStringExtra("reGender"));
+                    info.setSex(intent.getIntExtra("reGender", 1) + "");
                     info.setLatitude(Double.parseDouble(intent.getStringExtra("reLatitude")));
                     info.setLongtitude(Double.parseDouble(intent.getStringExtra("reLongtitude")));
                     info.setDistance(intent.getStringExtra("reDistance"));
                     nearbyInfo.add(info);
                     System.out.println("账号"+info.getUserAccount()+"姓名"+info.getUserName()+"距离"+info.getDistance());
                 }else if(intent.getBooleanExtra("isfinish", false)){
+                    System.out.println("aaaaaaaaaaaaa!");
                     //Todo 数据处理
                     //覆盖物相关
                     initMarker();
+                    System.out.println("==============!");
                     markerOnclick();
+                    System.out.println("+++++++++++++!");
                     progressDialog.dismiss();
                 }else{
                     //Todo 没有人
                     Toast.makeText(context, "竟然没有人:)", Toast.LENGTH_SHORT).show();
+                    System.out.println("-------------!");
                     progressDialog.dismiss();
                     Toast.makeText(ShowMapActivity.this, "附近好像还没有人哦( ⊙ o ⊙ )！啦啦啦~~", Toast.LENGTH_SHORT).show();
                 }

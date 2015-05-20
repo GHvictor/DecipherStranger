@@ -54,6 +54,10 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     private ImageView image1, image2, image3, image4;
     private BadgeView badgeView ;
 
+    private static final int TEXT_MESSAGE = 0;
+    private static final int VOICE_MESSAGE = 1;
+    private static final int PHOTO_MESSAGE = 2;
+
     //写入本地缓存聊天记录
     private ChatRecord writeChatLog;
     private SQLiteOpenHelper helper = null;
@@ -360,23 +364,30 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                     receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
                     File file = ChangeUtils.toFile(intent.getStringExtra("reMessage"),getDir(),getFileName());
                     receiveMsg.setMessage(file.getAbsolutePath());
+                    receiveMsg.setType(VOICE_MESSAGE);
+                    writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                    writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(),
+                            receiveMsg.getTimeLen(), getDate(), VOICE_MESSAGE);
                 }else {
                     receiveMsg.setTimeLen("");
                     receiveMsg.setMessage(intent.getStringExtra("reMessage"));
+                    receiveMsg.setType(TEXT_MESSAGE);
+                    writeChatLog = new ChatRecord(helper.getWritableDatabase());
+                    writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), TEXT_MESSAGE);
                 }
                 application.setUnReadMessage(application.getUnReadMessage() + 1);
                 setUnReadMessage(application.getUnReadMessage());
-                writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                writeChatLog.insert(receiveMsg.getAccount(), 1, receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), 0);
                 ConversationList conversationList = new ConversationList(helper.getWritableDatabase());
                 conversationList.create(receiveMsg.getAccount(), receiveMsg.getUsername(),  receiveMsg.getPortrait());
                 Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
                 it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
                 it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
-                if (receiveMsg.getMessage().contains(".amr")){
+                if (receiveMsg.getType() == VOICE_MESSAGE){
                     it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
-                }else {
+                }else if (receiveMsg.getType() == TEXT_MESSAGE){
                     it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
+                }else{
+                    it.putExtra(MyStatic.CONVERSATION_MESSAGE,"[图片]");
                 }
                 sendBroadcast(it);
             } else {

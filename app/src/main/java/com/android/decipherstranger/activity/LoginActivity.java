@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,6 +29,7 @@ import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.MainPageActivity.ChatMsgActivity;
 import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
+import com.android.decipherstranger.db.ContactsList;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.UserTabOperate;
 import com.android.decipherstranger.entity.User;
@@ -49,6 +51,7 @@ public class LoginActivity extends BaseActivity {
     private StringUtils stringUtils = null;
     private SQLiteOpenHelper helper = null;
     private UserTabOperate userInfo = null;
+    private ContactsList contactCach = null;
     private LoginBroadcastReceiver receiver = null;
     private ProgressDialog progressDialog = null;
 
@@ -172,6 +175,7 @@ public class LoginActivity extends BaseActivity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
+
 /*            Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
             startActivity(it);
             finish();*/

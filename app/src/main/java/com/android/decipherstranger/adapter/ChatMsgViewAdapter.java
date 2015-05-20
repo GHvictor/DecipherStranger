@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.entity.Contacts;
+import com.android.decipherstranger.util.ChangeUtils;
+import com.android.decipherstranger.util.ImageCompression;
 import com.android.decipherstranger.util.MediaManager;
 
 public class ChatMsgViewAdapter extends BaseAdapter {
@@ -32,6 +34,8 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 
 	private static final String TAG = ChatMsgViewAdapter.class.getSimpleName();
 	private static final int IS_COM_MESSAGE = 1;
+	private static final int TEXT_MESSAGE = 0;
+	private static final int VOICE_MESSAGE = 1;
 	private List<Contacts> coll;
 
 	private Context ctx;
@@ -97,17 +101,16 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 			viewHolder = new ViewHolder();
 			viewHolder.tvSendTime = (TextView) convertView
 					.findViewById(R.id.tv_sendtime);
-			viewHolder.tvUserName = (TextView) convertView
-					.findViewById(R.id.tv_username);
 			viewHolder.ivUserPhoto = (ImageView) convertView.
 					findViewById(R.id.iv_userhead);
 			viewHolder.tvContent = (TextView) convertView
 					.findViewById(R.id.tv_chatcontent);
+			viewHolder.photoMessage = (ImageView) convertView
+					.findViewById(R.id.tv_photo_message);
 			viewHolder.tvTime = (TextView) convertView
 					.findViewById(R.id.tv_time);
 			viewHolder.mLength = convertView
 					.findViewById(R.id.recorder_length);
-			viewHolder.isComMsg = isComMsg;
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
@@ -115,18 +118,26 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 
 		viewHolder.tvSendTime.setText(entity.getDatetime());
 
-		if (entity.getMessage().contains(".amr")) {
-            int timeLength = Integer.parseInt(entity.getTimeLen());
-			viewHolder.tvContent.setVisibility(View.GONE);
-			viewHolder.mLength.setVisibility(View.VISIBLE);
-            viewHolder.tvTime.setText(timeLength + "\"");
-			ViewGroup.LayoutParams lp = viewHolder.mLength.getLayoutParams();
-			lp.width = (mMinItemWidth + (mMaxItemWidth / 60 * timeLength));
-		} else {
+		if (entity.getType() == TEXT_MESSAGE) {
 			viewHolder.tvContent.setVisibility(View.VISIBLE);
 			viewHolder.mLength.setVisibility(View.GONE);
+			viewHolder.photoMessage.setVisibility(View.GONE);
 			viewHolder.tvContent.setText(entity.getMessage());
 			viewHolder.tvTime.setText("");
+		} else if (entity.getType() == VOICE_MESSAGE){
+			int timeLength = Integer.parseInt(entity.getTimeLen());
+			viewHolder.tvContent.setVisibility(View.GONE);
+			viewHolder.photoMessage.setVisibility(View.GONE);
+			viewHolder.mLength.setVisibility(View.VISIBLE);
+			viewHolder.tvTime.setText(timeLength + "\"");
+			ViewGroup.LayoutParams lp = viewHolder.mLength.getLayoutParams();
+			lp.width = (mMinItemWidth + (mMaxItemWidth / 60 * timeLength));
+		}else {
+			viewHolder.tvContent.setVisibility(View.GONE);
+			viewHolder.photoMessage.setVisibility(View.VISIBLE);
+			viewHolder.mLength.setVisibility(View.GONE);
+			viewHolder.tvTime.setText("");
+			viewHolder.photoMessage.setImageBitmap(ImageCompression.compressSimplify(ChangeUtils.toBitmap(entity.getMessage()),2.0f));
 		}
 		viewHolder.mLength.setOnClickListener(new OnClickListener() {
 			@Override
@@ -135,7 +146,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 					mAnimView.setBackgroundResource(R.drawable.adj);
 					mAnimView = null;
 				}
-				if (entity.getMessage().contains(".amr")) {
+				if (entity.getType() == VOICE_MESSAGE) {
 					mAnimView = v.findViewById(R.id.recorder_anim);
 					mAnimView.setBackgroundResource(R.drawable.play_anim);
 					AnimationDrawable anim = (AnimationDrawable) mAnimView.getBackground();
@@ -149,7 +160,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 				}
 			}
 		});
-		viewHolder.tvUserName.setText(entity.getUsername());
+		viewHolder.tvSendTime.setText(entity.getDatetime());
 		Drawable drawable = new BitmapDrawable(convertView.getResources(),entity.getPortrait());
 		viewHolder.ivUserPhoto.setImageDrawable(drawable);
 		return convertView;
@@ -157,11 +168,10 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 
 	static class ViewHolder {
 		public TextView tvSendTime;
-		public TextView tvUserName;
 		public TextView tvContent;
 		public TextView tvTime;
-		public int isComMsg;
 		public ImageView ivUserPhoto;
 		private View mLength;
+		private ImageView photoMessage;
 	}
 }

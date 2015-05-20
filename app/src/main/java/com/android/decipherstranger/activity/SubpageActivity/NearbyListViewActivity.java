@@ -55,7 +55,7 @@ public class NearbyListViewActivity extends BaseActivity {
     private MyApplication application = null;
     private ListView nearbyListView;
     private NearbyListViewAdapter adapter;
-    private ArrayList<NearbyUserInfo>nearbyUserInfos;
+    private ArrayList<NearbyUserInfo>nearbyUserInfos = new ArrayList<>();
     private NearbyBroadcastReceiver receiver = null;
     private LocationClient mLocationClient;
     private MyLocationListener mLocationListener;
@@ -70,7 +70,6 @@ public class NearbyListViewActivity extends BaseActivity {
         application = (MyApplication) getApplication();
         setContentView(R.layout.activity_nearby_listview);
         initLocation();
-        sendMsg();
         nearbyBroadcas();
     }
 
@@ -107,8 +106,6 @@ public class NearbyListViewActivity extends BaseActivity {
             mLongtitude = location.getLongitude();
             if (isFristIn){
                 sendMsg();
-                System.out.println("经度" + mLatitude);
-                System.out.println("纬度"+mLongtitude);
             }
         }
     }
@@ -161,14 +158,15 @@ public class NearbyListViewActivity extends BaseActivity {
             if (intent.getAction().equals("com.android.decipherstranger.NEARBY")) {
                 if(intent.getBooleanExtra("reResult", false)) {
                     NearbyUserInfo info = new NearbyUserInfo();
-                    info.setUserAccount(intent.getStringExtra("reUserAccount"));
-                    info.setUserName(intent.getStringExtra("reUserName"));
+                    info.setUserAccount(intent.getStringExtra("reAccount"));
+                    info.setUserName(intent.getStringExtra("reName"));
                     info.setImgId(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
-                    info.setSex(intent.getStringExtra("reGender"));
+                    info.setSex(intent.getIntExtra("reGender", 1) + "");
                     info.setLatitude(Double.parseDouble(intent.getStringExtra("reLatitude")));
                     info.setLongtitude(Double.parseDouble(intent.getStringExtra("reLongtitude")));
                     info.setDistance(intent.getStringExtra("reDistance"));
                     nearbyUserInfos.add(info);
+                    System.out.println("+++++++++" + info.getDistance());
                     //Todo 数据接收
                 }else if(intent.getBooleanExtra("isfinish", false)){
                     //Todo 数据处理
