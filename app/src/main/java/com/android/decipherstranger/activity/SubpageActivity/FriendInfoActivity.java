@@ -72,12 +72,12 @@ public class FriendInfoActivity extends BaseActivity {
         initData();
         initListener();
     }
-
+/*
     @Override
     protected void onDestroy() {
        // super.unregisterReceiver(FriendInfoActivity.this.receiver);
         super.onDestroy();
-    }
+    }*/
 
     private void initData() {
         friendInfo = this.getIntent().getExtras();
