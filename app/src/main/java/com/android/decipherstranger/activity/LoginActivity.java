@@ -236,6 +236,7 @@ public class LoginActivity extends BaseActivity {
                     finish();
                 }
                 else{
+                    progressDialog.dismiss();
                     Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();
                 }
             }
