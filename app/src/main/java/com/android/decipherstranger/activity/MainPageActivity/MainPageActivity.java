@@ -90,6 +90,20 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         super.onDestroy();
     }
 
+    public void finish() {
+        this.moveTaskToBack(true);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            moveTaskToBack(true);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     private void initView() {
         this.textTab = (TextView) super.findViewById(R.id.textTab);
         this.image1 = (ImageView) super.findViewById(R.id.conversationImage);
@@ -310,16 +324,6 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         }
 
     }
-
-/*    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            moveTaskToBack(true);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }*/
 
     private String getDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

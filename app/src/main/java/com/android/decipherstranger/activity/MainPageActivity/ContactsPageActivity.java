@@ -96,7 +96,7 @@ public class ContactsPageActivity extends BaseActivity {
         super.onDestroy();
     }
     
-    @Override
+/*    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -106,7 +106,7 @@ public class ContactsPageActivity extends BaseActivity {
         }
         System.out.println("### TMD 这样是对的 2");
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
     
 
     private void initData() {

@@ -22,7 +22,7 @@ public class ServicePageActivity extends BaseActivity {
         super.setContentView(R.layout.activity_main_service);
 	}
 
-    @Override
+/*    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // TODO Auto-generated method stub
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -32,7 +32,7 @@ public class ServicePageActivity extends BaseActivity {
         }
         System.out.println("### TMD 这样是对的 3");
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
     
     public void morePageOnClick(View view) {
         switch (view.getId()) {
