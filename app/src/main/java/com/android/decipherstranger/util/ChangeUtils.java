@@ -32,12 +32,10 @@ import java.nio.channels.Channels;
 * //注释代表两种写法。
 * */
 public class ChangeUtils {
-    private byte[] buffer;
-
     /*
-        * toBinary 将Bitmap转为String
-        * @param bitmap 要转换的
-        * */
+     * toBinary 将Bitmap转为String
+     * @param bitmap 要转换的
+     * */
     public static String toBinary(Bitmap bitmap) {
         if (bitmap == null) {
             return "False";
@@ -61,7 +59,33 @@ public class ChangeUtils {
     * toBinary 将File转为String
     * @param file 要转换的
     * */
-    public static String toBinary(File file) {
+    public static String toBinary(File file){
+        String s = null;
+        byte[] buffer = new byte[1024];
+        int len = -1;
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file);
+            while ((len = inputStream.read(buffer)) != -1){
+                os.write(buffer, 0, len);
+            }
+            byte[] data = os.toByteArray();
+            s = new String(Base64.encode(data, Base64.DEFAULT));
+            os.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
+
+    /*
+    * readStream 将File转为String
+    * @param file 要转换的
+    * test不太好使
+    * */
+    public static String readStream(File file) {
         String s = null;
         int len = 0;
         ByteArrayOutputStream os = new ByteArrayOutputStream(1024);
@@ -82,36 +106,6 @@ public class ChangeUtils {
             e.printStackTrace();
         }
         return s;
-    }
-
-    public static String readStream(File file){
-        //File file = new File(path);
-        InputStream inStream = null;
-        try {
-            inStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        byte[] buffer = new byte[1024];
-        int len = -1;
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        try {
-            while ((len = inStream.read(buffer)) != -1)
-            {
-                outStream.write(buffer, 0, len);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        byte[] data = outStream.toByteArray();
-        String mImage = new String(Base64.encode(data,Base64.DEFAULT));
-        try {
-            outStream.close();
-            inStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return mImage;
     }
 
     /*
@@ -147,51 +141,5 @@ public class ChangeUtils {
             e.printStackTrace();
         }
         return file;
-    }
-
-    public static File stringFile(String res, String filePath)
-    {
-        boolean flag = true;
-        BufferedReader bufferedReader = null;
-        BufferedWriter bufferedWriter = null;
-        File distFile = new File(filePath);
-        try
-        {
-
-            if (!distFile.getParentFile().exists())
-                distFile.getParentFile().mkdirs();
-            bufferedReader = new BufferedReader(new StringReader(res));
-            bufferedWriter = new BufferedWriter(new FileWriter(distFile));
-            char buf[] = new char[1024]; // 字符缓冲区
-            int len;
-            while ((len = bufferedReader.read(buf)) != -1)
-            {
-                bufferedWriter.write(buf, 0, len);
-            }
-            bufferedWriter.flush();
-            bufferedReader.close();
-            bufferedWriter.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            flag = false;
-            return distFile;
-        }
-        finally
-        {
-            if (bufferedReader != null)
-            {
-                try
-                {
-                    bufferedReader.close();
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return distFile;
     }
 }
