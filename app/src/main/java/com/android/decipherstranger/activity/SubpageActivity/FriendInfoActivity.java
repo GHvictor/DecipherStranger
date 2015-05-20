@@ -75,7 +75,7 @@ public class FriendInfoActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        super.unregisterReceiver(FriendInfoActivity.this.receiver);
+       // super.unregisterReceiver(FriendInfoActivity.this.receiver);
         super.onDestroy();
     }
 

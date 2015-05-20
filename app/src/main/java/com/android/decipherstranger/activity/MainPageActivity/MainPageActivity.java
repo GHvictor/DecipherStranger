@@ -412,7 +412,6 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
             } else if (intent.getAction().equals("com.android.decipherstranger.ADDFRIEND")){
                 //Todo reAccount rePhoto reGender reName
 
-
             }
             else if(intent.getAction().equals("com.android.decipherstranger.DELFRIEND")){
                 //Todo reAccount就是要删的

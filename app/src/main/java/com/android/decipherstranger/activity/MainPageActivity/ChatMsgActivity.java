@@ -341,6 +341,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
             writeChatLog.insert(currentUserAccount,SEND_TO_MSG,entity.getMessage(), "",
                     getDate(),entity.getType());
             sendMessage(GlobalMsgUtils.msgImage, entity.getMessage(), getDate());
+            sendToConversation("[图片]");
         }
     }
 
@@ -466,26 +467,17 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                         receiveMsg.setTimeLen("");
                         receiveMsg.setMessage(intent.getStringExtra("reMessage"));
                         receiveMsg.setType(TEXT_MESSAGE);
-                        writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                        writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
-                                receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), receiveMsg.getType());
                         break;
                     case VOICE_MESSAGE:
                         receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
                         File file = ChangeUtils.toFile(intent.getStringExtra("reMessage"),getDir(),getFileName());
                         receiveMsg.setMessage(file.getAbsolutePath());
                         receiveMsg.setType(VOICE_MESSAGE);
-                        writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                        writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
-                                receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(),receiveMsg.getType());
                         break;
                     case PHOTO_MESSAGE:
                         receiveMsg.setTimeLen("");
                         receiveMsg.setMessage(intent.getStringExtra("reMessage"));
                         receiveMsg.setType(PHOTO_MESSAGE);
-                        writeChatLog = new ChatRecord(helper.getWritableDatabase());
-                        writeChatLog.insert(receiveMsg.getAccount(),receiveMsg.getWho(),receiveMsg.getMessage(),
-                                receiveMsg.getTimeLen(),getDate(),receiveMsg.getType());
                         break;
                 }
                 if (intent.getStringExtra("reSender").equals(currentUserAccount)) {

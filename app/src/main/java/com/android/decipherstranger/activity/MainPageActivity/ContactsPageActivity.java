@@ -132,7 +132,7 @@ public class ContactsPageActivity extends BaseActivity {
 
         friendsRequestCount = (BadgeView)findViewById(R.id.friends_request_count);
         newFriends = (RelativeLayout) findViewById(R.id.new_friends);
-//        newFriends = (LinearLayout) findViewById(R.id.new_friends);
+        newFriends = (RelativeLayout) findViewById(R.id.new_friends);
         newFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
