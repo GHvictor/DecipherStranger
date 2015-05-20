@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
@@ -22,7 +23,6 @@ import com.android.decipherstranger.entity.NearbyUserInfo;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
-import com.android.decipherstranger.view.HandyTextView;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -114,9 +114,9 @@ public class ShowMapActivity extends BaseActivity {
                 Bundle extraInfo = marker.getExtraInfo();
                 NearbyUserInfo nearByUserInfo = (NearbyUserInfo) extraInfo.getSerializable("nearByUserInfo");
                 ImageView nearByUserPhoto = (ImageView) mMarkerlayout.findViewById(R.id.nearby_user_photo);
-                HandyTextView nearByUserName = (HandyTextView) mMarkerlayout.findViewById(R.id.nearby_user_name);
-                HandyTextView nearByUserSex = (HandyTextView) mMarkerlayout.findViewById(R.id.nearby_user_sex);
-                HandyTextView distance = (HandyTextView) mMarkerlayout.findViewById(R.id.distance);
+                TextView nearByUserName = (TextView) mMarkerlayout.findViewById(R.id.nearby_user_name);
+                TextView nearByUserSex = (TextView) mMarkerlayout.findViewById(R.id.nearby_user_sex);
+                TextView distance = (TextView) mMarkerlayout.findViewById(R.id.distance);
 
                 nearByUserPhoto.setImageBitmap(nearByUserInfo.getImgId());
                 nearByUserName.setText(nearByUserInfo.getUserName());

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
@@ -26,8 +27,6 @@ import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
-import com.android.decipherstranger.util.MyStatic;
-import com.android.decipherstranger.view.HandyTextView;
 
 import java.util.ArrayList;
 
@@ -39,12 +38,12 @@ public class FriendInfoActivity extends BaseActivity {
     
     private ImageView friendPhoto;
     private ImageView friendSex;
-    private HandyTextView friendName;
-    private HandyTextView friendAccount;
-    private HandyTextView friendAtavar;
-    private HandyTextView friendEmail;
-    private HandyTextView friendBirth;
-    private HandyTextView friendPhone;
+    private TextView friendName;
+    private TextView friendAccount;
+    private TextView friendAtavar;
+    private TextView friendEmail;
+    private TextView friendBirth;
+    private TextView friendPhone;
     private Button sendMessage;
     private Button deleteFriend;
 
@@ -103,12 +102,12 @@ public class FriendInfoActivity extends BaseActivity {
         this.helper = new DATABASE(this);
         friendPhoto = (ImageView) findViewById(R.id.friend_photo);
         friendSex = (ImageView) findViewById(R.id.friend_sex);
-        friendName = (HandyTextView) findViewById(R.id.friend_name);
-        friendAccount = (HandyTextView) findViewById(R.id.friend_account);
-        friendAtavar = (HandyTextView) findViewById(R.id.friend_atavar);
-        friendEmail = (HandyTextView) findViewById(R.id.friend_email);
-        friendBirth = (HandyTextView) findViewById(R.id.friend_birth);
-        friendPhone = (HandyTextView) findViewById(R.id.friend_phone);
+        friendName = (TextView) findViewById(R.id.friend_name);
+        friendAccount = (TextView) findViewById(R.id.friend_account);
+        friendAtavar = (TextView) findViewById(R.id.friend_atavar);
+        friendEmail = (TextView) findViewById(R.id.friend_email);
+        friendBirth = (TextView) findViewById(R.id.friend_birth);
+        friendPhone = (TextView) findViewById(R.id.friend_phone);
         sendMessage = (Button) findViewById(R.id.send_message);
         deleteFriend = (Button) findViewById(R.id.delete_friend);
     }

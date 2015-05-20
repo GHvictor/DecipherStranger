@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="10px">
-                <com.android.decipherstranger.view.HandyTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/recent_user_name"
@@ -28,7 +28,7 @@
                     android:text="回不去了"
                     android:textColor="@color/grey"
                     android:textSize="20sp"/>
-                <com.android.decipherstranger.view.HandyTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/recent_message"
@@ -47,7 +47,7 @@
         android:layout_marginRight="20dp"
         android:layout_alignParentRight="true"
         android:id="@+id/time">
-        <com.android.decipherstranger.view.HandyTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/grey"

@@ -17,7 +17,7 @@
             android:orientation="vertical"
             android:layout_toRightOf="@+id/nearby_list_view_user_photo"
             android:layout_marginTop="5dp">
-            <com.android.decipherstranger.view.HandyTextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/grey"
@@ -28,12 +28,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp">
-                <com.android.decipherstranger.view.HandyTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/grey"
                     android:text="距离："/>
-                <com.android.decipherstranger.view.HandyTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/green"

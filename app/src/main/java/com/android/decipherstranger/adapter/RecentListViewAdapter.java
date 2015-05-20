@@ -9,12 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.entity.Contacts;
-import com.android.decipherstranger.entity.RecentData;
 import com.android.decipherstranger.view.BadgeView;
-import com.android.decipherstranger.view.HandyTextView;
 
 import java.util.ArrayList;
 
@@ -56,9 +55,9 @@ public class RecentListViewAdapter extends BaseAdapter {
         if(convertView == null){
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.recent_view_item,null);
-            holder.recentUserName = (HandyTextView) convertView.findViewById(R.id.recent_user_name);
-            holder.recentMessage = (HandyTextView) convertView.findViewById(R.id.recent_message);
-            holder.recentMessageTime = (HandyTextView) convertView.findViewById(R.id.recent_message_time);
+            holder.recentUserName = (TextView) convertView.findViewById(R.id.recent_user_name);
+            holder.recentMessage = (TextView) convertView.findViewById(R.id.recent_message);
+            holder.recentMessageTime = (TextView) convertView.findViewById(R.id.recent_message_time);
             holder.recentUserPhoto = (ImageView) convertView.findViewById(R.id.recent_user_photo);
             holder.mBadgeView = (BadgeView) convertView.findViewById(R.id.new_message_count);
         }else{
@@ -79,9 +78,9 @@ public class RecentListViewAdapter extends BaseAdapter {
         return convertView;
     }
     class ViewHolder{
-        HandyTextView recentUserName;
-        HandyTextView recentMessage;
-        HandyTextView recentMessageTime;
+        TextView recentUserName;
+        TextView recentMessage;
+        TextView recentMessageTime;
         ImageView recentUserPhoto;
         BadgeView mBadgeView;
     }

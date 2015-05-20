@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.decipherstranger.entity.NearbyUserInfo;
-import com.android.decipherstranger.view.HandyTextView;
 import com.android.decipherstranger.R;
 
 import java.util.ArrayList;
@@ -66,9 +66,9 @@ public class NearbyListViewAdapter extends BaseAdapter {
             holder = new viewHolder();
             convertView = inflater.inflate(R.layout.nearby_view_item,null);
             holder.nearbyUserPhoto = (ImageView) convertView.findViewById(R.id.nearby_list_view_user_photo);
-            holder.nearbyUserName = (HandyTextView) convertView.findViewById(R.id.nearby_list_view_user_name);
+            holder.nearbyUserName = (TextView) convertView.findViewById(R.id.nearby_list_view_user_name);
             holder.nearbyUserSex = (ImageView) convertView.findViewById(R.id.nearby_list_view_sex);
-            holder.nearbyUserDistance = (HandyTextView) convertView.findViewById(R.id.nearby_list_view_distance);
+            holder.nearbyUserDistance = (TextView) convertView.findViewById(R.id.nearby_list_view_distance);
         }else{
             holder = (viewHolder) convertView.getTag();
         }
@@ -89,8 +89,8 @@ public class NearbyListViewAdapter extends BaseAdapter {
     }
     class viewHolder{
         ImageView nearbyUserPhoto;
-        HandyTextView nearbyUserName;
-        HandyTextView nearbyUserDistance;
+        TextView nearbyUserName;
+        TextView nearbyUserDistance;
         ImageView nearbyUserSex;
     }
 }

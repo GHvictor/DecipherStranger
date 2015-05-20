@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <com.android.decipherstranger.view.HandyTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dip"
@@ -39,12 +39,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <com.android.decipherstranger.view.HandyTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dip"
                     android:text="账号："/>
-                <com.android.decipherstranger.view.HandyTextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dip"
@@ -56,13 +56,13 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-        <com.android.decipherstranger.view.HandyTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
             android:textSize="18dip"
             android:text="呢称："/>
-        <com.android.decipherstranger.view.HandyTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
@@ -79,13 +79,13 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-        <com.android.decipherstranger.view.HandyTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
             android:textSize="18dip"
             android:text="邮箱："/>
-        <com.android.decipherstranger.view.HandyTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
@@ -102,13 +102,13 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-        <com.android.decipherstranger.view.HandyTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
             android:textSize="18dip"
             android:text="生日："/>
-        <com.android.decipherstranger.view.HandyTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
@@ -125,13 +125,13 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-        <com.android.decipherstranger.view.HandyTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
             android:textSize="18dip"
             android:text="手机："/>
-        <com.android.decipherstranger.view.HandyTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"

@@ -51,14 +51,14 @@
                     android:gravity="center"
                     android:orientation="horizontal" >
 
-                    <com.android.decipherstranger.view.HandyTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
                         android:textColor="@color/font_value"
                         android:text="@string/user_name_display"/>
 
-                    <com.android.decipherstranger.view.HandyTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="0.5dip"
@@ -77,14 +77,14 @@
                     android:gravity="center"
                     android:orientation="horizontal" >
 
-                    <com.android.decipherstranger.view.HandyTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/sex_display"
                         android:textColor="@color/font_value"
                         android:layout_weight="0.20" />
 
-                    <com.android.decipherstranger.view.HandyTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -94,7 +94,7 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <com.android.decipherstranger.view.HandyTextView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"

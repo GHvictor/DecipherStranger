@@ -34,7 +34,6 @@ import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.ImageCompression;
 import com.android.decipherstranger.util.StringUtils;
 import com.android.decipherstranger.util.Tools;
-import com.android.decipherstranger.view.HandyTextView;
 
 
 /**
@@ -42,7 +41,6 @@ import com.android.decipherstranger.view.HandyTextView;
  */
 public class RegisterActivityPhoto extends BaseActivity {
 
-    private HandyTextView test;
     private LinearLayout selectPhoto;
     private LinearLayout takePicture;
     private ImageView userPhoto;
@@ -95,13 +93,6 @@ public class RegisterActivityPhoto extends BaseActivity {
         this.userPhoto = (ImageView)super.findViewById(R.id.reg_photo_iv_userphoto);
         this.previousStepButton = (Button)super.findViewById(R.id.previous_step);
         this.registerButton = (Button)super.findViewById(R.id.register_btn);
-        this.test = (HandyTextView) findViewById(R.id.test);
-
-        try {
-            test.setText(userInfo.getAccount());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         this.selectPhoto.setOnClickListener(new selectPhotoOnClickListenerImpl());
         this.takePicture.setOnClickListener(new takePictureOnClickListenerImpl());

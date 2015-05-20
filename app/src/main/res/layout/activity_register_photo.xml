@@ -75,7 +75,7 @@
                             android:layout_weight="1"
                             android:src="@drawable/ic_reg_album" />
 
-                        <com.android.decipherstranger.view.HandyTextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="0.5dip"
@@ -100,7 +100,7 @@
                             android:layout_weight="1.0"
                             android:src="@drawable/ic_reg_camera" />
 
-                        <com.android.decipherstranger.view.HandyTextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="0.5dip"
@@ -111,7 +111,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <com.android.decipherstranger.view.HandyTextView
+            <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dip"
@@ -121,11 +121,6 @@
                 android:text="上传真实的头像，拉近真实的距离。"
                 android:textColor="@color/font_value"
                 android:textSize="14sp" />
-            <com.android.decipherstranger.view.HandyTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/test"
-                android:textSize="15sp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
