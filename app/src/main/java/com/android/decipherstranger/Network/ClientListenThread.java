@@ -137,7 +137,8 @@ public class ClientListenThread extends Thread {
                         case GlobalMsgUtils.msgGameOneSend:
                             break;
                         case GlobalMsgUtils.msgAddFriend:
-                            Intent itAddFriend = new Intent("com.android.decipherstranger.ADDFRIEND");
+                            Intent itAddFriend = new Intent("com.android.decipherstranger.MESSAGE");
+                            itAddFriend.putExtra("Friend", "Friend");
                             itAddFriend.putExtra("reAccount", jsonObj.getString("re_account"));
                             itAddFriend.putExtra("rePhoto", jsonObj.getString("re_photo"));
                             itAddFriend.putExtra("reGender", jsonObj.getInt("re_gender"));
@@ -195,7 +196,9 @@ public class ClientListenThread extends Thread {
                             System.out.println("发送成功");
                             break;
                         case GlobalMsgUtils.msgDelFri:
-                            Intent itDelFri = new Intent("com.android.decipherstranger.DELFRIEND");
+                            Intent itDelFri = new Intent("com.android.decipherstranger.MESSAGE");
+                            itDelFri.putExtra("Friend", "Friend");
+                            itDelFri.putExtra("Del", "Del");
                             itDelFri.putExtra("reAccount", jsonObj.getString("re_message"));
                             clContext.sendBroadcast(itDelFri);
                             break;
