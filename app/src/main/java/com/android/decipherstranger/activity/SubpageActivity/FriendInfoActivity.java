@@ -60,11 +60,13 @@ public class FriendInfoActivity extends BaseActivity {
     private String userAccount = null;
     private String userName = null;
     private Bitmap userPhoto = null;
+    private MyApplication application = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_info);
+        application = (MyApplication) getApplication();
         initView();
         initData();
         initListener();
@@ -126,5 +128,19 @@ public class FriendInfoActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void SendMsg(){
+        if(NetworkService.getInstance().getIsConnected()) {
+            String delFri = "type"+":"+Integer.toString(GlobalMsgUtils.msgDelFri)+":"+
+                            "account"+":"+application.getAccount()+":"+
+                            "delaccount"+":"+userAccount;
+            Log.v("aaaaa", delFri);
+            NetworkService.getInstance().sendUpload(delFri);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(FriendInfoActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -108,7 +108,6 @@ public class ClientListenThread extends Thread {
                             break;
                         case GlobalMsgUtils.msgFriendList:
                             Intent itFriend = new Intent("com.android.decipherstranger.FRIEND");
-                            itFriend.putExtra("isAdd", false);
                             if(jsonObj.getString("re_message").equals(MyStatic.resultFalse)){
                                 itFriend.putExtra("reResult", false);
                                 itFriend.putExtra("isfinsh", false);
@@ -138,14 +137,11 @@ public class ClientListenThread extends Thread {
                         case GlobalMsgUtils.msgGameOneSend:
                             break;
                         case GlobalMsgUtils.msgAddFriend:
-                            Intent itAddFriend = new Intent("com.android.decipherstranger.FRIEND");
+                            Intent itAddFriend = new Intent("com.android.decipherstranger.ADDFRIEND");
                             itAddFriend.putExtra("reAccount", jsonObj.getString("re_account"));
                             itAddFriend.putExtra("rePhoto", jsonObj.getString("re_photo"));
                             itAddFriend.putExtra("reGender", jsonObj.getInt("re_gender"));
                             itAddFriend.putExtra("reName", jsonObj.getString("re_name"));
-                            itAddFriend.putExtra("reResult", true);
-                            itAddFriend.putExtra("isfinish", true);
-                            itAddFriend.putExtra("isAdd", true);
                             clContext.sendBroadcast(itAddFriend);
                             break;
                         case GlobalMsgUtils.msgVoice:
@@ -184,7 +180,8 @@ public class ClientListenThread extends Thread {
                             Log.v("Test","发送啦！！！");
                             break;
                         case GlobalMsgUtils.msgChangeInf:
-
+                            Intent itChange = new Intent("com.android.decipherstranger.CHANGE");
+                            itChange.putExtra("reResult", true);
                             break;
                         case GlobalMsgUtils.msgImage:
                             Intent itImage = new Intent("com.android.decipherstranger.MESSAGE");
@@ -196,6 +193,10 @@ public class ClientListenThread extends Thread {
                             clContext.sendBroadcast(itImage);
                             System.out.println("发送成功");
                             break;
+                        case GlobalMsgUtils.msgDelFri:
+                            Intent itDelFri = new Intent("com.android.decipherstranger.DELFRIEND");
+                            itDelFri.putExtra("reAccount", jsonObj.getString("re_message"));
+                            clContext.sendBroadcast(itDelFri);
                         default:
                             break;
                     }

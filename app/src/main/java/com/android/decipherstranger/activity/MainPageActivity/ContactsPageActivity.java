@@ -264,18 +264,14 @@ public class ContactsPageActivity extends BaseActivity {
                     mContactList.add(contact);
                     writeContactLog = new ContactsList(helper.getWritableDatabase());
                     writeContactLog.insert(contact);
-                }else if(intent.getBooleanExtra("isfinish", false)){
-                    if(intent.getBooleanExtra("isAdd", false)){
-                        // Todo 加好友的
-                    }else {
-                        mContactList = filledData(mContactList);
-                        Collections.sort(mContactList, pinyinComparator);
-                        if (adapter == null) {
-                            adapter = new SortAdapter(ContactsPageActivity.this, mContactList);
-                            contactListView.setAdapter(adapter);
-                        } else {
-                            adapter.updateListView(mContactList);
-                        }
+                }else if(intent.getBooleanExtra("isfinish", false)) {
+                    mContactList = filledData(mContactList);
+                    Collections.sort(mContactList, pinyinComparator);
+                    if (adapter == null) {
+                        adapter = new SortAdapter(ContactsPageActivity.this, mContactList);
+                        contactListView.setAdapter(adapter);
+                    } else {
+                        adapter.updateListView(mContactList);
                     }
                 }else {
                     Toast.makeText(context, "没有好友=_=！！！", Toast.LENGTH_SHORT).show();

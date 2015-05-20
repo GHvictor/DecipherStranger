@@ -63,6 +63,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     private SQLiteOpenHelper helper = null;
     private MyApplication application = null;
     private ChatBroadcastReceiver receiver = null;
+    private ChatBroadcastReceiver freceiver = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -404,6 +405,12 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                 sendBroadcast(it);
             } else {
                 Toast.makeText(context, "接收失败？！", Toast.LENGTH_SHORT).show();
+            }
+            if(intent.getAction().equals("com.android.decipherstranger.ADDFRIEND")){
+                //Todo reAccount rePhoto reGender reName
+            }
+            if(intent.getAction().equals("com.android.decipherstranger.DELFRIEND")){
+                //Todo reAccount就是要删的
             }
         }
     }
