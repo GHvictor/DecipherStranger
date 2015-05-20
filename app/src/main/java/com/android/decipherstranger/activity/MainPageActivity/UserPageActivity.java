@@ -75,18 +75,6 @@ public class UserPageActivity extends BaseActivity {
         super.onDestroy();
         super.unregisterReceiver(receiver);
     }
-
-/*    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(false);
-            System.out.println("### 这样是对的 4");
-            return true;
-        }
-        System.out.println("### TMD 这样是对的 4");
-        return super.onKeyDown(keyCode, event);
-    }*/
     
     private void init() {
         this.application = (MyApplication) getApplication();

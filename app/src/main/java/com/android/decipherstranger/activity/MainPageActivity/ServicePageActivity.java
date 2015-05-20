@@ -21,18 +21,6 @@ public class ServicePageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main_service);
 	}
-
-/*    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(false);
-            System.out.println("### 这样是对的 3");
-            return true;
-        }
-        System.out.println("### TMD 这样是对的 3");
-        return super.onKeyDown(keyCode, event);
-    }*/
     
     public void morePageOnClick(View view) {
         switch (view.getId()) {
