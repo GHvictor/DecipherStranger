@@ -161,8 +161,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 recorderMessage.setType(VOICE_MESSAGE);
                 File file = new File(filePath);
                 System.out.println("语音" + ChangeUtils.toBinary(file));
-                String s = ChangeUtils.toBinary(file);
-                File file1 = ChangeUtils.toFile(s,getDir(),getFileName());
+                String s = ChangeUtils.readStream(file);
+                File file1 = ChangeUtils.stringFile(s,getDir());
                 recorderMessage.setTimeLen(Math.round(seconds) + "");
                 recorderMessage.setMessage(file1.getAbsolutePath());
                 System.out.println("+++++++++" + file1.getAbsolutePath());

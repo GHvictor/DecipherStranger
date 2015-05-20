@@ -197,6 +197,14 @@ public class ClientListenThread extends Thread {
                             Intent itDelFri = new Intent("com.android.decipherstranger.DELFRIEND");
                             itDelFri.putExtra("reAccount", jsonObj.getString("re_message"));
                             clContext.sendBroadcast(itDelFri);
+                            break;
+                        case GlobalMsgUtils.msgShowFri:
+                            Intent itShowFri = new Intent("com.android.decipherstranger.SHOWFRI");
+                            itShowFri.putExtra("reEmail", jsonObj.getString("re_email"));
+                            itShowFri.putExtra("rePhone", jsonObj.getString("re_phone"));
+                            itShowFri.putExtra("reBirth", jsonObj.getString("re_birth"));
+                            clContext.sendBroadcast(itShowFri);
+                            break;
                         default:
                             break;
                     }

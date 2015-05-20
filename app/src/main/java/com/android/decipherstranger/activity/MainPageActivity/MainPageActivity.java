@@ -63,7 +63,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     private SQLiteOpenHelper helper = null;
     private MyApplication application = null;
     private ChatBroadcastReceiver receiver = null;
-    private ChatBroadcastReceiver freceiver = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -340,7 +340,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
 
     private void chatBroadcas() {
         //动态方式注册广播接收者
-        ChatBroadcastReceiver receiver = new ChatBroadcastReceiver();
+        this.receiver = new ChatBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.android.decipherstranger.MESSAGE");
         this.registerReceiver(receiver, filter);

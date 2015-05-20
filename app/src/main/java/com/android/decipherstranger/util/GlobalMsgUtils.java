@@ -18,4 +18,5 @@ public class GlobalMsgUtils {
     public static final int msgChangeInf = 11;
     public static final int msgImage = 12;
     public static final int msgDelFri = 13;
+    public static final int msgShowFri = 14;
 }

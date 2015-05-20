@@ -61,6 +61,7 @@ public class FriendInfoActivity extends BaseActivity {
     private String userName = null;
     private Bitmap userPhoto = null;
     private MyApplication application = null;
+    private BroadcastReceiver receiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,12 @@ public class FriendInfoActivity extends BaseActivity {
         initView();
         initData();
         initListener();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.unregisterReceiver(FriendInfoActivity.this.receiver);
+        super.onDestroy();
     }
 
     private void initData() {
@@ -141,6 +148,36 @@ public class FriendInfoActivity extends BaseActivity {
         else {
             NetworkService.getInstance().closeConnection();
             Toast.makeText(FriendInfoActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void SendInf(){
+        if(NetworkService.getInstance().getIsConnected()) {
+            String showInf = "type"+":"+Integer.toString(GlobalMsgUtils.msgShowFri)+":"+
+                             "account"+":"+userAccount;
+            Log.v("aaaaa", showInf);
+            NetworkService.getInstance().sendUpload(showInf);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(FriendInfoActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showBroadcas() {
+        //动态方式注册广播接收者
+        this.receiver = new ShowBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.SHOWFRI");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class ShowBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals("com.android.decipherstranger.SHOWFRI")){
+                //Todo reEmail rePhone reBirth
+            }
         }
     }
 }
