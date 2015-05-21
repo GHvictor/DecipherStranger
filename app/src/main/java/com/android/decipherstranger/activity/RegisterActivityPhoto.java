@@ -1,7 +1,10 @@
 package com.android.decipherstranger.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +28,7 @@ import com.android.decipherstranger.R;
 import java.io.File;
 
 import com.android.decipherstranger.activity.Base.BaseActivity;
+import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 
@@ -32,6 +36,7 @@ import com.android.decipherstranger.entity.User;
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.ImageCompression;
+import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.StringUtils;
 import com.android.decipherstranger.util.Tools;
 
@@ -47,6 +52,7 @@ public class RegisterActivityPhoto extends BaseActivity {
     private User userInfo;
     private String portraitUrl;
     private String sPortaitUrl;
+    private RegisterBroadcastReceiver receiver = null;
 
     private Button previousStepButton;
     private Button registerButton;
@@ -60,7 +66,14 @@ public class RegisterActivityPhoto extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_photo);
+        loginBroadcas();
         initView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        super.unregisterReceiver(RegisterActivityPhoto.this.receiver);
     }
 
     @Override
@@ -166,9 +179,6 @@ public class RegisterActivityPhoto extends BaseActivity {
                         "sphoto"+":"+sPortaitUrl;
                 Log.v("aaaaa", sendInfo);
                 NetworkService.getInstance().sendUpload(sendInfo);
-                Intent intent = new Intent(RegisterActivityPhoto.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
             }
             else {
                 NetworkService.getInstance().closeConnection();
@@ -237,6 +247,30 @@ public class RegisterActivityPhoto extends BaseActivity {
             sPortaitUrl = ChangeUtils.toBinary(ImageCompression.compressSimplify(photo, 0.3f));
             Drawable drawable = new BitmapDrawable(this.getResources(), photo);
             userPhoto.setImageDrawable(drawable);
+        }
+    }
+
+    private void loginBroadcas() {
+        //动态方式注册广播接收者
+        this.receiver = new RegisterBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.android.decipherstranger.LOGIN");
+        this.registerReceiver(receiver, filter);
+    }
+
+    public class RegisterBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.android.decipherstranger.LOGIN")) {
+                if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
+                    intent = new Intent(RegisterActivityPhoto.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    Toast.makeText(context, "账号相同啦=_=", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 }

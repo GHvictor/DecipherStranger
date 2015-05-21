@@ -83,7 +83,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerBroadcas();
+        loginBroadcas();
     }
     
     @Override
@@ -223,7 +223,7 @@ public class LoginActivity extends BaseActivity {
         LoginActivity.this.checkBox.setChecked(shared.getBoolean("Checked",true));
     }
 
-    private void registerBroadcas() {
+    private void loginBroadcas() {
         //动态方式注册广播接收者
         this.receiver = new LoginBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
