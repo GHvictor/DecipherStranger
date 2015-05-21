@@ -66,7 +66,7 @@ public class RegisterActivityPhoto extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_photo);
-        loginBroadcas();
+        registerBroadcas();
         initView();
     }
 
@@ -250,21 +250,21 @@ public class RegisterActivityPhoto extends BaseActivity {
         }
     }
 
-    private void loginBroadcas() {
+    private void registerBroadcas() {
         //动态方式注册广播接收者
         this.receiver = new RegisterBroadcastReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction("com.android.decipherstranger.LOGIN");
+        filter.addAction("com.android.decipherstranger.REGISTER");
         this.registerReceiver(receiver, filter);
     }
 
     public class RegisterBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.android.decipherstranger.LOGIN")) {
+            if (intent.getAction().equals("com.android.decipherstranger.REGISTER")) {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
-                    intent = new Intent(RegisterActivityPhoto.this, LoginActivity.class);
-                    startActivity(intent);
+                    Intent it = new Intent(RegisterActivityPhoto.this, LoginActivity.class);
+                    startActivity(it);
                     finish();
                 }
                 else{
