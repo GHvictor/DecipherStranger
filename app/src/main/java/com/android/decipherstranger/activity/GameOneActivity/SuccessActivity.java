@@ -73,5 +73,5 @@ public class SuccessActivity extends BaseActivity {
         intent.putExtra("reFresh","reFresh");
         sendBroadcast(intent);
     }
-    
+
 }

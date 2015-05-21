@@ -384,6 +384,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                         contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
                         contactsList.insert(contact);
                         reFreshContact();
+                        Toast.makeText(context, intent.getStringExtra("reName")+"已添加您为好友", Toast.LENGTH_SHORT).show();
                     }
                 } else{
                     User contact;
