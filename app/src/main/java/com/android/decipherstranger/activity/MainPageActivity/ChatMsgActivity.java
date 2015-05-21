@@ -166,8 +166,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 recorderMessage.setWho(SEND_TO_MSG);
                 recorderMessage.setType(VOICE_MESSAGE);
                 recorderMessage.setMessage(filePath);
-                File file = new File(filePath);
                 recorderMessage.setTimeLen(Math.round(seconds) + "");
+                File file = new File(filePath);
                 mDataArrays.add(recorderMessage);
                 mAdapter.notifyDataSetChanged();
                 mListView.setSelection(mListView.getCount() - 1);
@@ -456,15 +456,14 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     public class ChatBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Contacts receiveMsg = new Contacts();
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
                 sendToConversation(intent.getStringExtra("reMessage"));
-                Contacts receiveMsg = new Contacts();
                 receiveMsg.setAccount(currentUserAccount);
                 receiveMsg.setUsername(currentUserName);
                 receiveMsg.setPortrait(currentUserPhoto);
                 receiveMsg.setDatetime(getDate());
                 receiveMsg.setWho(IS_COM_MSG);
-                System.out.println("wwwwww");
                 switch (intent.getIntExtra("msgType", 0)){
                     case TEXT_MESSAGE:
                         receiveMsg.setTimeLen("");

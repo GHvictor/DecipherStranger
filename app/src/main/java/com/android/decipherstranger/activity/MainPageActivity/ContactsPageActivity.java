@@ -56,7 +56,6 @@ public class ContactsPageActivity extends BaseActivity {
     private ContactsList readerContactLog;
     private ContactsList writeContactLog;
 
-    private ArrayList<User> reFresh;
     private ArrayList<User>mContactList;
     private CharacterParser characterParser;
     private PinyinComparator pinyinComparator;
@@ -254,17 +253,16 @@ public class ContactsPageActivity extends BaseActivity {
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals("com.android.decipherstranger.FRIEND")){
                 if (intent.getStringExtra("reFresh")!=null && intent.getStringExtra("reFresh").equals("reFresh")){
-                    reFresh = new ArrayList<>();
                     readerContactLog = new ContactsList(helper.getReadableDatabase());
-                    reFresh = readerContactLog.getUserList();
+                    mContactList = readerContactLog.getUserList();
                     try {
-                        reFresh = filledData(reFresh);
-                        Collections.sort(reFresh, pinyinComparator);
+                        mContactList = filledData(mContactList);
+                        Collections.sort(mContactList, pinyinComparator);
                         if (adapter == null){
-                            adapter = new SortAdapter(context,reFresh);
+                            adapter = new SortAdapter(context,mContactList);
                             contactListView.setAdapter(adapter);
                         }else {
-                            adapter.updateListView(reFresh);
+                            adapter.updateListView(mContactList);
                         }
                         Intent reFresh = new Intent("com.android.decipherstranger.SHOWFRI");
                         reFresh.putExtra("OK","OK");

@@ -93,6 +93,7 @@
             android:name=".activity.SubpageActivity.NearbyListViewActivity"
             android:label="解密陌生人"
             android:theme="@style/AppBaseTheme" />
+        <activity android:name=".activity.SubpageActivity.NearbyInfoActivity"/>
         <activity
             android:name=".activity.MainPageActivity.ChatMsgActivity"
             android:label="解密陌生人"

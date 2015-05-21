@@ -118,7 +118,7 @@ public class NearbyListViewActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(NearbyListViewActivity.this,NearbyInfoActivity.class);
                 intent.putExtra("account",nearbyUserInfos.get(position).getUserAccount());
-                intent.putExtra("photo",nearbyUserInfos.get(position).getImgId());
+                intent.putExtra("photo",ChangeUtils.toBinary(nearbyUserInfos.get(position).getImgId()));
                 intent.putExtra("name",nearbyUserInfos.get(position).getUserName());
                 intent.putExtra("sex",nearbyUserInfos.get(position).getSex());
                 startActivity(intent);

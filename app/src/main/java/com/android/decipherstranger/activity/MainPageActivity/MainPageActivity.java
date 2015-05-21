@@ -361,6 +361,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     public class ChatBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Contacts receiveMsg = new Contacts();
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
                 if (intent.getStringExtra("Decrease") != null && intent.getStringExtra("Decrease").equals("Decrease")) {
                     application.setUnReadMessage(application.getUnReadMessage() - intent.getIntExtra("DecreaseCount", 0));
@@ -372,6 +373,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                         writeChatLog.delete(intent.getStringExtra("reAccount"));
                         contactsList = new ContactsList(helper.getWritableDatabase());
                         contactsList.delete(intent.getStringExtra("reAccount"));
+                        System.out.println("+++++++++++删了");
                         reFreshContact();
                     }else {
                         //Todo reAccount rePhoto reGender reName
@@ -384,7 +386,6 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                         reFreshContact();
                     }
                 } else{
-                    Contacts receiveMsg = new Contacts();
                     User contact;
                     ContactsList contactInfo = new ContactsList(helper.getWritableDatabase());
                     contact = contactInfo.getInfo(intent.getStringExtra("reSender"));
