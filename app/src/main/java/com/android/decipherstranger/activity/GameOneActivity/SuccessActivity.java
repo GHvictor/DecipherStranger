@@ -64,11 +64,8 @@ public class SuccessActivity extends BaseActivity {
     private void SendToLocal() {
         contactsList = new ContactsList(this.helper.getWritableDatabase());
         User user = new User();
-        System.out.println("### A" + MyStatic.friendName);
         user.setUsername(MyStatic.friendName);
-        System.out.println("### B" + MyStatic.friendAccount);
         user.setAccount(MyStatic.friendAccount);
-        System.out.println("### C" + MyStatic.friendPhoto);
         user.setPortrait(MyStatic.friendPhoto);
         contactsList.insert(user);
         Intent intent = new Intent("com.android.decipherstranger.FRIEND");

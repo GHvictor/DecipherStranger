@@ -91,11 +91,8 @@ public class WelcomeRspActivity extends BaseActivity {
         this.helpPopWin = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
 
         Intent intent = getIntent();
-        System.out.println("### AA" + MyStatic.friendAccount);
         MyStatic.friendAccount = intent.getStringExtra("Account");
-        System.out.println("### BB" + MyStatic.friendName);
         MyStatic.friendName = intent.getStringExtra("Name");
-        System.out.println("### CC" + MyStatic.friendPhoto);
         MyStatic.friendPhoto = intent.getParcelableExtra("Photo");
         this.gameBroadcas();
         //  设置用户游戏数据

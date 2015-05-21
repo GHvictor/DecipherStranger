@@ -45,9 +45,6 @@ public class NearbyInfoActivity extends BaseActivity {
         }else {
             sex.setImageResource(R.drawable.ic_sex_male);
         }
-        System.out.println("### @ " + getIntent().getStringExtra("account"));
-        System.out.println("### @ " + getIntent().getStringExtra("name"));
-        System.out.println("### @ " + bitmap);
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

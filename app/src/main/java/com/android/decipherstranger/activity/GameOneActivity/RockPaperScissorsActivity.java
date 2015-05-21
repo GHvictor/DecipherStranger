@@ -320,13 +320,11 @@ public class RockPaperScissorsActivity extends BaseActivity {
             this.closeMusic();
             switch (type) {
                 case 0:
-                    System.out.println("### 我被执行了");
                     Intent intent1 = new Intent(this, SuccessActivity.class);
                     startActivity(intent1);
                     finish();
                     break;
                 case 1:
-                    System.out.println("### 我也被执行了");
                     Intent intent2 = new Intent(this, FailActivity.class);
                     startActivity(intent2);
                     finish();
