@@ -47,6 +47,7 @@ public class NearbyInfoActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NearbyInfoActivity.this,WelcomeRspActivity.class);
+                intent.putExtra("Account",getIntent().getStringExtra("account"));
                 startActivity(intent);
             }
         });

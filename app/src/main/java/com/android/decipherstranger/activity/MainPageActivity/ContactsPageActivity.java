@@ -266,6 +266,9 @@ public class ContactsPageActivity extends BaseActivity {
                         }else {
                             adapter.updateListView(reFresh);
                         }
+                        Intent reFresh = new Intent("com.android.decipherstranger.SHOWFRI");
+                        reFresh.putExtra("OK","OK");
+                        sendBroadcast(reFresh);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

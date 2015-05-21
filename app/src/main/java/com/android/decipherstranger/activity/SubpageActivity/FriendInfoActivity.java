@@ -23,7 +23,6 @@ import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.MainPageActivity.ChatMsgActivity;
-import com.android.decipherstranger.activity.MainPageActivity.ConversationPageActivity;
 import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.db.ChatRecord;
 import com.android.decipherstranger.db.ContactsList;
@@ -162,7 +161,7 @@ public class FriendInfoActivity extends BaseActivity {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //这里添加点击确定后的逻辑
-//                        SendMsg();
+                        SendMsg();
                         chatRecord = new ChatRecord(helper.getWritableDatabase());
                         chatRecord.delete(userAccount);
                         contactsList = new ContactsList(helper.getWritableDatabase());
@@ -218,12 +217,17 @@ public class FriendInfoActivity extends BaseActivity {
     public class ShowBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent.getAction().equals("com.android.decipherstranger.SHOWFRI")){
-                //Todo reEmail rePhone reBirth
-                presonalInfo.setEmail(intent.getStringExtra("reEmail"));
-                presonalInfo.setBirth(intent.getStringExtra("reBirth"));
-                presonalInfo.setPhone(intent.getStringExtra("rePhone"));
-                showInfo();
+            if(intent.getAction().equals("com.android.decipherstranger.SHOWFRI")) {
+                if (intent.getStringExtra("OK") != null && intent.getStringExtra("OK").equals("OK")){
+                    Intent toMainPage = new Intent(FriendInfoActivity.this, MainPageActivity.class);
+                    startActivity(toMainPage);
+                }else{
+                    //Todo reEmail rePhone reBirth
+                    presonalInfo.setEmail(intent.getStringExtra("reEmail"));
+                    presonalInfo.setBirth(intent.getStringExtra("reBirth"));
+                    presonalInfo.setPhone(intent.getStringExtra("rePhone"));
+                    showInfo();
+                }
             }
         }
     }

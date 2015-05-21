@@ -112,17 +112,26 @@ public class ShowMapActivity extends BaseActivity {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Bundle extraInfo = marker.getExtraInfo();
-                NearbyUserInfo nearByUserInfo = (NearbyUserInfo) extraInfo.getSerializable("nearByUserInfo");
+                final NearbyUserInfo nearByUserInfo = (NearbyUserInfo) extraInfo.getSerializable("nearByUserInfo");
                 ImageView nearByUserPhoto = (ImageView) mMarkerlayout.findViewById(R.id.nearby_user_photo);
                 TextView nearByUserName = (TextView) mMarkerlayout.findViewById(R.id.nearby_user_name);
                 ImageView nearByUserSex = (ImageView) mMarkerlayout.findViewById(R.id.nearby_user_sex);
                 TextView distance = (TextView) mMarkerlayout.findViewById(R.id.distance);
+                Button addFriend = (Button) mMarkerlayout.findViewById(R.id.add_friend);
+                addFriend.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent it = new Intent(ShowMapActivity.this, WelcomeRspActivity.class);
+                        it.putExtra("Account",nearByUserInfo.getUserAccount());
+                        startActivity(it);
+                    }
+                });
 
                 nearByUserPhoto.setImageBitmap(nearByUserInfo.getImgId());
                 nearByUserName.setText(nearByUserInfo.getUserName());
-                if (nearByUserInfo.getSex().equals("0")){
+                if (nearByUserInfo.getSex().equals("0")) {
                     nearByUserSex.setImageResource(R.drawable.ic_sex_male);
-                }else {
+                } else {
                     nearByUserSex.setImageResource(R.drawable.ic_sex_female);
                 }
                 distance.setText(nearByUserInfo.getDistance());
@@ -139,14 +148,6 @@ public class ShowMapActivity extends BaseActivity {
             @Override
             public boolean onMapPoiClick(MapPoi mapPoi) {
                 return false;
-            }
-        });
-        Button addFriend = (Button) mMarkerlayout.findViewById(R.id.add_friend);
-        addFriend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent it = new Intent(ShowMapActivity.this, WelcomeRspActivity.class);
-                startActivity(it);
             }
         });
         Button back = (Button) mMarkerlayout.findViewById(R.id.nearby_info_back);
