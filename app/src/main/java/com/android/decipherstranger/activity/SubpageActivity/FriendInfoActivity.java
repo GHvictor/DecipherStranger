@@ -101,7 +101,7 @@ public class FriendInfoActivity extends BaseActivity {
 
     private void showInfo(){
         friendAccount.setText(userAccount);
-        if (friendInfo.getString("userSex").equals("MALE")){
+        if (friendInfo.getString("userSex").equals(MALE)){
             friendSex.setImageResource(R.drawable.ic_sex_male);
         }else{
             friendSex.setImageResource(R.drawable.ic_sex_female);
@@ -226,6 +226,7 @@ public class FriendInfoActivity extends BaseActivity {
                     presonalInfo.setEmail(intent.getStringExtra("reEmail"));
                     presonalInfo.setBirth(intent.getStringExtra("reBirth"));
                     presonalInfo.setPhone(intent.getStringExtra("rePhone"));
+                    presonalInfo.setUserSex(intent.getStringExtra("reSender"));
                     showInfo();
                 }
             }

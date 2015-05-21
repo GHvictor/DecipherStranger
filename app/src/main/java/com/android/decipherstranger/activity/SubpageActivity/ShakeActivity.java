@@ -257,6 +257,8 @@ public class ShakeActivity extends BaseActivity {
                 if(intent.getBooleanExtra("reResult", false)) {
                     popInitView(intent);
                     FriendAccount = intent.getStringExtra("reAccount");
+                    MyStatic.friendAccount = FriendAccount;
+                    MyStatic.friendPhoto = intent.getStringExtra("rePhoto");
                     MyStatic.friendName = intent.getStringExtra("reName");
                     progressDialog.dismiss();
                     popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
