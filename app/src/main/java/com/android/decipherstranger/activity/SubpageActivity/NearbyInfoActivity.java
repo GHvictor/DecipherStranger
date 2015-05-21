@@ -15,7 +15,6 @@ import com.android.decipherstranger.util.ChangeUtils;
 
 
 /**
- *
  * Created by WangXin on 2015/5/20 0020.
  */
 public class NearbyInfoActivity extends BaseActivity {
