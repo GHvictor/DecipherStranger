@@ -12,9 +12,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -138,6 +140,9 @@ public class LoginActivity extends BaseActivity {
     private class loginOnClickListenerImpl implements View.OnClickListener {
         @Override
         public void onClick(View view){
+            InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            
             account = LoginActivity.this.accountEdit.getText().toString();
             String password = LoginActivity.this.pawEdit.getText().toString();
             passwordMD5 = stringUtils.MD5(password);
@@ -175,9 +180,6 @@ public class LoginActivity extends BaseActivity {
                 editor.commit();
             }
             accountCheckByWeb(account, passwordMD5);
-/*            Intent it = new Intent(LoginActivity.this,MainPageActivity.class);
-            startActivity(it);
-            finish();*/
         }
     }
 
@@ -204,8 +206,14 @@ public class LoginActivity extends BaseActivity {
         }
         else {
             NetworkService.getInstance().closeConnection();
-            Toast.makeText(LoginActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
-            Log.v("Login", "已经执行T（）方法");
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    progressDialog.dismiss();
+                    Toast.makeText(LoginActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+                    Log.v("Login", "已经执行T（）方法");
+                }
+            }, 3000);
         }
 
     }
