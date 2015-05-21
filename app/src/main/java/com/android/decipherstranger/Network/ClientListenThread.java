@@ -64,13 +64,18 @@ public class ClientListenThread extends Thread {
                         case GlobalMsgUtils.msgLogin:
                             Intent itLogin = new Intent("com.android.decipherstranger.LOGIN");
                             itLogin.putExtra("result", jsonObj.getString("re_message"));
-                            application.setName(jsonObj.getString("re_name"));
-                            application.setPortrait(ChangeUtils.toBitmap(jsonObj.getString("re_photo")));
-                            if (jsonObj.getInt("re_gender") == 1){ application.setSex("男"); }
-                            else { application.setSex("女"); }
-                            application.setPhone(jsonObj.getString("re_phone"));
-                            application.setEmail(jsonObj.getString("re_email"));
-                            application.setBirth(jsonObj.getString("re_birth"));
+                            if(jsonObj.getString("re_message").equals(MyStatic.resultTrue)) {
+                                application.setName(jsonObj.getString("re_name"));
+                                application.setPortrait(ChangeUtils.toBitmap(jsonObj.getString("re_photo")));
+                                if (jsonObj.getInt("re_gender") == 1) {
+                                    application.setSex("男");
+                                } else {
+                                    application.setSex("女");
+                                }
+                                application.setPhone(jsonObj.getString("re_phone"));
+                                application.setEmail(jsonObj.getString("re_email"));
+                                application.setBirth(jsonObj.getString("re_birth"));
+                            }
                             clContext.sendBroadcast(itLogin);
                             break;
                         case GlobalMsgUtils.msgRegister:

@@ -23,6 +23,8 @@ import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.MainPageActivity.ChatMsgActivity;
+import com.android.decipherstranger.activity.MainPageActivity.ConversationPageActivity;
+import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.db.ChatRecord;
 import com.android.decipherstranger.db.ContactsList;
 import com.android.decipherstranger.db.ConversationList;
@@ -132,6 +134,7 @@ public class FriendInfoActivity extends BaseActivity {
         Intent intent = new Intent("com.android.decipherstranger.FRIEND");
         intent.putExtra("reFresh","reFresh");
         sendBroadcast(intent);
+        Toast.makeText(this, "删除成功", Toast.LENGTH_LONG).show();
     }
     
     private void initListener() {
@@ -159,7 +162,7 @@ public class FriendInfoActivity extends BaseActivity {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //这里添加点击确定后的逻辑
-                        SendMsg();
+//                        SendMsg();
                         chatRecord = new ChatRecord(helper.getWritableDatabase());
                         chatRecord.delete(userAccount);
                         contactsList = new ContactsList(helper.getWritableDatabase());

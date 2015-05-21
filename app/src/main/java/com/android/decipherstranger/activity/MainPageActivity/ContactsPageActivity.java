@@ -264,12 +264,11 @@ public class ContactsPageActivity extends BaseActivity {
                             adapter = new SortAdapter(context,reFresh);
                             contactListView.setAdapter(adapter);
                         }else {
-                                adapter.updateListView(reFresh);
+                            adapter.updateListView(reFresh);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }else {
                     if(intent.getBooleanExtra("reResult", false)) {
                         User contact = new User();
