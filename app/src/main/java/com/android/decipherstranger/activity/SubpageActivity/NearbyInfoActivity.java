@@ -39,9 +39,9 @@ public class NearbyInfoActivity extends BaseActivity {
         photo.setImageBitmap(ChangeUtils.toBitmap(getIntent().getStringExtra("photo")));
         name.setText(getIntent().getStringExtra("name"));
         if (getIntent().getStringExtra("sex").equals("0")){
-            sex.setImageResource(R.drawable.ic_sex_male);
-        }else {
             sex.setImageResource(R.drawable.ic_sex_female);
+        }else {
+            sex.setImageResource(R.drawable.ic_sex_male);
         }
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override

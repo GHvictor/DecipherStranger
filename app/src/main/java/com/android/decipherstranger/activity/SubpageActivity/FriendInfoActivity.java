@@ -55,7 +55,7 @@ public class FriendInfoActivity extends BaseActivity {
 
     private Bundle friendInfo;
 
-    private final static String MALE = "男";
+    private final static int MALE = 0;
 
     /*
     *  Created by penghaitao 2015/05/13
@@ -101,7 +101,7 @@ public class FriendInfoActivity extends BaseActivity {
 
     private void showInfo(){
         friendAccount.setText(userAccount);
-        if (friendInfo.getString("userSex") == MALE){
+        if (friendInfo.getString("userSex").equals("MALE")){
             friendSex.setImageResource(R.drawable.ic_sex_male);
         }else{
             friendSex.setImageResource(R.drawable.ic_sex_female);
