@@ -48,6 +48,8 @@ public class NearbyInfoActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(NearbyInfoActivity.this,WelcomeRspActivity.class);
                 intent.putExtra("Account",getIntent().getStringExtra("account"));
+                intent.putExtra("Photo",getIntent().getStringExtra("photo"));
+                intent.putExtra("Name",getIntent().getStringExtra("name"));
                 startActivity(intent);
             }
         });

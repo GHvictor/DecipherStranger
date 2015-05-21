@@ -81,8 +81,8 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     private ChatRecord readerChatLog;
     //写入本地缓存聊天记录
     private ChatRecord writeChatLog;
-    //写入最近聊天列表缓存
-    private ConversationList conversationList;
+//    //写入最近聊天列表缓存
+//    private ConversationList conversationList;
     //图片信息发送按钮
     private ImageView add_panel_im;
     //图片偏选择面板
@@ -117,8 +117,6 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     private static final int IS_COM_MSG = 1;
     private static final int SEND_TO_MSG = 0;
 
-    private String portraitUrl;
-    private String sPortaitUrl;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

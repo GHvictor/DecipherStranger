@@ -1,5 +1,7 @@
 package com.android.decipherstranger.activity.GameOneActivity;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +11,10 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
+import com.android.decipherstranger.db.ContactsList;
+import com.android.decipherstranger.db.DATABASE;
+import com.android.decipherstranger.entity.User;
+import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
@@ -18,11 +24,14 @@ import com.android.decipherstranger.util.MyStatic;
  */
 public class SuccessActivity extends BaseActivity {
 
+    private SQLiteOpenHelper helper = null;
+    private ContactsList contactsList = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_success);
-        
+        this.helper = new DATABASE(this);
+
         this.SendToWeb();
         this.SendToLocal();
 
@@ -54,6 +63,15 @@ public class SuccessActivity extends BaseActivity {
     }
 
     private void SendToLocal() {
+        contactsList = new ContactsList(this.helper.getWritableDatabase());
+        User user = new User();
+        user.setUsername(MyStatic.friendName);
+        user.setAccount(MyStatic.friendAccount);
+        user.setPortrait(ChangeUtils.toBitmap(MyStatic.friendPhoto));
+        contactsList.insert(user);
+        Intent intent = new Intent("com.android.decipherstranger.FRIEND");
+        intent.putExtra("reFresh","reFresh");
+        sendBroadcast(intent);
     }
     
 }

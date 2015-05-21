@@ -1,5 +1,7 @@
 package com.android.decipherstranger.util;
 
+import android.graphics.Bitmap;
+
 /**
  *      へ　　　　　／|
  * 　　/＼7　　　 ∠＿/
@@ -55,6 +57,7 @@ public class MyStatic {
     //  设置全局静态变量
     public static String friendAccount = null;          //  所添加好友account
     public static String friendName = null;             //  所添加好友昵称
+    public static String friendPhoto = null;
 
     public static boolean gameEffectMusicFlag = true;         //  游戏音效控制标志
     public static boolean gameBackgroundMusicFlag = true;     //  游戏音乐控制标志
