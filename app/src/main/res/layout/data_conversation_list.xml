@@ -41,13 +41,16 @@
                     android:id="@+id/conversationName"
                     android:textColor="@color/text_blue"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true" />
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/conversationTime"
+                    android:layout_toStartOf="@+id/conversationTime" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="New Text"
-                    android:textSize="14dp"
+                    android:textSize="10dp"
                     android:id="@+id/conversationTime"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true" />
@@ -58,8 +61,12 @@
                     android:text="New Text"
                     android:id="@+id/conversationMessage"
                     android:textSize="16dp"
+                    android:maxLines="1"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true" />
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/conversationTime"
+                    android:layout_toStartOf="@+id/conversationTime" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"

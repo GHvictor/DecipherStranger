@@ -23,7 +23,8 @@ public class SuccessActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_success);
         
-        this.Send();
+        this.SendToWeb();
+        this.SendToLocal();
 
         Toast.makeText(this, "已添加" + MyStatic.friendName + "为好友！",Toast.LENGTH_LONG).show();
         MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.makefriend_success);
@@ -35,8 +36,8 @@ public class SuccessActivity extends BaseActivity {
             }
         }, 5000);
     }
-    
-    private void Send() {
+
+    private void SendToWeb() {
         MyApplication application = (MyApplication) getApplication();
         if(NetworkService.getInstance().getIsConnected()){
             String addUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgAddFriend)+":"+
@@ -51,4 +52,8 @@ public class SuccessActivity extends BaseActivity {
             Log.v("Login", "已经执行T（）方法");
         }
     }
+
+    private void SendToLocal() {
+    }
+    
 }

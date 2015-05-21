@@ -199,6 +199,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE); 
                 im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 addPanel();
+                blank.setClickable(true);
             }
         });
 
@@ -257,13 +258,19 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 finish();
                 break;
             case R.id.blank:
+                InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 if (panel_add_rl.isShown()) {
                     panel_add_rl.setVisibility(View.GONE);
-                } break;
+                }
+                blank.setClickable(false);
+                break;
             case R.id.et_sendmessage:
                 if (panel_add_rl.isShown()) {
                     panel_add_rl.setVisibility(View.GONE);
-                } break;
+                }
+                blank.setClickable(true);
+                break;
         }
     }
 
