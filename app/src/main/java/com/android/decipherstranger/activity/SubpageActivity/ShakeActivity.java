@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -72,6 +73,8 @@ public class ShakeActivity extends BaseActivity {
     private ImageView sex = null;
 
     private String FriendAccount = null;
+    private String FriendName = null;
+    private Bitmap bitmap = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -157,17 +160,14 @@ public class ShakeActivity extends BaseActivity {
     public void shakeMain(View v) {
         switch (v.getId()) {
             case R.id.shake_back_button:
-                onBackPressed();
-                //  onVibrator();
+           //     onBackPressed();
+                  onVibrator();
                 break;
             case R.id.shakeMain:
                 if (popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 } break;
             case R.id.shake_imageButton:
-                Intent intent = new Intent(this,WelcomeRspActivity.class);
-                intent.putExtra("Account", "20124207");
-                startActivity(intent);
                 break;
         }
     }
@@ -214,7 +214,12 @@ public class ShakeActivity extends BaseActivity {
             case R.id.shake_friend_info:
                 Intent intent1 = new Intent(ShakeActivity.this,WelcomeRspActivity.class);
                 intent1.putExtra("Account", FriendAccount);
+                intent1.putExtra("Name", FriendName);
+                intent1.putExtra("Photo", bitmap);
                 startActivity(intent1);
+                if (popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                }
                 this.finish();
                 break;
             case R.id.userPhoto:
@@ -230,9 +235,8 @@ public class ShakeActivity extends BaseActivity {
 
     private void popInitView(Intent intent) {
         Drawable sexDrawable = null;
-/*        Drawable portraitDrawable = new BitmapDrawable(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
-        this.portrait.setImageDrawable(portraitDrawable);*/
-        this.portrait.setImageBitmap(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+        this.bitmap = ChangeUtils.toBitmap(intent.getStringExtra("rePhoto"));
+        this.portrait.setImageBitmap(bitmap);
         this.userName.setText(intent.getStringExtra("reName"));
         if (intent.getIntExtra("reGender", 1) == 1) {
             sexDrawable = getResources().getDrawable(R.drawable.man);
@@ -257,9 +261,7 @@ public class ShakeActivity extends BaseActivity {
                 if(intent.getBooleanExtra("reResult", false)) {
                     popInitView(intent);
                     FriendAccount = intent.getStringExtra("reAccount");
-                    MyStatic.friendAccount = FriendAccount;
-                    MyStatic.friendPhoto = intent.getStringExtra("rePhoto");
-                    MyStatic.friendName = intent.getStringExtra("reName");
+                    FriendName = intent.getStringExtra("reName");
                     progressDialog.dismiss();
                     popupWindow.setAnimationStyle(R.style.MyDialogStyleBottom);
                     popupWindow.showAsDropDown(findViewById(R.id.shake_image));

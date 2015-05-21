@@ -31,7 +31,6 @@ public class SuccessActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_success);
         this.helper = new DATABASE(this);
-
         this.SendToWeb();
         this.SendToLocal();
 
@@ -67,7 +66,7 @@ public class SuccessActivity extends BaseActivity {
         User user = new User();
         user.setUsername(MyStatic.friendName);
         user.setAccount(MyStatic.friendAccount);
-        user.setPortrait(ChangeUtils.toBitmap(MyStatic.friendPhoto));
+        user.setPortrait(MyStatic.friendPhoto);
         contactsList.insert(user);
         Intent intent = new Intent("com.android.decipherstranger.FRIEND");
         intent.putExtra("reFresh","reFresh");

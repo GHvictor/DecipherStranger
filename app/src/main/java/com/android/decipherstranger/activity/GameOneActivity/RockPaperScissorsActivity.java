@@ -53,7 +53,7 @@ import com.android.decipherstranger.util.MyStatic;
 public class RockPaperScissorsActivity extends BaseActivity {
 
     private MyApplication application = null;
-    private static Intent intent = null;
+    private Intent intent = null;
 
     private TextView gradeText = null;
     private TextView playerText = null;

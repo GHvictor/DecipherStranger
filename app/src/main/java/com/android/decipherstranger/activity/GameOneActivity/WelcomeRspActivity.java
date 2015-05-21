@@ -93,7 +93,7 @@ public class WelcomeRspActivity extends BaseActivity {
         Intent intent = getIntent();
         MyStatic.friendAccount = intent.getStringExtra("Account");
         MyStatic.friendName = intent.getStringExtra("Name");
-        MyStatic.friendPhoto = intent.getStringExtra("Photo");
+        MyStatic.friendPhoto = intent.getParcelableExtra("Photo");
         this.gameBroadcas();
         //  设置用户游戏数据
         this.setGameInfo();
@@ -175,7 +175,7 @@ public class WelcomeRspActivity extends BaseActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.GAMEONE")) {
                 // TODO 将获取的数据赋值到本地
-                grade = intent.getIntExtra("reGrade", 3);
+                grade = intent.getIntExtra("reGrade", 6);
                 sum = intent.getIntExtra("reSum", 20);
                 MyStatic.rockInt = intent.getIntExtra("reRock", 10);
                 MyStatic.scissorsInt = intent.getIntExtra("reScissors", 10);

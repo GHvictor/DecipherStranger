@@ -1,6 +1,7 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ public class NearbyInfoActivity extends BaseActivity {
     private ImageView sex;
     private Button addFriend;
     private Button back;
+    private Bitmap bitmap = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,8 @@ public class NearbyInfoActivity extends BaseActivity {
         sex = (ImageView) findViewById(R.id.nearby_info_sex);
         addFriend = (Button) findViewById(R.id.nearby_add_friend);
         back = (Button) findViewById(R.id.nearby_info_back);
-        photo.setImageBitmap(ChangeUtils.toBitmap(getIntent().getStringExtra("photo")));
+        bitmap = ChangeUtils.toBitmap(getIntent().getStringExtra("photo"));
+        photo.setImageBitmap(bitmap);
         name.setText(getIntent().getStringExtra("name"));
         if (getIntent().getStringExtra("sex").equals("0")){
             sex.setImageResource(R.drawable.ic_sex_female);
@@ -48,7 +51,7 @@ public class NearbyInfoActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(NearbyInfoActivity.this,WelcomeRspActivity.class);
                 intent.putExtra("Account",getIntent().getStringExtra("account"));
-                intent.putExtra("Photo",getIntent().getStringExtra("photo"));
+                intent.putExtra("photo",bitmap);
                 intent.putExtra("Name",getIntent().getStringExtra("name"));
                 startActivity(intent);
             }

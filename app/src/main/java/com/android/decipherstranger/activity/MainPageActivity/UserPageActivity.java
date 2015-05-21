@@ -112,8 +112,8 @@ public class UserPageActivity extends BaseActivity {
                 contacts.clear();
                 conversationList = new ConversationList(this.helper.getWritableDatabase());
                 conversationList.clear();
-                MyApplication.getInstance().exit();
                 this.finish();
+                System.exit(0);
                 break;
         }
     }

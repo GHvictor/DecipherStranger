@@ -2,7 +2,12 @@ package com.android.decipherstranger.activity.Base;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Handler;
+
+import com.android.decipherstranger.activity.LoginActivity;
+import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 
 import java.util.LinkedList;
 import java.util.List;
