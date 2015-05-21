@@ -124,7 +124,7 @@ public class ShowMapActivity extends BaseActivity {
                         Intent it = new Intent(ShowMapActivity.this, WelcomeRspActivity.class);
                         it.putExtra("Account",nearByUserInfo.getUserAccount());
                         it.putExtra("Name",nearByUserInfo.getUserName());
-                        it.putExtra("photo",nearByUserInfo.getImgId());
+                        it.putExtra("Photo",nearByUserInfo.getImgId());
                         startActivity(it);
                     }
                 });

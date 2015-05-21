@@ -45,12 +45,15 @@ public class NearbyInfoActivity extends BaseActivity {
         }else {
             sex.setImageResource(R.drawable.ic_sex_male);
         }
+        System.out.println("### @ " + getIntent().getStringExtra("account"));
+        System.out.println("### @ " + getIntent().getStringExtra("name"));
+        System.out.println("### @ " + bitmap);
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NearbyInfoActivity.this,WelcomeRspActivity.class);
                 intent.putExtra("Account",getIntent().getStringExtra("account"));
-                intent.putExtra("photo",bitmap);
+                intent.putExtra("Photo",bitmap);
                 intent.putExtra("Name",getIntent().getStringExtra("name"));
                 startActivity(intent);
             }

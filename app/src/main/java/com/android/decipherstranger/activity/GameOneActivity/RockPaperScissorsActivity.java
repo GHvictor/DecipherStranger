@@ -53,7 +53,6 @@ import com.android.decipherstranger.util.MyStatic;
 public class RockPaperScissorsActivity extends BaseActivity {
 
     private MyApplication application = null;
-    private Intent intent = null;
 
     private TextView gradeText = null;
     private TextView playerText = null;
@@ -214,8 +213,6 @@ public class RockPaperScissorsActivity extends BaseActivity {
                     isRun = true;
                 } break;
             case R.id.RockImageBtn:
-                gameGradeInt = 20;
-                IfGameOver();
                 if (isRun) {
              /*       gamePause(0);*/
                     gameGradeInt = 20;
@@ -308,20 +305,33 @@ public class RockPaperScissorsActivity extends BaseActivity {
     }
 
     private void IfGameOver(){
+        int type = 0;
         boolean flag = false;
         if (this.gameGradeInt >= this.Grade && this.sum <= this.MaxSum) {
             flag = true;
-            intent = new Intent(RockPaperScissorsActivity.this, SuccessActivity.class);   //  根据实际情况跳转
+            type = 0;
         } else if (this.gameGradeInt <= -this.Grade || this.sum > this.MaxSum) {
             flag = true;
-            intent = new Intent(RockPaperScissorsActivity.this, FailActivity.class);   //  根据实际情况跳转
+            type = 1;
         }
         if (flag) {
             //  上传游戏数据
             GameUtils.set(application.getAccount());
-            RockPaperScissorsActivity.this.closeMusic();
-            RockPaperScissorsActivity.this.startActivity(intent);
-            RockPaperScissorsActivity.this.finish();
+            this.closeMusic();
+            switch (type) {
+                case 0:
+                    System.out.println("### 我被执行了");
+                    Intent intent1 = new Intent(this, SuccessActivity.class);
+                    startActivity(intent1);
+                    finish();
+                    break;
+                case 1:
+                    System.out.println("### 我也被执行了");
+                    Intent intent2 = new Intent(this, FailActivity.class);
+                    startActivity(intent2);
+                    finish();
+                    break; 
+            }
         } else {
             this.isRun = false;
         }
