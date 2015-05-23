@@ -84,8 +84,10 @@
         <activity android:name=".activity.GameOneActivity.WelcomeRspActivity" />
         <activity android:name=".activity.GameOneActivity.SetGradeActivity" />
         <activity android:name=".activity.GameOneActivity.RockPaperScissorsActivity" />
-        <activity android:name=".activity.GameOneActivity.SuccessActivity" />
-        <activity android:name=".activity.GameOneActivity.FailActivity" />
+        <activity android:name=".activity.GameOneActivity.SuccessActivity"
+            android:theme="@style/MyDialogStyleBottom"/>
+        <activity android:name=".activity.GameOneActivity.FailActivity"
+            android:theme="@style/MyDialogStyleBottom"/>
 
         <!-- 地图 -->
         <activity android:name=".activity.SubpageActivity.ShowMapActivity" />

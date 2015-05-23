@@ -163,6 +163,7 @@ public class RockPaperScissorsActivity extends BaseActivity {
         //  获取游戏初始数据
         Intent intent = getIntent();
         this.Type = intent.getStringExtra("Type");
+        System.out.println("### B" + Type);
         this.Grade = intent.getIntExtra("Grade", 6);    //  获取游戏等级，默认为3级
         this.MaxSum = intent.getIntExtra("Sum", 20);
 
@@ -333,8 +334,6 @@ public class RockPaperScissorsActivity extends BaseActivity {
                     finish();
                     break; 
             }
-        } else {
-            this.isRun = false;
         }
     }
 

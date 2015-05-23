@@ -19,7 +19,6 @@
     <string name="email_input">请输入邮箱</string>
     <string name="phone_input">请输入手机号</string>
     <string name="birth_input">请输入出生年月</string>
-    <string name="addresses_input">请输入地址</string>
     <string name="sex_input">请选择性别</string>
     <string name="next_step">下一步</string>
     <string name="previous_step">上一步</string>
@@ -47,12 +46,6 @@
     <string name="sound">声音</string>
     <string name="main_quit">退    出</string>
     <string name="shake">摇一摇</string>
-    <string name="shakeSettings">摇一摇设置</string>
-    <string name="shakeFriends">摇到的历史</string>
-    <string name="clean">清  空</string>
-    <string name="defaultImage">使用默认的背景图片</string>
-    <string name="setImage">自定义背景图片</string>
-    <string name="music_effect">音效</string>
     <string name="shake_effect">震动</string>
     <string name="game_rsp">石头剪刀布</string>
     <string name="game_number">猜数字</string>
@@ -61,18 +54,10 @@
     <string name="effectMusic">游戏音效</string>
     <string name="backgroundMusic">背景音乐</string>
     <string name="setting">设  置</string>
-    <string name="Help_Text">帮  助</string>
-    <string name="Quit_Text">退  出</string>
-    <string name="drop_down_refresh">下拉可以刷新!</string>
-    <string name="loosen_refresh">松开可以刷新!</string>
-    <string name="is_refreshing">正在刷新...</string>
-    <string name="title_activity_test_upload_image">TestUploadImage</string>
-    <string name="hello_world">Hello world!</string>
     <string name="new_friend">新的好友</string>
     <string name="str_recorder_normal">按住 说话</string>
     <string name="str_recorder_recording">松开 结束</string>
     <string name="str_recorder_want_cancel">松开手指，取消发送</string>
     <string name="str_recorder_cancel_send">手指上滑，取消发送</string>
-    <string name="title_activity_welcome_gn">WelcomeGnActivity</string>
 
 </resources>

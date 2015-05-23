@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
+import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.activity.Base.MyApplication;
 import com.android.decipherstranger.util.MyStatic;
@@ -31,6 +32,7 @@ import com.android.decipherstranger.util.SharedPreferencesUtils;
 public class WelcomeRspActivity extends BaseActivity {
 
     private MyApplication application = null;
+    private String type = null;
     private int grade = 6;  //  设置等级 默认为3
     private int sum = 20;
     private GameBroadcastReceiver receiver = null;
@@ -91,10 +93,22 @@ public class WelcomeRspActivity extends BaseActivity {
         this.helpPopWin = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
 
         Intent intent = getIntent();
-        MyStatic.friendAccount = intent.getStringExtra("Account");
-        MyStatic.friendName = intent.getStringExtra("Name");
-        MyStatic.friendPhoto = intent.getParcelableExtra("Photo");
-        MyStatic.friendSex = intent.getStringExtra("Sex");
+        this.type = intent.getStringExtra("Type");
+        switch (type) {
+            case "AddFriend":
+                MyStatic.friendAccount = intent.getStringExtra("Account");
+                MyStatic.friendName = intent.getStringExtra("Name");
+                MyStatic.friendPhoto = intent.getParcelableExtra("Photo");
+                MyStatic.friendSex = intent.getStringExtra("Sex");
+                break;
+            case "Practice":
+                MyStatic.friendAccount = application.getAccount();
+                MyStatic.friendName = application.getName();
+                MyStatic.friendPhoto = application.getPortrait();
+                MyStatic.friendSex = application.getSex();
+                break;
+        }
+
         this.gameBroadcas();
         //  设置用户游戏数据
         this.setGameInfo();
@@ -150,6 +164,7 @@ public class WelcomeRspActivity extends BaseActivity {
 
     private void gameStart(){
         Intent it = new Intent(WelcomeRspActivity.this, RockPaperScissorsActivity.class);
+        it.putExtra("Type",type);
         it.putExtra("Grade", grade);        //  游戏等级
         it.putExtra("Sum", sum);
         startActivity(it);

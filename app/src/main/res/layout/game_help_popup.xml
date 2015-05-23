@@ -3,17 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/translucent_grey">
-    
-<!--    <LinearLayout
-        android:id="@+id/gameRule"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clickable="true"
-        android:onClick="GameWelcomeOnClick"
-        android:background="@drawable/game_rule"
-        android:orientation="vertical"/>-->
 
     <RelativeLayout
+        android:layout_margin="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -22,21 +14,22 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:id="@+id/gameRule"
             android:src="@drawable/game_rule"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 
         <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:id="@+id/closeRule"
-            android:background="@color/red"
+            android:background="@drawable/close_button"
             android:onClick="GameWelcomeOnClick"
-            android:layout_alignTop="@+id/gameRule"
-            android:layout_alignRight="@+id/gameRule"
-            android:layout_alignEnd="@+id/gameRule" />
+            android:layout_marginTop="43dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 

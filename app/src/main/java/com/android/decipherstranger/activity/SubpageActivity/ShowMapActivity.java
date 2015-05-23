@@ -122,6 +122,7 @@ public class ShowMapActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         Intent it = new Intent(ShowMapActivity.this, WelcomeRspActivity.class);
+                        it.putExtra("Type","AddFriend");
                         it.putExtra("Account",nearByUserInfo.getUserAccount());
                         it.putExtra("Name",nearByUserInfo.getUserName());
                         it.putExtra("Photo",nearByUserInfo.getImgId());

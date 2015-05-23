@@ -214,6 +214,7 @@ public class ShakeActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.shake_friend_info:
                 Intent intent1 = new Intent(ShakeActivity.this,WelcomeRspActivity.class);
+                intent1.putExtra("Type","AddFriend");
                 intent1.putExtra("Account", FriendAccount);
                 intent1.putExtra("Name", FriendName);
                 intent1.putExtra("Photo", bitmap);
