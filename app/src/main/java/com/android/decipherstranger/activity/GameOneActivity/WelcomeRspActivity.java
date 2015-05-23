@@ -106,7 +106,7 @@ public class WelcomeRspActivity extends BaseActivity {
                 break;
             case R.id.gameTips:helpPopWin.showAtLocation(findViewById(R.id.top), Gravity.BOTTOM, 0, 0);
                 break;
-            case R.id.gameHelp:helpPopWin.dismiss();
+            case R.id.closeRule:helpPopWin.dismiss();
                 break;
             case R.id.gameSound:
                 if (MyStatic.gameBackgroundMusicFlag) {

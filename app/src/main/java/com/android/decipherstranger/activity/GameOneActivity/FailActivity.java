@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
+import android.view.View;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
@@ -21,25 +22,10 @@ public class FailActivity extends BaseActivity {
         setContentView(R.layout.activity_game_fail);
         MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.makefriend_lose);
         mediaPlayer.start();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                FailActivity.this.finish();
-            }
-        }, 5000);
+    }
+    
+    public void GameFailOnClick(View view) {
+        FailActivity.this.finish();
     }
 
-    /*    重写返回键，返回主界面*/
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO Auto-generated method stub
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){// 防止连续两次返回键
-            //这你写你的返回处理
-            Intent it = new Intent(FailActivity.this,MainPageActivity.class);
-            startActivity(it);
-            FailActivity.this.finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 }

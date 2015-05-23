@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.decipherstranger.Network.NetworkService;
@@ -27,25 +28,28 @@ public class SuccessActivity extends BaseActivity {
 
     private SQLiteOpenHelper helper = null;
     private ContactsList contactsList = null;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_success);
-        this.helper = new DATABASE(this);
-        this.SendToWeb();
-        this.SendToLocal();
+        Intent intent = getIntent();
+        String Type = intent.getStringExtra("Type");
+        if (Type != null && Type.equals("Practice")) {
+            Toast.makeText(this, "已添加" + MyStatic.friendName + "为好友！",Toast.LENGTH_LONG).show();
+            this.helper = new DATABASE(this);
+                this.SendToWeb();
+                this.SendToLocal();
+        }
 
-        Toast.makeText(this, "已添加" + MyStatic.friendName + "为好友！",Toast.LENGTH_LONG).show();
         MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.makefriend_success);
         mediaPlayer.start();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Intent intent = new Intent(SuccessActivity.this, MainPageActivity.class);
-                startActivity(intent);
-                SuccessActivity.this.finish();
-            }
-        }, 5000);
+    }
+
+    public void GameSuccessOnClick(View view) {
+        Intent intent = new Intent(SuccessActivity.this, MainPageActivity.class);
+        startActivity(intent);
+        SuccessActivity.this.finish();
     }
 
     private void SendToWeb() {

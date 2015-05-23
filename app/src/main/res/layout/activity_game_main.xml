@@ -142,14 +142,42 @@
             android:handle="@+id/handle"
             android:id="@+id/slidingDrawer">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/content"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:clickable="true"
-                android:onClick="backToGame"
-                android:background="@drawable/game_help"
-                android:orientation="vertical"/>
+                android:background="@null"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:id="@+id/gameRule"
+                        android:src="@drawable/game_rule"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+
+                    <ImageButton
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/closeRule"
+                        android:background="@color/red"
+                        android:onClick="backToGame"
+                        android:layout_alignTop="@+id/gameRule"
+                        android:layout_alignRight="@+id/gameRule"
+                        android:layout_alignEnd="@+id/gameRule" />
+
+                </RelativeLayout>
+                
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/handle"
