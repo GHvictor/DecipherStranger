@@ -39,13 +39,13 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/chatfrom_bg"
             android:layout_toRightOf="@+id/iv_userhead"
-            android:visibility="gone">
+            >
             <View
                 android:id="@+id/recorder_anim"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="right|center_vertical"
-                android:background="@drawable/adj">
+                android:background="@drawable/chatfrom_voice_playing">
             </View>
         </FrameLayout>
         <TextView
@@ -68,7 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/iv_userhead"
-            android:background="@drawable/chatfrom_bg" />
+            android:background="@drawable/chatfrom_bg"
+            android:visibility="gone"/>
         <ImageView
             android:id="@+id/tv_photo_message"
             android:layout_width="wrap_content"

@@ -86,7 +86,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		final Contacts entity = coll.get(position);
-		int isComMsg = entity.getWho();
+		final int isComMsg = entity.getWho();
 
 		ViewHolder viewHolder = null;
 		if (convertView == null) {
@@ -143,18 +143,31 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				if (mAnimView != null) {
-					mAnimView.setBackgroundResource(R.drawable.adj);
+					if (isComMsg == IS_COM_MESSAGE){
+						mAnimView.setBackgroundResource(R.drawable.chatfrom_voice_playing);
+					}else {
+						mAnimView.setBackgroundResource(R.drawable.adj);
+
+					}
 					mAnimView = null;
 				}
 				if (entity.getType() == VOICE_MESSAGE) {
 					mAnimView = v.findViewById(R.id.recorder_anim);
-					mAnimView.setBackgroundResource(R.drawable.play_anim);
+					if(isComMsg == IS_COM_MESSAGE){
+						mAnimView.setBackgroundResource(R.drawable.play_anim_left);
+					}else {
+						mAnimView.setBackgroundResource(R.drawable.play_anim);
+					}
 					AnimationDrawable anim = (AnimationDrawable) mAnimView.getBackground();
 					anim.start();
 					MediaManager.playSound(entity.getMessage(), new OnCompletionListener() {
 						@Override
 						public void onCompletion(MediaPlayer mp) {
-							mAnimView.setBackgroundResource(R.drawable.adj);
+							if (isComMsg == IS_COM_MESSAGE){
+								mAnimView.setBackgroundResource(R.drawable.chatfrom_voice_playing);
+							}else {
+								mAnimView.setBackgroundResource(R.drawable.adj);
+							}
 						}
 					});
 				}

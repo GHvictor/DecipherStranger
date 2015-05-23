@@ -94,6 +94,7 @@ public class WelcomeRspActivity extends BaseActivity {
         MyStatic.friendAccount = intent.getStringExtra("Account");
         MyStatic.friendName = intent.getStringExtra("Name");
         MyStatic.friendPhoto = intent.getParcelableExtra("Photo");
+        MyStatic.friendSex = intent.getStringExtra("Sex");
         this.gameBroadcas();
         //  设置用户游戏数据
         this.setGameInfo();

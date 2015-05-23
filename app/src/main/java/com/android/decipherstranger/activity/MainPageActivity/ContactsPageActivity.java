@@ -183,6 +183,7 @@ public class ContactsPageActivity extends BaseActivity {
             sortModel.setUsername(contact.get(i).getUsername());
             sortModel.setAccount(contact.get(i).getAccount());
             sortModel.setPortrait(contact.get(i).getPortrait());
+            sortModel.setUserSex(contact.get(i).getUserSex());
             //
             String pinyin = characterParser.getSelling(contact.get(i).getUsername());
             sortString = pinyin.substring(0, 1).toUpperCase();

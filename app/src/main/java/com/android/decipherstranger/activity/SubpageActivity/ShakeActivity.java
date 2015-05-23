@@ -75,6 +75,7 @@ public class ShakeActivity extends BaseActivity {
     private String FriendAccount = null;
     private String FriendName = null;
     private Bitmap bitmap = null;
+    private String FriendSex = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -216,6 +217,7 @@ public class ShakeActivity extends BaseActivity {
                 intent1.putExtra("Account", FriendAccount);
                 intent1.putExtra("Name", FriendName);
                 intent1.putExtra("Photo", bitmap);
+                intent1.putExtra("Sex",FriendSex);
                 startActivity(intent1);
                 if (popupWindow.isShowing()) {
                     popupWindow.dismiss();
@@ -238,6 +240,7 @@ public class ShakeActivity extends BaseActivity {
         this.bitmap = ChangeUtils.toBitmap(intent.getStringExtra("rePhoto"));
         this.portrait.setImageBitmap(bitmap);
         this.userName.setText(intent.getStringExtra("reName"));
+        this.FriendSex = intent.getIntExtra("reGender", 1)+"";
         if (intent.getIntExtra("reGender", 1) == 1) {
             sexDrawable = getResources().getDrawable(R.drawable.man);
         } else {

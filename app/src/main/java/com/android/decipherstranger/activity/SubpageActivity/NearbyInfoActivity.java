@@ -3,6 +3,7 @@ package com.android.decipherstranger.activity.SubpageActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,7 +38,7 @@ public class NearbyInfoActivity extends BaseActivity {
         sex = (ImageView) findViewById(R.id.nearby_info_sex);
         addFriend = (Button) findViewById(R.id.nearby_add_friend);
         back = (Button) findViewById(R.id.nearby_info_back);
-        bitmap = ChangeUtils.toBitmap(getIntent().getStringExtra("photo"));
+        bitmap = getIntent().getParcelableExtra("photo");
         photo.setImageBitmap(bitmap);
         name.setText(getIntent().getStringExtra("name"));
         if (getIntent().getStringExtra("sex").equals("0")){
@@ -52,16 +53,27 @@ public class NearbyInfoActivity extends BaseActivity {
                 intent.putExtra("Account",getIntent().getStringExtra("account"));
                 intent.putExtra("Photo",bitmap);
                 intent.putExtra("Name",getIntent().getStringExtra("name"));
+                intent.putExtra("Sex",getIntent().getStringExtra("sex"));
                 startActivity(intent);
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NearbyInfoActivity.this,NearbyListViewActivity.class);
+                Intent intent = new Intent(NearbyInfoActivity.this, NearbyListViewActivity.class);
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+            Intent intent = new Intent(NearbyInfoActivity.this,NearbyListViewActivity.class);
+            startActivity(intent);
+            NearbyInfoActivity.this.finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
 

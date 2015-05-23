@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
+import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.db.ContactsList;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.entity.User;
@@ -40,6 +41,8 @@ public class SuccessActivity extends BaseActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
+                Intent intent = new Intent(SuccessActivity.this, MainPageActivity.class);
+                startActivity(intent);
                 SuccessActivity.this.finish();
             }
         }, 5000);
@@ -65,8 +68,13 @@ public class SuccessActivity extends BaseActivity {
         contactsList = new ContactsList(this.helper.getWritableDatabase());
         User user = new User();
         user.setUsername(MyStatic.friendName);
+        System.out.println("++++++++++++++++++++0" + MyStatic.friendName);
         user.setAccount(MyStatic.friendAccount);
+        System.out.println("++++++++++++++++++++1" + MyStatic.friendAccount);
         user.setPortrait(MyStatic.friendPhoto);
+        System.out.println("++++++++++++++++++++2" + MyStatic.friendPhoto);
+        user.setUserSex(MyStatic.friendSex);
+        System.out.println("++++++++++++++++++++2" + MyStatic.friendSex);
         contactsList.insert(user);
         Intent intent = new Intent("com.android.decipherstranger.FRIEND");
         intent.putExtra("reFresh","reFresh");

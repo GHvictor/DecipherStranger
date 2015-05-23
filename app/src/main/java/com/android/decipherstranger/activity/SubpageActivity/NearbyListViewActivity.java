@@ -1,7 +1,6 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
-import android.app.Activity;
-import android.app.Dialog;
+
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,21 +18,17 @@ import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.Base.MyApplication;
+import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
+import com.android.decipherstranger.activity.MainPageActivity.ServicePageActivity;
 import com.android.decipherstranger.adapter.NearbyListViewAdapter;
 import com.android.decipherstranger.entity.NearbyUserInfo;
 import com.android.decipherstranger.util.ChangeUtils;
-import com.android.decipherstranger.util.DialogManager;
 import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.model.LatLng;
-
 import java.util.ArrayList;
 
 /**
@@ -116,11 +112,11 @@ public class NearbyListViewActivity extends BaseActivity {
         nearbyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(NearbyListViewActivity.this,NearbyInfoActivity.class);
-                intent.putExtra("account",nearbyUserInfos.get(position).getUserAccount());
-                intent.putExtra("photo",ChangeUtils.toBinary(nearbyUserInfos.get(position).getImgId()));
-                intent.putExtra("name",nearbyUserInfos.get(position).getUserName());
-                intent.putExtra("sex",nearbyUserInfos.get(position).getSex());
+                Intent intent = new Intent(NearbyListViewActivity.this, NearbyInfoActivity.class);
+                intent.putExtra("account", nearbyUserInfos.get(position).getUserAccount());
+                intent.putExtra("photo", nearbyUserInfos.get(position).getImgId());
+                intent.putExtra("name", nearbyUserInfos.get(position).getUserName());
+                intent.putExtra("sex", nearbyUserInfos.get(position).getSex());
                 startActivity(intent);
             }
         });
@@ -136,9 +132,14 @@ public class NearbyListViewActivity extends BaseActivity {
 
     private void showList(ArrayList<NearbyUserInfo>nearbyUserInfos) {
         nearbyListView = (ListView) findViewById(R.id.nearby_list_view);
-        adapter = new NearbyListViewAdapter(nearbyUserInfos,this);
+        adapter = new NearbyListViewAdapter( nearbyUserInfos,this);
         nearbyListView.setAdapter(adapter);
     }
+
+
+
+
+
 
     private void sendMsg() {
         this.progressDialog = new ProgressDialog(NearbyListViewActivity.this);
@@ -194,4 +195,5 @@ public class NearbyListViewActivity extends BaseActivity {
             }
         }
     }
+
 }

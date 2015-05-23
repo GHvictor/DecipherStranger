@@ -58,6 +58,7 @@ public class MyStatic {
     public static String friendAccount = null;          //  所添加好友account
     public static String friendName = null;             //  所添加好友昵称
     public static Bitmap friendPhoto = null;
+    public static String friendSex = null;
 
     public static boolean gameEffectMusicFlag = true;         //  游戏音效控制标志
     public static boolean gameBackgroundMusicFlag = true;     //  游戏音乐控制标志

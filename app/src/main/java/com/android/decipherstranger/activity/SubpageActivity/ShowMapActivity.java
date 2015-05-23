@@ -125,6 +125,7 @@ public class ShowMapActivity extends BaseActivity {
                         it.putExtra("Account",nearByUserInfo.getUserAccount());
                         it.putExtra("Name",nearByUserInfo.getUserName());
                         it.putExtra("Photo",nearByUserInfo.getImgId());
+                        it.putExtra("Sex",nearByUserInfo.getSex());
                         startActivity(it);
                     }
                 });

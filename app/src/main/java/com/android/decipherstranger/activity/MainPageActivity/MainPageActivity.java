@@ -1,12 +1,16 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
+import android.app.AlertDialog;
 import android.app.LocalActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -65,6 +69,8 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     private MyApplication application = null;
     private ChatBroadcastReceiver receiver = null;
 
+    private AlertDialog.Builder builder = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +121,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         this.text3 = (TextView) super.findViewById(R.id.moreText);
         this.text4 = (TextView) super.findViewById(R.id.userText);
         badgeView = new BadgeView(this,image1);
+        builder =  new AlertDialog.Builder(MainPageActivity.this);
     }
 
     private void initViewPage() {
@@ -367,6 +374,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                     application.setUnReadMessage(application.getUnReadMessage() - intent.getIntExtra("DecreaseCount", 0));
                     setUnReadMessage(application.getUnReadMessage());
                 } else if(intent.getStringExtra("Friend") !=null && intent.getStringExtra("Friend").equals("Friend")) {
+
                     if (intent.getStringExtra("Del") != null && intent.getStringExtra("Del").equals("Del")){
                         //Todo reAccount就是要删的
                         writeChatLog = new ChatRecord(helper.getWritableDatabase());
@@ -376,15 +384,29 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                         System.out.println("+++++++++++删了");
                         reFreshContact();
                     }else {
-                        //Todo reAccount rePhoto reGender reName
-                        contactsList = new ContactsList(helper.getWritableDatabase());
-                        User contact = new User();
-                        contact.setAccount(intent.getStringExtra("reAccount"));
-                        contact.setUsername(intent.getStringExtra("reName"));
-                        contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
-                        contactsList.insert(contact);
-                        reFreshContact();
-                        Toast.makeText(context, intent.getStringExtra("reName")+"已添加您为好友", Toast.LENGTH_SHORT).show();
+                        if(intent.getBooleanExtra("reResult",true) ) {
+                            //Todo reAccount rePhoto reGender reName
+                            contactsList = new ContactsList(helper.getWritableDatabase());
+                            User contact = new User();
+                            contact.setAccount(intent.getStringExtra("reAccount"));
+                            contact.setUsername(intent.getStringExtra("reName"));
+                            contact.setPortrait(ChangeUtils.toBitmap(intent.getStringExtra("rePhoto")));
+                            contact.setUserSex(intent.getIntExtra("reGender", 0) + "");
+                            contactsList.insert(contact);
+                            reFreshContact();
+                            builder.setTitle(contact.getUsername() + "已添加您为好友");
+                            Drawable drawable = new BitmapDrawable(getResources(),contact.getPortrait());
+                            builder.setIcon(drawable);
+                            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    //这里添加点击确定后的逻辑
+                                }
+                            });
+                            builder.create().show();
+                            Toast.makeText(context, intent.getStringExtra("reName") + "已添加您为好友", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(context, "失败", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } else{
                     User contact;
@@ -409,7 +431,6 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                             receiveMsg.setTimeLen(intent.getStringExtra("reTime"));
                             File file = ChangeUtils.toFile(intent.getStringExtra("reMessage"), getDir(), getFileName());
                             receiveMsg.setMessage(file.getAbsolutePath());
-                            System.out.println("语音" + file.getAbsolutePath());
                             receiveMsg.setType(VOICE_MESSAGE);
                             writeChatLog = new ChatRecord(helper.getWritableDatabase());
                             writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
@@ -431,11 +452,14 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                     Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
                     it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
                     it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
+                    System.out.println("+++++++++"+receiveMsg.getType());
                     if (receiveMsg.getType() == VOICE_MESSAGE) {
+                        System.out.println("++++++++++语音");
                         it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
                     } else if (receiveMsg.getType() == TEXT_MESSAGE) {
                         it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
                     } else {
+                        System.out.println("++++++++++图片");
                         it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[图片]");
                     }
                     sendBroadcast(it);

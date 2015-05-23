@@ -144,11 +144,18 @@ public class ClientListenThread extends Thread {
                             break;
                         case GlobalMsgUtils.msgAddFriend:
                             Intent itAddFriend = new Intent("com.android.decipherstranger.MESSAGE");
-                            itAddFriend.putExtra("Friend", "Friend");
-                            itAddFriend.putExtra("reAccount", jsonObj.getString("re_account"));
-                            itAddFriend.putExtra("rePhoto", jsonObj.getString("re_photo"));
-                            itAddFriend.putExtra("reGender", jsonObj.getInt("re_gender"));
-                            itAddFriend.putExtra("reName", jsonObj.getString("re_name"));
+                            if(jsonObj.getString("re_message").equals(MyStatic.resultTrue)) {
+                                itAddFriend.putExtra("Friend", "Friend");
+                                itAddFriend.putExtra("reAccount", jsonObj.getString("re_account"));
+                                itAddFriend.putExtra("rePhoto", jsonObj.getString("re_photo"));
+                                itAddFriend.putExtra("reGender", jsonObj.getInt("re_gender"));
+                                itAddFriend.putExtra("reName", jsonObj.getString("re_name"));
+                                itAddFriend.putExtra("reResult", true);
+                            }
+                            else{
+                                itAddFriend.putExtra("Friend", "Friend");
+                                itAddFriend.putExtra("reResult", false);
+                            }
                             clContext.sendBroadcast(itAddFriend);
                             break;
                         case GlobalMsgUtils.msgVoice:
