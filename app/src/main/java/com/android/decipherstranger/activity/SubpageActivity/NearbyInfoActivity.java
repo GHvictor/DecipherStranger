@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.GameOneActivity.WelcomeRspActivity;
-import com.android.decipherstranger.util.ChangeUtils;
 
 
 /**

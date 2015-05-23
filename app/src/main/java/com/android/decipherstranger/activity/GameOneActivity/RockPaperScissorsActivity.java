@@ -73,6 +73,7 @@ public class RockPaperScissorsActivity extends BaseActivity {
     private SlidingDrawer slidingDrawer = null;
     private MyBroadcastReceiver receiver = null;
 
+    private String Type = null;
     private int Grade = 6;              //  存储所接收等级
     private int MaxSum = 20;
     private int sum = 0;
@@ -161,6 +162,7 @@ public class RockPaperScissorsActivity extends BaseActivity {
 
         //  获取游戏初始数据
         Intent intent = getIntent();
+        this.Type = intent.getStringExtra("Type");
         this.Grade = intent.getIntExtra("Grade", 6);    //  获取游戏等级，默认为3级
         this.MaxSum = intent.getIntExtra("Sum", 20);
 
@@ -321,6 +323,7 @@ public class RockPaperScissorsActivity extends BaseActivity {
             switch (type) {
                 case 0:
                     Intent intent1 = new Intent(this, SuccessActivity.class);
+                    intent1.putExtra("Type",this.Type);
                     startActivity(intent1);
                     finish();
                     break;
