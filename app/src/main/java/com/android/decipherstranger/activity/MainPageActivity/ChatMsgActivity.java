@@ -462,8 +462,9 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             Contacts receiveMsg = new Contacts();
-            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
-                sendToConversation(intent.getStringExtra("reMessage"));
+            if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")&&
+                    intent.getStringExtra("reSender").equals(currentUserAccount)) {
+//                sendToConversation(intent.getStringExtra("reMessage"));
                 receiveMsg.setAccount(currentUserAccount);
                 receiveMsg.setUsername(currentUserName);
                 receiveMsg.setPortrait(currentUserPhoto);
@@ -487,29 +488,27 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                         receiveMsg.setType(PHOTO_MESSAGE);
                         break;
                 }
-                if (intent.getStringExtra("reSender").equals(currentUserAccount)) {
-                    mDataArrays.add(receiveMsg);
-                    if (mAdapter == null) {
-                        mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
-                        mListView.setAdapter(mAdapter);
-                    } else {
-                        mAdapter.notifyDataSetChanged();
-                        mListView.setSelection(mListView.getCount() - 1);
-                    }
+                mDataArrays.add(receiveMsg);
+                if (mAdapter == null) {
+                    mAdapter = new ChatMsgViewAdapter(ChatMsgActivity.this, mDataArrays);
+                    mListView.setAdapter(mAdapter);
+                } else {
+                    mAdapter.notifyDataSetChanged();
+                    mListView.setSelection(mListView.getCount() - 1);
                 }
                 Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
-                it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
-                it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
-                it.putExtra(MyStatic.CONVERSATION_NAME, receiveMsg.getUsername());
-                it.putExtra(MyStatic.CONVERSATION_PORTRAIT, receiveMsg.getPortrait());
-                if (receiveMsg.getType() == TEXT_MESSAGE) {
-                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
-                }else if (receiveMsg.getType() == VOICE_MESSAGE){
-                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
-                }else {
-                    it.putExtra(MyStatic.CONVERSATION_MESSAGE,"[图片]");
-                }
-                sendBroadcast(it);
+//                it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
+//                it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
+//                it.putExtra(MyStatic.CONVERSATION_NAME, receiveMsg.getUsername());
+//                it.putExtra(MyStatic.CONVERSATION_PORTRAIT, receiveMsg.getPortrait());
+//                if (receiveMsg.getType() == TEXT_MESSAGE) {
+//                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
+//                }else if (receiveMsg.getType() == VOICE_MESSAGE){
+//                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
+//                }else {
+//                    it.putExtra(MyStatic.CONVERSATION_MESSAGE,"[图片]");
+//                }
+//                sendBroadcast(it);
             }
         }
     }
