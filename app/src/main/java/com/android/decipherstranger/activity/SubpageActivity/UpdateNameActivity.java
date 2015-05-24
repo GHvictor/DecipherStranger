@@ -103,7 +103,6 @@ public class UpdateNameActivity extends BaseActivity {
     public class UpdateBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            System.out.println("### 我已经修改了");
             if (intent.getBooleanExtra("reResult", false)) {
                 application.setName(editText.getText().toString());
                 sharedPreferencesUtils.set(MyStatic.USER_NAME, application.getName());

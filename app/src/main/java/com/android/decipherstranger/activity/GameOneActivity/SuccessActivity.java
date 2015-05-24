@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
+import com.android.decipherstranger.activity.MainPageActivity.ContactsPageActivity;
+import com.android.decipherstranger.activity.MainPageActivity.ConversationPageActivity;
 import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.db.ContactsList;
 import com.android.decipherstranger.db.DATABASE;
@@ -48,6 +50,8 @@ public class SuccessActivity extends BaseActivity {
 
     public void GameSuccessOnClick(View view) {
         Intent intent = new Intent(SuccessActivity.this, MainPageActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         SuccessActivity.this.finish();
     }

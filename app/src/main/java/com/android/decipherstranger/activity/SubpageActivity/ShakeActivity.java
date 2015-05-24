@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -62,6 +63,7 @@ public class ShakeActivity extends BaseActivity {
     private MyApplication application = null;
     private ProgressDialog progressDialog = null;
     private ShakeListener shakeListener = null;
+    private AnimationDrawable animationShake = null;    //  shake gif
     private LayoutInflater inflater = null;
     private PopupWindow popupWindow = null;
     private PopupWindow PortraitWindow = null;
@@ -161,8 +163,8 @@ public class ShakeActivity extends BaseActivity {
     public void shakeMain(View v) {
         switch (v.getId()) {
             case R.id.shake_back_button:
-           //     onBackPressed();
-                  onVibrator();
+                //     onBackPressed();
+                onVibrator();
                 break;
             case R.id.shakeMain:
                 if (popupWindow.isShowing()) {

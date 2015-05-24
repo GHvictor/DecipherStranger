@@ -93,7 +93,7 @@ public class UserPageActivity extends BaseActivity {
     public void MePageOnClick(View view) {
         switch (view.getId()) {
             case R.id.myPortrait:
-                // 从本地文档获取图片并上传
+                updatePortrait();
                 break;
             case R.id.portraitImage:
                 //  放大头像
@@ -116,6 +116,10 @@ public class UserPageActivity extends BaseActivity {
                 System.exit(0);
                 break;
         }
+    }
+    
+    private void updatePortrait() {
+        //  修改头像并上传服务器
     }
 
 

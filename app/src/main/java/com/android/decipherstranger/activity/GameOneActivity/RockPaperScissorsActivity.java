@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -157,13 +156,12 @@ public class RockPaperScissorsActivity extends BaseActivity {
         //  设置Animation
         animationDrawablePlayer = new AnimationDrawable();
         animationDrawableComputer = new AnimationDrawable();
-        animationDrawablePlayer = (AnimationDrawable)getResources().getDrawable(R.drawable.game_rock_paper_scissors_player);
-        animationDrawableComputer = (AnimationDrawable)getResources().getDrawable(R.drawable.game_rock_paper_scissors_computer);
+        animationDrawablePlayer = (AnimationDrawable)getResources().getDrawable(R.drawable.game_animation_player);
+        animationDrawableComputer = (AnimationDrawable)getResources().getDrawable(R.drawable.game_animation_computer);
 
         //  获取游戏初始数据
         Intent intent = getIntent();
         this.Type = intent.getStringExtra("Type");
-        System.out.println("### B" + Type);
         this.Grade = intent.getIntExtra("Grade", 6);    //  获取游戏等级，默认为3级
         this.MaxSum = intent.getIntExtra("Sum", 20);
 
