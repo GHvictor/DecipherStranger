@@ -59,6 +59,7 @@ public class ClientListenThread extends Thread {
                     System.out.println(reMsg);
                     JSONObject jsonObj = new JSONObject(reMsg);
                     Log.v("能不能接到aaaaa", reMsg);
+                    System.out.println("++++++++++++这是一条消息");
                     int msgType = jsonObj.getInt("re_type");            // type of message received
                     switch (msgType) {
                         case GlobalMsgUtils.msgLogin:

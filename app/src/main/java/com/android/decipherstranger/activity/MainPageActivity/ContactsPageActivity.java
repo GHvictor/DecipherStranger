@@ -158,14 +158,13 @@ public class ContactsPageActivity extends BaseActivity {
         clearEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (!mContactList.isEmpty()){
-                    filterData(s.toString());
-                }
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if (!mContactList.isEmpty()){
+                    filterData(s.toString());
+                }
             }
 
             @Override
@@ -265,12 +264,12 @@ public class ContactsPageActivity extends BaseActivity {
                         }else {
                             adapter.updateListView(mContactList);
                         }
-                        Intent reFresh = new Intent("com.android.decipherstranger.SHOWFRI");
-                        reFresh.putExtra("OK","OK");
-                        sendBroadcast(reFresh);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    Intent reFresh = new Intent("com.android.decipherstranger.SHOWFRI");
+                    reFresh.putExtra("OK","OK");
+                    sendBroadcast(reFresh);
                 }else {
                     if(intent.getBooleanExtra("reResult", false)) {
                         User contact = new User();

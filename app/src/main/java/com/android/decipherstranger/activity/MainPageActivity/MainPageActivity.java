@@ -95,6 +95,14 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         super.unregisterReceiver(MainPageActivity.this.receiver);
         super.onDestroy();
     }
+    protected void onStart(){
+        super.onStart();
+        System.out.println("++++++++++++++++0我又开始了");
+    }
+    protected void onStop(){
+        super.onStop();
+        System.out.println("++++++++++++++++1我已经停止了");
+    }
 
     public void finish() {
         this.moveTaskToBack(true);
@@ -368,13 +376,11 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     public class ChatBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Contacts receiveMsg = new Contacts();
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
                 if (intent.getStringExtra("Decrease") != null && intent.getStringExtra("Decrease").equals("Decrease")) {
                     application.setUnReadMessage(application.getUnReadMessage() - intent.getIntExtra("DecreaseCount", 0));
                     setUnReadMessage(application.getUnReadMessage());
                 } else if(intent.getStringExtra("Friend") !=null && intent.getStringExtra("Friend").equals("Friend")) {
-
                     if (intent.getStringExtra("Del") != null && intent.getStringExtra("Del").equals("Del")){
                         //Todo reAccount就是要删的
                         writeChatLog = new ChatRecord(helper.getWritableDatabase());
@@ -409,6 +415,8 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                         }
                     }
                 } else{
+                    Contacts receiveMsg = new Contacts();
+                    System.out.println("+++++++++++++++++++又接到一条消息");
                     User contact;
                     ContactsList contactInfo = new ContactsList(helper.getWritableDatabase());
                     contact = contactInfo.getInfo(intent.getStringExtra("reSender"));
@@ -423,6 +431,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                             receiveMsg.setTimeLen("");
                             receiveMsg.setMessage(intent.getStringExtra("reMessage"));
                             receiveMsg.setType(TEXT_MESSAGE);
+                            System.out.println("++++++++++++这是一条文本消息");
                             writeChatLog = new ChatRecord(helper.getWritableDatabase());
                             writeChatLog.insert(receiveMsg.getAccount(), receiveMsg.getWho(),
                                     receiveMsg.getMessage(), receiveMsg.getTimeLen(), getDate(), receiveMsg.getType());

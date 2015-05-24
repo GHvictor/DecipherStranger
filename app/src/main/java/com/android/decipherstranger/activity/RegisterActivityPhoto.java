@@ -193,7 +193,11 @@ public class RegisterActivityPhoto extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case IMAGE_REQUEST_CODE:
-                startPhotoZoom(data.getData());
+                try {
+                    startPhotoZoom(data.getData());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case CAMERA_REQUEST_CODE:
                 if (Tools.hasSdcard()) {

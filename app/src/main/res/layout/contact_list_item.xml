@@ -8,7 +8,7 @@
         android:id="@+id/catalog"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#ff2c3d52"
+        android:background="@color/grey"
         android:textColor="#454545"
         android:layout_weight="1.0"
         android:paddingLeft="5dip"

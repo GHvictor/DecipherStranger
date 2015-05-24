@@ -307,27 +307,31 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case IMAGE_REQUEST_CODE:
-                startPhotoZoom(data.getData());
-                break;
-            case CAMERA_REQUEST_CODE:
-                if (Tools.hasSdcard()) {
-                    File path = Environment
-                            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-                    File tempFile = new File(path, IMAGE_FILE_NAME);
-                    startPhotoZoom(Uri.fromFile(tempFile));
-                } else {
-                    Toast.makeText(ChatMsgActivity.this, "未找到存储卡，无法存储照片！",
-                            Toast.LENGTH_LONG).show();
-                }
-                break;
-            case RESULT_REQUEST_CODE:
-                if (data != null) {
-                    getImageToView(data);
-                }
-                break;
-        }
+            switch (requestCode) {
+                case IMAGE_REQUEST_CODE:
+                    try {
+                        startPhotoZoom(data.getData());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case CAMERA_REQUEST_CODE:
+                    if (Tools.hasSdcard()) {
+                        File path = Environment
+                                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                        File tempFile = new File(path, IMAGE_FILE_NAME);
+                        startPhotoZoom(Uri.fromFile(tempFile));
+                    } else {
+                        Toast.makeText(ChatMsgActivity.this, "未找到存储卡，无法存储照片！",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case RESULT_REQUEST_CODE:
+                    if (data!= null){
+                        getImageToView(data);
+                    }
+                    break;
+            }
         super.onActivityResult(requestCode, resultCode, data);
     }
 

@@ -46,7 +46,6 @@ public class FriendInfoActivity extends BaseActivity {
     private ImageView friendSex;
     private TextView friendName;
     private TextView friendAccount;
-    private TextView friendAtavar;
     private TextView friendEmail;
     private TextView friendBirth;
     private TextView friendPhone;
@@ -120,7 +119,6 @@ public class FriendInfoActivity extends BaseActivity {
         friendSex = (ImageView) findViewById(R.id.friend_sex);
         friendName = (TextView) findViewById(R.id.friend_name);
         friendAccount = (TextView) findViewById(R.id.friend_account);
-        friendAtavar = (TextView) findViewById(R.id.friend_atavar);
         friendEmail = (TextView) findViewById(R.id.friend_email);
         friendBirth = (TextView) findViewById(R.id.friend_birth);
         friendPhone = (TextView) findViewById(R.id.friend_phone);
@@ -220,7 +218,9 @@ public class FriendInfoActivity extends BaseActivity {
             if(intent.getAction().equals("com.android.decipherstranger.SHOWFRI")) {
                 if (intent.getStringExtra("OK") != null && intent.getStringExtra("OK").equals("OK")){
                     Intent toMainPage = new Intent(FriendInfoActivity.this, MainPageActivity.class);
+                    toMainPage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(toMainPage);
+                    finish();
                 }else{
                     //Todo reEmail rePhone reBirth
                     presonalInfo.setEmail(intent.getStringExtra("reEmail"));
