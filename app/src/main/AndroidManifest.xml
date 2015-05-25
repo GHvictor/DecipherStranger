@@ -25,7 +25,6 @@
         <!-- 注册 -->
         <activity android:name=".activity.RegisterActivityBase" />
         <activity android:name=".activity.RegisterActivityPhoto" />
-        <activity android:name=".activity.test" />
 
         <!-- 主界面 -->
         <activity

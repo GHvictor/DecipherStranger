@@ -186,9 +186,8 @@ public class LoginActivity extends BaseActivity {
     private class registerOnClickListenerImpl implements View.OnClickListener {
         @Override
         public void onClick(View view){
-            it = new Intent(LoginActivity.this, test.class);
+            it = new Intent(LoginActivity.this, RegisterActivityBase.class);
             startActivity(it);
-            finish();
         }
     }
     /**

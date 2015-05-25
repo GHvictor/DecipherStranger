@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -54,6 +55,7 @@ public class RegisterActivityPhoto extends BaseActivity {
     private String sPortaitUrl;
     private RegisterBroadcastReceiver receiver = null;
 
+    private ImageButton backButton = null;
     private Button previousStepButton;
     private Button registerButton;
     private static final int IMAGE_REQUEST_CODE = 0;
@@ -80,9 +82,7 @@ public class RegisterActivityPhoto extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 防止连续两次返回键
             //这你写你的返回处理
-            Intent intent = new Intent(RegisterActivityPhoto.this, RegisterActivityBase.class);
-            startActivity(intent);
-            finish();
+            onBackPressed();
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -103,11 +103,13 @@ public class RegisterActivityPhoto extends BaseActivity {
         this.selectPhoto = (LinearLayout)super.findViewById(R.id.reg_photo_layout_selectphoto);
         this.takePicture = (LinearLayout)super.findViewById(R.id.reg_photo_layout_takepicture);
         this.userPhoto = (ImageView)super.findViewById(R.id.reg_photo_iv_userphoto);
+        this.backButton = (ImageButton) super.findViewById(R.id.register_back_button);
         this.previousStepButton = (Button)super.findViewById(R.id.previous_step);
         this.registerButton = (Button)super.findViewById(R.id.register_btn);
 
         this.selectPhoto.setOnClickListener(new selectPhotoOnClickListenerImpl());
         this.takePicture.setOnClickListener(new takePictureOnClickListenerImpl());
+        this.backButton.setOnClickListener(new backOnClickListenerImpl());
         this.previousStepButton.setOnClickListener(new previousStepButtonOnClickListenerImpl());
         this.registerButton.setOnClickListener(new registerButtonOnClickListenerImpl());
     }
@@ -142,14 +144,24 @@ public class RegisterActivityPhoto extends BaseActivity {
             }
         }
     }
+    
+    public class backOnClickListenerImpl implements View.OnClickListener{
+        @Override
+        public void onClick(View view){
+            Intent intent = new Intent(RegisterActivityPhoto.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            RegisterActivityPhoto.this.finish();
+        }
+    }
+    
     public class previousStepButtonOnClickListenerImpl implements View.OnClickListener{
         @Override
         public void onClick(View view){
-            Intent intent = new Intent(RegisterActivityPhoto.this, RegisterActivityBase.class);
-            startActivity(intent);
-            finish();
+            onBackPressed();
         }
     }
+    
     public class registerButtonOnClickListenerImpl implements View.OnClickListener{
         @Override
         public void onClick(View view){

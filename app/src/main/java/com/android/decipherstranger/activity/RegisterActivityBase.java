@@ -40,7 +40,7 @@ public class RegisterActivityBase extends BaseActivity {
     private EditText rePawEdit = null;
     private EditText nameEdit = null;
     private RadioGroup sexGroup = null;
-    private String userSex = null;
+    private String userSex = "男";
     private RadioButton male = null;
     private RadioButton female = null;
     private EditText emailEdit = null;
@@ -60,19 +60,17 @@ public class RegisterActivityBase extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 防止连续两次返回键
             //这你写你的返回处理
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            onBackPressed();
         }
         return super.onKeyDown(keyCode, event);
     }
 
     private void initView(){
 
-/*        OkIcon = getResources().getDrawable(R.drawable.ok_icon);
+        OkIcon = getResources().getDrawable(R.drawable.ok_icon);
         ErrorIcon = getResources().getDrawable(R.drawable.error_icon);
         OkIcon.setBounds(0, 0, OkIcon.getMinimumWidth(), OkIcon.getMinimumHeight()); //设置边界
-        ErrorIcon.setBounds(0, 0, ErrorIcon.getMinimumWidth(), ErrorIcon.getMinimumHeight()); //设置边界*/
+        ErrorIcon.setBounds(0, 0, ErrorIcon.getMinimumWidth(), ErrorIcon.getMinimumHeight()); //设置边界
 
         this.backButton = (ImageButton)super.findViewById(R.id.register_back_button);
         this.nextStepButton = (Button)super.findViewById(R.id.next_step_btn);
@@ -98,9 +96,7 @@ public class RegisterActivityBase extends BaseActivity {
     public void RegisterBaseOnClick(View view) {
         switch (view.getId()) {
             case R.id.register_back_button:
-                Intent intentBack = new Intent(this,LoginActivity.class);
-                startActivity(intentBack);
-                this.finish();
+                onBackPressed();
                 break;
             case R.id.register_account_input:
                 accountEdit.setText("");
@@ -172,16 +168,16 @@ public class RegisterActivityBase extends BaseActivity {
                         accountEdit.setText("用户名不能为空");
                     }else if (accountEdit.getText().length() < 6){
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        accountEdit.setText("用户名长度不能小于6个字符");
+                        accountEdit.setText("长度不能小于6个字符");
                     }else if (!checkAccountTop(accountEdit.getText().toString())) {
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
                         accountEdit.setText("用户名须以字母开头");
                     }else if (!checkAccount(accountEdit.getText().toString())) {
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        accountEdit.setText("用户名只能由字母数字以及下划线组成");
+                        accountEdit.setText("不能包含特许符号");
                     }else if (!checkAccountUse(accountEdit.getText().toString())){
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        accountEdit.setText("该用户名已经占用，请重新选择");
+                        accountEdit.setText("该用户名已经占用");
                     }else{
                         accountBool = true;
                         accountEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
@@ -201,17 +197,17 @@ public class RegisterActivityBase extends BaseActivity {
                     passwordEdit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     passwordEdit.setTextColor(Color.parseColor("#FF0000"));
                     if ( passwordEdit.getText().length() == 0){
-                        accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
+                        passwordEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
                         passwordEdit.setText("密码不能为空");
                     }else if ( passwordEdit.getText().length() < 6){
-                        accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        passwordEdit.setText("密码长度不能小于6个字符");
+                        passwordEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
+                        passwordEdit.setText("长度不能小于6个字符");
                     }else if (!checkPassword(passwordEdit.getText().toString())) {
-                        accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        passwordEdit.setText("密码只能由数字和字母组成");
+                        passwordEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
+                        passwordEdit.setText("只能由数字和字母组成");
                     }else{
                         passwordBool = true;
-                        accountEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
+                        passwordEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
                         passwordEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                         passwordEdit.setTextColor(Color.parseColor("#ffa89d87"));
                     }
@@ -229,13 +225,13 @@ public class RegisterActivityBase extends BaseActivity {
                     String rePawC =  rePawEdit.getText().toString();
                     String passwordC =  passwordEdit.getText().toString();
                     if (!rePawC.equals(passwordC)) {
-                        accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
+                        rePawEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
                         rePawEdit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                         rePawEdit.setTextColor(Color.parseColor("#FF0000"));
                         rePawEdit.setText("两次密码不一致");
                     }else{
                         rePawBool = true;
-                        accountEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
+                        rePawEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
                     }
                 }
             }
@@ -249,12 +245,12 @@ public class RegisterActivityBase extends BaseActivity {
                 if (!focus){
                     nameBool = false;
                     if ( nameEdit.getText().length() == 0){
-                        accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
+                        nameEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
                         nameEdit.setTextColor(Color.parseColor("#FF0000"));
                         nameEdit.setText("昵称不能为空");
                     }else{
                         nameBool = true;
-                        accountEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
+                        nameEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
                     }
                 }
             }
@@ -280,14 +276,14 @@ public class RegisterActivityBase extends BaseActivity {
                     emailBool = false;
                     emailEdit.setTextColor(Color.parseColor("#FF0000"));
                     if ( emailEdit.getText().length() == 0){
-                        accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
+                        emailEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
                         emailEdit.setText("邮箱不能为空");
                     }else if (!checkEmail(emailEdit.getText().toString())) {
-                        accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
+                        emailEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
                         emailEdit.setText("请输入正确的邮箱地址");
                     }else{
                         emailBool = true;
-                        accountEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
+                        emailEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
                         emailEdit.setTextColor(Color.parseColor("#ffa89d87"));
                     }
                 }
