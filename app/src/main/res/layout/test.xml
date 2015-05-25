@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/main_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/register_back_button"
+        android:src="@drawable/back_btn"
+        android:background="@null"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:paddingRight="10dp"
+        android:drawableRight="@drawable/ok_icon"
+        android:background="@drawable/login_input_bg"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/login_text_hint"
+        android:textSize="22dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_account_input"
+        android:hint="@string/account_input"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/register_back_button" />
+    
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:paddingRight="10dp"
+        android:drawableRight="@drawable/ok_icon"
+        android:background="@drawable/login_input_bg"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/login_text_hint"
+        android:textSize="22dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_password_input"
+        android:inputType="textPassword"
+        android:hint="@string/password_input"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/register_account_input" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:paddingRight="10dp"
+        android:drawableRight="@drawable/ok_icon"
+        android:background="@drawable/login_input_bg"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/login_text_hint"
+        android:textSize="22dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_re_paw_input"
+        android:inputType="textPassword"
+        android:hint="@string/re_password_input"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/register_password_input" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:paddingRight="10dp"
+        android:drawableRight="@drawable/ok_icon"
+        android:background="@drawable/login_input_bg"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/login_text_hint"
+        android:textSize="22dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_username_input"
+        android:inputType="textPersonName"
+        android:hint="@string/username_input"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/register_re_paw_input"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_input_bg"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_usersex_input"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/register_username_input">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/sex_input"
+            android:id="@+id/textView"
+            android:textColor="@color/login_text_hint"
+            android:textSize="22dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="22dp"
+            android:layout_toRightOf="@+id/textView">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/manRadio"
+                android:background="@null"
+                android:button="@null"
+                android:checked="true"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/checkbox_bg_h"
+                android:text="@string/man"
+                android:textSize="22dp"
+                android:textColor="@color/login_text_hint"
+                android:layout_gravity="center_vertical" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/womanRadio"
+                android:background="@null"
+                android:button="@null"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/checkbox_bg_h"
+                android:text="@string/woman"
+                android:textSize="22dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/login_text_hint"
+                android:layout_gravity="center_vertical" />
+            
+        </RadioGroup>
+
+    </RelativeLayout>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        android:paddingRight="10dp"
+        android:drawableRight="@drawable/ok_icon"
+        android:background="@drawable/login_input_bg"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/login_text_hint"
+        android:textSize="22dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_email_input"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email_input"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/register_usersex_input" />
+
+    <Button
+        android:id="@+id/next_step_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_button_bg"
+        android:text="@string/next_step"
+        android:textColor="@color/login_btn_text"
+        android:textSize="26dp"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/register_email_input" />
+
+</RelativeLayout>

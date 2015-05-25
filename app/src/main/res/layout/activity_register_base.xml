@@ -2,40 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
+    android:background="@drawable/main_bg"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/title_bar"
-        android:orientation="vertical"
-        android:id="@+id/relativeLayout3">
-
-        <Button
-            android:id="@+id/register_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/selector_button_back_bg"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="@string/back"
-            android:textColor="@color/white"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/register_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/register_title"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
-
-    </RelativeLayout>
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/register_back_button"
+        android:src="@drawable/back_btn"
+        android:background="@null"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -46,8 +28,9 @@
         android:background="@drawable/shape_register_bg"
         android:orientation="vertical"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/relativeLayout3"
-        android:layout_above="@+id/next_step_btn">
+        android:layout_below="@+id/register_back_button"
+        android:layout_above="@+id/next_step_btn"
+        android:id="@+id/linearLayout3">
 
         <EditText
             android:layout_width="match_parent"

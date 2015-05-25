@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.decipherstranger.R;
@@ -41,7 +42,7 @@ public class RegisterActivityBase extends BaseActivity {
     private Button sexButton = null;
     private EditText sexIcon;
 
-    private Button backButton = null;
+    private ImageButton backButton = null;
     private Button nextStepButton = null;
 
     boolean accountBool = true, passwordBool = false, rePawBool = false, nameBool = false,
@@ -70,7 +71,7 @@ public class RegisterActivityBase extends BaseActivity {
         OkIcon = getResources().getDrawable(R.drawable.ok_icon);
         OkIcon.setBounds(new Rect(0, 0, OkIcon.getIntrinsicWidth(),OkIcon.getIntrinsicHeight()));
 
-        this.backButton = (Button)super.findViewById(R.id.register_back_button);
+        this.backButton = (ImageButton)super.findViewById(R.id.register_back_button);
         this.accountEdit = (EditText)super.findViewById(R.id.register_account_input);
         this.passwordEdit = (EditText)super.findViewById(R.id.register_password_input);
         this.rePawEdit = (EditText)super.findViewById(R.id.register_re_paw_input);
