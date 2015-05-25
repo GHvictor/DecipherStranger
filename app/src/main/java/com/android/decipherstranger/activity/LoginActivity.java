@@ -178,8 +178,8 @@ public class LoginActivity extends BaseActivity {
                     }
                 }
                 editor.commit();
+                accountCheckByWeb(account, passwordMD5);
             }
-            accountCheckByWeb(account, passwordMD5);
         }
     }
 
