@@ -17,6 +17,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +29,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Animation.SwingAnimation;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
@@ -63,7 +69,7 @@ public class ShakeActivity extends BaseActivity {
     private MyApplication application = null;
     private ProgressDialog progressDialog = null;
     private ShakeListener shakeListener = null;
-    private AnimationDrawable animationShake = null;    //  shake gif
+    private ImageView imageView = null;
     private LayoutInflater inflater = null;
     private PopupWindow popupWindow = null;
     private PopupWindow PortraitWindow = null;
@@ -138,7 +144,7 @@ public class ShakeActivity extends BaseActivity {
     private void intiView() {
         this.registerBroadcas();
         this.progressDialog = new ProgressDialog(ShakeActivity.this);
-
+        this.imageView = (ImageView) super.findViewById(R.id.shake_image);
         this.inflater = LayoutInflater.from(ShakeActivity.this);
         View view = this.inflater.inflate(R.layout.shake_friend_popup, null);
         this.popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -180,19 +186,27 @@ public class ShakeActivity extends BaseActivity {
             popupWindow.dismiss();
         }
         MediaPlayer shakeEffect = MediaPlayer.create(this, R.raw.shake_effect); //  获取资源
+        this.startAnimation();
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);  // 获取振动器Vibrator实例
         if (vibrator == null) {
             Vibrator localVibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
             vibrator = localVibrator;
         }
-        vibrator.vibrate(500L);
+        vibrator.vibrate(1000L);
         shakeEffect.start();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 searchFriend(); //  搜索同时参与摇一摇的好友
             }
-        }, 1000);
+        }, 2000);
+    }
+
+    private void startAnimation() {
+        SwingAnimation swingAnimation = new SwingAnimation(-40, 0.5f, 0.5f);
+        swingAnimation.setDuration(1000);//设置动画持续时间 
+        swingAnimation.setRepeatCount(1);
+        imageView.startAnimation(swingAnimation);
     }
 
     private void searchFriend() {

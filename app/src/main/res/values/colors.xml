@@ -4,7 +4,6 @@
     <color name="transparent">#00000000</color>
     <color name="translucent_white">#b4ffffff</color>
     <color name="translucent_grey">#b4a5a5a5</color>
-    <color name="translucent_black">#b44b4b4b</color>
 
     <color name="tab_blue">#ff04abff</color>
     <color name="text_blue">#ff1eb4ff</color>
@@ -15,7 +14,6 @@
     <color name="orange">#ffff570a</color>
     <color name="black">#ff000000</color>
     <color name="white">#ffffffff</color>
-    <color name="silvery">#d4e7e6e5</color>
     <color name="grey">#ffbfbfbf</color>
     <color name="gray">#ff888888</color>
     <color name="white_grey">#ffd7dadb</color>
