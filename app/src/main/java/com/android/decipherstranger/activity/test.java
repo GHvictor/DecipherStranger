@@ -1,6 +1,5 @@
 package com.android.decipherstranger.activity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -26,13 +25,30 @@ import com.android.decipherstranger.dialog.CustomDialogSex;
 import com.android.decipherstranger.util.StringUtils;
 
 /**
- * Created by PengHaitao on 2015/2/10.
+ * へ　　　　　／|
+ * 　　/＼7　　　 ∠＿/
+ * 　 /　│　　 ／　／
+ * 　│　Z ＿,＜　／　　 /`ヽ
+ * 　│　　　　　ヽ　　 /　　〉
+ * 　 Y　　　　　`　 /　　/
+ * 　ｲ●　､　●　　⊂⊃〈　　/
+ * 　()　 へ　　　　|　＼〈
+ * 　　>ｰ ､_　 ィ　 │ ／／      去吧！
+ * 　 / へ　　 /　ﾉ＜| ＼＼        比卡丘~
+ * 　 ヽ_ﾉ　　(_／　 │／／           消灭代码BUG
+ * 　　7　　　　　　　|／
+ * 　　＞―r￣￣`ｰ―＿
+ *
+ * @author penghaitao
+ * @version V1.0
+ * @Date 2015/5/25 21:17
+ * @e-mail 785351408@qq.com
  */
-public class RegisterActivityBase extends BaseActivity {
+public class test extends BaseActivity {
 
     private Drawable OkIcon = null;
     private Drawable ErrorIcon = null;
-
+    
     private ImageButton backButton = null;
     private Button nextStepButton = null;
     private EditText accountEdit = null;
@@ -48,11 +64,11 @@ public class RegisterActivityBase extends BaseActivity {
 
     boolean accountBool = false, passwordBool = false, rePawBool = false, nameBool = false,
             emailBool = false, birthBool = false;
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_base);
+        setContentView(R.layout.test);
         initView();
     }
 
@@ -60,7 +76,7 @@ public class RegisterActivityBase extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {// 防止连续两次返回键
             //这你写你的返回处理
-            Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent = new Intent(test.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
@@ -85,7 +101,7 @@ public class RegisterActivityBase extends BaseActivity {
         this.female = (RadioButton)super.findViewById(R.id.womanRadio);
         this.emailEdit = (EditText)super.findViewById(R.id.register_email_input);
         this.birthButton = (Button)super.findViewById(R.id.register_birth_input);
-
+        
         this.accountEdit.setOnFocusChangeListener(new accountOnFocusChangeListenerImpl());
         this.passwordEdit.setOnFocusChangeListener(new passwordOnFocusChangeListenerImpl());
         this.rePawEdit.setOnFocusChangeListener(new rePawOnFocusChangeListenerImpl());
@@ -94,7 +110,7 @@ public class RegisterActivityBase extends BaseActivity {
         this.emailEdit.setOnFocusChangeListener(new emailOnFocusChangeListenerImpl());
 
     }
-
+    
     public void RegisterBaseOnClick(View view) {
         switch (view.getId()) {
             case R.id.register_back_button:
@@ -172,48 +188,48 @@ public class RegisterActivityBase extends BaseActivity {
                         accountEdit.setText("用户名不能为空");
                     }else if (accountEdit.getText().length() < 6){
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        accountEdit.setText("用户名长度不能小于6个字符");
+                         accountEdit.setText("用户名长度不能小于6个字符");
                     }else if (!checkAccountTop(accountEdit.getText().toString())) {
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        accountEdit.setText("用户名须以字母开头");
+                         accountEdit.setText("用户名须以字母开头");
                     }else if (!checkAccount(accountEdit.getText().toString())) {
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        accountEdit.setText("用户名只能由字母数字以及下划线组成");
+                         accountEdit.setText("用户名只能由字母数字以及下划线组成");
                     }else if (!checkAccountUse(accountEdit.getText().toString())){
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        accountEdit.setText("该用户名已经占用，请重新选择");
+                         accountEdit.setText("该用户名已经占用，请重新选择");
                     }else{
                         accountBool = true;
                         accountEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
-                        accountEdit.setTextColor(Color.parseColor("#ffa89d87"));
+                         accountEdit.setTextColor(Color.parseColor("#ffa89d87"));
                     }
                 }
             }
         }
     }
-
+    
     private class passwordOnFocusChangeListenerImpl implements View.OnFocusChangeListener {
         @Override
         public void onFocusChange(View view,boolean focus){
             if (view.getId() ==  passwordEdit.getId()){
                 if (!focus){
                     passwordBool = false;
-                    passwordEdit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    passwordEdit.setTextColor(Color.parseColor("#FF0000"));
+                     passwordEdit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                     passwordEdit.setTextColor(Color.parseColor("#FF0000"));
                     if ( passwordEdit.getText().length() == 0){
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        passwordEdit.setText("密码不能为空");
+                         passwordEdit.setText("密码不能为空");
                     }else if ( passwordEdit.getText().length() < 6){
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        passwordEdit.setText("密码长度不能小于6个字符");
+                         passwordEdit.setText("密码长度不能小于6个字符");
                     }else if (!checkPassword(passwordEdit.getText().toString())) {
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        passwordEdit.setText("密码只能由数字和字母组成");
+                         passwordEdit.setText("密码只能由数字和字母组成");
                     }else{
                         passwordBool = true;
                         accountEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
-                        passwordEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        passwordEdit.setTextColor(Color.parseColor("#ffa89d87"));
+                         passwordEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                         passwordEdit.setTextColor(Color.parseColor("#ffa89d87"));
                     }
                 }
             }
@@ -230,8 +246,8 @@ public class RegisterActivityBase extends BaseActivity {
                     String passwordC =  passwordEdit.getText().toString();
                     if (!rePawC.equals(passwordC)) {
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        rePawEdit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                        rePawEdit.setTextColor(Color.parseColor("#FF0000"));
+                         rePawEdit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                         rePawEdit.setTextColor(Color.parseColor("#FF0000"));
                         rePawEdit.setText("两次密码不一致");
                     }else{
                         rePawBool = true;
@@ -250,8 +266,8 @@ public class RegisterActivityBase extends BaseActivity {
                     nameBool = false;
                     if ( nameEdit.getText().length() == 0){
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        nameEdit.setTextColor(Color.parseColor("#FF0000"));
-                        nameEdit.setText("昵称不能为空");
+                         nameEdit.setTextColor(Color.parseColor("#FF0000"));
+                         nameEdit.setText("昵称不能为空");
                     }else{
                         nameBool = true;
                         accountEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
@@ -271,24 +287,24 @@ public class RegisterActivityBase extends BaseActivity {
             }
         }
     }
-
+    
     private class emailOnFocusChangeListenerImpl implements View.OnFocusChangeListener {
         @Override
         public void onFocusChange(View view,boolean focus){
             if (view.getId() ==  emailEdit.getId()){
                 if (!focus){
                     emailBool = false;
-                    emailEdit.setTextColor(Color.parseColor("#FF0000"));
+                     emailEdit.setTextColor(Color.parseColor("#FF0000"));
                     if ( emailEdit.getText().length() == 0){
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        emailEdit.setText("邮箱不能为空");
+                         emailEdit.setText("邮箱不能为空");
                     }else if (!checkEmail(emailEdit.getText().toString())) {
                         accountEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
-                        emailEdit.setText("请输入正确的邮箱地址");
+                         emailEdit.setText("请输入正确的邮箱地址");
                     }else{
                         emailBool = true;
                         accountEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
-                        emailEdit.setTextColor(Color.parseColor("#ffa89d87"));
+                         emailEdit.setTextColor(Color.parseColor("#ffa89d87"));
                     }
                 }
             }

@@ -96,7 +96,6 @@ public class RegisterActivityPhoto extends BaseActivity {
         userInfo.setUsername(intent.getStringExtra("name"));
         userInfo.setUserSex(intent.getStringExtra("sex"));
         userInfo.setEmail(intent.getStringExtra("email"));
-        userInfo.setPhone(intent.getStringExtra("phone"));
         userInfo.setBirth(intent.getStringExtra("birth"));
     }
 
