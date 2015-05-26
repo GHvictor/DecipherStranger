@@ -8,7 +8,7 @@
         android:orientation="horizontal"
         android:id="@+id/shake_friend_info"
         android:clickable="true"
-        android:background="@drawable/shake_friend_pop_bg"
+        android:background="@drawable/login_input_bg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

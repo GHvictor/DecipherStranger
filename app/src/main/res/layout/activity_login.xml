@@ -29,7 +29,7 @@
             android:maxLength="20"
             android:maxLines="1"
             android:paddingLeft="20dp"
-            android:textColor="@color/black"
+            android:textColor="@color/text_checked"
             android:textColorHint="@color/text_hint"
             android:textSize="22dp"/>
 
@@ -46,7 +46,7 @@
             android:maxLength="20"
             android:maxLines="1"
             android:paddingLeft="20dp"
-            android:textColor="@color/black"
+            android:textColor="@color/text_checked"
             android:textColorHint="@color/text_hint"
             android:textSize="22dp"
             android:layout_marginTop="10dp"

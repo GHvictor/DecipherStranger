@@ -169,15 +169,12 @@ public class ShakeActivity extends BaseActivity {
     public void shakeMain(View v) {
         switch (v.getId()) {
             case R.id.shake_back_button:
-                //     onBackPressed();
-                onVibrator();
+                onBackPressed();
                 break;
             case R.id.shakeMain:
                 if (popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 } break;
-            case R.id.shake_imageButton:
-                break;
         }
     }
 
@@ -192,7 +189,7 @@ public class ShakeActivity extends BaseActivity {
             Vibrator localVibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
             vibrator = localVibrator;
         }
-        vibrator.vibrate(1000L);
+        vibrator.vibrate(2000L);
         shakeEffect.start();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
