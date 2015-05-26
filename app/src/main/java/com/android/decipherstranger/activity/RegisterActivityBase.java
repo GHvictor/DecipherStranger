@@ -44,10 +44,11 @@ public class RegisterActivityBase extends BaseActivity {
     private RadioButton male = null;
     private RadioButton female = null;
     private EditText emailEdit = null;
+    private EditText phoneEdit = null;;
     private Button birthButton = null;
 
     boolean accountBool = false, passwordBool = false, rePawBool = false, nameBool = false,
-            emailBool = false, birthBool = false;
+            emailBool = false, phoneBool = false, birthBool = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,7 @@ public class RegisterActivityBase extends BaseActivity {
         this.male = (RadioButton)super.findViewById(R.id.manRadio);
         this.female = (RadioButton)super.findViewById(R.id.womanRadio);
         this.emailEdit = (EditText)super.findViewById(R.id.register_email_input);
+        this.phoneEdit = (EditText)super.findViewById(R.id.register_phone_input);
         this.birthButton = (Button)super.findViewById(R.id.register_birth_input);
 
         this.accountEdit.setOnFocusChangeListener(new accountOnFocusChangeListenerImpl());
@@ -90,6 +92,7 @@ public class RegisterActivityBase extends BaseActivity {
         this.nameEdit.setOnFocusChangeListener(new nameOnFocusChangeListenerImpl());
         this.sexGroup.setOnCheckedChangeListener(new OnCheckedChangeListenerImpl());
         this.emailEdit.setOnFocusChangeListener(new emailOnFocusChangeListenerImpl());
+        this.phoneEdit.setOnFocusChangeListener(new phoneOnFocusChangeListenerImpl());
 
     }
 
@@ -120,6 +123,10 @@ public class RegisterActivityBase extends BaseActivity {
                 emailEdit.setText("");
                 emailEdit.setTextColor(Color.parseColor("#ffa89d87"));
                 break;
+            case R.id.register_phone_input:
+                phoneEdit.setText("");
+                phoneEdit.setTextColor(Color.parseColor("#ffa89d87"));
+                break;
             case R.id.register_birth_input:
                 Dialog dialog = new DatePickerDialog(this,
                         new DatePickerDialog.OnDateSetListener(){
@@ -145,6 +152,7 @@ public class RegisterActivityBase extends BaseActivity {
                     bundle.putString("name", String.valueOf(nameEdit.getText()));
                     bundle.putString("sex", (String) userSex);
                     bundle.putString("email", String.valueOf(emailEdit.getText()));
+                    bundle.putString("phone", String.valueOf(phoneEdit.getText()));
                     bundle.putString("birth", (String) birthButton.getText());
                     intentNext.putExtras(bundle);
                     startActivity(intentNext);
@@ -291,6 +299,29 @@ public class RegisterActivityBase extends BaseActivity {
         }
     }
 
+    private class phoneOnFocusChangeListenerImpl implements View.OnFocusChangeListener {
+        @Override
+        public void onFocusChange(View view,boolean focus){
+            if (view.getId() == RegisterActivityBase.this.phoneEdit.getId()){
+                if (!focus){
+                    phoneBool = false;
+                    RegisterActivityBase.this.phoneEdit.setTextColor(Color.parseColor("#FF0000"));
+                    if (RegisterActivityBase.this.phoneEdit.getText().length() == 0){
+                        phoneEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
+                        RegisterActivityBase.this.phoneEdit.setText("手机号不能为空");
+                    }else if (!checkPhone(phoneEdit.getText().toString())) {
+                        phoneEdit.setCompoundDrawables(null, null, ErrorIcon, null);//画在右边
+                        phoneEdit.setText("请输入正确的手机号码");
+                    }else{
+                        phoneBool = true;
+                        phoneEdit.setCompoundDrawables(null, null, OkIcon, null);//画在右边
+                        phoneEdit.setTextColor(Color.parseColor("#ffa89d87"));
+                    }
+                }
+            }
+        }
+    }
+
     private boolean checkAccountTop(String s){
         return s.matches("^[a-zA-Z].{5,19}");    //     字母开头
     }
@@ -309,5 +340,9 @@ public class RegisterActivityBase extends BaseActivity {
 
     private boolean checkEmail(String s) {
         return s.matches("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");     //test@email.com
+    }
+
+    private boolean checkPhone(String s) {
+        return s.matches("^((13[0-9])|(14[5,7])|(15[^4,//D])|(17[0,5-7,9])|(18[^4,//D]]))[0-9]{8}$");     //手机号码
     }
 }

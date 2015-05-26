@@ -3,7 +3,7 @@
     android:id="@+id/login_page"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/main_bg"
+    android:background="@drawable/background"
     android:orientation="vertical" >
 
     <ImageView
@@ -30,7 +30,7 @@
             android:maxLines="1"
             android:paddingLeft="20dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/login_text_hint"
+            android:textColorHint="@color/text_hint"
             android:textSize="22dp"/>
 
         <EditText
@@ -47,7 +47,7 @@
             android:maxLines="1"
             android:paddingLeft="20dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/login_text_hint"
+            android:textColorHint="@color/text_hint"
             android:textSize="22dp"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/login_edit_account"
@@ -62,7 +62,7 @@
         android:background="@drawable/login_button_bg"
         android:gravity="center"
         android:text="@string/login"
-        android:textColor="@color/login_btn_text"
+        android:textColor="@color/btn_text"
         android:textSize="26dp"
         android:layout_below="@+id/login_edit_password"
         android:layout_centerHorizontal="true" />
@@ -90,7 +90,7 @@
             android:drawableLeft="@drawable/checkbox_bg"
             android:drawablePadding="5dp"
             android:text="@string/auto_save_password"
-            android:textColor="@color/login_text_hint"
+            android:textColor="@color/text_hint"
             android:textSize="16dp" />
 
         <Button
@@ -101,7 +101,7 @@
             android:gravity="center"
             android:background="@drawable/login_register_bg"
             android:text="@string/register_text"
-            android:textColor="@color/login_text_hint"
+            android:textColor="@color/text_hint"
             android:textSize="14dp" />
 
     </RelativeLayout>

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.conversationdemo.MainPageActivity"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/main_bg">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:background="@color/text_blue"
+        android:background="@color/tab"
         android:layout_gravity="center_horizontal"
         android:id="@+id/relativeLayout4">
 
@@ -18,8 +17,8 @@
             android:layout_height="wrap_content"
             android:text="通 讯 录"
             android:id="@+id/textTab"
-            android:textSize="24dp"
-            android:textColor="@color/white"
+            android:textSize="26dp"
+            android:textColor="@color/text_hint"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
@@ -29,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_weight="1"
-        android:background="@color/page"
+        android:background="@null"
         android:layout_below="@+id/relativeLayout4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -40,7 +39,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="1dp"
+        android:background="@color/tab"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -58,7 +57,7 @@
             <ImageView
                 android:id="@+id/conversationImage"
                 android:layout_width="wrap_content"
-                android:layout_height="46dp"
+                android:layout_height="wrap_content"
                 android:src="@drawable/conversation_normal"
                 android:layout_gravity="center_horizontal" />
 
@@ -84,7 +83,7 @@
             <ImageView
                 android:id="@+id/contactsImage"
                 android:layout_width="wrap_content"
-                android:layout_height="46dp"
+                android:layout_height="wrap_content"
                 android:src="@drawable/contacts_normal"
                 android:layout_gravity="center_horizontal" />
 
@@ -110,7 +109,7 @@
             <ImageView
                 android:id="@+id/moreImage"
                 android:layout_width="wrap_content"
-                android:layout_height="46dp"
+                android:layout_height="wrap_content"
                 android:src="@drawable/service_normal"
                 android:layout_gravity="center_horizontal" />
 
@@ -136,7 +135,7 @@
             <ImageView
                 android:id="@+id/userImage"
                 android:layout_width="wrap_content"
-                android:layout_height="46dp"
+                android:layout_height="wrap_content"
                 android:src="@drawable/user_normal"
                 android:layout_gravity="center_horizontal" />
 
