@@ -144,7 +144,7 @@ public class RegisterActivityBase extends BaseActivity {
                 nextStepButton.setFocusableInTouchMode(true);
                 nextStepButton.requestFocus();
                 nextStepButton.requestFocusFromTouch();
-                if (accountBool && passwordBool && rePawBool && nameBool && emailBool && birthBool){
+                if (accountBool && passwordBool && rePawBool && nameBool && emailBool && phoneBool && birthBool){
                     Intent intentNext = new Intent(this,RegisterActivityPhoto.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("account", String.valueOf(accountEdit.getText()));

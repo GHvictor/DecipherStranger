@@ -149,10 +149,10 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/register_title"      
+                android:id="@+id/previous_step"
+                android:text="@string/previous_step"   
                 android:textColor="@color/btn_text"
                 android:textSize="24dp"
-                android:id="@+id/register_btn"
                 android:background="@drawable/login_button_bg"
                 android:layout_gravity="center_horizontal" />
 
@@ -165,10 +165,10 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/previous_step"
+                android:id="@+id/register_btn"
+                android:text="@string/register_title"
                 android:textColor="@color/btn_text"
                 android:textSize="24dp"
-                android:id="@+id/previous_step"
                 android:background="@drawable/login_button_bg"
                 android:layout_gravity="center_horizontal" />
 

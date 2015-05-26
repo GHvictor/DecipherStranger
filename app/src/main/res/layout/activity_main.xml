@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:background="@color/tab"
         android:layout_gravity="center_horizontal"
         android:id="@+id/relativeLayout4">
@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:text="通 讯 录"
             android:id="@+id/textTab"
-            android:textSize="26dp"
+            android:textSize="20dp"
+            android:layout_margin="10dp"
             android:textColor="@color/text_hint"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
