@@ -1,17 +1,22 @@
 package com.android.decipherstranger.activity.SubpageActivity;
 
+import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
+import com.android.decipherstranger.activity.Base.MyApplication;
+import com.android.decipherstranger.util.GlobalMsgUtils;
 
 /**
  * へ　　　　　／|
@@ -40,11 +45,13 @@ public class InvitationActivity extends BaseActivity {
     private SurfaceView surfaceView = null;
     private ImageButton sendInvitation = null;
     private ImageButton receiveInvitation = null;
+    private MyApplication application = null;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_invitation);
+        application = (MyApplication) getApplication();
         this.registerBroadcas();
         this.init();
     }
@@ -67,11 +74,28 @@ public class InvitationActivity extends BaseActivity {
     }
     
     private void send() {
-        //  发送邀请券
+        if(NetworkService.getInstance().getIsConnected()) {
+            String sendInv = "type"+":"+Integer.toString(GlobalMsgUtils.msgLogin)+":"+
+                              "account"+":"+application.getAccount();
+            Log.v("aaaaa", sendInv);
+            NetworkService.getInstance().sendUpload(sendInv);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(InvitationActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+        }
     }
     
     private void receive() {
-        //  接收邀请券
+        if(NetworkService.getInstance().getIsConnected()) {
+            String reInv = "type"+":"+Integer.toString(GlobalMsgUtils.msgLogin);
+            Log.v("aaaaa", reInv);
+            NetworkService.getInstance().sendUpload(reInv);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(InvitationActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+        }
     }
     
     private void registerBroadcas() {
@@ -86,7 +110,11 @@ public class InvitationActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.INVITATION")) {
+                if(intent.getBooleanExtra("reResult", false)){
 
+                } else {
+                    Toast.makeText(context, "没有找到啊0_0", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }

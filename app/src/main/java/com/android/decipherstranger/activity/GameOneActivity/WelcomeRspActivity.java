@@ -141,7 +141,7 @@ public class WelcomeRspActivity extends BaseActivity {
 
         //  TODO 此处写与服务器的通信函数
         if(NetworkService.getInstance().getIsConnected()){
-            String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneRecieve)+":"+
+            String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneReceive)+":"+
                     "account"+":"+application.getAccount()+":"+
                     "friend"+":"+MyStatic.friendAccount;
             Log.v("aaaaa", gameUser);

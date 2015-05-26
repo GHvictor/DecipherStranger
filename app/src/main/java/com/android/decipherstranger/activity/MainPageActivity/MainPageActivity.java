@@ -76,6 +76,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         setUnReadMessage(application.getUnReadMessage());
 //        setUnReadMessage(2, image2);
         chatBroadcas();
+        sendOffMsg();
     }
 
     private void initData(Bundle savedInstanceState) {
@@ -355,6 +356,18 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         sendBroadcast(intent);
     }
 
+    private void sendOffMsg(){
+        if(NetworkService.getInstance().getIsConnected()) {
+            String offMsg = "type"+":"+Integer.toString(GlobalMsgUtils.msgOffMsg)+":"+
+                            "account"+":"+application.getAccount();
+            Log.v("aaaaa", offMsg);
+            NetworkService.getInstance().sendUpload(offMsg);
+        }
+        else {
+            NetworkService.getInstance().closeConnection();
+            Toast.makeText(MainPageActivity.this, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void chatBroadcas() {
         //动态方式注册广播接收者
@@ -402,7 +415,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                             builder.create().show();
                             Toast.makeText(context, intent.getStringExtra("reName") + "已添加您为好友", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(context, "失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "添加好友失败~", Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else{
