@@ -63,6 +63,7 @@ public class WelcomeActivity extends BaseActivity {
             this.application.setEmail((String) sharedPreferencesUtils.get(MyStatic.USER_EMAIL, ""));
             this.application.setPhone((String) sharedPreferencesUtils.get(MyStatic.USER_PHONE, ""));
             this.application.setSignature((String) sharedPreferencesUtils.get(MyStatic.USER_SIGNATURE, ""));
+            this.application.setInvSum(5);
         }
     }
 

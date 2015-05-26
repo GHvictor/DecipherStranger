@@ -501,18 +501,18 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                     mListView.setSelection(mListView.getCount() - 1);
                 }
                 Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
-//                it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
-//                it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
-//                it.putExtra(MyStatic.CONVERSATION_NAME, receiveMsg.getUsername());
-//                it.putExtra(MyStatic.CONVERSATION_PORTRAIT, receiveMsg.getPortrait());
-//                if (receiveMsg.getType() == TEXT_MESSAGE) {
-//                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
-//                }else if (receiveMsg.getType() == VOICE_MESSAGE){
-//                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
-//                }else {
-//                    it.putExtra(MyStatic.CONVERSATION_MESSAGE,"[图片]");
-//                }
-//                sendBroadcast(it);
+                it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
+                it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
+                it.putExtra(MyStatic.CONVERSATION_NAME, receiveMsg.getUsername());
+                it.putExtra(MyStatic.CONVERSATION_PORTRAIT, receiveMsg.getPortrait());
+                if (receiveMsg.getType() == TEXT_MESSAGE) {
+                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, receiveMsg.getMessage());
+                }else if (receiveMsg.getType() == VOICE_MESSAGE){
+                    it.putExtra(MyStatic.CONVERSATION_MESSAGE, "[语音]");
+                }else {
+                    it.putExtra(MyStatic.CONVERSATION_MESSAGE,"[图片]");
+                }
+                sendBroadcast(it);
             }
         }
     }

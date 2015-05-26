@@ -214,7 +214,6 @@ public class LoginActivity extends BaseActivity {
                 }
             }, 3000);
         }
-
     }
 
     private void getCheckBox(){
@@ -242,7 +241,10 @@ public class LoginActivity extends BaseActivity {
                     startActivity(it);
                     finish();
                 }
-                else{
+                else if(intent.getStringExtra("result").equals("same")) {
+                    progressDialog.dismiss();
+                    Toast.makeText(context, "账号已经登录了！", Toast.LENGTH_SHORT).show();
+                }else{
                     progressDialog.dismiss();
                     Toast.makeText(context, "账号或密码错误！", Toast.LENGTH_SHORT).show();
                 }

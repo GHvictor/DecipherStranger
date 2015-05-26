@@ -38,7 +38,7 @@ public class SuccessActivity extends BaseActivity {
         Intent intent = getIntent();
         String Type = intent.getStringExtra("Type");
         if(Type.equals("AddFriend")) {
-            Toast.makeText(this, "已添加" + MyStatic.friendName + "为好友！",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "已添加" + MyStatic.friendName + "为好友！",Toast.LENGTH_LONG).show();
             this.helper = new DATABASE(this);
             this.SendToWeb();
             this.SendToLocal();

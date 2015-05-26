@@ -92,6 +92,8 @@ public class MyApplication extends Application {
     //未读消息
     private int unReadMessage;
 
+    private int invSum;
+
 
     public int getUnReadMessage() {
         return unReadMessage;
@@ -173,4 +175,8 @@ public class MyApplication extends Application {
     public String getSignature() {
         return signature;
     }
+
+    public void setInvSum(int invSum) { this.invSum = invSum;}
+
+    public int getInvSum() { return invSum; }
 }
