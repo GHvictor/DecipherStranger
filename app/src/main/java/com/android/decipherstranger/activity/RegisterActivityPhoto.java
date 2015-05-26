@@ -280,7 +280,7 @@ public class RegisterActivityPhoto extends BaseActivity {
             if (intent.getAction().equals("com.android.decipherstranger.REGISTER")) {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
                     Intent it = new Intent(RegisterActivityPhoto.this, LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(it);
                     finish();
                 }
