@@ -38,7 +38,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/register_account_input"
         android:hint="@string/account_input"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_below="@+id/register_back_button" />
 
     <EditText
