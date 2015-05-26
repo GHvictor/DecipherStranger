@@ -3,12 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background">
-    
-    <LinearLayout
-        android:id="@+id/top"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,7 +13,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/updateName_back_button"
+            android:id="@+id/update_back_button"
             android:onClick="UpdateNameOnClick"
             android:background="@null"
             android:layout_marginLeft="10dp"

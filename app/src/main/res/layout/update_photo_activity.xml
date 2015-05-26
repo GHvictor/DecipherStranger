@@ -4,17 +4,37 @@
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/update_back_button"
-        android:src="@drawable/back_btn"
-        android:background="@null"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:background="@color/tab"
+        android:layout_gravity="center_horizontal">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/update_back_button"
+            android:onClick="UpdateNameOnClick"
+            android:background="@null"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/home_btn"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/updatePortrait"
+            android:textColor="@color/text_hint"
+            android:textSize="20dp"
+            android:layout_margin="10dp"
+            android:id="@+id/shake_title"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
