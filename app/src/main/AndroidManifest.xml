@@ -68,6 +68,9 @@
             android:label="解密陌生人"
             android:theme="@style/AppBaseTheme" />
 
+        <!--修改头像-->
+        <activity android:name=".activity.SubpageActivity.UpdatePhotoActivity"></activity>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="Lzh3rZgTDGNbzDAxY6me92lz" />

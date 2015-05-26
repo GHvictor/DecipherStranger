@@ -127,15 +127,17 @@ public class ContactsPageActivity extends BaseActivity {
         });
 
         sideBar.setTextView(dialog);
-        //
         sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
 
             @Override
             public void onTouchingLetterChanged(String s) {
-                //
                 int position = adapter.getPositionForSection(s.charAt(0));
                 if (position != -1) {
-                    contactListView.setSelection(position);
+                    try {
+                        contactListView.setSelection(position);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -183,10 +185,8 @@ public class ContactsPageActivity extends BaseActivity {
             sortModel.setAccount(contact.get(i).getAccount());
             sortModel.setPortrait(contact.get(i).getPortrait());
             sortModel.setUserSex(contact.get(i).getUserSex());
-            //
             String pinyin = characterParser.getSelling(contact.get(i).getUsername());
             sortString = pinyin.substring(0, 1).toUpperCase();
-            //
             if (sortString.matches("[A-Z]")) {
                 sortModel.setSortLetters(sortString.toUpperCase());
             } else {
@@ -197,7 +197,6 @@ public class ContactsPageActivity extends BaseActivity {
         return mSortList;
     }
 
-    //
     private void filterData(String filterStr) {
         ArrayList<User> filterDateList = new ArrayList<User>();
         if (TextUtils.isEmpty(filterStr)) {
@@ -217,7 +216,6 @@ public class ContactsPageActivity extends BaseActivity {
         adapter.updateListView(filterDateList);
     }
 
-    //
     public void friendsRequestCount(int friendsRequestCounts){
         if (friendsRequestCounts == 0){
             friendsRequestCount.hide();
