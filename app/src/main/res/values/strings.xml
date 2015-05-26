@@ -28,10 +28,6 @@
     <string name="sex_display">性别</string>
     <string name="add_friend">添加好友</string>
     <string name="nearby_info_back">返  回</string>
-    <string name="friends_trends">动态</string>
-    <string name="friends_invitation">邀请券</string>
-    <string name="friends_near">附近的人</string>
-    <string name="friends_map">陌生人地图</string>
     <string name="game">游戏</string>
     <string name="portrait">头像</string>
     <string name="name">昵称</string>

@@ -1,268 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" 
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/friends_trends"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:onClick="morePageOnClick"
-        android:background="@drawable/mainpage_btn_bg"
-        android:layout_gravity="center_horizontal">
+        android:background="@drawable/friends_trends"
+        android:layout_gravity="center_horizontal" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:src="@drawable/friends_trends"
-            android:id="@+id/imageView1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/friends_trends"
-            android:paddingLeft="20dp"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:layout_gravity="center_vertical"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageView1" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="20dp"
-            android:src="@drawable/right_arrow_icon"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+    <Button
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@color/white"
-        android:layout_gravity="center_horizontal">
+        android:id="@+id/friends_invitation"
+        android:onClick="morePageOnClick"
+        android:background="@drawable/friends_invitation"
+        android:layout_gravity="center_horizontal" />
 
-        <RelativeLayout
-            android:id="@+id/friends_invitation"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="morePageOnClick"
-            android:background="@drawable/mainpage_btn_bg"
-            android:layout_gravity="center_horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:src="@drawable/drift_bottle"
-                android:id="@+id/imageView2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/friends_invitation"
-                android:paddingLeft="20dp"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView2" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="20dp"
-                android:src="@drawable/right_arrow_icon"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/page"
-            android:layout_gravity="center_horizontal"/>
-
-        <RelativeLayout
-            android:id="@+id/friends_shake"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="morePageOnClick"
-            android:background="@drawable/mainpage_btn_bg"
-            android:layout_gravity="center_horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:src="@drawable/shake"
-                android:id="@+id/imageView3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shake"
-                android:paddingLeft="20dp"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView3" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="20dp"
-                android:src="@drawable/right_arrow_icon"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+    <Button
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@color/white"
-        android:layout_gravity="center_horizontal">
+        android:id="@+id/friends_shake"
+        android:onClick="morePageOnClick"
+        android:background="@drawable/friends_shake"
+        android:layout_gravity="center_horizontal" />
 
-        <RelativeLayout
-            android:id="@+id/friends_near"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="morePageOnClick"
-            android:background="@drawable/mainpage_btn_bg"
-            android:layout_gravity="center_horizontal">
+    <Button
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/friends_near"
+        android:onClick="morePageOnClick"
+        android:background="@drawable/friends_near"
+        android:layout_gravity="center_horizontal" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:src="@drawable/friends_near"
-                android:id="@+id/imageView4" />
+    <Button
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/friends_map"
+        android:onClick="morePageOnClick"
+        android:background="@drawable/friends_map"
+        android:layout_gravity="center_horizontal" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/friends_near"
-                android:paddingLeft="20dp"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView4" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="20dp"
-                android:src="@drawable/right_arrow_icon"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/page"
-            android:layout_gravity="center_horizontal"/>
-
-        <RelativeLayout
-            android:id="@+id/friends_map"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="morePageOnClick"
-            android:background="@drawable/mainpage_btn_bg"
-            android:layout_gravity="center_horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:src="@drawable/friends_map"
-                android:id="@+id/imageView5" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/friends_map"
-                android:paddingLeft="20dp"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imageView5" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="20dp"
-                android:src="@drawable/right_arrow_icon"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
+    <Button
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/friends_game"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:onClick="morePageOnClick"
-        android:background="@drawable/mainpage_btn_bg"
-        android:layout_gravity="center_horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:src="@drawable/more_game"
-            android:id="@+id/imageView6" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/game"
-            android:paddingLeft="20dp"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:layout_gravity="center_vertical"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageView6" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="20dp"
-            android:src="@drawable/right_arrow_icon"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true" />
-
-    </RelativeLayout>
-
+        android:background="@drawable/friends_game"
+        android:layout_gravity="center_horizontal" />
+    
 </LinearLayout>
