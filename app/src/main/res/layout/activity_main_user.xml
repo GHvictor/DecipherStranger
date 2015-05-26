@@ -82,7 +82,7 @@
                     android:id="@+id/nameText"
                     android:textSize="18dp"
                     android:paddingRight="10dp"
-                    android:textColor="@color/text_hint2"
+                    android:textColor="@color/text_checked"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true" />
 
@@ -119,7 +119,7 @@
                     android:id="@+id/accountText"
                     android:textSize="18dp"
                     android:paddingRight="10dp"
-                    android:textColor="@color/text_hint2"
+                    android:textColor="@color/text_checked"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true" />
 
@@ -156,7 +156,7 @@
                     android:id="@+id/sexText"
                     android:textSize="18dp"
                     android:paddingRight="10dp"
-                    android:textColor="@color/text_hint2"
+                    android:textColor="@color/text_checked"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true" />
 

@@ -90,11 +90,9 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
     }
     protected void onStart(){
         super.onStart();
-        System.out.println("++++++++++++++++0我又开始了");
     }
     protected void onStop(){
         super.onStop();
-        System.out.println("++++++++++++++++1我已经停止了");
     }
 
     public void finish() {
@@ -139,8 +137,8 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         this.pager.setAdapter(new MyFramePagerAdapter(mListViews));
         this.pager.setCurrentItem(1);
         this.pager.setOnPageChangeListener(this);
-        this.textTab.setText("通讯录");
-        this.text2.setTextColor(getResources().getColor(R.color.text_blue));
+        this.textTab.setText("通 讯 录");
+        this.text2.setTextColor(getResources().getColor(R.color.text_checked));
         this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_press));
     }
 
@@ -148,51 +146,51 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         switch (view.getId()) {
             case R.id.conversationPage:
                 this.pager.setCurrentItem(0);
-                this.textTab.setText("会话");
-                this.text1.setTextColor(getResources().getColor(R.color.text_blue));
+                this.textTab.setText("会 话");
+                this.text1.setTextColor(getResources().getColor(R.color.text_checked));
                 this.image1.setImageDrawable(getResources().getDrawable(R.drawable.conversation_press));
-                this.text2.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
-                this.text3.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text3.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
-                this.text4.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
             case R.id.contactsPage:
                 this.pager.setCurrentItem(1);
-                this.textTab.setText("通讯录");
-                this.text1.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.textTab.setText("通 讯 录");
+                this.text1.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image1.setImageDrawable(getResources().getDrawable(R.drawable.conversation_normal));
-                this.text2.setTextColor(getResources().getColor(R.color.text_blue));
+                this.text2.setTextColor(getResources().getColor(R.color.text_checked));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_press));
-                this.text3.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text3.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
-                this.text4.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
               //  networkRequest();
                 break;
             case R.id.morePage:
                 this.pager.setCurrentItem(2);
-                this.textTab.setText("服务");
-                this.text1.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.textTab.setText("服 务");
+                this.text1.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image1.setImageDrawable(getResources().getDrawable(R.drawable.conversation_normal));
-                this.text2.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
-                this.text3.setTextColor(getResources().getColor(R.color.text_blue));
+                this.text3.setTextColor(getResources().getColor(R.color.text_checked));
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_press));
-                this.text4.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
             case R.id.userPage:
                 this.pager.setCurrentItem(3);
                 this.textTab.setText("我");
-                this.text1.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text1.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image1.setImageDrawable(getResources().getDrawable(R.drawable.conversation_normal));
-                this.text2.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
-                this.text3.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text3.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
-                this.text4.setTextColor(getResources().getColor(R.color.text_blue));
+                this.text4.setTextColor(getResources().getColor(R.color.text_checked));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_press));
             default:
                 break;
@@ -233,51 +231,51 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
         switch (arg0) {
             case 0:
                 this.pager.setCurrentItem(0);
-                this.textTab.setText("会话");
-                this.text1.setTextColor(getResources().getColor(R.color.text_blue));
+                this.textTab.setText("会 话");
+                this.text1.setTextColor(getResources().getColor(R.color.text_checked));
                 this.image1.setImageDrawable(getResources().getDrawable(R.drawable.conversation_press));
-                this.text2.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
-                this.text3.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text3.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
-                this.text4.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
             case 1:
                 this.pager.setCurrentItem(1);
-                this.textTab.setText("通讯录");
-                this.text1.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.textTab.setText("通 讯 录");
+                this.text1.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image1.setImageDrawable(getResources().getDrawable(R.drawable.conversation_normal));
-                this.text2.setTextColor(getResources().getColor(R.color.text_blue));
+                this.text2.setTextColor(getResources().getColor(R.color.text_checked));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_press));
-                this.text3.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text3.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
-                this.text4.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                // networkRequest();
                 break;
             case 2:
                 this.pager.setCurrentItem(2);
                 this.textTab.setText("功能");
-                this.text1.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text1.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image1.setImageDrawable(getResources().getDrawable(R.drawable.conversation_normal));
-                this.text2.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
-                this.text3.setTextColor(getResources().getColor(R.color.text_blue));
+                this.text3.setTextColor(getResources().getColor(R.color.text_checked));
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_press));
-                this.text4.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text4.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_normal));
                 break;
             case 3:
                 this.pager.setCurrentItem(3);
                 this.textTab.setText("我");
-                this.text1.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text1.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image1.setImageDrawable(getResources().getDrawable(R.drawable.conversation_normal));
-                this.text2.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text2.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image2.setImageDrawable(getResources().getDrawable(R.drawable.contacts_normal));
-                this.text3.setTextColor(getResources().getColor(R.color.text_hint2));
+                this.text3.setTextColor(getResources().getColor(R.color.text_hint));
                 this.image3.setImageDrawable(getResources().getDrawable(R.drawable.service_normal));
-                this.text4.setTextColor(getResources().getColor(R.color.text_blue));
+                this.text4.setTextColor(getResources().getColor(R.color.text_checked));
                 this.image4.setImageDrawable(getResources().getDrawable(R.drawable.user_press));
             default:
                 break;
