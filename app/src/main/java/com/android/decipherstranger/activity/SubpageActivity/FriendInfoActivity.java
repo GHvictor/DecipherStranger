@@ -159,8 +159,7 @@ public class FriendInfoActivity extends BaseActivity {
                 builder.setIcon(drawable);
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        //这里添加点击确定后的逻辑
-//                        SendMsg();
+                        SendMsg();
                         chatRecord = new ChatRecord(helper.getWritableDatabase());
                         chatRecord.delete(userAccount);
                         contactsList = new ContactsList(helper.getWritableDatabase());
@@ -170,7 +169,6 @@ public class FriendInfoActivity extends BaseActivity {
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        //这里添加点击确定后的逻辑
                     }
                 });
                 builder.create().show();
