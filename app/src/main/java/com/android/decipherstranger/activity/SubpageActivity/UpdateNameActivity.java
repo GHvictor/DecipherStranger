@@ -70,8 +70,9 @@ public class UpdateNameActivity extends BaseActivity {
         // 上传至服务器
         if(NetworkService.getInstance().getIsConnected()) {
             String changeInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgChangeInf)+":"+
-                              "account"+":"+application.getAccount()+":"+
-                              "cname"+":"+this.editText.getText().toString();
+                                "account"+":"+application.getAccount()+":"+
+                                "cname"+":"+this.editText.getText().toString()+":"+
+                                "kind"+":"+"name";
             Log.v("aaaaa", changeInfo);
             NetworkService.getInstance().sendUpload(changeInfo);
         }
@@ -84,8 +85,12 @@ public class UpdateNameActivity extends BaseActivity {
     public void UpdateNameOnClick(View view) {
         switch (view.getId()) {
             case R.id.save_btn:
-                updateName();
-                onBackPressed();
+                if(this.editText.getText().toString().isEmpty()){
+                    Toast.makeText(UpdateNameActivity.this, "名字不能为空呀", Toast.LENGTH_SHORT).show();
+                }else {
+                    updateName();
+                    onBackPressed();
+                }
                 break;
             case R.id.updateName_back_button:
                 onBackPressed();
@@ -104,10 +109,13 @@ public class UpdateNameActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getBooleanExtra("reResult", false)) {
+                Toast.makeText(context, "修改成功了", Toast.LENGTH_SHORT).show();
                 application.setName(editText.getText().toString());
                 sharedPreferencesUtils.set(MyStatic.USER_NAME, application.getName());
                 Intent it = new Intent(MyStatic.USER_BOARD);
                 sendBroadcast(it);
+            }else{
+                Toast.makeText(context, "竟然没成功", Toast.LENGTH_SHORT).show();
             }
         }
     }

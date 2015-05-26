@@ -3,6 +3,7 @@ package com.android.decipherstranger.Network;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.decipherstranger.util.ChangeUtils;
 import com.android.decipherstranger.util.GlobalMsgUtils;
@@ -250,7 +251,27 @@ public class ClientListenThread extends Thread {
                             }
                             clContext.sendBroadcast(itReInv);
                             break;
+                        /*case 404:
+                            if(NetworkService.getInstance().getIsConnected()) {
+                                String testNet = "type"+":"+"ping";
+                                Log.v("aaaaa", testNet);
+                                NetworkService.getInstance().sendUpload(testNet);
+                            }
+                            else {
+                                NetworkService.getInstance().closeConnection();
+                                Toast.makeText(clContext, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+                            }
+                            break;*/
                         default:
+                            if(NetworkService.getInstance().getIsConnected()) {
+                                String testNet = "type"+":"+"ping";
+                                Log.v("aaaaa", testNet);
+                                NetworkService.getInstance().sendUpload(testNet);
+                            }
+                            else {
+                                NetworkService.getInstance().closeConnection();
+                                Toast.makeText(clContext, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
+                            }
                             break;
                     }
                     reMsg = "";

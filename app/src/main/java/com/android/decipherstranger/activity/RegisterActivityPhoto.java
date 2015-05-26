@@ -279,6 +279,7 @@ public class RegisterActivityPhoto extends BaseActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.android.decipherstranger.REGISTER")) {
                 if(intent.getStringExtra("result").equals(MyStatic.resultTrue)) {
+                    Toast.makeText(context, "欢迎加入:)小伙伴", Toast.LENGTH_SHORT).show();
                     Intent it = new Intent(RegisterActivityPhoto.this, LoginActivity.class);
                     it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(it);

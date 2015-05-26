@@ -180,20 +180,14 @@ public class NearbyListViewActivity extends BaseActivity {
                     info.setLongtitude(Double.parseDouble(intent.getStringExtra("reLongtitude")));
                     info.setDistance(intent.getStringExtra("reDistance"));
                     nearbyUserInfos.add(info);
-                    System.out.println("+++++++++" + info.getDistance());
-                    //Todo 数据接收
                 }else if(intent.getBooleanExtra("isfinish", false)){
-                    //Todo 数据处理
                     initView();
                     progressDialog.dismiss();
                 }else{
-                    //Todo 没有人
-                    Toast.makeText(context, "竟然没有人:)", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     Toast.makeText(NearbyListViewActivity.this, "附近好像还没有人哦( ⊙ o ⊙ )！啦啦啦~~", Toast.LENGTH_SHORT).show();
                 }
             }
         }
     }
-
 }

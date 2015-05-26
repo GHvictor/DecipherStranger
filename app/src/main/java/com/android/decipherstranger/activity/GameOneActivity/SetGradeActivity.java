@@ -51,7 +51,6 @@ public class SetGradeActivity extends BaseActivity {
     private void setGradeToWeb(){
         int grade = Integer.parseInt(this.gradeEdit.getText().toString());
         int sum = Integer.parseInt(this.sumEdit.getText().toString());
-            //  TODO 在此处上传grade & sum至服务器
             if(NetworkService.getInstance().getIsConnected()){
                 String gameUser = "type"+":"+Integer.toString(GlobalMsgUtils.msgGameOneGrade)+
                         ":"+"account"+":"+ application.getAccount()+":"+"grade"+":"+grade+":"+
