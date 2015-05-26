@@ -265,9 +265,6 @@ public class ContactsPageActivity extends BaseActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Intent reFresh = new Intent("com.android.decipherstranger.SHOWFRI");
-                    reFresh.putExtra("OK","OK");
-                    sendBroadcast(reFresh);
                 }else {
                     if(intent.getBooleanExtra("reResult", false)) {
                         User contact = new User();

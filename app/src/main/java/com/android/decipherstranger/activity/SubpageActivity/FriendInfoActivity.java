@@ -132,6 +132,7 @@ public class FriendInfoActivity extends BaseActivity {
         intent.putExtra("reFresh","reFresh");
         sendBroadcast(intent);
         Toast.makeText(this, "删除成功", Toast.LENGTH_LONG).show();
+        onBackPressed();
     }
     
     private void initListener() {
@@ -159,7 +160,7 @@ public class FriendInfoActivity extends BaseActivity {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //这里添加点击确定后的逻辑
-                        SendMsg();
+//                        SendMsg();
                         chatRecord = new ChatRecord(helper.getWritableDatabase());
                         chatRecord.delete(userAccount);
                         contactsList = new ContactsList(helper.getWritableDatabase());
@@ -216,18 +217,11 @@ public class FriendInfoActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals("com.android.decipherstranger.SHOWFRI")) {
-                if (intent.getStringExtra("OK") != null && intent.getStringExtra("OK").equals("OK")){
-                    Intent toMainPage = new Intent(FriendInfoActivity.this, MainPageActivity.class);
-                    toMainPage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(toMainPage);
-                    finish();
-                }else{
                     //Todo reEmail rePhone reBirth
                     presonalInfo.setEmail(intent.getStringExtra("reEmail"));
                     presonalInfo.setBirth(intent.getStringExtra("reBirth"));
                     presonalInfo.setPhone(intent.getStringExtra("rePhone"));
                     showInfo();
-                }
             }
         }
     }
