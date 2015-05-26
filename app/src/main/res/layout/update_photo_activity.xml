@@ -14,7 +14,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/update_back_button"
-            android:onClick="UpdateNameOnClick"
             android:background="@null"
             android:layout_marginLeft="10dp"
             android:src="@drawable/home_btn"

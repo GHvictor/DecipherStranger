@@ -61,6 +61,7 @@ public class NearbyListViewActivity extends BaseActivity {
     private double mLatitude;
     private double mLongtitude;
     private boolean isFristIn=true;
+    
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -94,6 +95,10 @@ public class NearbyListViewActivity extends BaseActivity {
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true);
         mLocationClient.setLocOption(option);
+    }
+    
+    public void NearOnClick(View view) {
+        onBackPressed();
     }
 
     public class MyLocationListener implements BDLocationListener {
@@ -135,11 +140,6 @@ public class NearbyListViewActivity extends BaseActivity {
         adapter = new NearbyListViewAdapter( nearbyUserInfos,this);
         nearbyListView.setAdapter(adapter);
     }
-
-
-
-
-
 
     private void sendMsg() {
         this.progressDialog = new ProgressDialog(NearbyListViewActivity.this);

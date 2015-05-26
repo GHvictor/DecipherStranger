@@ -2,53 +2,148 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey">
-        <ImageView
-            android:id="@+id/nearby_info_photo"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_margin="20dp"/>
-        <LinearLayout
+        android:background="@color/tab"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/nearby_info_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"/>
-            <ImageView
-                android:id="@+id/nearby_info_sex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"/>
-        </LinearLayout>
-    </LinearLayout>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="好友信息"
+            android:textColor="@color/text_hint"
+            android:textSize="20dp"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="fill_parent">
+
+
+        <ImageView
+            android:id="@+id/nearby_info_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/login_input_bg"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="昵 称 ："
+                    android:layout_marginLeft="15dp"
+                    android:textSize="24dp"
+                    android:padding="15dp"
+                    android:textColor="@color/white"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/nearby_info_name"
+                    android:textSize="24dp"
+                    android:padding="15dp"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/page"/>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="性 别 ："
+                    android:layout_marginLeft="15dp"
+                    android:textSize="24dp"
+                    android:textColor="@color/white"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/nearby_info_sex"
+                    android:textSize="24dp"
+                    android:padding="15dp"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
         <Button
-            android:layout_width="325dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_friend"
             android:id="@+id/nearby_add_friend"
-            android:background="@color/green"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="24dp"
+            android:textColor="@color/text_checked"
+            android:background="@drawable/login_button_bg"
+            android:layout_gravity="center_horizontal" />
+
         <Button
-            android:layout_width="327dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nearby_info_back"
             android:id="@+id/nearby_info_back"
-            android:layout_marginTop="20dp"
-            android:background="@color/white_grey"
-            android:textColor="@color/font_value"
-            android:layout_centerHorizontal="true" />
+            android:textSize="24dp"
+            android:textColor="@color/text_hint"
+            android:background="@drawable/login_button_bg"
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
+
 </LinearLayout>

@@ -501,7 +501,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                     mListView.setSelection(mListView.getCount() - 1);
                 }
                 Intent it = new Intent(MyStatic.CONVERSATION_BOARD);
-                it.putExtra(MyStatic.CONVERSATION_TYPE, "Update");
+                it.putExtra(MyStatic.CONVERSATION_TYPE, "Default");
                 it.putExtra(MyStatic.CONVERSATION_ACCOUNT, receiveMsg.getAccount());
                 it.putExtra(MyStatic.CONVERSATION_NAME, receiveMsg.getUsername());
                 it.putExtra(MyStatic.CONVERSATION_PORTRAIT, receiveMsg.getPortrait());
