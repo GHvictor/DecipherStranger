@@ -23,7 +23,7 @@
             android:onClick="shakeMain"
             android:background="@null"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/home_normal"
+            android:src="@drawable/home_btn"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
