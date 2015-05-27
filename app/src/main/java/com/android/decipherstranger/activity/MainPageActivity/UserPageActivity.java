@@ -1,21 +1,16 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
@@ -28,9 +23,6 @@ import com.android.decipherstranger.db.ConversationList;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.util.MyStatic;
 import com.android.decipherstranger.util.SharedPreferencesUtils;
-import com.android.decipherstranger.util.Tools;
-
-import java.io.File;
 
 /**
  * へ　　　　　／|
@@ -53,7 +45,7 @@ import java.io.File;
  * @e-mail 785351408@qq.com
  */
 public class UserPageActivity extends BaseActivity {
-    
+
     private MyApplication application = null;
     private UserBroadcastReceiver receiver = null;
     private ImageView PopPortrait = null;
@@ -63,18 +55,13 @@ public class UserPageActivity extends BaseActivity {
     private ContactsList contacts;
     private ConversationList conversationList;
 
-    private String[] items = new String[] { "选择本地图片", "拍照" };
-    private static final String IMAGE_FILE_NAME = "faceImage.jpg";
-
-    private static final int IMAGE_REQUEST_CODE = 0;
-    private static final int CAMERA_REQUEST_CODE = 1;
-    private static final int RESULT_REQUEST_CODE = 2;
-
-
     private ImageView portraitImage = null;
     private TextView nameText = null;
     private TextView accountText = null;
     private TextView sexText = null;
+
+    private Switch moveSwitch = null;
+    private Switch musicSwitch = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,25 +71,33 @@ public class UserPageActivity extends BaseActivity {
         this.registerBroadcas();
         this.init();
     }
-    
+
     protected void onDestroy() {
         super.onDestroy();
         super.unregisterReceiver(receiver);
     }
-    
+
     private void init() {
         this.application = (MyApplication) getApplication();
         this.portraitImage = (ImageView) super.findViewById(R.id.portraitImage);
         this.nameText = (TextView) super.findViewById(R.id.nameText);
         this.accountText = (TextView) super.findViewById(R.id.accountText);
         this.sexText = (TextView) super.findViewById(R.id.sexText);
+        this.musicSwitch = (Switch) super.findViewById(R.id.switch1);
+        this.moveSwitch = (Switch) super.findViewById(R.id.switch2);
 
         portraitImage.setImageBitmap(application.getPortrait());
         this.nameText.setText(application.getName());
         this.accountText.setText(application.getAccount());
         this.sexText.setText(application.getSex());
+        this.moveSwitch.setChecked(application.isMoveFlag());
+        this.musicSwitch.setChecked(application.isMusicFlag());
+
+
+        this.moveSwitch.setOnCheckedChangeListener(new SwitchOnCheckedChangeListenerImpl1());
+        this.musicSwitch.setOnCheckedChangeListener(new SwitchOnCheckedChangeListenerImpl2());
     }
-    
+
     public void MePageOnClick(View view) {
         switch (view.getId()) {
             case R.id.myPortrait:
@@ -128,6 +123,43 @@ public class UserPageActivity extends BaseActivity {
                 conversationList.clear();
                 this.finish();
                 System.exit(0);
+                break;
+        }
+    }
+
+
+    private class SwitchOnCheckedChangeListenerImpl1 implements CompoundButton.OnCheckedChangeListener {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+            if (isChecked) {
+                application.setMoveFlag(true);
+            } else {
+                application.setMoveFlag(false);
+            }
+            save(0);
+        }
+    }
+
+    private class SwitchOnCheckedChangeListenerImpl2 implements CompoundButton.OnCheckedChangeListener {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+            if (isChecked) {
+                application.setMusicFlag(true);
+            } else {
+                application.setMusicFlag(false);
+            }
+            save(1);
+        }
+    }
+
+    private void save(int flag) {
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this,MyStatic.FILENAME_USER);
+        switch (flag) {
+            case 0:
+                sharedPreferencesUtils.set(MyStatic.USER_MOVE, application.isMoveFlag());
+                break;
+            case 1:
+                sharedPreferencesUtils.set(MyStatic.USER_MUSIC,application.isMusicFlag());
                 break;
         }
     }

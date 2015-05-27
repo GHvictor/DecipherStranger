@@ -40,6 +40,9 @@
 
         <!-- 摇一摇 -->
         <activity android:name=".activity.SubpageActivity.ShakeActivity" />
+        
+        <!-- 邀请券 -->
+        <activity android:name=".activity.SubpageActivity.InvitationActivity" />
 
         <!-- 游戏 -->
         <activity android:name=".activity.SubpageActivity.GameListActivity" />
@@ -60,7 +63,7 @@
             android:theme="@style/AppBaseTheme" />
         <activity android:name=".activity.SubpageActivity.NearbyInfoActivity"/>
         <activity
-            android:name=".activity.MainPageActivity.ChatMsgActivity"
+            android:name=".activity.SubpageActivity.ChatMsgActivity"
             android:label="解密陌生人"
             android:theme="@style/AppBaseTheme" />
         <activity

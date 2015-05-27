@@ -2,12 +2,12 @@ package com.android.decipherstranger.activity.Base;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Handler;
+import android.media.MediaPlayer;
+import android.os.Vibrator;
 
-import com.android.decipherstranger.activity.LoginActivity;
-import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
+import com.android.decipherstranger.R;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +33,7 @@ import java.util.List;
  * @e-mail 785351408@qq.com
  */
 public class MyApplication extends Application {
-    
+
     private List<Activity> activityList = new LinkedList<Activity>();
     private static MyApplication instance;
 
@@ -68,7 +68,7 @@ public class MyApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
     }
-    
+
     /*******全局变量***********************************************************************************************/
 
     //  用户账号
@@ -94,10 +94,14 @@ public class MyApplication extends Application {
 
     private int invSum;
 
+    //  震动标志
+    private boolean moveFlag = true;
+    //  声效标志
+    private boolean musicFlag = true;
+
 
     public int getUnReadMessage() {
         return unReadMessage;
-
     }
 
     public void setUnReadMessage(int unReadMessage) {
@@ -179,4 +183,41 @@ public class MyApplication extends Application {
     public void setInvSum(int invSum) { this.invSum = invSum;}
 
     public int getInvSum() { return invSum; }
+
+    public void setMoveFlag(boolean moveFlag) {
+        this.moveFlag = moveFlag;
+    }
+
+    public boolean isMoveFlag() {
+        return moveFlag;
+    }
+
+    public void setMusicFlag(boolean musicFlag) {
+        this.musicFlag = musicFlag;
+    }
+
+    public boolean isMusicFlag() {
+        return musicFlag;
+    }
+
+    public void receiveMessage(final Context context) {
+        if (moveFlag) {
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);  // 获取振动器Vibrator实例
+            if (vibrator == null) {
+                Vibrator localVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator = localVibrator;
+            }
+            vibrator.vibrate(500L);
+        }
+        if (musicFlag) {
+            new Thread() {
+                public void run(){
+                    System.out.println("### 音效啊！！！！");
+                    MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.dingdong);
+                    mediaPlayer.start();
+                //    mediaPlayer.release();
+                }
+            }.start();
+        }
+    }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.SubpageActivity.GameListActivity;
+import com.android.decipherstranger.activity.SubpageActivity.InvitationActivity;
 import com.android.decipherstranger.activity.SubpageActivity.NearbyListViewActivity;
 import com.android.decipherstranger.activity.SubpageActivity.ShakeActivity;
 import com.android.decipherstranger.activity.SubpageActivity.ShowMapActivity;
@@ -27,6 +28,8 @@ public class ServicePageActivity extends BaseActivity {
             case R.id.friends_trends:
                 break;
             case R.id.friends_invitation:
+                this.intent = new Intent(this, InvitationActivity.class);
+                this.startActivity(intent);
                 break;
             case R.id.friends_shake:
                 this.intent = new Intent(this, ShakeActivity.class);

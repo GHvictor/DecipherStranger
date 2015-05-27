@@ -249,6 +249,7 @@ public class ClientListenThread extends Thread {
                             }else{
                                 itReInv.putExtra("reResult", false);
                             }
+                            System.out.println("### 我执行了");
                             clContext.sendBroadcast(itReInv);
                             break;
                         /*case 404:

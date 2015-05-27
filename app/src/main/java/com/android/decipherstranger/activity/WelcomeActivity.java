@@ -48,12 +48,14 @@ public class WelcomeActivity extends BaseActivity {
             }
         }, 3000);
     }
-    
+
     private void getLoginFlag() {
         this.application = (MyApplication) getApplication();
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this, MyStatic.FILENAME_USER);
         this.isLogin = (Boolean) sharedPreferencesUtils.get(MyStatic.USER_LOGIN, false);
         if (isLogin) {
+            this.application.setMoveFlag((boolean) sharedPreferencesUtils.get(MyStatic.USER_MOVE, true));
+            this.application.setMusicFlag((boolean) sharedPreferencesUtils.get(MyStatic.USER_MUSIC, true));
             this.application.setAccount((String) sharedPreferencesUtils.get(MyStatic.USER_ACCOUNT, ""));
             this.password = (String) sharedPreferencesUtils.get(MyStatic.USER_PASSWORD, "");
             this.application.setName((String) sharedPreferencesUtils.get(MyStatic.USER_NAME, ""));

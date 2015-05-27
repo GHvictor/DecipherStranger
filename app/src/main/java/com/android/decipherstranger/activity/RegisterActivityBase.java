@@ -1,12 +1,9 @@
 package com.android.decipherstranger.activity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
@@ -22,8 +19,6 @@ import android.widget.Toast;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
-import com.android.decipherstranger.dialog.CustomDialogSex;
-import com.android.decipherstranger.util.StringUtils;
 
 /**
  * Created by PengHaitao on 2015/2/10.

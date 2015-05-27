@@ -423,6 +423,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                 } else{
                     Contacts receiveMsg = new Contacts();
                     System.out.println("+++++++++++++++++++又接到一条消息");
+                    application.receiveMessage(MainPageActivity.this);
                     User contact;
                     ContactsList contactInfo = new ContactsList(helper.getWritableDatabase());
                     contact = contactInfo.getInfo(intent.getStringExtra("reSender"));

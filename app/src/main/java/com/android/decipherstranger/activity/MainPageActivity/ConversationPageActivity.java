@@ -7,22 +7,17 @@ import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
-import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
-import com.android.decipherstranger.activity.Base.MyApplication;
+import com.android.decipherstranger.activity.SubpageActivity.ChatMsgActivity;
 import com.android.decipherstranger.db.DATABASE;
 import com.android.decipherstranger.db.ConversationList;
-import com.android.decipherstranger.util.GlobalMsgUtils;
 import com.android.decipherstranger.util.MyStatic;
 
 import java.text.SimpleDateFormat;

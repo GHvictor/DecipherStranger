@@ -55,7 +55,7 @@ public class GameListActivity extends BaseActivity {
                 break;
             case R.id.game_number:
                 //this.intent = new Intent(this, )\
-                this.startActivity(intent);
+                //this.startActivity(intent);
                 break;
             case R.id.button2:
                 break;
