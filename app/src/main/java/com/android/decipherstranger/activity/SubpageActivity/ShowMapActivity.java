@@ -138,7 +138,7 @@ public class ShowMapActivity extends BaseActivity {
                 } else {
                     nearByUserSex.setImageResource(R.drawable.ic_sex_female);
                 }
-                distance.setText(nearByUserInfo.getDistance());
+                distance.setText(Math.round(Double.parseDouble(nearByUserInfo.getDistance()))+"米");
                 mMarkerlayout.setVisibility(View.VISIBLE);
                 return true;
             }

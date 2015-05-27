@@ -386,7 +386,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
             if (intent.getAction().equals("com.android.decipherstranger.MESSAGE")) {
                 if (intent.getStringExtra("Decrease") != null && intent.getStringExtra("Decrease").equals("Decrease")) {
                     application.setUnReadMessage(application.getUnReadMessage() - intent.getIntExtra("DecreaseCount", 0));
-                    setUnReadMessage(application.getUnReadMessage());
+//                    setUnReadMessage(application.getUnReadMessage());
                 } else if(intent.getStringExtra("Friend") !=null && intent.getStringExtra("Friend").equals("Friend")) {
                     if (intent.getStringExtra("Del") != null && intent.getStringExtra("Del").equals("Del")){
                         //Todo reAccount就是要删的
@@ -462,7 +462,7 @@ public class MainPageActivity extends BaseActivity implements OnPageChangeListen
                             break;
                     }
                     application.setUnReadMessage(application.getUnReadMessage() + 1);
-                    setUnReadMessage(application.getUnReadMessage());
+//                    setUnReadMessage(application.getUnReadMessage());
                     ConversationList conversationList = new ConversationList(helper.getWritableDatabase());
                     conversationList.create(receiveMsg.getAccount(), receiveMsg.getUsername(), receiveMsg.getPortrait());
                     Intent it = new Intent(MyStatic.CONVERSATION_BOARD);

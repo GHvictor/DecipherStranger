@@ -109,6 +109,7 @@ public class NearbyListViewActivity extends BaseActivity {
             mLongtitude = location.getLongitude();
             if (isFristIn){
                 sendMsg();
+                isFristIn = false;
             }
         }
     }

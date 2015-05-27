@@ -58,7 +58,6 @@
                     android:textColor="@color/text_checked"
                     android:id="@+id/nearby_list_view_distance"
                     android:layout_gravity="center_vertical" />
-
             </LinearLayout>
 
         </LinearLayout>

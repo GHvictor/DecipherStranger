@@ -76,7 +76,7 @@ public class NearbyListViewAdapter extends BaseAdapter {
             Drawable drawable = new BitmapDrawable(convertView.getResources(),nearbyUserInfo.getImgId());
             holder.nearbyUserPhoto.setImageDrawable(drawable);
             holder.nearbyUserName.setText(nearbyUserInfo.getUserName());
-            holder.nearbyUserDistance.setText(nearbyUserInfo.getDistance());
+            holder.nearbyUserDistance.setText(Math.round(Double.parseDouble(nearbyUserInfo.getDistance()))+"米");
             if (nearbyUserInfo.getSex() == MAN){
                 holder.nearbyUserSex.setImageResource(R.drawable.ic_sex_male);
             }else if(nearbyUserInfo.getSex() == WOMAN){
