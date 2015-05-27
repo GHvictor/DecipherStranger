@@ -133,7 +133,7 @@ public class ShowMapActivity extends BaseActivity {
 
                 nearByUserPhoto.setImageBitmap(nearByUserInfo.getImgId());
                 nearByUserName.setText(nearByUserInfo.getUserName());
-                if (nearByUserInfo.getSex().equals("0")) {
+                if (nearByUserInfo.getSex().equals("1")) {
                     nearByUserSex.setImageResource(R.drawable.ic_sex_male);
                 } else {
                     nearByUserSex.setImageResource(R.drawable.ic_sex_female);
