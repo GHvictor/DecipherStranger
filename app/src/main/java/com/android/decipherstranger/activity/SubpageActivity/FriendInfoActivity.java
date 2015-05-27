@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
+import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.db.ChatRecord;
 import com.android.decipherstranger.db.ContactsList;
 import com.android.decipherstranger.db.ConversationList;
@@ -141,6 +142,7 @@ public class FriendInfoActivity extends BaseActivity {
                 bundle.putParcelable("userPhoto", userPhoto);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -158,6 +160,11 @@ public class FriendInfoActivity extends BaseActivity {
                         contactsList = new ContactsList(helper.getWritableDatabase());
                         contactsList.delete(userAccount);
                         reFresh();
+                        Intent intent1 = new Intent(FriendInfoActivity.this, MainPageActivity.class);
+                        intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent1);
+                        finish();
+                        
                     }
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {

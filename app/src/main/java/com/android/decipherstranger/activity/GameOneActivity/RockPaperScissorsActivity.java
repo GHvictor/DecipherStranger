@@ -215,9 +215,7 @@ public class RockPaperScissorsActivity extends BaseActivity {
                 } break;
             case R.id.RockImageBtn:
                 if (isRun) {
-             /*       gamePause(0);*/
-                    gameGradeInt = 20;
-                    IfGameOver();
+                    gamePause(0);
                 } break;
             case R.id.PaperImageBtn:
                 if (isRun) {

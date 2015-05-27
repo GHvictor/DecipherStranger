@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -27,6 +28,7 @@ import com.android.decipherstranger.Network.NetworkService;
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
 import com.android.decipherstranger.activity.Base.MyApplication;
+import com.android.decipherstranger.activity.MainPageActivity.MainPageActivity;
 import com.android.decipherstranger.adapter.ChatMsgViewAdapter;
 import com.android.decipherstranger.db.ChatRecord;
 import com.android.decipherstranger.db.DATABASE;
@@ -55,7 +57,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
     //窗口聊天好友备注（呢称）显示
     private TextView who;
     //聊天窗口返回按钮
-    private Button mBtnBack;
+    private ImageButton mBtnBack;
     //文本信息编辑框༭
     private EditText mEditTextContent;
     private RelativeLayout mBottom;
@@ -170,7 +172,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
         mBtnSend = (Button) findViewById(R.id.btn_send);
         who = (TextView) findViewById(R.id.who);
         mBtnSend.setOnClickListener(this);
-        mBtnBack = (Button) findViewById(R.id.btn_back);
+        mBtnBack = (ImageButton) findViewById(R.id.btn_back);
         mBottom = (RelativeLayout) findViewById(R.id.btn_bottom);
         mBtnBack.setOnClickListener(this);
         chatting_mode_btn = (ImageView) this.findViewById(R.id.ivPopUp);
@@ -244,7 +246,7 @@ public class ChatMsgActivity extends BaseActivity implements OnClickListener {
                 send();
                 break;
             case R.id.btn_back:
-                finish();
+                onBackPressed();
                 break;
             case R.id.blank:
                 InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
