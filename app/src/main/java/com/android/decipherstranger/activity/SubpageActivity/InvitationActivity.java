@@ -310,7 +310,8 @@ public class InvitationActivity extends BaseActivity {
 
     private void receive() {
         if(NetworkService.getInstance().getIsConnected()) {
-            String reInv = "type"+":"+Integer.toString(GlobalMsgUtils.msgReceiveInv);
+            String reInv = "type"+":"+Integer.toString(GlobalMsgUtils.msgReceiveInv)+":"+
+                           "account"+":"+application.getAccount();
             Log.v("aaaaa", reInv);
             NetworkService.getInstance().sendUpload(reInv);
         }
