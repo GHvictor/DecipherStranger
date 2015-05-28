@@ -122,7 +122,7 @@ public class UpdatePhotoActivity extends BaseActivity{
                 if (imageData != null && smallImageData != null) {
                     updatePhoto();
                 }else{
-                    Toast.makeText(UpdatePhotoActivity.this, "Í¼Æ¬²»ÄÜÎª¿ÕÑ½", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdatePhotoActivity.this, "å›¾ç‰‡ä¸èƒ½ä¸ºç©ºå‘€", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -148,7 +148,7 @@ public class UpdatePhotoActivity extends BaseActivity{
                     File tempFile = new File(path, IMAGE_FILE_NAME);
                     startPhotoZoom(Uri.fromFile(tempFile));
                 } else {
-                    Toast.makeText(UpdatePhotoActivity.this, "Î´ÕÒµ½´æ´¢¿¨£¬ÎŞ·¨´æ´¢ÕÕÆ¬£¡",
+                    Toast.makeText(UpdatePhotoActivity.this, "æœªæ‰¾åˆ°å­˜å‚¨å¡ï¼Œæ— æ³•å­˜å‚¨ç…§ç‰‡ï¼",
                             Toast.LENGTH_LONG).show();
                 }
                 break;
@@ -184,7 +184,7 @@ public class UpdatePhotoActivity extends BaseActivity{
         }
     }
     private void updatePhoto() {
-        // ÉÏ´«ÖÁ·şÎñÆ÷
+        // ä¸Šä¼ è‡³æœåŠ¡å™¨
         if(NetworkService.getInstance().getIsConnected()) {
             String changeInfo = "type"+":"+Integer.toString(GlobalMsgUtils.msgChangeInf)+":"+
                     "account"+":"+application.getAccount()+":"+
@@ -196,11 +196,11 @@ public class UpdatePhotoActivity extends BaseActivity{
         }
         else {
             NetworkService.getInstance().closeConnection();
-            Toast.makeText(UpdatePhotoActivity.this, "·şÎñÆ÷Á¬½ÓÊ§°Ü~(¨R¨Œ¨Q)~À²À²À²", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UpdatePhotoActivity.this, "æœåŠ¡å™¨è¿æ¥å¤±è´¥~(â‰§â–½â‰¦)~å•¦å•¦å•¦", Toast.LENGTH_SHORT).show();
         }
     }
     private void updateBroadcas() {
-        //¶¯Ì¬·½Ê½×¢²á¹ã²¥½ÓÊÕÕß
+        //åŠ¨æ€æ–¹å¼æ³¨å†Œå¹¿æ’­æ¥æ”¶è€…
         IntentFilter filter = new IntentFilter();
         this.receiver = new UpdateBroadcastReceiver();
         filter.addAction("com.android.decipherstranger.CHANGE");
@@ -211,14 +211,14 @@ public class UpdatePhotoActivity extends BaseActivity{
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getBooleanExtra("reResult", false)) {
-                Toast.makeText(context, "ĞŞ¸Ä³É¹¦ÁË", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "ä¿®æ”¹æˆåŠŸäº†", Toast.LENGTH_SHORT).show();
                 application.setPortrait(ChangeUtils.toBitmap(smallImageData));
                 sharedPreferencesUtils.set(MyStatic.USER_PORTRAIT, smallImageData);
                 Intent it = new Intent(MyStatic.USER_BOARD);
                 sendBroadcast(it);
                 onBackPressed();
             }else{
-                Toast.makeText(context, "¾¹È»Ã»³É¹¦", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "ç«Ÿç„¶æ²¡æˆåŠŸ", Toast.LENGTH_SHORT).show();
             }
         }
     }

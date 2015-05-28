@@ -1,6 +1,5 @@
 package com.android.decipherstranger.util;
 
-import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 
 import java.io.File;

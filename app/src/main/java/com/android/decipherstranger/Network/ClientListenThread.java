@@ -249,20 +249,8 @@ public class ClientListenThread extends Thread {
                             }else{
                                 itReInv.putExtra("reResult", false);
                             }
-                            System.out.println("### 我执行了");
                             clContext.sendBroadcast(itReInv);
                             break;
-                        /*case 404:
-                            if(NetworkService.getInstance().getIsConnected()) {
-                                String testNet = "type"+":"+"ping";
-                                Log.v("aaaaa", testNet);
-                                NetworkService.getInstance().sendUpload(testNet);
-                            }
-                            else {
-                                NetworkService.getInstance().closeConnection();
-                                Toast.makeText(clContext, "服务器连接失败~(≧▽≦)~啦啦啦", Toast.LENGTH_SHORT).show();
-                            }
-                            break;*/
                         default:
                             if(NetworkService.getInstance().getIsConnected()) {
                                 String testNet = "type"+":"+"ping";

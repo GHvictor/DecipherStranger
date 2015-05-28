@@ -4,6 +4,7 @@
     <color name="transparent">#00000000</color>
     <color name="translucent_white">#b4ffffff</color>
     <color name="translucent_grey">#b4a5a5a5</color>
+    <color name="translucent_black">#b44b4b4b</color>
 
     <color name="tab_blue">#ff04abff</color>
     <color name="text_blue">#ff1eb4ff</color>

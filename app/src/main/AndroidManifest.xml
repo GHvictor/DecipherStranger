@@ -43,6 +43,8 @@
         
         <!-- 邀请券 -->
         <activity android:name=".activity.SubpageActivity.InvitationActivity" />
+        <activity android:name=".activity.SubpageActivity.InvitationInfoActivity"
+            android:theme="@style/MyDialogStyleBottom"/>
 
         <!-- 游戏 -->
         <activity android:name=".activity.SubpageActivity.GameListActivity" />

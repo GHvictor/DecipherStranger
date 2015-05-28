@@ -51,6 +51,7 @@ public class WelcomeActivity extends BaseActivity {
 
     private void getLoginFlag() {
         this.application = (MyApplication) getApplication();
+        this.application.setInvSum(5);
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(this, MyStatic.FILENAME_USER);
         this.isLogin = (Boolean) sharedPreferencesUtils.get(MyStatic.USER_LOGIN, false);
         if (isLogin) {
@@ -65,7 +66,6 @@ public class WelcomeActivity extends BaseActivity {
             this.application.setEmail((String) sharedPreferencesUtils.get(MyStatic.USER_EMAIL, ""));
             this.application.setPhone((String) sharedPreferencesUtils.get(MyStatic.USER_PHONE, ""));
             this.application.setSignature((String) sharedPreferencesUtils.get(MyStatic.USER_SIGNATURE, ""));
-            this.application.setInvSum(5);
         }
     }
 

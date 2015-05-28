@@ -49,6 +49,11 @@ public class MyStatic {
     public static final String CONVERSATION_TIME = "conversationTime";
     public static final String CONVERSATION_COUNT = "conversationCount";
     public static final String CONVERSATION_IMAGE = "conversationCountImage";
+
+    public static final int INVITATION_START = 0;
+    public static final int INVITATION_SUCCESS = 1;
+    public static final int INVITATION_FAIL = 2;
+    public static final int INVITATION_SEND = 3;
     
     public static final String FILENAME_SETTINGS = "Settings";
     public static final String KEY_BG = "gameBgMusic";
