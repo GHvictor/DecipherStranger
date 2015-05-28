@@ -140,7 +140,6 @@ public class InvitationActivity extends BaseActivity {
             case R.id.sendInvitation:
                 if (click) {
                     click = false;
-                    imageView.setBackgroundResource(R.drawable.invitation);
                     sendInvitation();
                     send();
                 }
@@ -181,7 +180,6 @@ public class InvitationActivity extends BaseActivity {
     }
     
     private void info() {
-        System.out.println("### Acccount_2" + account);
         Intent intent = new Intent(this,InvitationInfoActivity.class);
         intent.putExtra("Account", account);
         intent.putExtra("Name", name);
@@ -338,7 +336,6 @@ public class InvitationActivity extends BaseActivity {
                     name = intent.getStringExtra("reName");
                     sex = intent.getIntExtra("reGender",0);
                     portrait = intent.getStringExtra("rePhoto");
-                    System.out.println("### Acccount" + account);
                     success();
                 } else {
                     fail();

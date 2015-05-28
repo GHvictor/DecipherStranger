@@ -1,10 +1,13 @@
 package com.android.decipherstranger.activity.MainPageActivity;
 
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -77,6 +80,7 @@ public class UserPageActivity extends BaseActivity {
         super.unregisterReceiver(receiver);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void init() {
         this.application = (MyApplication) getApplication();
         this.portraitImage = (ImageView) super.findViewById(R.id.portraitImage);
@@ -86,7 +90,7 @@ public class UserPageActivity extends BaseActivity {
         this.musicSwitch = (Switch) super.findViewById(R.id.switch1);
         this.moveSwitch = (Switch) super.findViewById(R.id.switch2);
 
-        portraitImage.setImageBitmap(application.getPortrait());
+        portraitImage.setBackground(new BitmapDrawable(application.getPortrait()));
         this.nameText.setText(application.getName());
         this.accountText.setText(application.getAccount());
         this.sexText.setText(application.getSex());

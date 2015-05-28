@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
@@ -26,6 +27,7 @@ public class ServicePageActivity extends BaseActivity {
     public void morePageOnClick(View view) {
         switch (view.getId()) {
             case R.id.friends_trends:
+                Toast.makeText(this,"该扩展功能暂未实现，敬请期待~",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.friends_invitation:
                 this.intent = new Intent(this, InvitationActivity.class);

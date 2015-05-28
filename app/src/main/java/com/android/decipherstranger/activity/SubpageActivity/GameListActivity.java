@@ -3,6 +3,7 @@ package com.android.decipherstranger.activity.SubpageActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.decipherstranger.R;
 import com.android.decipherstranger.activity.Base.BaseActivity;
@@ -54,10 +55,10 @@ public class GameListActivity extends BaseActivity {
                 this.startActivity(intent);
                 break;
             case R.id.game_number:
-                //this.intent = new Intent(this, )\
-                //this.startActivity(intent);
+                Toast.makeText(this, "该游戏暂未开放，敬请期待~", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.button2:
+                Toast.makeText(this,"该功能暂未开放，敬请期待~",Toast.LENGTH_SHORT).show();
                 break;
         }
     }
